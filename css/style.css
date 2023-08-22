@@ -328,8 +328,8 @@ h3 .slide_typo strong {font-family:"Helvetica Neue", Helvetica, Arial, sans-seri
 .feature h3 span{color:#1ebea5;}
 
 /*General links color*/
-a {color:#1ebea5;text-decoration: none;-webkit-transition: all 0.2s ease;transition: all 0.2s ease; outline:none;}
-a:hover,a:focus {color: #111;text-decoration: none; outline:none;}
+/* a {color:#1ebea5;text-decoration: none;-webkit-transition: all 0.2s ease;transition: all 0.2s ease; outline:none;}
+a:hover,a:focus {color: #111;text-decoration: none; outline:none;} */
 
 hr.more_margin {
 	margin-top: 60px;

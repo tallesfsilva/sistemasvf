@@ -90,6 +90,14 @@ margin-bottom: 5px;
 	background: linear-gradient(90deg, #6303C3 86.21%, #6303C3 69%, #6303C3 100%);
 }
 
+.config-header{
+	background: #7928CA; 
+	font-size:36px;
+	border:5px solid transparent; 
+	border-radius:8px;
+	box-shadow: 2px 2px 2px 2px gray;
+	margin-bottom: 5px;
+}
 
 .new-menu{
 	 
@@ -180,7 +188,7 @@ margin:10px;
 }
 .container-main-page{
 
-	margin-left:200px
+	margin-left:270px
 }
 /* 
 @media screen and (min-width: 1000px ) and (orientation: landscape) {
@@ -247,6 +255,11 @@ margin:10px;
 }
 
 @media (max-width: 800px) {
+
+	.config-header{
+		 
+		font-size:20px;
+	}
 	.icon-new-menu{
 		margin-bottom: 0px;
 	}

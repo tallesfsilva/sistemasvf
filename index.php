@@ -6,13 +6,17 @@ require('_app/Config.inc.php');
 require('_app/Mobile_Detect.php');
 $detect = new Mobile_Detect;
 
+$loginUrl = LOGIN;
+ 
 
 
 $Url[1] = (empty($Url[1]) ? null : $Url[1]);
 
 $site = HOME;
  
-
+if(empty($_SESSION['userlogin'])){
+	header("Location: {$loginUrl}");
+} 
 
 if(empty($Url[0]) || $Url[0] == 'index'):
 
@@ -72,7 +76,6 @@ else:
  
 	unset($_SESSION['userlogin']);
 
-	$loginUrl = LOGIN;
 
 	header("Location: {$loginUrl}");
 endif;
@@ -122,8 +125,8 @@ endif;
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/style.css" rel="stylesheet">
-
-		 
+		<link href="<?= $site; ?>css/style.css" rel="stylesheet">
+		<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">
 
 		<style type="text/css">
 			@media (min-width: 768px) {
@@ -712,7 +715,7 @@ endif;
 
 							<div class="p-4 text-menu font-bold leading-tight">
 						
-							<a id="teste" href="<?=$site;?>configuracoes">
+							<a id="teste" href="<?=$site.'configuracoes/'?>">
 							 
 									<span>Configuracões</span>
 							</a>
