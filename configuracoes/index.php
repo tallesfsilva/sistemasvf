@@ -552,24 +552,24 @@ $(document).ready(function () {
 		</button>
 		<div class="flex flex-col">
 			 	<div class="flex">
-					<aside style="box-shadow: 2px 2px 2px 2px gray;" id="default-sidebar" class="gradient fixed p-5 top-0 left-0 z-40 w-90 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-					<a href="<?=$site?>configuracoes">
-					<div style="background: #8000FF" class="mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline text-white font-bold rounded-full my-6 py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
+					<aside style="background:#7233A1; box-shadow: 2px 2px 2px 2px gray;" id="default-sidebar" class="fixed top-0 left-0 z-40 w-90 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+					<a style="position: initial;top: -15px;" href="<?=$site?>configuracoes">
+					<div style="background: #7233A1;box-shadow: 0px 1px 1px black" class="mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline text-white font-bold  my-6 py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
 								<div class="w-full">
 										<svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M9.53207 11.5H0.601562V0.5H9.53207V11.5ZM26.0829 3.5H13.8422V0.5H26.0829V3.5ZM22.7728 11.5H13.8422V8.5H22.7728V11.5ZM9.53207 27.5H0.601562V16.5H9.53207V27.5ZM26.0829 19.5H13.8422V16.5H26.0829V19.5ZM22.7728 27.5H13.8422V24.5H22.7728V27.5Z" fill="white" stroke="black"/>
 											</svg>		
 								</div>			
 								<div class="w-full ml-2 self-center">
-									<span style="font-size:23px;">Configuracões</span>
+									<span style="font-size:23px;">Configurações</span>
 								</div>
 							</div>
 		</a>	
-			<div  style="background: #8000FF" class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
+			<div  style="background: #7233A1" class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
 						
 			<ul id="side-bar-menu" class="space-y-2 font-medium text-white">
           
-         <li class="w-full   border-b border-gray-200">
+         <li style="border-color: #837979" class="w-full border-t">
 		 
             <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
                <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -580,7 +580,7 @@ $(document).ready(function () {
             </a>
 		 
          </li>
-         <li class="w-full   border-b border-gray-200">
+         <li style="border-color: #837979" class="w-full  border-t">
 		 <a href="<?=$site.'configuracoes/'?>painel" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
 		 <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M14.0862 28C21.1376 28 26.854 21.9558 26.854 14.5C26.854 7.04415 21.1376 1 14.0862 1C7.03469 1 1.31836 7.04415 1.31836 14.5C1.31836 21.9558 7.03469 28 14.0862 28Z" fill="white" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
@@ -591,7 +591,7 @@ $(document).ready(function () {
              
             </a>
          </li>
-         <li class="w-full   border-b border-gray-200">
+		 <li style="border-color: #837979" class="w-full   border-b border-t">
 		 <a href="<?=$site.'configuracoes/'?>login-senha"  class="flex items-center p-2 rounded-lg text-white  group">
 		 <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M13.9778 28C21.0292 28 26.7456 21.9558 26.7456 14.5C26.7456 7.04416 21.0292 1 13.9778 1C6.9263 1 1.20996 7.04416 1.20996 14.5C1.20996 21.9558 6.9263 28 13.9778 28Z" fill="white" stroke="black"/>
@@ -605,13 +605,13 @@ $(document).ready(function () {
          
          
       </ul>
-	  <ul style="width:243.33px" class="fixed bottom-0 pt-4 mt-4 dark:border-gray-700">
+	  <ul  class="fixed w-full bottom-0 pt-4 mt-4 dark:border-gray-700">
         
        
          <li class="w-full">
 
 		 <a class="w-full" href="<?=$site;?>">
-					<div style="background: #FF0000; height:64px" class="items-center mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white font-bold  shadow-lg focus:outline-none focus:shadow-outline">
+					<div style="background: #A70000; height:64px" id="voltar_button" class="items-center mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white font-bold  shadow-lg focus:outline-none focus:shadow-outline">
 								<div class="w-40">
 									<svg width="50" height="40" viewBox="0 0 37 39" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M14.8721 15.2735L18.4834 19.0918M18.4834 19.0918L22.0947 22.9102M18.4834 19.0918L22.0947 15.2735M18.4834 19.0918L14.8721 22.9102" stroke="white" stroke-width="2.98525" stroke-linecap="round" stroke-linejoin="round"/>

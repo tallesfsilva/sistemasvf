@@ -7,7 +7,10 @@ require('_app/Mobile_Detect.php');
 $detect = new Mobile_Detect;
 
 $loginUrl = LOGIN;
+
+$linkLoja = LINK_LOJA;
  
+
 
 
 $Url[1] = (empty($Url[1]) ? null : $Url[1]);
@@ -45,7 +48,7 @@ else:
 				extract($j);
 			endforeach;	
 		}
-			
+		$linkLoja = $linkLoja.$nome_empresa_link;
 	endif;
 
 	$cart = new Cart([
@@ -87,7 +90,7 @@ endif;
 
 	<!DOCTYPE id="main"html>
 	<!--[if IE 9]><html class="ie ie9"> <![endif]-->
-	<html lang="pt-br" style="scroll-behavior: smooth;">
+	<html lang="pt-br" style="heigth:100%; scroll-behavior: smooth;">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -134,7 +137,7 @@ endif;
 					margin-left: 25%;
 				}
 			}
-
+ 
 			.omb_login .omb_authTitle {
 				text-align: center;
 				line-height: 300%;
@@ -179,12 +182,53 @@ endif;
 				text-align: center;
 			}			
 
-			.omb_login .omb_loginForm .input-group.i {
-				width: 2em;
-			}
-			.omb_login .omb_loginForm  .help-block {
-				color: red;
-			}
+ 
+ #social_footer{
+	text-align:center;
+ 
+ 
+}
+#social_footer p{
+	font-size:12px;
+	color:#8c8c8c;
+}
+#social_footer ul{
+	margin:0;
+	padding:0 0 10px 0;
+	text-align:center;
+}
+#social_footer ul li{
+	display:inline-block;
+	margin:0 5px 10px 5px;
+}
+ 
+#social_footer ul li a{
+	color:white;
+	text-align:center;
+	line-height:34px;
+	display:flex;
+	font-size:16px;
+	width:35px;
+	height:35px;
+	background-color:#7233a1;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+	outline:none;
+}
+#social_footer ul li a:hover{
+	background:#fff;
+	color:#111;
+}
+
+.omb_login .omb_loginForm .input-group.i {
+	width: 2em;
+}
+.omb_login .omb_loginForm  .help-block {
+	color: red;
+}
 
 
 			@media (min-width: 768px) {
@@ -384,9 +428,9 @@ endif;
 		endif;
 		?>
 
-		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/frappuccino-modal.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/frappuccino-modal.css" /> -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" /> -->
 
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
 
@@ -425,7 +469,7 @@ endif;
 
 		<!-- Radio and check inputs -->
 		<link href="<?= $site; ?>css/radio-check.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/modal.css" rel="stylesheet">
+		<!-- <link href="<?= $site; ?>css/modal.css" rel="stylesheet"> -->
 		<script type="text/javascript" src="<?= $site; ?>js/modalhorarios.js"></script> 
 		<!-- https://www.cssscript.com/pure-css-checkbox-radio-button-replacement-bootstrap-icheck/ -->
 		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
@@ -465,7 +509,7 @@ endif;
 		<!--<link href="css/color_scheme.css" rel="stylesheet">-->
 	</head>
 
-	<body class="leading-normal tracking-normal text-white" style="background-color: #6303C3">
+	<body class="leading-normal tracking-normal  overflow-hidden text-white" style="background-image: url('<?=$site.'/img/bg_1.png'?>'); background-repeat:no-repeat;background-size: cover;">
 		<!-- inicio do loader 
 		<div id="preloader">
 			<div class="sk-spinner sk-spinner-wave" id="status">
@@ -488,342 +532,316 @@ endif;
 <header >
 	
 	</header>
+<div class="container-login">
 	<div  id="main-container" class="container-fuild  overflow-hidden">
 		<!-- First Row -->
-		<div class="container-menu gradient">
-		<div class="row ">
-				<div id="first_div_menu" class="col-md-4 hidden-custom">
-					<div  class="new-menu-first-row">
-					 <div class="container">
-						<div class="object-fit img-container"	>
-							<img src="../../Imagens/LOGO.png"  width="280"  alt="" data-retina="true" class="img-fluid">	 
-						</div>
-						</div>
-					</div>
-				</div>
-    <div class="col-md-8 col-xs-12">		
-        <div  class="new-menu-first-row hover:bg-sky-700">
-			<div class="container">
-			<div class="container-items" >
-				<div class="row">
-					<div class="col-md-4">
-						<div class="object-fit img-container">
-							<img src="../../Imagens/LOGO.png"     width="280" alt="" data-retina="true" class="img-fluid">	 
-						</div>
-					</div>
-					<div class="col-md-6 col-xs-12">
-						<div class="flex text-info-menu flex-col w-full content-center justify-start ">
-							<div class="w-1/2 w-full flex flex-row content-center">	
-								
-								<div class="p-2">
-										<svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M0.321888 25.6846C0.107296 25.6846 0 25.5594 0 25.403V0.966171C0 0.809725 0.143062 0.68457 0.321888 0.68457H24.6781C24.8569 0.68457 25 0.809725 25 0.966171V25.403C25 25.5907 24.8569 25.6846 24.6781 25.6846H0.321888ZM3.57654 22.5557H21.4592V16.2978H3.57654V22.5557ZM3.57654 13.1689H7.15308V10.04H3.57654V13.1689ZM10.7296 13.1689H14.3062V10.04H10.7296V13.1689ZM17.8827 13.1689H21.4592V3.78219H17.8827V13.1689ZM3.57654 6.9111H7.15308V3.78219H3.57654V6.9111ZM10.7296 6.9111H14.3062V3.78219H10.7296V6.9111Z" fill="black"/>
-											</svg>
-									</div>
-
-								<div class="p-2"><span>Nome da Loja: <span class="text-values"> <?= $nome_empresa ?></span><span></div>
-								</div>
-							<div class="w-1/2 w-full flex flex-row content-center">	
-								
-								<div class="p-2">
-										<svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M0.321888 25.6846C0.107296 25.6846 0 25.5594 0 25.403V0.966171C0 0.809725 0.143062 0.68457 0.321888 0.68457H24.6781C24.8569 0.68457 25 0.809725 25 0.966171V25.403C25 25.5907 24.8569 25.6846 24.6781 25.6846H0.321888ZM3.57654 22.5557H21.4592V16.2978H3.57654V22.5557ZM3.57654 13.1689H7.15308V10.04H3.57654V13.1689ZM10.7296 13.1689H14.3062V10.04H10.7296V13.1689ZM17.8827 13.1689H21.4592V3.78219H17.8827V13.1689ZM3.57654 6.9111H7.15308V3.78219H3.57654V6.9111ZM10.7296 6.9111H14.3062V3.78219H10.7296V6.9111Z" fill="black"/>
-											</svg>
-									</div>
-									<div class="p-2"><span>Link da Loja:  <span class="text-values"><?= $nome_empresa_link ?></span><span></div>
-							</div>
-							<div class="w-1/2 w-full flex flex-row content-center">	
-								
-								<div class="p-2">
-										<svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M0.321888 25.6846C0.107296 25.6846 0 25.5594 0 25.403V0.966171C0 0.809725 0.143062 0.68457 0.321888 0.68457H24.6781C24.8569 0.68457 25 0.809725 25 0.966171V25.403C25 25.5907 24.8569 25.6846 24.6781 25.6846H0.321888ZM3.57654 22.5557H21.4592V16.2978H3.57654V22.5557ZM3.57654 13.1689H7.15308V10.04H3.57654V13.1689ZM10.7296 13.1689H14.3062V10.04H10.7296V13.1689ZM17.8827 13.1689H21.4592V3.78219H17.8827V13.1689ZM3.57654 6.9111H7.15308V3.78219H3.57654V6.9111ZM10.7296 6.9111H14.3062V3.78219H10.7296V6.9111Z" fill="black"/>
-											</svg>
-									</div>
-									<div class="p-2"><span>Plano: <span class="text-values"><?= $user_nome_plano ?></span><span></div>
-							</div>
-							<div class="w-1/2 w-full flex flex-row content-center">	
-								
-								<div class="p-2">
-										<svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M0.321888 25.6846C0.107296 25.6846 0 25.5594 0 25.403V0.966171C0 0.809725 0.143062 0.68457 0.321888 0.68457H24.6781C24.8569 0.68457 25 0.809725 25 0.966171V25.403C25 25.5907 24.8569 25.6846 24.6781 25.6846H0.321888ZM3.57654 22.5557H21.4592V16.2978H3.57654V22.5557ZM3.57654 13.1689H7.15308V10.04H3.57654V13.1689ZM10.7296 13.1689H14.3062V10.04H10.7296V13.1689ZM17.8827 13.1689H21.4592V3.78219H17.8827V13.1689ZM3.57654 6.9111H7.15308V3.78219H3.57654V6.9111ZM10.7296 6.9111H14.3062V3.78219H10.7296V6.9111Z" fill="black"/>
-											</svg>
-									</div>
-						 
-									<div class="p-2"><span>Email:   <span class="text-values" ><?= $user_email ?></span> </span></div>
-							</div>
-							<div class="w-1/2 w-full flex flex-row content-center">	
-								
-								<div class="p-2">
-										<svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M0.321888 25.6846C0.107296 25.6846 0 25.5594 0 25.403V0.966171C0 0.809725 0.143062 0.68457 0.321888 0.68457H24.6781C24.8569 0.68457 25 0.809725 25 0.966171V25.403C25 25.5907 24.8569 25.6846 24.6781 25.6846H0.321888ZM3.57654 22.5557H21.4592V16.2978H3.57654V22.5557ZM3.57654 13.1689H7.15308V10.04H3.57654V13.1689ZM10.7296 13.1689H14.3062V10.04H10.7296V13.1689ZM17.8827 13.1689H21.4592V3.78219H17.8827V13.1689ZM3.57654 6.9111H7.15308V3.78219H3.57654V6.9111ZM10.7296 6.9111H14.3062V3.78219H10.7296V6.9111Z" fill="black"/>
-											</svg>
-									</div>
-							
-									<div class="p-2"><span>Data de Validade:  <span class="text-values" ><?= date('d/m/Y', strtotime($empresa_data_renovacao)) ?></span><span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-		</div>
-		</div>
-        </div>
-    </div>
-   
-</div>
-
-		<!-- End Fist Row -->
-
-
-
-		<!-- Second Row -->
-		<div class="row">	
-			<div class="col-md-4">
-        			<div  class="new-menu mt-5 p-5">
-           
-           			 <div class="flex w-full flex-row p-4 justify-center">
-								<div class="p-4 icon-new-menu">
-									<svg width="30" height="30" viewBox="0 0 96 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 0V109.079H95.4444V54.5397H40.9048V0H0ZM54.5397 0V40.9048H95.4444L54.5397 0ZM13.6349 27.2698H27.2698V40.9048H13.6349V27.2698ZM13.6349 54.5397H27.2698V68.1746H13.6349V54.5397ZM13.6349 81.8095H68.1746V95.4444H13.6349V81.8095Z" fill="black"/>
-									</svg>
-								</div>
-
-							<div class="p-4 text-menu font-bold leading-tight">
-								<span>Pedido Fácil</span>
-							</div>
-            			</div>
-           
-        			</div>
-    			</div>
-
-
-				<div class="col-md-4">
-        			<div  class="new-menu mt-5 p-5">
-           
-           			 <div class="flex w-full flex-row p-4 justify-center">
-								<div class="p-4 icon-new-menu">
-								<svg width="48" height="32" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M20.8135 0.443848C15.084 0.443848 9.94521 2.01603 6.22401 4.49222L23.7668 16.1657V0.561761C22.8218 0.483152 21.8176 0.443848 20.8135 0.443848ZM29.6735 4.61013V18.013L13.6073 28.7038C17.2104 30.6691 21.6995 31.8875 26.7202 31.8875C38.12 31.8875 47.3935 25.7167 47.3935 18.1309C47.3935 11.2133 39.6558 5.59275 29.6735 4.61013ZM5.51521 9.75903C2.20747 11.8815 0.140137 14.8293 0.140137 18.1309C0.140137 21.9041 2.85721 25.1664 6.99188 27.3282L19.5731 18.9563L5.51521 9.75903Z" fill="black"/>
-</svg>
-								</div>
-
-							<div class="p-4 text-menu font-bold leading-tight">
-							<span>Gestão Fácil</span>
-							</div>
-            			</div>
-           
-        			</div>
-    			</div>
-
-				
-				<div class="col-md-4">
-        			<div  class="new-menu mt-5 p-5">
-           
-           			 <div class="flex w-full flex-row p-4 justify-center">
-								<div class="p-4 icon-new-menu">
-								<svg width="30" height="30" viewBox="0 0 115 115" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M86.25 0L71.875 14.375L100.625 43.125L115 28.75L86.25 0ZM57.5 28.75L0 86.25V115H28.75L86.25 57.5L57.5 28.75Z" fill="black"/>
-                    </svg>
-								</div>
-
-							<div class="p-4 text-menu font-bold leading-tight">
-							<span>Escola Fácil</span>
-							</div>
-            			</div>
-           
-        			</div>
-    			</div>
-
-		</div>
-
- 
-		<!-- End Second Row -->
- 
-
-	<!-- Third Row -->
-		<div class="row">			
-		<div class="col-md-4">
-        			<div  class="new-menu mt-5 p-5">
-           
-           			 <div class="flex w-full flex-row p-4 justify-center">
-								<div class="p-4 icon-new-menu">
-								<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-check" viewBox="0 0 16 16">
-											<path d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-											<path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
-									</svg>
-								</div>
-
-							<div class="p-4 text-menu font-bold leading-tight">
-							<span>Cadastro</span>
-							</div>
-            			</div>
-           
-        			</div>
-    			</div>
-
-				<div class="col-md-4">
-        			<div  class="new-menu mt-5 p-5">
-           
-           			 <div class="flex w-full flex-row p-4 justify-center">
-								<div class="p-4 icon-new-menu">
-								<svg width="30" height="30" viewBox="0 0 47 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0.60515 0.0913086C0.201717 0.0913086 0 0.331152 0 0.630956V47.4604C0 47.7602 0.268956 48 0.60515 48H46.3949C46.731 48 47 47.7602 47 47.4604V0.630956C47 0.271191 46.731 0.0913086 46.3949 0.0913086L0.60515 0.0913086ZM6.72389 6.08739H40.3433V18.0796H6.72389V6.08739ZM6.72389 24.0756H13.4478V30.0717H6.72389V24.0756ZM20.1717 24.0756H26.8956V30.0717H20.1717V24.0756ZM33.6195 24.0756H40.3433V42.0639H33.6195V24.0756ZM6.72389 36.0678H13.4478V42.0639H6.72389V36.0678ZM20.1717 36.0678H26.8956V42.0639H20.1717V36.0678Z" fill="black"/>
-									</svg>
-								</div>
-
-							<div class="p-4 text-menu font-bold leading-tight">
-							<span>PDV Fácil</span>
-							</div>
-            			</div>
-           
-        			</div>
-    			</div>
-
-
-				<div class="col-md-4">
-        			<div  class="new-menu mt-5 p-5">
-           
-           			 <div class="flex w-full flex-row p-4 justify-center">
-								<div class="p-4 icon-new-menu">
-								<svg width="30" height="30" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.3659 0.75V4.59654H12.273C5.84199 4.59654 0.451323 6.78907 0.451323 9.40472V11.328C0.451323 13.9436 4.61254 16.0977 10.7598 16.7516L34.9705 19.2903C36.2945 19.4442 38.186 20.4058 38.186 20.9828V22.9061C38.186 23.4446 37.1457 23.8677 35.8216 23.8677H12.1784C11.0435 23.8677 10.1923 23.7139 9.81405 23.6369V20.0212H0.35675V23.8677C0.35675 25.1755 2.24821 26.291 4.51796 26.868C6.69314 27.4835 9.43576 27.7143 12.1784 27.7143H19.2714V31.5608H28.7287V27.7143H35.8216C42.3472 27.7143 47.6433 25.5602 47.6433 22.9061V20.9828C47.6433 18.3672 43.482 16.2131 37.3348 15.5592L13.1241 13.0205C11.8001 12.8666 9.90862 11.905 9.90862 11.328V9.40472C9.90862 8.86621 10.9489 8.44309 12.273 8.44309H35.9162C36.9565 8.44309 37.9022 8.59695 38.2805 8.67388V12.2896H47.7378V8.44309C47.7378 7.13526 45.8464 6.01976 43.5766 5.44278C41.4014 4.82734 38.6588 4.59654 35.9162 4.59654H28.8232V0.75L19.3659 0.75Z" fill="black"/>
-</svg>
-								</div>
-
-							<div class="p-4 text-menu font-bold leading-tight">
-							<span>Mensabilidades</span>
-							</div>
-            			</div>
-           
-        			</div>
-    			</div>
-
+	<div class="container-menu">
+		<div class="row ">				 
+			<div class="col-md-4 col-xs-12">		
+					<div  class="height-container new-menu-first-row hover:bg-sky-700">
+						<div class="container">
+							<div class="container-items" >
+								<div class="row">
+									<div class="col-md-12 col-xs-12">
+										<div class="row">
+											<div class="col-md-12">
+											<a  class="text-values">
+												<div class="object-fit img-container">													
+													<img style="margin:10px" src="../../Imagens/Starbucks-logo_1.png"  height="200" width="200" alt="" data-retina="true" class="img-fluid">	 
+												</div>
+											</div>
+											</a>	
+										</div>
 			 
-		 
-	</div>
-
-			<div class="row">
-
-			<div class="col-md-4">
-        			<div  class="new-menu mt-5 p-5">
-           
-           			 <div class="flex w-full flex-row p-4 justify-center">
-								<div class="p-4 icon-new-menu">
-								<svg width="30" height="30" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M20.9474 0.326172L17.9935 4.92695C17.4027 5.04294 16.871 5.23625 16.3393 5.42956L9.30893 3.49646L5.05526 6.28012L8.0092 10.8809C7.7138 11.2675 7.47749 11.5768 7.24117 11.9634L0.210815 13.8965V17.7627L7.24117 19.6958C7.47749 20.0825 7.7138 20.3918 8.0092 20.7784L5.05526 25.3792L9.30893 28.1628L16.3393 26.2297C16.871 26.3844 17.4027 26.5777 17.9935 26.7323L20.9474 31.3331H26.8553L29.8092 26.7323C30.3409 26.5777 30.9317 26.423 31.4634 26.2297L38.4938 28.1628L42.7474 25.3792L39.7935 20.7784C40.0298 20.4304 40.3252 20.0438 40.5615 19.6958L47.5919 17.7627V13.8965L40.5615 11.9634C40.3843 11.6155 40.0889 11.2289 39.7935 10.8809L42.7474 6.28012L38.4938 3.49646L31.4634 5.42956C30.9317 5.27491 30.3409 5.0816 29.8092 4.92695L26.8553 0.326172L20.9474 0.326172ZM23.9014 9.99168C28.8049 9.99168 32.7632 12.582 32.7632 15.791C32.7632 18.9999 28.8049 21.5903 23.9014 21.5903C18.9978 21.5903 15.0396 18.9999 15.0396 15.791C15.0396 12.582 18.9978 9.99168 23.9014 9.99168Z" fill="black"/>
-									</svg>
+								<div class="row">
+									<div class="col-md-12 col-xs-12">
+										<div class="flex text-info-menu flex-col w-full content-center justify-start ">
+										
+												<div style="font-size:20px;font-weight: bolder;" class='text-bold'>
+													<span> INFORMAÇÕES</span>
+												</div>	
+												<div class="w-1/2 w-full flex flex-row content-center">	
+												
+														<div class="ellipse p-2"></div>						 
+														<div class="p-2"><span>Nome da Loja: <span class="text-values"> <?= $nome_empresa ?></span><span></div>
+											</div>
+										<div hidden class="w-1/2 w-full flex flex-row content-center">	
+											
+										<div class="ellipse p-2"></div>		
+												<div class="p-2"><span>Link da Loja:  <a href="<?= $linkLoja ?>" class="text-values"><?= $linkLoja ?></a><span></div>
+										</div>
+										<div class="w-1/2 w-full flex flex-row content-center">	
+											
+												<div class="ellipse p-2"></div>		
+												<div class="p-2"><span>Plano: <span class="text-values"><?= $user_nome_plano ?></span><span></div>
+												</div>
+											<div class="w-1/2 w-full flex flex-row content-center">	
+											
+												<div class="ellipse p-2"></div>		
+														<div class="p-2"><span>Email:   <span class="text-values" ><?= $user_email ?></span> </span></div>
+												</div>
+												<div class="w-1/2 w-full flex flex-row content-center">	
+													<div class="ellipse p-2"></div>		
+												
+													<div class="p-2"><span>Data de Validade:  <span class="text-values" ><?= date('d/m/Y', strtotime($empresa_data_renovacao)) ?></span><span>
+														
+													</div>
+												</div>
+											</div>
+										</div>
 								</div>
+								<div class="row">
+									<div class="col-md-12 pb-1 col-xs-12">
+										<div class="flex text-info-menu flex-col w-full content-center justify-start ">
+												
+										<div style="font-size:20px;font-weight: bolder;">
+													<span> ATENDIMENTO	</span>
+												</div>	
+										
+												<div hidden class="w-1/2 w-full flex flex-row justify-center">	
+												
+														 					 
+														<div class="p-2 text-center"><span>Horário de atendimento: </div>
+											</div>
+												<div class="w-1/2 w-full flex flex-col content-center">											
+									 
+												<div class="p-2"><span>Segunda à sexta:  <span class="text-values">08h às 19h</span><span></div>
+												<div class="p-2"><span>Final de semana:  <span class="text-values">08h às 18h</span><span></div>
+													</div>
+													<div class="w-1/2 w-full flex flex-col content-center">											
+													<?php 
 
-							<div class="p-4 text-menu font-bold leading-tight">
-						
-							<a id="teste" href="<?=$site.'configuracoes/'?>">
-							 
-									<span>Configuracões</span>
-							</a>
+														$today = getdate();
+
+														if($today['wday']>='1' && $today['wday']<='5' && $today['hours']>='08' && ($today['hours']<='19' && $today['minutes']<='59')){
+
+															$status = "ONLINE";
+															$class = "status-on";
+														}else if(($today['wday']=='6' || $today['wday']=='0') && ($today['hours']>='08' && ($today['hours']<='18') && $today['minutes']<='59'))
+															{
+																$status = "ONLINE";
+																$class = "status-on";
+															}else{
+																$status = "OFFLINE";
+																$class = "status-off";
+															}
+														?>
+
+													<div><span style="font-size:25px;font-weight: bolder;" class="<?= $class ?>"><?= $status ?></div>
+													</div>
+										 
+											</div>
+										</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 col-xs-12">
+
+								<div hidden class="row">
+									<div class="col-md-12 col-xs-12">
+										<div style="margin-top:5px" id="social_footer">
+													<ul>
+													<li><a target="_blank" href="<?=(!empty($texto['link_do_face']) ? $texto['link_do_face'] : "");?>"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+													<!--<li><a href="#0"><i class="icon-twitter"></i></a></li>-->
+													<!--<li><a href="#0"><i class="icon-google"></i></a></li>-->
+													<li><a target="_blank" href="<?=(!empty($texto['link_do_insta']) ? $texto['link_do_insta'] : "");?>"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+													<!--<li><a href="#0"><i class="icon-pinterest"></i></a></li>-->
+													<!--<li><a href="#0"><i class="icon-vimeo"></i></a></li>-->
+													<li><a target="_blank" href="<?=(!empty($texto['link_do_insta']) ? $texto['link_do_insta'] : "");?>"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+													</ul>    
+											</div>
+										</div>
+									</div>
+									</div>
+									</div>
 							</div>
-            			</div>
-           
-        			</div>
-    			</div>
+						</div>
+					</div>
+				</div> 		
+			</div>
+			
 
 
-				 
+			</div>
+			<!--End Row -->
+	 
+			<div class="col-md-8 col-xs-12" >	
+				<div class="height-container container-buttons"> 	
+				<div class="row">
+					<div class="col-md-12 col-xs-12">	
+						<div class="col-md-6">
+							<div  class="new-menu mt-5 p-5">
+			
+								<div class="flex w-full flex-row p-4 justify-center">
+									<div class="icon-new-menu">
+										<img src="<?=$site ?>img/lista-de-controle_1.png">
+									</div>
+
+									<div class="p-4 text-menu font-medium leading-tight">
+										<span>Cadastro</span>
+									</div>
+								</div>			
+							</div>
+						</div>
+
+						<div class="col-md-6">
+						<a  href="<?=$linkLoja?>" target="_blank">
+								<div  class="new-menu mt-5 p-5">
+							
+								<div class="flex w-full flex-row p-4 justify-center">
+									<div class="icon-new-menu">
+										<img src="<?=$site ?>img/pedido_1.png">
+									</div>
+
+									<div class="p-4 text-menu font-medium leading-tight">
+										<span>Pedido Fácil</span>
+									</div>
+							</div>
+						</div>
+						</div>
+						</a>
+					</div>		
+
+					<div class="col-md-12 col-xs-12">	
+		
+						<div class="col-md-6">
+							<a  href="<?=$site.'configuracoes/'?>">
+									<div  class="new-menu mt-5 p-5">
+						
+										<div class="flex w-full flex-row p-4 justify-center">
+												<div class="icon-new-menu">
+														<img src="<?=$site ?>img/configuracao _1.png">
+													</div>
+													
+												<div class="p-4 text-menu font-medium leading-tight">
+													<span>Configuração</span>
+												</div>
+										</div>					
+									</div>
+								</a>
+						</div>
+
+						<div class="col-md-6">
+							<div  class="new-menu mt-5 p-5">
+						
+									<div class="flex w-full flex-row p-4 justify-center">
+										<div class="icon-new-menu">
+										<img src="<?=$site ?>img/curso-online_1.png">
+										</div>
+
+										<div class="p-4 text-menu font-medium leading-tight">
+											<span>Escola Fácil</span>
+										</div>
+									</div>			
+							</div>
+						</div>			
+			
+					</div>
+
+					<div class="col-md-12 col-xs-12">	
+		
+						<div class="col-md-6">
+							<div  class="new-menu mt-5 p-5">						
+								<div class="flex w-full flex-row p-4 justify-center">
+										<div class="icon-new-menu">
+											<img src="<?=$site ?>img/gestao _1.png">
+										</div>
+										<div class="p-4 text-menu font-medium leading-tight">
+											<span>Gestão Fácil</span>
+										</div>
+								</div>
+							</div>
+						</div>		
+			
+						<div class="col-md-6">
+								<div  class="new-menu mt-5 p-5">
+									<div class="flex w-full flex-row p-4 justify-center">
+											<div class="icon-new-menu">
+													<img src="<?=$site ?>img/salario_1.png">
+											</div>
+											<div class="p-4 text-menu font-medium leading-tight">
+												<span>Mensalidades</span>
+											</div>
+									</div>					
+								</div>
+						</div>
+					</div>	
+
+					<div class="col-md-12 col-xs-12">	
+		
+						<div class="col-md-6">
+							<div  disabled class="button-disabled new-menu mt-5 p-5 bg-gray-300">			 
+								<div class="flex w-full flex-row p-4  justify-center">
+										<div hidden class="icon-new-menu">
+												<img src="<?=$site ?>img/caixa-eletronico_1.png">
+										</div>
+										<div class="p-4 text-menu font-medium leading-tight">					
+												<span>PDV Fácil <br> <span style="font-size: 10px">(Em construção)</span></span>
+												 								
+										</div>
+								</div>			
+							</div>			 
+						</div>	 
+						<div class="col-md-6">											
+							<div id="suporte_button" style="background-color: #00BB07; color: white" class="new-menu mt-5 p-5">				
+								<div class="flex w-full flex-row p-4 justify-center">
+									<div class="icon-new-menu">
+											<img width="50" height="50" src="<?=$site?>img/aperto-de-mao.png">
+									</div>
+									<div  class="p-4 text-menu font-medium text-white leading-tight">
+										<span>Suporte</span>
+									</div>
+								</div>
+							</div>		 
+						</div>
+					</div>
+					<!-- Third Row -->
+		
+					<div class="col-md-12 col-xs-12">	
+		 
+						<div class="col-md-6">
+
+						</div>	
+						<div class="col-md-6">
+						<a href="<?=$site.$Url[0].'/';?>&logoff=true">
+							<div id="sair_button" style="background-color: #A70000" class="new-menu mt-5 p-5">				
+								<div class="flex w-full flex-row p-4 justify-center">
+										<div class="icon-new-menu" style="left:30px">
+										<img width="60" height="60" src="<?=$site?>img/icon _add_circled outline_.png">
+										</div>		
+										<div class="p-4 text-menu text-white font-bold leading-tight">
+											
+												<span>Sair</span>
+											 
+										</div>
+								</div>				
+							</div>
+						</div>
+						</a>
+					</div>
+			
+		 
+				</div>
+ 
+		 
+		<!-- End Fist Row -->
+				</div>
+		</div>
+	 
+
+
+	  
+
 
 			
-					<div class="col-md-4">
-        			<div style="background-color: #46DC4C; color: white" class="new-menu mt-5 p-5">
-           
-           			 <div class="flex w-full flex-row p-4 justify-center">
-								<div class="p-4 icon-new-menu">
-								<svg width="30" height="30" viewBox="0 0 54 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M26.8571 0C15.7786 0 6.71429 9.06429 6.71429 20.1429V26.8571H3.35714C2.46677 26.8571 1.61287 27.2108 0.983284 27.8404C0.353698 28.47 0 29.3239 0 30.2143L0 43.6429C0 44.5332 0.353698 45.3871 0.983284 46.0167C1.61287 46.6463 2.46677 47 3.35714 47H10.0714C10.9618 47 11.8157 46.6463 12.4453 46.0167C13.0749 45.3871 13.4286 44.5332 13.4286 43.6429V20.1429C13.4286 12.69 19.4043 6.71429 26.8571 6.71429C34.31 6.71429 40.2857 12.69 40.2857 20.1429V43.6429C40.2857 44.5332 40.6394 45.3871 41.269 46.0167C41.8986 46.6463 42.7525 47 43.6429 47H50.3571C51.2475 47 52.1014 46.6463 52.731 46.0167C53.3606 45.3871 53.7143 44.5332 53.7143 43.6429V30.2143C53.7143 29.3239 53.3606 28.47 52.731 27.8404C52.1014 27.2108 51.2475 26.8571 50.3571 26.8571H47V20.1429C47 9.06429 37.9357 0 26.8571 0Z" fill="black"/>
-									</svg>
-								</div>
-
-							<div class="p-4 text-menu font-bold leading-tight">
-							<span>Suporte</span>
-							</div>
-            			</div>
-           
-        			</div>
-    			</div>
+	
+				
 
 
-					 
-
-
-					<div class="col-md-4">
-        			<div  style="background-color: #E70D0D" class="new-menu mt-5 p-5">
-           
-           			 <div class="flex w-full flex-row p-4 justify-center">
-								<div class="p-4 icon-new-menu">
-								<svg width="30" height="30" viewBox="0 0 48 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.51049 0L0 8.44204L4.34578 12.7529L15.0895 23.5898L4.34578 34.2471L0 38.3783L8.51049 47L12.8563 42.6892L23.7811 31.8522L34.5248 42.6892L38.6895 47L47.3811 38.3783L43.0353 34.2471L32.1105 23.5898L43.0353 12.7529L47.3811 8.44204L38.6895 0L34.5248 4.31083L23.7811 14.9682L12.8563 4.31083L8.51049 0Z" fill="white"/>
-</svg>
-								</div>
- 
-							<div class="p-4 text-menu font-bold leading-tight">
-								<a href="<?=$site.$Url[0].'/';?>&logoff=true">
-							<span>Sair</span>
-							</a>
-							</div>
-            			</div>
-           
-        			</div>
-    			</div>
-				<?php				
-
-if(file_exists('includes/'.$Url[1] . '.php')):
-	require 'includes/'.$Url[1] . '.php';
- 
-endif;
-?>
-
-					</div>
-
-
+		</div>
 
 
 		</div>
  
-
-			<nav hidden class="col--md-8 col-sm-8 col-xs-8">
-				<a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
-				<div class="main-menu">
-					<div id="header_menu">
-						<img src="<?= $site; ?>img/home.png" height="40" alt="" data-retina="true">
-
-					</div>
-					<a class="open_close" id="close_in"><i class="icon_close"></i></a>
-					<ul>
-						<li><a href="<?=$site.$Url[0];?>"><?=$texto['home'];?></a></li>
-						<li><a href="<?=$site.$Url[0].'/';?>contato"><?=$texto['contato'];?></a></li>
-						
-
-						<?php if(!empty($_SESSION['userlogin'])):?>
-							<li><a href="<?=$site.$Url[0].'/';?>admin-loja"><?=$texto['Conf_loja'];?></a></li>
-							<li><a href="<?=$site.$Url[0].'/';?>view-item"><?=$texto['itens'];?></a></li>
-							<li class="submenu">
-								<a class="show-submenu"><?=$texto['cadastros-menu'];?><i class="icon-down-open-mini"></i></a>
-								<ul>
-									<li><a href="<?=$site.$Url[0].'/';?>cadastrar-formas-pagamento"><?=$texto['cadastro-pagamentos'];?></a></li>
-									<li><a href="<?=$site.$Url[0].'/';?>categoria"><?=$texto['cadastros-cat'];?></a></li>
-									<li><a href="<?=$site.$Url[0].'/';?>itens"><?=$texto['cadastros-iten'];?></a></li>
-									<li><a href="<?=$site.$Url[0].'/';?>add-adicionais"><?=$texto['cadastros-complementos'];?></a></li>
-									<li><a href="<?=$site.$Url[0].'/';?>add-options"><?=$texto['cadastros-tipostamanhos'];?></a></li>
-									<li><a href="<?=$site.$Url[0].'/';?>enderecos-delivery"><?=$texto['cadastros-enderecos'];?></a></li>
-									<li><a href="<?=$site.$Url[0].'/';?>cupom-desconto"><?=$texto['cadastros-cupons'];?></a></li>	
-								</ul>
-							</li>
-							<li><a href="<?=$site.$Url[0].'/';?>pedidos"><?=$texto['msg_pedidos']?></a></li>
-							<li><a href="<?=$site.$Url[0].'/';?>estatisticas"><?=$texto['estatisticas'];?></a></li>
-							<li><a href="<?=$site.$Url[0].'/';?>login-senha"><?=$texto['login-senha'];?></a></li>
-							<li><a href="<?=$site.$Url[0].'/';?>admin-loja&logoff=true"><?=$texto['sair'];?></a></li>
-						<?php endif;?>
-
-
-					</ul>
-				</div><!-- End main-menu -->
-			</nav>
 		</div><!-- End row -->
 	</div><!-- End container -->
 
@@ -832,7 +850,14 @@ endif;
 <!-- SubHeader =============================================== -->
 
 
+<script>
+	//  $(document).ready(function(){
+	// 	var container_info_height = $('.container-items').innerHeight();
+	// 	$('.container-buttons').innerHeight(container_info_height);
 
+
+	//  })
+</script>
 <!-- COMMON SCRIPTS -->
 
 <script src="<?= $site; ?>js/common_scripts_min.js"></script>
@@ -849,8 +874,7 @@ endif;
 <script src="<?= $site; ?>js/printThis.js"></script>
 <script src="<?=$site;?>js/suportewats.js"></script>
 
-
-
+ 
 <script>
 	jQuery(document).ready(function($){
 		$('a').not('[href*="'+document.domain+'"]').attr('target', '_blank');

@@ -1135,18 +1135,6 @@ $updatebanco = new Update();
 <!-- COMMON SCRIPTS -->
 
 
-<script src="<?= $site; ?>js/functions.js"></script>
-<script src="<?= $site; ?>assets/validate.js"></script>
-<script src="<?= $site; ?>js/jquery.mask.js"></script>
-<script src="<?= $site; ?>js/index-btn-file.js"></script>
-<script src="<?= $site; ?>js/funcoesjs.js"></script>
-<script src="<?= $site; ?>js/custom-file-input.js"></script>
-<script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-<script src="<?= $site; ?>js/parallax.js"></script>
-<script src="<?= $site; ?>js/parallax.min.js"></script>
-<script src="<?= $site; ?>js/printThis.js"></script>
-<script src="<?=$site;?>js/suportewats.js"></script>
 
 
 
