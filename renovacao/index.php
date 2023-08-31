@@ -1,9 +1,10 @@
 <?php
 ob_start();
+ 
 session_cache_expire(60);
 session_start();
+
 require('../_app/Config.inc.php');
-require('../_app/status_plano.php');
 
 $site = HOME;
 $login = LOGIN; 
@@ -13,26 +14,28 @@ $Url[1] = (empty($Url[1]) ? null : $Url[1]);
 $site = HOME;
 
 
+
 if(empty($Url[0]) || $Url[0] == 'index'){
 
-	 $Url[0] = 'configuracoes';
+	 $Url[0] = 'renovacao';
 
 }
-if(empty($_SESSION['userlogin'])){
-	header("Location: {$login}");
-} 
+ 
 	$userId = $_SESSION['userlogin']['user_id'];	
 	 
-
+ 
 	$lerbanco->FullRead("select * from ws_empresa WHERE binary user_id = :userId", "userId={$userId}");
-	if (!$lerbanco->getResult()){
-		header("Location: {$site}");
+	
+
+	if (!$lerbanco->getResult()){	
+		 
+		// header("Location: {$site}");
 	}else{
 		foreach ($lerbanco->getResult() as $i):
 			extract($i);
 		endforeach;
 
-		$getu = $user_id;	
+		 
 		 
 		$lerbanco->FullRead("select * from ws_users WHERE user_id = :user", "user={$userId}");
 		if (!$lerbanco->getResult()){
@@ -164,87 +167,8 @@ if(empty($_SESSION['userlogin'])){
 			<script src="<?= $site; ?>js/howler.js"></script>
 
  
-			<script type="text/javascript">	
-
-$(document).ready(function () {
-
-	$.getJSON('<?=$site;?>estados_cidades.json', function (data) {
-
-		var items = [];
-		var options = '<option value="<?=(!empty($end_uf_empresa) ? $end_uf_empresa : "");?>"><?=(!empty($end_uf_empresa) ? $end_uf_empresa : "Escolha um estado");?></option>';	
-
-		$.each(data, function (key, val) {
-			options += '<option value="' + val.sigla + '">' + val.sigla + '</option>';
-		});					
-		$("#estados").html(options);				
-
-		$("#estados").change(function () {				
-
-			var options_cidades = '<option value="<?=(!empty($cidade_empresa) ? $cidade_empresa : "");?>"><?=(!empty($cidade_empresa) ? $cidade_empresa : "Escolha uma Cidade");?></option>';
-			var str = "";					
-
-			$("#estados option:selected").each(function () {
-				str += $(this).text();
-			});
-
-			$.each(data, function (key, val) {
-				if(val.sigla == str) {							
-					$.each(val.cidades, function (key_city, val_city) {
-						options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
-					});							
-				}
-			});
-
-			$("#cidades").html(options_cidades);
-
-		}).change();		
-
-	});
-
-});
-
-</script>
-
-<script type="text/javascript">	
-
-$(document).ready(function () {
-
-	$.getJSON('<?=$site;?>estados_cidades.json', function (data) {
-
-		var items = [];
-		var options = '<option value="">Selecione o Estado</option>';	
-
-		$.each(data, function (key, val) {
-			options += '<option value="' + val.sigla + '">' + val.sigla + '</option>';
-		});					
-		$("#estados2").html(options);				
-
-		$("#estados2").change(function () {				
-
-			var options_cidades = '';
-			var str = "";					
-
-			$("#estados2 option:selected").each(function () {
-				str += $(this).text();
-			});
-
-			$.each(data, function (key, val) {
-				if(val.sigla == str) {							
-					$.each(val.cidades, function (key_city, val_city) {
-						options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
-					});							
-				}
-			});
-
-			$("#cidades2").html(options_cidades);
-
-		}).change();		
-
-	});
-
-});
-
-</script>
+ 
+ 
 
 
 
@@ -270,28 +194,7 @@ $(document).ready(function () {
 			<script type="text/javascript" src="<?= $site; ?>notificacao/growl-notification.min.js"></script> 
 
 
-			<script type="text/javascript">
-			$(document).ready(function(){
-				$('.remove_item').click(function(){
-					$('.remove_item').prop('disabled', true);
-
-					var id_item = $(this).data('id_item');
-					var rash_item = $(this).data('item_hash');
-
-					$.ajax({
-						url: '<?= $site; ?>includes/processaremovercart.php',
-						method: 'post',
-						data: {'iditem':id_item,'itemrash':rash_item, 'getpegaloja' : '<?=$Url[0];?>'},
-
-						success: function(data){
-							$('.remove_item').prop('disabled', false);
-							$('#updatesidebar').html(data);
-						}
-					});
-				});
-			});
-		</script>
-
+		 
 		
 		<script src="<?= $site; ?>css/multiselect/dist/bundle.min.js"></script>
 
@@ -543,93 +446,106 @@ $(document).ready(function () {
 		 
 	</head>
 
-	<body class="leading-normal tracking-normal text-white"> 
-		
-		<button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button"  class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-					<span class="sr-only">Open sidebar</span>
-					<svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-						<path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-					</svg>
-		</button>
-		<div class="flex flex-col">
-			 	<div class="flex">
-					<aside style="background:#7233A1; box-shadow: 2px 2px 2px 2px gray;" id="default-sidebar" class="fixed top-0 left-0 z-40 w-90 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-					<a style="position: initial;top: -15px;" href="<?=$site?>configuracoes">
-					<div style="background: #7233A1;box-shadow: 0px 1px 1px black" class="mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline text-white font-bold  my-6 py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
-								<div class="w-full">
-										<svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M9.53207 11.5H0.601562V0.5H9.53207V11.5ZM26.0829 3.5H13.8422V0.5H26.0829V3.5ZM22.7728 11.5H13.8422V8.5H22.7728V11.5ZM9.53207 27.5H0.601562V16.5H9.53207V27.5ZM26.0829 19.5H13.8422V16.5H26.0829V19.5ZM22.7728 27.5H13.8422V24.5H22.7728V27.5Z" fill="white" stroke="black"/>
-											</svg>		
-								</div>			
-								<div class="w-full ml-2 self-center">
-									<span style="font-size:23px;">Configurações</span>
-								</div>
-							</div>
-		</a>	
-			<div  style="background: #7233A1" class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
-						
-			<ul id="side-bar-menu" class="space-y-2 font-medium text-white">
-          
-         <li style="border-color: #837979" class="w-full border-t">
-		 
-            <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-               <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-</svg>
-               <span class="flex-1 ml-3  ">Pedido Fácil</span>
-		
-            </a>
-		 
-         </li>
-         <li style="border-color: #837979" class="w-full  border-t">
-		 <a href="<?=$site.'configuracoes/'?>painel" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-		 <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14.0862 28C21.1376 28 26.854 21.9558 26.854 14.5C26.854 7.04415 21.1376 1 14.0862 1C7.03469 1 1.31836 7.04415 1.31836 14.5C1.31836 21.9558 7.03469 28 14.0862 28Z" fill="white" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M17.9165 9.77498C17.0419 8.85024 15.5018 8.20702 14.0862 8.16675L17.9165 9.77498ZM10.2559 18.55C11.0787 19.71 12.6087 20.3717 14.0862 20.4278L10.2559 18.55ZM14.0862 8.16675C12.402 8.11882 10.8942 8.92445 10.8942 11.125C10.8942 15.175 17.9165 13.15 17.9165 17.2C17.9165 19.5098 16.0476 20.5023 14.0862 20.4278M14.0862 8.16675V5.72498V8.16675ZM14.0862 20.4278V23.275V20.4278Z" fill="white"/>
-<path d="M17.9165 9.77498C17.0419 8.85024 15.5018 8.20702 14.0862 8.16675M14.0862 8.16675C12.402 8.11882 10.8942 8.92445 10.8942 11.125C10.8942 15.175 17.9165 13.15 17.9165 17.2C17.9165 19.5098 16.0476 20.5023 14.0862 20.4278M14.0862 8.16675V5.72498M10.2559 18.55C11.0787 19.71 12.6087 20.3717 14.0862 20.4278M14.0862 20.4278V23.275" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-               <span class="flex-1 ml-3 whitespace-nowrap">Financeiro</span>
-             
-            </a>
-         </li>
-		 <li style="border-color: #837979" class="w-full   border-b border-t">
-		 <a href="<?=$site.'configuracoes/'?>login-senha"  class="flex items-center p-2 rounded-lg text-white  group">
-		 <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.9778 28C21.0292 28 26.7456 21.9558 26.7456 14.5C26.7456 7.04416 21.0292 1 13.9778 1C6.9263 1 1.20996 7.04416 1.20996 14.5C1.20996 21.9558 6.9263 28 13.9778 28Z" fill="white" stroke="black"/>
-<path d="M7.59375 22.6V21.25C7.59375 17.5221 10.4519 14.5 13.9776 14.5C17.5033 14.5 20.3615 17.5221 20.3615 21.25V22.6" fill="white"/>
-<path d="M7.59375 22.6V21.25C7.59375 17.5221 10.4519 14.5 13.9776 14.5C17.5033 14.5 20.3615 17.5221 20.3615 21.25V22.6" stroke="black" stroke-linecap="round"/>
-<path d="M13.9778 14.5C16.0933 14.5 17.8081 12.6868 17.8081 10.45C17.8081 8.21328 16.0933 6.40002 13.9778 6.40002C11.8623 6.40002 10.1475 8.21328 10.1475 10.45C10.1475 12.6868 11.8623 14.5 13.9778 14.5Z" fill="white" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-               <span class="flex-1 ml-3 whitespace-nowrap">Conta</span>
-            </a>
-         </li>
-         
-         
-      </ul>
-	  <ul  class="fixed w-full bottom-0 pt-4 mt-4 dark:border-gray-700">
-        
-       
-         <li class="w-full">
+	<body class="leading-normal tracking-normal  overflow-hidden text-white" style="background-image: url('<?=$site.'/img/bg_1.png'?>'); background-repeat:no-repeat;background-size: cover;">
+ 
+	<div id="renovacao" class="container">
+    <?php
 
-		 <a class="w-full" href="<?=$site;?>">
-					<div style="background: #A70000; height:64px" id="voltar_button" class="items-center mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white font-bold  shadow-lg focus:outline-none focus:shadow-outline">
-								<div class="w-40">
-									<svg width="50" height="40" viewBox="0 0 37 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M14.8721 15.2735L18.4834 19.0918M18.4834 19.0918L22.0947 22.9102M18.4834 19.0918L22.0947 15.2735M18.4834 19.0918L14.8721 22.9102" stroke="white" stroke-width="2.98525" stroke-linecap="round" stroke-linejoin="round"/>
-										<path d="M9.4552 28.6378C14.4413 33.9099 22.5255 33.9099 27.5116 28.6378C32.4977 23.3657 32.4977 14.818 27.5116 9.54594C22.5255 4.27386 14.4413 4.27386 9.4552 9.54594C4.46911 14.818 4.46907 23.3657 9.4552 28.6378Z" stroke="white" stroke-width="2.98525" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>	
-								</div>			
-								<div class="w-full ml-2">
-									<span style="font-size:23px;">Voltar</span>
-								</div>
-							</div>
-		</a>	
-            
-         </li>
-      </ul>
-   </div>
-   
-</aside>
+       
+    if(!empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
+        $planoUser = $_SESSION['userlogin']['user_plano'];
+        $nomeplano = "";
+        $valorplano = "";
+
+        if($planoUser == 1):
+            $nomeplano = $texto['nomePlanoUm'];
+            $valorplano = "{$texto['valorPlanoUm']}.00";
+        elseif($planoUser == 2):
+            $nomeplano = $texto['nomePlanoDois'];
+            $valorplano = "{$texto['valorPlanoDois']}.00";
+        elseif($planoUser == 3):
+            $nomeplano = $texto['nomePlanoTres'];
+            $valorplano = "{$texto['valorPlanoTres']}.00";
+        endif;
+
+    endif;
+
+    if(diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 0 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
+      
+	   ?>
+	<div class="container-fluid">
+    <div class="flex h-screen justify-center w-full place-items-center" role="alert">
+		 
+			<div class="flex" style="border:2px solid black">
+				<img src="<?=$site ?>img/pngwing_1.png">
+	 
+	</div>
+	</div>
+        
+</div>
+
+<?php
+elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) == 0 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
+ 
+?>
+
+<div class="alert alert-danger alert-dismissible" role="alert">
+<strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> OBSERVAÇÃO: </strong>Seu plano expira hoje.
+<form action="<?=$site;?>mercadopago/processapagamentomp.php" method="POST">
+    <script
+    src="https://www.mercadopago.com.br/integrations/v1/web-tokenize-checkout.js"
+    data-public-key="<?=$texto['publickey'];?>"				
+    data-button-label="Pagar assinatura"
+    data-transaction-amount="<?=$valorplano;?>"
+    data-summary-product-label="<?=$nomeplano;?>">
+</script>
+</form>
+</div>
+<?php
+
+elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) > 1 && diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 3 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
+ 
+?>
+
+<div class="alert alert-danger alert-dismissible" role="alert">
+<strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> OBSERVAÇÃO: </strong>Seu plano expira em <?=diasDatas(date('Y-m-d'), $empresa_data_renovacao)?> dias.
+<form action="<?=$site;?>mercadopago/processapagamentomp.php" method="POST">
+<script
+src="https://www.mercadopago.com.br/integrations/v1/web-tokenize-checkout.js"
+data-public-key="<?=$texto['publickey'];?>"				
+data-button-label="Pagar assinatura"
+data-transaction-amount="<?=$valorplano;?>"
+data-summary-product-label="<?=$nomeplano;?>">
+</script>
+</form>
+</div>
+<?php
+else:
+	 
+	 header("Location: {$site}{$nome_empresa_link}/new-home"); 
+?>	
+<?php 
+endif;
+?>	
+
+ 			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 		</div>
  
 		<?php				
@@ -639,15 +555,7 @@ $(document).ready(function () {
   
  endif;
  ?>
-				<div  id="img-container" class="container-main-page flex bg-white h-screen justify-center items-center p-4">
-				
-				
-				<div  class="flex h-full w-full items-center justify-center container-items" >
-					<img style="width: 400px;height: 300px;" src="../../Imagens/INICIO.png"/>	
-
-						</div>
-				</div>
-		 
+				 
 
 
  

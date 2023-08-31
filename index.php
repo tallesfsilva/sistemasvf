@@ -2,7 +2,9 @@
 ob_start();
 session_cache_expire(60);
 session_start();
+
 require('_app/Config.inc.php');
+require('_app/status_plano.php');
 require('_app/Mobile_Detect.php');
 $detect = new Mobile_Detect;
 
@@ -22,12 +24,10 @@ if(empty($_SESSION['userlogin'])){
 } 
 
 if(empty($Url[0]) || $Url[0] == 'index'):
-
-	require('landingpage.php');
-
-else:
-
+	require('landingpage.php');	 
  
+else:
+	 
 	$nemprise = $Url[0];	 
 
 	$lerbanco->FullRead("select * from ws_empresa WHERE binary nome_empresa_link = :lemprise", "lemprise={$nemprise}");
@@ -510,7 +510,8 @@ endif;
 	</head>
 
 	<body class="leading-normal tracking-normal  overflow-hidden text-white" style="background-image: url('<?=$site.'/img/bg_1.png'?>'); background-repeat:no-repeat;background-size: cover;">
-		<!-- inicio do loader 
+			
+	<!-- inicio do loader 
 		<div id="preloader">
 			<div class="sk-spinner sk-spinner-wave" id="status">
 				<div class="sk-rect1"></div>
@@ -533,6 +534,8 @@ endif;
 	
 	</header>
 <div class="container-login">
+ 
+	
 	<div  id="main-container" class="container-fuild  overflow-hidden">
 		<!-- First Row -->
 	<div class="container-menu">
