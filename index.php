@@ -4,7 +4,11 @@ session_cache_expire(60);
 session_start();
 
 require('_app/Config.inc.php');
-require('_app/status_plano.php');
+ 
+if(empty($_SESSION['hasShowed'])){
+	require('_app/status_plano.php');
+}
+
 require('_app/Mobile_Detect.php');
 $detect = new Mobile_Detect;
 
@@ -67,7 +71,7 @@ else:
 	// endif;
 
 	$logoff = filter_input(INPUT_GET, 'logoff', FILTER_VALIDATE_BOOLEAN);
-	
+ 
 	
 	if(!empty($logoff) && $logoff == true):
 		 
@@ -76,7 +80,7 @@ else:
 	$ip           = get_client_ip();
 	$string_last = array("user_ultimoacesso" => " Último acesso em: {$dataEhora} IP: {$ip} ");
 	$updateacesso->ExeUpdate("ws_users", $string_last, "WHERE user_id = :uselast", "uselast={$userlogin['user_id']}");
- 
+	unset($_SESSION['hasShowed']);	
 	unset($_SESSION['userlogin']);
 
 

@@ -12,9 +12,9 @@ $login = LOGIN;
 $Url[1] = (empty($Url[1]) ? null : $Url[1]);
 
 $site = HOME;
+$loginUrl = LOGIN;
 
-
-
+ 
 if(empty($Url[0]) || $Url[0] == 'index'){
 
 	 $Url[0] = 'renovacao';
@@ -50,11 +50,31 @@ if(empty($Url[0]) || $Url[0] == 'index'){
 		if(empty($Url[0]) || $Url[0] == 'index'){
 			$Url[0] = $nome_empresa_link;
 	
-	}
+			}
 	 
 	}
+	 
+	$logoff = filter_input(INPUT_GET, 'logoff', FILTER_VALIDATE_BOOLEAN);
+	$hasShowed = filter_input(INPUT_GET, 'hasShowed', FILTER_VALIDATE_BOOLEAN);
  
+	if(!empty($hasShowed) && $hasShowed == true){
+			$_SESSION['hasShowed'] = true;			
+			header("Location: {$site}"); 
+	}
+	
+	if(!empty($logoff) && $logoff == true):
+		 
+	$updateacesso = new Update;
+	$dataEhora    = date('d/m/Y H:i');
+	$ip           = get_client_ip();
+	$string_last = array("user_ultimoacesso" => " Último acesso em: {$dataEhora} IP: {$ip} ");
+	$updateacesso->ExeUpdate("ws_users", $string_last, "WHERE user_id = :uselast", "uselast={$userlogin['user_id']}");
+ 
+	unset($_SESSION['userlogin']);
 
+
+	header("Location: {$loginUrl}");
+endif;
 	?>	
 
 	<!DOCTYPE html>
@@ -145,7 +165,7 @@ if(empty($Url[0]) || $Url[0] == 'index'){
 		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" />
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
-		<link href="<?=$site;?>css/style-configuracao.css" rel="stylesheet">
+		 
 
 
 		<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
@@ -200,226 +220,73 @@ if(empty($Url[0]) || $Url[0] == 'index'){
 
 
 			<style type="text/css">
-			@media (min-width: 768px) {
-				.omb_row-sm-offset-3 div:first-child[class*="col-"] {
-					margin-left: 25%;
-				}
-			}
-
-			.omb_login .omb_authTitle {
-				text-align: center;
-				line-height: 300%;
-			}
-
-			.gradient {
-       				 background: linear-gradient(90deg, #7233A1 0%, #8c52ff 100%);
-      		}
-
-			.omb_login .omb_socialButtons a {
-				color: white; // In yourUse @body-bg 
-				opacity:0.9;
-			}
-			.omb_login .omb_socialButtons a:hover {
-				color: white;
-				opacity:1;    	
-			}
-
-			.omb_login .omb_loginOr {
-				position: relative;
-				font-size: 1.5em;
-				color: #aaa;
-				margin-top: 1em;
-				margin-bottom: 1em;
-				padding-top: 0.5em;
-				padding-bottom: 0.5em;
-			}
-			.omb_login .omb_loginOr .omb_hrOr {
-				background-color: #cdcdcd;
-				height: 1px;
-				margin-top: 0px !important;
-				margin-bottom: 0px !important;
-			}
-			.omb_login .omb_loginOr .omb_spanOr {
-				display: block;
-				position: absolute;
-				left: 50%;
-				top: -0.6em;
-				margin-left: -1.5em;
-				background-color: white;
-				width: 3em;
-				text-align: center;
-			}			
-
-			.omb_login .omb_loginForm .input-group.i {
-				width: 2em;
-			}
-			.omb_login .omb_loginForm  .help-block {
-				color: red;
-			}
-
-
-			@media (min-width: 768px) {
-				.omb_login .omb_forgotPwd {
-					text-align: right;
-					margin-top:10px;
-				}		
-			}
-		
-
-			#whatsapp{
-				position:fixed;
-				width:60px;
-				height:60px;
-				right:10px;
-				bottom:10px;
-				display:block;
-				z-index:1000000;
-			}
-			.cart-count{
-				display: inline-block;
-				position: absolute;
-				top: 0;
-				right: 0;
-				background: #ff2646;
-				color: #fff;
-				padding: 4px 10px;
-				border-radius: 100px;
-				font-size: 10px;
-				text-shadow: 0 1px 2px rgba(0,0,0,.1);
-				box-shadow: 0 2px 4px rgba(0,0,0,.1);
-				z-index: 10;
-				text-align: center;
-				opacity: 1;
-				transition: .33s cubic-bezier(0.34, 0.13, 0.34, 1.43);
-			}
-
-
-			/*--thank you pop starts here--*/
-			.thank-you-pop{
-				width:100%;
-				padding:20px;
-				text-align:center;
-			}
-			.thank-you-pop img{
-				width:76px;
-				height:auto;
-				margin:0 auto;
-				display:block;
-				margin-bottom:25px;
-			}
-
-			.thank-you-pop h1{
-				font-size: 42px;
-				margin-bottom: 25px;
-				color:#5C5C5C;
-			}
-			.thank-you-pop p{
-				font-size: 20px;
-				margin-bottom: 27px;
-				color:#5C5C5C;
-			}
-			.thank-you-pop h3.cupon-pop{
-				font-size: 25px;
-				margin-bottom: 40px;
-				color:#222;
-				display:inline-block;
-				text-align:center;
-				padding:10px 20px;
-				border:2px dashed #222;
-				clear:both;
-				font-weight:normal;
-			}
-			.thank-you-pop h3.cupon-pop span{
-				color:#03A9F4;
-			}
-			.thank-you-pop a{
-				display: inline-block;
-				margin: 0 auto;
-				padding: 9px 20px;
-				color: #fff;
-				text-transform: uppercase;
-				font-size: 14px;
-				background-color: #8BC34A;
-				border-radius: 17px;
-			}
-			.thank-you-pop a i{
-				margin-right:5px;
-				color:#fff;
-			}
-			#ignismyModal .modal-header{
-				border:0px;
-			}
-			/*--thank you pop ends here--*/
-
-
-
-			#img-head-loja{
-				background-image:url(<?=(!empty($img_header) ? $site."uploads/".$img_header : '');?>);
-				background-attachment:fixed;
-				background-size:100%;
-				background-repeat:no-repeat;
-				background-color:#000;
-			}
+			 
 		</style>
 
 		<style type="text/css">
+			.container-text{
+				font-size:20px;
+			}
 
-			.switch {
-				position: relative;
-				margin: 5px auto;
-				width: 95%;
+			.img-renova{
+				width:80%; 
+				height:50%;
+			}
+			 .container-buttons-renova{
+				 
+ 
+ 
+				border: 1px solid #A3A3A3;
+				margin: 15px;
+			 
+				padding: 10px;
+				border-radius: 20px;	
+				height:100% !important; 
+				width:350px	 
+				 
+			 }
+
+			 .buttons-renova{
+				
 				height: 40px;
-				border: 3px solid #34AF23;
-				color: black;
-				font-size: 15px;
-				border-radius: 10px;
-			}
+				width: 70%;
+				border-radius: 20px;
+				box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.85);
+			 }
+			 #btn-continuar:hover{
+				background-color: #ffdf80 !important;
+			 }
+			 
+			 #btn-renovar:hover{
+				
+				background-color: #7ccf7f  !important;
+			 }
+			 
+			 	 
+			 #btn-sair:hover{
+				background-color: #c78a8a !important;
+			 }
+			 @media screen and (orientation:landscape) and (max-width: 1000px ) {
+				
+				#container_renova{
+						height:100%; 
+				}	
 
-			.quality {
-				position: relative;
-				display: inline-block;
-				width: 50%;
-				height: 100%;
-				line-height: 40px;
-			}
-			.quality:first-child label {
-				border-radius: 5px 0 0 5px;
-			}
-			.quality:last-child label {
-				border-radius: 0 5px 5px 0;
-			}
-			.quality label {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				cursor: pointer;
-				font-style: italic;
-				text-align: center;
-				transition: transform 0.4s, color 0.4s, background-color 0.4s;
-			},
+				.container-buttons-renova{
+					width:auto;	 
+				}
+			} 
 
-					
-    
-			.quality input[type="radio"] {
-				appearance: none;
-				width: 0;
-				height: 0;
-				opacity: 0;
-			}
-			.quality input[type="radio"]:focus {
-				outline: 0;
-				outline-offset: 0;
-			}
-			.quality input[type="radio"]:checked ~ label {
-				background-color: #34AF23;
-				color: #ffffff;
-			}
-			.quality input[type="radio"]:active ~ label {
-				transform: scale(1.05);
-			}
+			@media screen and (max-width: 1000px ) {
+				
+				#container_renova{
+					 
+				}	
 
+				.container-buttons-renova{
+					width:auto;	 
+				}
+			} 
 		</style>
 
 
@@ -446,10 +313,9 @@ if(empty($Url[0]) || $Url[0] == 'index'){
 		 
 	</head>
 
-	<body class="leading-normal tracking-normal  overflow-hidden text-white" style="background-image: url('<?=$site.'/img/bg_1.png'?>'); background-repeat:no-repeat;background-size: cover;">
+<body class="leading-normal tracking-normal  overflow-hidden text-white" style="background-image: url('<?=$site.'/img/bg_1.png'?>'); background-repeat:no-repeat;background-size: cover;">
  
-	<div id="renovacao" class="container">
-    <?php
+   	 <?php
 
        
     if(!empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
@@ -473,52 +339,209 @@ if(empty($Url[0]) || $Url[0] == 'index'){
     if(diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 0 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
       
 	   ?>
-	<div class="container-fluid">
-    <div class="flex h-screen justify-center w-full place-items-center" role="alert">
-		 
-			<div class="flex" style="border:2px solid black">
-				<img src="<?=$site ?>img/pngwing_1.png">
-	 
+		<div id="container_renova" class="flex items-center justify-center h-screen"> 
+			
+		<div class="container-menu ">
+				 
+						<div class="container-buttons-renova text-center" style=""> 
+								<div class="row">
+									<div class="col-md-12">
+										<img src="<?=$site ?>img/pngwing_1.png">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="container-text">
+												<p>Que pena, sua assinatura expirou: </p>
+												<span class="font-extrabold" ><?=date('d/m/Y', strtotime($empresa_data_renovacao))?></span>
+												<p>Escolha um plano para renovar: </p>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+										<div class="col-md-12">
+											<select style="background-color: #dddbdb;" name="user_plano" class="text-center form-control" >
+													<option  value="">Escolha seu Plano</option>
+													 
+													<option value="2"><?=$texto['nomePlanoDois'];?></option>
+													<option value="3"><?=$texto['nomePlanoTres'];?></option>
+											</select>
+										</div>
+								</div>
+								<div class="row">
+										<div class="col-md-12">
+											<div id="btn-renovar"  style="background:#00BB07"id="voltar_button" class="buttons-renova items-center mt-3 mb-2 mx-auto rounded-md cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
+												 			
+												<div class="w-full ml-2">
+													<span style="font-size:23px;">Renovar</span>
+												</div>
+											</div>
+										</div>
+								</div>
+
+
+								<div class="row">
+								<a href="<?=$site.$Url[0].'/';?>&logoff=true">
+										<div class="col-md-12">
+											<div id="btn-sair" style="background:#E20A0A" id="voltar_button" class="buttons-renova items-center m-2 mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
+												 			
+												<div class="w-full ml-2">
+													<span style="font-size:23px;">Sair</span>
+												</div>
+											</div>
+										</div>
+								</a>
+								</div>
+
+								
+
+
+								</div>
+		
+						</div>
+				 
+		</div>
 	</div>
-	</div>
-        
-</div>
+ 
 
 <?php
-elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) == 0 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
+elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) == 0 && !$_SESSION['hasShowed'] &&!empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
  
 ?>
+		<div id="container_renova" class="flex items-center justify-center h-screen"> 
+			
+			<div class="container-menu ">
+					 
+							<div class="container-buttons-renova text-center" style=""> 
+									<div class="row">
+										<div class="col-md-12">
+											<div class="flex w-full justify-center">
+												<img  class="img-renova"  src="<?=$site ?>img/aviso_1.png">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="container-text">
+													<p>Sua assinatura expira em breve: </p>
+													<span class="font-extrabold"   ><?=date('d/m/Y', strtotime($empresa_data_renovacao))?></span>
+													<p>Escolha um plano para renovar: </p>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+											<div class="col-md-12">
+												<select style="background-color: #dddbdb;" name="user_plano" class="text-center form-control" >
+														<option  value="">Escolha seu Plano</option>
+														 
+														<option value="2"><?=$texto['nomePlanoDois'];?></option>
+														<option value="3"><?=$texto['nomePlanoTres'];?></option>
+												</select>
+											</div>
+									</div>
+	
+									<div class="row">
+											<div class="col-md-12">
+												<div id="btn-renovar"  style="background:#00BB07"  class="buttons-renova items-center mt-3 mb-2 mx-auto rounded-md cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
+																 
+													<div class="w-full ml-2">
+														<span style="font-size:23px;">Renovar</span>
+													</div>
+												</div>
+											</div>
+									</div>
 
-<div class="alert alert-danger alert-dismissible" role="alert">
-<strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> OBSERVAÇÃO: </strong>Seu plano expira hoje.
-<form action="<?=$site;?>mercadopago/processapagamentomp.php" method="POST">
-    <script
-    src="https://www.mercadopago.com.br/integrations/v1/web-tokenize-checkout.js"
-    data-public-key="<?=$texto['publickey'];?>"				
-    data-button-label="Pagar assinatura"
-    data-transaction-amount="<?=$valorplano;?>"
-    data-summary-product-label="<?=$nomeplano;?>">
-</script>
-</form>
-</div>
+									<div class="row">
+										<a href="<?= $site.$Url[0].'/';?>&hasShowed=true">
+											<div class="col-md-12">
+												<div id="btn-continuar" style="background:#FFC000"  class="buttons-renova items-center m-2 mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
+																 
+													<div class="w-full ml-2">
+														<span style="font-size:23px;">Continuar</span>
+													</div>
+												</div>
+											</div>
+											</a>
+									</div>
+	
+								
+	
+	
+									</div>
+			
+							</div>
+					 
+			</div>
+		</div>
 <?php
 
-elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) > 1 && diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 3 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
+elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) >= 1 && diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 4 && !$_SESSION['hasShowed'] && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
  
 ?>
+		<div id="container_renova" class="flex items-center justify-center h-screen"> 
+			
+			<div class="container-menu ">
+					 
+							<div class="container-buttons-renova text-center" style=""> 
+									<div class="row">
+										<div class="col-md-12">
+										<div class="flex w-full justify-center">
+										<img  class="img-renova" src="<?=$site ?>img/aviso_1.png">
+											</div>
+										<div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="container-text">
+													<p>Sua assinatura expira em breve: </p>
+													<span class="font-extrabold"   ><?=date('d/m/Y', strtotime($empresa_data_renovacao))?></span>
+													<p>Escolha um plano para renovar: </p>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+											<div class="col-md-12">
+												<select style="background-color: #dddbdb;" name="user_plano" class="text-center form-control" >
+														<option  value="">Escolha seu Plano</option>														 
+														<option value="2"><?=$texto['nomePlanoDois'];?></option>
+														<option value="3"><?=$texto['nomePlanoTres'];?></option>
+												</select>
+											</div>
+									</div>
+	
+									
+	
+									<div class="row">
+											<div class="col-md-12">
+												<div   style="background:#00BB07"id="btn-renovar" class="buttons-renova items-center mt-3 mb-2 mx-auto rounded-md cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
+																 
+													<div class="w-full ml-2">
+														<span style="font-size:23px;">Renovar</span>
+													</div>
+												</div>
+											</div>
+									</div>
 
-<div class="alert alert-danger alert-dismissible" role="alert">
-<strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> OBSERVAÇÃO: </strong>Seu plano expira em <?=diasDatas(date('Y-m-d'), $empresa_data_renovacao)?> dias.
-<form action="<?=$site;?>mercadopago/processapagamentomp.php" method="POST">
-<script
-src="https://www.mercadopago.com.br/integrations/v1/web-tokenize-checkout.js"
-data-public-key="<?=$texto['publickey'];?>"				
-data-button-label="Pagar assinatura"
-data-transaction-amount="<?=$valorplano;?>"
-data-summary-product-label="<?=$nomeplano;?>">
-</script>
-</form>
-</div>
+									<div class="row">
+									<a href="<?= $site.$Url[0].'/';?>&hasShowed=true">
+											<div class="col-md-12">
+												<div style="background:#FFC000" id="btn-continuar" class="buttons-renova items-center m-2 mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
+																 
+													<div class="w-full ml-2">
+														<span style="font-size:23px;">Continuar</span>
+													</div>
+												</div>
+											</div>
+</a>
+									</div>
+	
+	
+									</div>
+			
+							</div>
+					 
+			</div>
+		</div>
 <?php
 else:
 	 

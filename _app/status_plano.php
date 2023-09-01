@@ -2,7 +2,7 @@
 
 $site = HOME;
 $userId = $_SESSION['userlogin']['user_id'];	
- 
+$_SESSION['hasShowed'] =  false;
  
 $lerbanco->FullRead("select * from ws_empresa WHERE binary user_id = :userId", "userId={$userId}");
 
@@ -51,10 +51,10 @@ if(diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 0 && !empty($_SESSION['us
      
     header("Location: {$site}renovacao"); 
 }elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) == 0 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId){
- 
+  
     header("Location: {$site}renovacao"); 
-}elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) > 1 && diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 3 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId){
- 
+}elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) >= 1 && diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 4 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId){
+   
     header("Location: {$site}renovacao"); 
 }else
 ?>	
