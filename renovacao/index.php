@@ -339,6 +339,13 @@ endif;
     if(diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 0 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
       
 	   ?>
+	    <script src="https://sdk.mercadopago.com/js/v2"></script>
+		<script>
+  			const mp = new MercadoPago("YOUR_PUBLIC_KEY");
+		</script>
+
+
+
 		<div id="container_renova" class="flex items-center justify-center h-screen"> 
 			
 		<div class="container-menu ">
@@ -360,12 +367,14 @@ endif;
 								</div>
 								<div class="row">
 										<div class="col-md-12">
+										<form id="form-checkout" action="/process_payment" method="post">
 											<select style="background-color: #dddbdb;" name="user_plano" class="text-center form-control" >
 													<option  value="">Escolha seu Plano</option>
 													 
 													<option value="2"><?=$texto['nomePlanoDois'];?></option>
 													<option value="3"><?=$texto['nomePlanoTres'];?></option>
 											</select>
+										</form>
 										</div>
 								</div>
 								<div class="row">
@@ -408,6 +417,11 @@ endif;
 elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) == 0 && !$_SESSION['hasShowed'] &&!empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
  
 ?>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+          
+<script>
+  const mp = new MercadoPago("YOUR_PUBLIC_KEY");
+</script>
 		<div id="container_renova" class="flex items-center justify-center h-screen"> 
 			
 			<div class="container-menu ">
@@ -420,37 +434,40 @@ elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) == 0 && !$_SESSION['has
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="container-text">
+									<form id="form-checkout" action="/process_payment" method="post">
+										<div class="row">
+											<div class="col-md-12">									
+												<div class="container-text">
 													<p>Sua assinatura expira em breve: </p>
 													<span class="font-extrabold"   ><?=date('d/m/Y', strtotime($empresa_data_renovacao))?></span>
 													<p>Escolha um plano para renovar: </p>
+												</div>										 
 											</div>
 										</div>
-									</div>
-									<div class="row">
-											<div class="col-md-12">
-												<select style="background-color: #dddbdb;" name="user_plano" class="text-center form-control" >
-														<option  value="">Escolha seu Plano</option>
-														 
-														<option value="2"><?=$texto['nomePlanoDois'];?></option>
-														<option value="3"><?=$texto['nomePlanoTres'];?></option>
-												</select>
-											</div>
-									</div>
+									 
+										<div class="row">
+												<div class="col-md-12">
+												
+													<select style="background-color: #dddbdb;" name="user_plano" class="text-center form-control" >
+															<option  value="">Escolha seu Plano</option>
+															
+															<option value="2"><?=$texto['nomePlanoDois'];?></option>
+															<option value="3"><?=$texto['nomePlanoTres'];?></option>
+													</select>
+												</div>
+										</div>
 	
-									<div class="row">
-											<div class="col-md-12">
-												<div id="btn-renovar"  style="background:#00BB07"  class="buttons-renova items-center mt-3 mb-2 mx-auto rounded-md cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
-																 
-													<div class="w-full ml-2">
-														<span style="font-size:23px;">Renovar</span>
+										<div class="row">
+												<div class="col-md-12">
+													<div id="btn-renovar"  style="background:#00BB07"  class="buttons-renova items-center mt-3 mb-2 mx-auto rounded-md cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
+																	
+														<div class="w-full ml-2">
+															<input type="submit" style="font-size:23px;" value="Renovar">
+														</div>
 													</div>
 												</div>
-											</div>
-									</div>
-
+										</div>
+								</form>
 									<div class="row">
 										<a href="<?= $site.$Url[0].'/';?>&hasShowed=true">
 											<div class="col-md-12">
@@ -492,11 +509,13 @@ elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) >= 1 && diasDatas(date(
 									</div>
 									<div class="row">
 										<div class="col-md-12">
+										<form id="form-checkout" action="/process_payment" method="post">
 											<div class="container-text">
 													<p>Sua assinatura expira em breve: </p>
 													<span class="font-extrabold"   ><?=date('d/m/Y', strtotime($empresa_data_renovacao))?></span>
 													<p>Escolha um plano para renovar: </p>
 											</div>
+										</form>
 										</div>
 									</div>
 									<div class="row">
