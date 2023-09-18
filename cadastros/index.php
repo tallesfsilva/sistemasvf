@@ -557,17 +557,16 @@ $(document).ready(function () {
 			 	<div class="flex">
 					<aside style="background:#7233A1; box-shadow: 2px 2px 2px 2px gray;" id="default-sidebar" class="fixed top-0 left-0 z-40 w-90 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
 					<a style="position: initial;top: -15px;" href="<?=$site?>configuracoes">
-					<div style="margin-top:10px; background: #7233A1;box-shadow: 0px 1px 1px black" class="mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline text-white font-bold  my-6 py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
-					<div class="flex flex-row">			
-					<div style="position: relative;right: 14px;" class="w-full">
-								<img src="<?=$site ?>img/configuracao 2.png">
-										 
+					<div style="background: #7233A1;box-shadow: 0px 1px 1px black" class="mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline text-white font-bold  my-6 py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
+								<div class="w-full">
+										<svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M9.53207 11.5H0.601562V0.5H9.53207V11.5ZM26.0829 3.5H13.8422V0.5H26.0829V3.5ZM22.7728 11.5H13.8422V8.5H22.7728V11.5ZM9.53207 27.5H0.601562V16.5H9.53207V27.5ZM26.0829 19.5H13.8422V16.5H26.0829V19.5ZM22.7728 27.5H13.8422V24.5H22.7728V27.5Z" fill="white" stroke="black"/>
+											</svg>		
 								</div>			
 								<div class="w-full ml-2 self-center">
 									<span style="font-size:23px;">Configurações</span>
 								</div>
 							</div>
-		</div>
 		</a>	
 			<div  style="background: #7233A1" class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
 						

@@ -4,85 +4,120 @@ session_start();
 require('../_app/Config.inc.php');
 $site = HOME;
 
-require('vendor/autoload.php');
+require_once('vendor/autoload.php');
 
-$token = $_REQUEST["token"];
-$payment_method_id = $_REQUEST["payment_method_id"];
-$installments = $_REQUEST["installments"];
-$issuer_id = $_REQUEST["issuer_id"];
+try{
+
+//Criar tabela para credenciais
+MercadoPago\SDK::setAccessToken($texto['accesstoken']);
+ 
+
+  $userId = $_SESSION['userlogin']['user_id'];	
+	 
+ 
+	$lerbanco->FullRead("select * from ws_empresa WHERE binary user_id = :userId", "userId={$userId}");
+	
+
+	if (!$lerbanco->getResult()){	
+		 
+		// header("Location: {$site}");
+	}else{
+		foreach ($lerbanco->getResult() as $i):
+			extract($i);
+		endforeach;
+  }
 
 
-MercadoPago\SDK::setAccessToken("{$texto['accesstoken']}");
+$lerbanco->FullRead("select * from ws_users WHERE user_id = :user", "user={$userId}");
+		if (!$lerbanco->getResult()){
+		 
+		}else{
+			foreach ($lerbanco->getResult() as $j):
+				extract($j);
+			endforeach;	
+		}
+			
 
-$emailuser = "";
+ 
+$description = $_REQUEST["description"];
+$totalAmount = $_REQUEST['transactionAmount'];
 
-if(!empty($_SESSION['userlogin'])):
-  $planoUser = $_SESSION['userlogin']['user_plano'];
-  $nomeplano = "";
-  $valorplano = "";
-  $emailuser = $_SESSION['userlogin']['user_email'];
+ 
+ 
+ 
+$new_datetime = date('Y-m-d\TH:i:s.vP', strtotime('30 minutes'));
+ 
 
-  if($planoUser == 1):
-    $nomeplano = $texto['nomePlanoUm'];
-    $valorplano = "{$texto['valorPlanoUm']}.00";
-  elseif($planoUser == 2):
-    $nomeplano = $texto['nomePlanoDois'];
-    $valorplano = "{$texto['valorPlanoDois']}.00";
-  elseif($planoUser == 3):
-    $nomeplano = $texto['nomePlanoTres'];
-    $valorplano = "{$texto['valorPlanoTres']}.00";
-  endif;
-
-endif;
-
-    //...
-  //...
 $payment = new MercadoPago\Payment();
-$payment->transaction_amount = $valorplano;
-$payment->token = $token;
-$payment->description = $texto['nome_site_landing'].' - '.$nomeplano;
-$payment->installments = $installments;
-$payment->payment_method_id = $payment_method_id;
-$payment->issuer_id = $issuer_id;
+$payment->transaction_amount = $totalAmount;
+$payment->date_of_expiration = $new_datetime; 
+$payment->description = $texto['nome_site_landing'].' - '.$description;
+$payment->payment_method_id = "pix";
+ 
 $payment->payer = array(
-  "email" => "{$emailuser}"
-);
-    // Armazena e envia o pagamento
-$payment->save();
-    //...
-    // Imprime o status do pagamento
-echo $payment->status;
-    //...
-
-$dias = "0";
-if($_SESSION['userlogin']['user_plano'] == 1):
-  $dias = $texto['DiasPlanoUm'];
-elseif($_SESSION['userlogin']['user_plano'] == 2):
-  $dias = $texto['DiasPlanoDois'];
-elseif($_SESSION['userlogin']['user_plano'] == 3):
-  $dias = $texto['DiasPlanoTres'];
-endif;
-
-$lerbanco->ExeRead("ws_empresa", "WHERE user_id = :userid", "userid={$_SESSION['userlogin']['user_id']}");
-if(!$lerbanco->getResult()):
-else:
-  $getlink = $lerbanco->getResult();
-endif;
-
-
-if($payment->status == "approved"):
-  $novadata = array();
-  $novadata['empresa_data_renovacao'] = date("Y-m-d", strtotime("+{$dias} days"));
-  echo $novadata['empresa_data_renovacao'];
-  $updatebanco->ExeUpdate("ws_empresa", $novadata, "WHERE user_id = :userid", "userid={$_SESSION['userlogin']['user_id']}");
-  header("Location: {$site}{$getlink[0]['nome_empresa_link']}/admin-loja&statusmp=approved");
-else:
-    // rejected
-  header("Location: {$site}{$getlink[0]['nome_empresa_link']}/admin-loja&statusmp=rejected");
-endif;
+     "email" => $user_email,
+     "first_name" => $user_name,
+     "last_name" => $user_lastname,
+     "identification" => array(
+         "type" => "CPF",
+         "number" => $user_cpf
+      ),
+     "address"=>  array(
+         "zip_code" => $cep_empresa,
+         "street_name" => $end_rua_n_empresa,
+        // "street_number" => "3003",
+         "neighborhood" => $end_bairro_empresa,
+         "city" => $cidade_empresa,
+         "federal_unit" => $end_uf_empresa
+      )
+   );
+ 
+    $payment->save();
+   
+   
+   
+   
+    $date_of_expiration =  date("Y-m-d\TH:i:s.vP", strtotime($payment->date_of_expiration));
+    $data_created = date("Y-m-d\TH:i:s.vP", strtotime($payment->date_created));
+     
+   
+    if($payment->status == "pending" && $payment->id){
 
 
+      $array_mensalidades['id_mercado_pago']=$payment->id;
+      $array_mensalidades['plano_user']=$description;
+      $array_mensalidades['valor_plano']=(string)$payment->transaction_amount;
+      $array_mensalidades['id_user']=$userId;
+      $array_mensalidades['status_pagamento']=$payment->status ;
+      $array_mensalidades['data_expiracao_pix']=$date_of_expiration;
+      $array_mensalidades['data_criacao']=$data_created;
+      $array_mensalidades['qr_code_base64']=$payment->point_of_interaction->transaction_data->qr_code_base64;
+      $array_mensalidades['qr_code']=$payment->point_of_interaction->transaction_data->qr_code;
+      $addbanco->ExeCreate("ws_mensalidades", $array_mensalidades);
 
+      if ($addbanco->getResult()){
+        $_SESSION['qr_code_base64'] = $payment->point_of_interaction->transaction_data->qr_code_base64;
+        $_SESSION['qr_code'] = $payment->point_of_interaction->transaction_data->qr_code;
+        $_SESSION['id_payment'] = $payment->id;
+        $_SESSION['status'] = $payment->status;
+        $_SESSION['paymentScreen'] = true;
+        $_SESSION['plano']  = $description;
+        $_SESSION['amount'] = $totalAmount;
+        $_SESSION['date_of_expiration'] = $payment->date_of_expiration;       
+      
+        header("Location: {$site}renovacao"); 
+    
+
+      }
+
+    }
+ 
+
+  
+   
+  }catch (Exception $e) {
+    echo "Ocorreu um erro em sua solicitação. Por favor tentar novamente " . $e->getMessage();
+}
 
 
 ob_end_flush();

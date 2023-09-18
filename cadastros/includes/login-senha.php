@@ -42,9 +42,9 @@ $updatebanco = new Update();
 	<div  class="config-header w-full text-bold text-center text-white">
 											<p>Configuração da Conta</p>
 									</div>
-		<section class="container section-config m-0 p-0 h-screen" style="" id="section-1">
-		<div  class="row">	
-			<div class="col-md-12">	
+		<section class="container m-0 p-0 h-screen" style="background:white; padding-bottom:20px;border:5px solid transparent; border-radius:8px; box-shadow: 2px 2px 2px 2px gray;" id="section-1">
+		<div class="row">	
+			<div class="col-md-8 col-md-offset-2">	
 
 				<div id="sendnewpass" class="indent_title_in">
 					<i class="icon_shield"></i>
@@ -119,7 +119,7 @@ $updatebanco = new Update();
 
 				?>
 	
-				<div class="widget ">
+				<div class="widget">
 				
 					<div style="height: 380px" class="widget-content padding">        
 						<form class="form-horizontal" role="form" method="post" action="#sendnewpass">

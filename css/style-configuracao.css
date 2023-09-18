@@ -104,13 +104,21 @@ margin-bottom: 5px;
 	background: linear-gradient(90deg, #6303C3 86.21%, #6303C3 69%, #6303C3 100%);
 }
 
+.section-config{
+	background:white;
+	 padding-bottom:20px;
+	 border:5px solid transparent; 
+	 box-shadow: 2px 2px 2px 2px gray
+}
+
 .config-header{
-	background: #7928CA; 
+	background: #7233A1; 
 	font-size:36px;
 	border:5px solid transparent; 
-	border-radius:8px;
+	 
 	box-shadow: 2px 2px 2px 2px gray;
-	margin-bottom: 5px;
+	margin-bottom: 2px;
+	margin-top:-10px;
 }
 
 .new-menu{

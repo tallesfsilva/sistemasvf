@@ -245,7 +245,7 @@ $updatebanco = new Update();
 							<div id="sendempresa"></div>
 
 
-								<section class="section-config" id="section-1">
+								<section style="padding-bottom:20px;border:5px solid transparent; border-radius:8px; box-shadow: 2px 2px 2px 2px gray;" id="section-1">
 									<div class="indent_title_in">
 										<i class="icon_house_alt"></i>
 										<h3>Descrição geral do seu negócio</h3>

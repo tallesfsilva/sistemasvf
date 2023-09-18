@@ -5,6 +5,8 @@ session_cache_expire(60);
 session_start();
 
 require('../_app/Config.inc.php');
+// require('../_app/status_pagamento.php');
+ 
 
 $site = HOME;
 $login = LOGIN; 
@@ -14,6 +16,37 @@ $Url[1] = (empty($Url[1]) ? null : $Url[1]);
 $site = HOME;
 $loginUrl = LOGIN;
 
+
+
+require_once('../mercadopago/vendor/autoload.php');
+
+ 
+$userId = $_SESSION['userlogin']['user_id'];	
+$lerbanco->FullRead("select * from ws_mensalidades WHERE id_user = :user and status_pagamento='pending'", "user={$userId}");
+    if (!$lerbanco->getResult()){        
+    }else{    
+        foreach ($lerbanco->getResult() as $j):
+            extract($j);
+        endforeach;	
+        $date_now = date('Y-m-d-H:i.s');
+        $dataPagamento = date('Y-m-d-H:i.s', strtotime($data_criacao));
+        $url = $site.'notification?q='.$id_mercado_pago; 
+      
+        
+		MercadoPago\SDK::setAccessToken($texto['accesstoken']);
+
+    
+        $payment = MercadoPago\Payment::find_by_id($id_mercado_pago);
+        
+        if($payment->status == "approved" && $payment->id == $id_mercado_pago){
+          
+            $_SESSION['statusPayment'] = $payment->status;
+            $_SESSION['date_approved'] = $payment->date_approved;
+            header("Location: {$site}sucesso?q=true");
+        }  
+                 
+    }
+  
  
 if(empty($Url[0]) || $Url[0] == 'index'){
 
@@ -45,7 +78,7 @@ if(empty($Url[0]) || $Url[0] == 'index'){
 				extract($j);
 			endforeach;	
 		}
-			
+		
 
 		if(empty($Url[0]) || $Url[0] == 'index'){
 			$Url[0] = $nome_empresa_link;
@@ -71,10 +104,19 @@ if(empty($Url[0]) || $Url[0] == 'index'){
 	$updateacesso->ExeUpdate("ws_users", $string_last, "WHERE user_id = :uselast", "uselast={$userlogin['user_id']}");
  
 	unset($_SESSION['userlogin']);
-
+	unset($_SESSION['hasShowed']);		 
+	unset($_SESSION['qr_code_base64']);
+	unset($_SESSION['qr_code']);
+	unset($_SESSION['id_payment']);
+	unset($_SESSION['status']);
+	unset($_SESSION['paymentScreen']);
+	unset($_SESSION['plano']);
+	unset($_SESSION['amount']);
 
 	header("Location: {$loginUrl}");
 endif;
+
+ 
 	?>	
 
 	<!DOCTYPE html>
@@ -255,16 +297,37 @@ endif;
 			 }
 			 #btn-continuar:hover{
 				background-color: #ffdf80 !important;
+				text-decoration:none;
 			 }
 			 
 			 #btn-renovar:hover{
 				
 				background-color: #7ccf7f  !important;
+				text-decoration:none;
+			 }
+			 .btn_mp_cancelar{
+				background-color: white;
+				color: black;
+				justify-content: center;
+				border-radius: 15px;
+				margin-top: 6px;
+				text-align: center;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				-webkit-box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.85);
+				-moz-box-shadow: 0px 3px 15px 0px rgba(0,0,0,0.85);
+				box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.85);
+				height: 20px;
+				height: 15px;  
+  				margin-top: 16px;
+				width:180px;
 			 }
 			 
 			 	 
 			 #btn-sair:hover{
 				background-color: #c78a8a !important;
+				text-decoration:none;
 			 }
 			 @media screen and (orientation:landscape) and (max-width: 1000px ) {
 				
@@ -315,13 +378,188 @@ endif;
 
 <body class="leading-normal tracking-normal  overflow-hidden text-white" style="background-image: url('<?=$site.'/img/bg_1.png'?>'); background-repeat:no-repeat;background-size: cover;">
  
+
    	 <?php
 
-       
+		
+		$lerbanco->FullRead("select * from ws_mensalidades WHERE id_user = :user and status_pagamento='pending'", "user={$userId}");
+		if (!$lerbanco->getResult()){
+		 
+		}else{
+			foreach ($lerbanco->getResult() as $j):
+				extract($j);
+			endforeach;	
+			$date_now = date('Y-m-d-H:i.s');
+		$dataPagamento = date('Y-m-d-H:i.s', strtotime($data_criacao));
+		}
+		
+		
+ 
+		 
+
+	if(!empty($_SESSION['paymentScreen']) && $_SESSION['paymentScreen'] && !empty($status_pagamento) && $status_pagamento == 'pending' && !empty($id_mercado_pago) && !empty( $qr_code_base64) && 	!empty($qr_code)) {
+
+	?>
+	
+
+	 <script src="https://sdk.mercadopago.com/js/v2"></script>
+ 
+ 	
+	<div id="container_renova"  class="flex items-center justify-center h-screen"> 
+	
+			<div class="container-menu " style="background-color: white !important; color:black">
+						
+							<div class="container-buttons-renova text-center" style="margin:7px !important"> 
+							<div style="font-size:20px;" class="flex mt-2 flex-row justify-center text-center">
+									<div class="flex flex-col">
+										<p>Acabamos de enviar os dados<br>de seu pedido para o e-mail</p>
+										<span style="color:#7232A0" ><?= $user_email ?></span>
+
+									</div>
+
+										</div>
+										<div style="font-size:15px"  class="flex mt-2 flex-row justify-center text-center">
+					 
+									<div class="flex m-1 self-center">
+										<span>Finalize o pagamento usando o Pix!</span>
+
+									</div>
+										</div>
+
+							<div style="font-size:12px"  class="flex mt-2 flex-row justify-center text-center">
+							<div class="flex m-1 self-center">
+									 <p>Você pode utilizar a câmera do seu celular para ler o QR Code ou copiar o código e pagar no aplicativo de seu banco:</p>
+								</div>
+							</div>
+										<div style="font-size:12px"  class="flex mt-2 flex-row justify-center text-center">
+												<div class="flex m-1 self-center">
+														<img  width="170" height="170" src="data:image/jpeg;base64,<?=$qr_code_base64?>"/>
+												</div>
+									</div>
+									<div style="font-size:20px;line-break:anywhere"  class="flex flex-row justify-center text-center">
+									<div class="flex self-center">															 
+    											<div style="color:#72329F">
+													<h2 >VALOR:  R$ <?= $valor_plano?></h2>
+												</div>											 
+										</div>										
+									</div>
+									<div style="font-size:12px;line-break:anywhere"  class="flex mt-2 flex-row justify-center text-center">
+									<div style="border: 1px solid #A3A3A3;font-size: 9px;padding: 5px;border-radius: 20px" class="flex m-1 self-center">
+															 
+    											<div style="color:#72329F">
+													<p id="pix_qr" ><?= $qr_code?></p>
+												</div>
+											 
+										</div>
+										
+									</div>
+									<div style="font-size:10px;line-break:anywhere"  class="flex flex-row justify-center text-center">
+									<div class="flex self-center">															 
+    											<div>
+													<p id="pix_qr" >O pagamento pode demorar até 05 minutos para ser processador, por favor não fechar a página</p>
+												</div>											 
+										</div>										
+									</div>
+									
+								
+
+									 
+									<div style="font-size:12px;line-break:anywhere"  class="flex mt-2 flex-row justify-between text-center">
+									 
+											<div class="flex flex-row">					 
+    											<div style="font-size:18px" class="flex mr-1 " style="color:black">
+													 <span>Pix Válido:</span>
+												
+												</div>
+												<?php
+												$dateNow =  date('Y-m-d H:i:s');
+											 
+												$to_time = strtotime($data_expiracao_pix);
+												$from_time = strtotime($dateNow);
+												$expiration = round(abs($to_time - $from_time) / 60)*60;
+											 
+											 
+
+												?>
+
+												<script src=" https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js "></script>
+												 	<script>
+													 
+												 
+													</script>
+											 
+
+												<div style="font-size:18px;color:#72329F" class="flex" style="color:black">
+													 <span  data-id="<?= $_SESSION['id_payment']?>" data-url="<?=$site ?>"  id="minutes"><?= $expiration/60?>:00</span></span>
+													 
+												</div>
+												</div>
+
+												<div  id="msg_pix" style="padding:5px; background:#00BB07;color:white;border-radius:10px;display:none"  type="button" class="rounded-md cursor-pointer flex-row text-white shadow-lg focus:outline-none focus:shadow-outline flex" >
+													
+
+													
+												<span>Pix Copiado!</span>	
+													 
+													</div>
+												
+												<div style="padding:5px; background:#72329F;color:white;border-radius:10px"  type="button" class="rounded-md cursor-pointer flex-row text-white shadow-lg focus:outline-none focus:shadow-outline flex" >
+													
+
+													
+													<div id="pix_copy" class="items-center">
+															Copiar Código
+														</div>
+													 
+													</div>
+
+													<script></script>
+											 
+										</div>
+										<div class="flex flex-row justify-center">
+ 										<div id="sair_button" style="background-color: #A70000" class="btn_mp_cancelar  mt-5 p-8">				
+											<a href="<?=$site.'notification'?>?q=<?=$id_mercado_pago?>&pc=true">	
+											<div class="justify-center">														
+														<div class="p-4 text-white leading-tight">															
+																<span>Cancelar</span>															
+														</div>
+												</div>	
+												</a>			
+											</div>
+												</div>
+												
+
+
+										</div>
+									</div>
+		 			 
+		 
+			  			</div>
+			
+							</div>
+					 
+			</div>
+		</div>
+
+  
+		</div>
+		<script id="noti" data-expiration="<?= $expiration?>" data-id="<?=  $id_mercado_pago?>" data-url="<?=$site ?>" src="js/main.js"></script>
+	  
+	 
+			</div>
+	 
+<?php }else {
+		 
+?>
+	<?php
+    
     if(!empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId):
         $planoUser = $_SESSION['userlogin']['user_plano'];
         $nomeplano = "";
         $valorplano = "";
+
+		$valorplanoMensal = "{$texto['valorPlanoDois']}.00";
+		$valorplanoAnual = "{$texto['valorPlanoTres']}.00";
 
         if($planoUser == 1):
             $nomeplano = $texto['nomePlanoUm'];
@@ -356,6 +594,7 @@ endif;
 										<img src="<?=$site ?>img/pngwing_1.png">
 									</div>
 								</div>
+								<form id="form-checkout" action="<?=$site;?>mercadopago/processapagamentomp.php" method="post">
 								<div class="row">
 									<div class="col-md-12">
 										<div class="container-text">
@@ -366,28 +605,27 @@ endif;
 									</div>
 								</div>
 								<div class="row">
-										<div class="col-md-12">
-										<form id="form-checkout" action="/process_payment" method="post">
-											<select style="background-color: #dddbdb;" name="user_plano" class="text-center form-control" >
-													<option  value="">Escolha seu Plano</option>
-													 
-													<option value="2"><?=$texto['nomePlanoDois'];?></option>
-													<option value="3"><?=$texto['nomePlanoTres'];?></option>
+										<div class="col-md-12">										 
+										<select id="amount" required style="background-color: #dddbdb;" name="transactionAmount" class="form-control" >
+													<option  value="">Escolha seu Plano</option>													 
+													<option data-plano="<?=$texto['nomePlanoDois'];?>"value="<?=$valorplanoMensal;?>"><?=$texto['nomePlanoDois']. " (R$ ".$valorplanoMensal.")";?></option>
+													<option data-plano="<?=$texto['nomePlanoTres'];?>"value="<?=$valorplanoAnual;?>"><?=$texto['nomePlanoTres']." (R$ ".$valorplanoAnual.")"?><option>
+
 											</select>
-										</form>
+											<input type="hidden" name="description" id="description" value="">
 										</div>
 								</div>
 								<div class="row">
 										<div class="col-md-12">
 											<div id="btn-renovar"  style="background:#00BB07"id="voltar_button" class="buttons-renova items-center mt-3 mb-2 mx-auto rounded-md cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
 												 			
-												<div class="w-full ml-2">
-													<span style="font-size:23px;">Renovar</span>
+											<div class="w-full ml-2">
+															<input class="w-full" id="btn_submit" type="submit" style="font-size:23px;" value="Renovar">
 												</div>
 											</div>
 										</div>
 								</div>
-
+							</form>
 
 								<div class="row">
 								<a href="<?=$site.$Url[0].'/';?>&logoff=true">
@@ -411,6 +649,8 @@ endif;
 				 
 		</div>
 	</div>
+
+	
  
 
 <?php
@@ -420,7 +660,7 @@ elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) == 0 && !$_SESSION['has
 <script src="https://sdk.mercadopago.com/js/v2"></script>
           
 <script>
-  const mp = new MercadoPago("YOUR_PUBLIC_KEY");
+  const mp = new MercadoPago("TEST-1803e629-b6ab-435f-8200-252a7c016cd4");
 </script>
 		<div id="container_renova" class="flex items-center justify-center h-screen"> 
 			
@@ -434,7 +674,7 @@ elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) == 0 && !$_SESSION['has
 											</div>
 										</div>
 									</div>
-									<form id="form-checkout" action="/process_payment" method="post">
+									<form id="form-checkout" action="<?=$site;?>mercadopago/processapagamentomp.php" method="post">
 										<div class="row">
 											<div class="col-md-12">									
 												<div class="container-text">
@@ -446,23 +686,22 @@ elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) == 0 && !$_SESSION['has
 										</div>
 									 
 										<div class="row">
-												<div class="col-md-12">
-												
-													<select style="background-color: #dddbdb;" name="user_plano" class="text-center form-control" >
-															<option  value="">Escolha seu Plano</option>
-															
-															<option value="2"><?=$texto['nomePlanoDois'];?></option>
-															<option value="3"><?=$texto['nomePlanoTres'];?></option>
+												<div class="col-md-12">											 
+													<select id="amount" required style="background-color: #dddbdb;" name="transactionAmount" class="form-control" >
+															<option  value="">Escolha seu Plano</option>															
+															<option data-plano="<?=$texto['nomePlanoDois'];?>"value="<?=$valorplanoMensal;?>"><?=$texto['nomePlanoDois']. " (R$ ".$valorplanoMensal.")";?></option>
+															<option data-plano="<?=$texto['nomePlanoTres'];?>"value="<?=$valorplanoAnual;?>"><?=$texto['nomePlanoTres']." (R$ ".$valorplanoAnual.")"?><option>
+
 													</select>
+													<input type="hidden" name="description" id="description" value="">
 												</div>
-										</div>
-	
+										</div>	
 										<div class="row">
 												<div class="col-md-12">
 													<div id="btn-renovar"  style="background:#00BB07"  class="buttons-renova items-center mt-3 mb-2 mx-auto rounded-md cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
 																	
 														<div class="w-full ml-2">
-															<input type="submit" style="font-size:23px;" value="Renovar">
+															<input class="w-full" type="submit" style="font-size:23px;" value="Renovar">
 														</div>
 													</div>
 												</div>
@@ -507,24 +746,27 @@ elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) >= 1 && diasDatas(date(
 											</div>
 										<div>
 									</div>
-									<div class="row">
-										<div class="col-md-12">
-										<form id="form-checkout" action="/process_payment" method="post">
+									<form id="form-checkout" action="<?=$site;?>mercadopago/processapagamentomp.php" method="post">
+										<div class="row">
+											<div class="col-md-12">
+										 
 											<div class="container-text">
 													<p>Sua assinatura expira em breve: </p>
 													<span class="font-extrabold"   ><?=date('d/m/Y', strtotime($empresa_data_renovacao))?></span>
 													<p>Escolha um plano para renovar: </p>
 											</div>
-										</form>
+								 
 										</div>
 									</div>
 									<div class="row">
 											<div class="col-md-12">
-												<select style="background-color: #dddbdb;" name="user_plano" class="text-center form-control" >
+											<select id="amount" required style="background-color: #dddbdb;" name="transactionAmount" class="form-control" >
 														<option  value="">Escolha seu Plano</option>														 
-														<option value="2"><?=$texto['nomePlanoDois'];?></option>
-														<option value="3"><?=$texto['nomePlanoTres'];?></option>
+														<option data-plano="<?=$texto['nomePlanoDois'];?>"value="<?=$valorplanoMensal;?>"><?=$texto['nomePlanoDois']. " (R$ ".$valorplanoMensal.")";?></option>
+														<option data-plano="<?=$texto['nomePlanoTres'];?>"value="<?=$valorplanoAnual;?>"><?=$texto['nomePlanoTres']." (R$ ".$valorplanoAnual.")"?><option>
+
 												</select>
+												<input type="hidden" name="description" id="description" value="">
 											</div>
 									</div>
 	
@@ -535,12 +777,12 @@ elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) >= 1 && diasDatas(date(
 												<div   style="background:#00BB07"id="btn-renovar" class="buttons-renova items-center mt-3 mb-2 mx-auto rounded-md cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white shadow-lg focus:outline-none focus:shadow-outline">
 																 
 													<div class="w-full ml-2">
-														<span style="font-size:23px;">Renovar</span>
-													</div>
+															<input class="w-full" type="submit" style="font-size:23px;" value="Renovar">
+														</div>
 												</div>
 											</div>
 									</div>
-
+									</form>
 									<div class="row">
 									<a href="<?= $site.$Url[0].'/';?>&hasShowed=true">
 											<div class="col-md-12">
@@ -569,10 +811,12 @@ else:
 <?php 
 endif;
 ?>	
+<?php
+}
+?>
 
  			
-
-
+ 
 
 
 
@@ -598,7 +842,19 @@ endif;
  endif;
  ?>
 				 
+<script type="text/javascript">
 
+
+$(document).ready(function () {     
+	$('#amount').change(function(e){
+
+ 
+
+		$('#description').val($("#amount option:selected").data('plano'));
+	})
+})
+
+</script>
 
  
 			<script src="<?= $site; ?>js/flowbite.min.js"></script>

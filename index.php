@@ -12,6 +12,9 @@ if(empty($_SESSION['hasShowed'])){
 require('_app/Mobile_Detect.php');
 $detect = new Mobile_Detect;
 
+
+ 
+
 $loginUrl = LOGIN;
 
 $linkLoja = LINK_LOJA;
@@ -22,6 +25,7 @@ $linkLoja = LINK_LOJA;
 $Url[1] = (empty($Url[1]) ? null : $Url[1]);
 
 $site = HOME;
+$img_log_dir = 'configuracoes/uploads/';
  
 if(empty($_SESSION['userlogin'])){
 	header("Location: {$loginUrl}");
@@ -82,6 +86,14 @@ else:
 	$updateacesso->ExeUpdate("ws_users", $string_last, "WHERE user_id = :uselast", "uselast={$userlogin['user_id']}");
 	unset($_SESSION['hasShowed']);	
 	unset($_SESSION['userlogin']);
+	unset($_SESSION['qr_code_base64']);
+    unset($_SESSION['qr_code']);
+    unset($_SESSION['id_payment']);
+    unset($_SESSION['status']);
+    unset($_SESSION['paymentScreen']);
+    unset($_SESSION['plano']);
+    unset($_SESSION['amount']);
+  
 
 
 	header("Location: {$loginUrl}");
@@ -554,7 +566,7 @@ endif;
 											<div class="col-md-12">
 											<a  class="text-values">
 												<div class="object-fit img-container">													
-													<img style="margin:10px" src="../../Imagens/Starbucks-logo_1.png"  height="200" width="200" alt="" data-retina="true" class="img-fluid">	 
+													<img style="margin:10px" src="<?=$site. $img_log_dir.$img_logo?>"  height="200" width="200" alt="" data-retina="true" class="img-fluid">	 
 												</div>
 											</div>
 											</a>	
@@ -570,7 +582,7 @@ endif;
 												<div class="w-1/2 w-full flex flex-row content-center">	
 												
 														<div class="ellipse p-2"></div>						 
-														<div class="p-2"><span>Nome da Loja: <span class="text-values"> <?= $nome_empresa ?></span><span></div>
+														<div class="p-2"><span>Nome da Loja: <a href="<?= $linkLoja ?>" target="_blank" class="text-values"><span class="text-values"> <?= $nome_empresa ?></span><span></div>
 											</div>
 										<div hidden class="w-1/2 w-full flex flex-row content-center">	
 											
@@ -728,15 +740,15 @@ endif;
 						</div>
 
 						<div class="col-md-6">
-							<div  class="new-menu mt-5 p-5">
+							<div  disabled class="button-disabled new-menu mt-5 p-5 bg-gray-300">
 						
 									<div class="flex w-full flex-row p-4 justify-center">
 										<div class="icon-new-menu">
-										<img src="<?=$site ?>img/curso-online_1.png">
+											<img src="<?=$site ?>img/curso-online_1.png">
 										</div>
 
 										<div class="p-4 text-menu font-medium leading-tight">
-											<span>Escola Fácil</span>
+											<span>Escola Fácil <br> <span style="font-size: 10px">(Em construção)</span></span>
 										</div>
 									</div>			
 							</div>
@@ -747,26 +759,26 @@ endif;
 					<div class="col-md-12 col-xs-12">	
 		
 						<div class="col-md-6">
-							<div  class="new-menu mt-5 p-5">						
+							<div  disabled class="button-disabled new-menu mt-5 p-5 bg-gray-300">						
 								<div class="flex w-full flex-row p-4 justify-center">
 										<div class="icon-new-menu">
 											<img src="<?=$site ?>img/gestao _1.png">
 										</div>
 										<div class="p-4 text-menu font-medium leading-tight">
-											<span>Gestão Fácil</span>
+											<span>Gestão Fácil <br> <span style="font-size: 10px">(Em construção)</span></span>
 										</div>
 								</div>
 							</div>
 						</div>		
 			
 						<div class="col-md-6">
-								<div  class="new-menu mt-5 p-5">
+								<div  disabled class="button-disabled new-menu mt-5 p-5 bg-gray-300">
 									<div class="flex w-full flex-row p-4 justify-center">
 											<div class="icon-new-menu">
 													<img src="<?=$site ?>img/salario_1.png">
 											</div>
 											<div class="p-4 text-menu font-medium leading-tight">
-												<span>Mensalidades</span>
+												<span>Mensalidades <br> <span style="font-size: 10px">(Em construção)</span></span>
 											</div>
 									</div>					
 								</div>
@@ -778,7 +790,7 @@ endif;
 						<div class="col-md-6">
 							<div  disabled class="button-disabled new-menu mt-5 p-5 bg-gray-300">			 
 								<div class="flex w-full flex-row p-4  justify-center">
-										<div hidden class="icon-new-menu">
+										<div class="icon-new-menu">
 												<img src="<?=$site ?>img/caixa-eletronico_1.png">
 										</div>
 										<div class="p-4 text-menu font-medium leading-tight">					

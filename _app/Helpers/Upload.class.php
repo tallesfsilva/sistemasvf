@@ -15,6 +15,7 @@ class Upload {
     /** IMAGE UPLOAD */
     private $Width;
     private $Image;
+   
 
     /** RESULTSET */
     private $Result;
@@ -43,12 +44,14 @@ class Upload {
      * @param INT $Width = Largura da imagem ( 1024 padrão )
      * @param STRING $Folder = Pasta personalizada
      */
-    public function Image(array $Image, $Name = null, $Width = null, $Folder = null) {
-        $this->File = $Image;
+    public function Image(array $Image, $Name = null, $Width = null, $Folder = null, $IdEmpresa = null) {
+        $this->File = $Image;        
+        $this->IdEmpresa = (string) $Image['id_empresa'] ? $Image['id_empresa'] : '0';  
+          
         $this->Name = ( (string) $Name ? $Name : substr($Image['name'], 0, strrpos($Image['name'], '.')) );
         $this->Width = ( (int) $Width ? $Width : 1024 );
         $this->Folder = ( (string) $Folder ? $Folder : 'images' );
-
+         
         $this->CheckFolder($this->Folder);
         $this->setFileName();
         $this->UploadImage();
@@ -143,11 +146,14 @@ class Upload {
 
     //Verifica e cria os diretórios com base em tipo de arquivo, ano e mês!
     private function CheckFolder($Folder) {
-        list($y, $m) = explode('/', date('Y/m'));
+        list($y, $m) = explode('/', date('Y/m'));  
+        $idEmpresa = $this->IdEmpresa;     
         $this->CreateFolder("{$Folder}");
         $this->CreateFolder("{$Folder}/{$y}");
         $this->CreateFolder("{$Folder}/{$y}/{$m}/");
-        $this->Send = "{$Folder}/{$y}/{$m}/";
+        $this->CreateFolder("{$Folder}/{$y}/{$m}/{$idEmpresa}/");
+        $this->Send = "{$Folder}/{$y}/{$m}/{$idEmpresa}/";
+      
     }
 
     //Verifica e cria o diretório base!

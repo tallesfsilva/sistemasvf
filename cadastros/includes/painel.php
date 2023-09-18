@@ -59,7 +59,7 @@
 				endif;
 			endif;
 			?>
-			<div class="h-screen section-config">
+			<div class="h-screen" style="background:white; padding-bottom:20px;border:5px solid transparent; border-radius:8px; box-shadow: 2px 2px 2px 2px gray;">
 			<div class="row">
 		
 		<div class="col-md-12">

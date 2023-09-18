@@ -6,6 +6,7 @@ $_SESSION['hasShowed'] =  false;
  
 $lerbanco->FullRead("select * from ws_empresa WHERE binary user_id = :userId", "userId={$userId}");
 
+		
 
 if (!$lerbanco->getResult()){	
      
@@ -47,14 +48,36 @@ if(!empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userI
 
 };
 
+ 
+
+
+
 if(diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 0 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId){
-     
+    // unset($_SESSION['qr_code_base64']);
+    // unset($_SESSION['qr_code']);
+    // unset($_SESSION['id_payment']);
+    // unset($_SESSION['status']);
+    // unset($_SESSION['paymentScreen']);
+    
+    // unset($_SESSION['amount']);
     header("Location: {$site}renovacao"); 
 }elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) == 0 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId){
-  
+    // unset($_SESSION['qr_code_base64']);
+    // unset($_SESSION['qr_code']);
+    // unset($_SESSION['id_payment']);
+    // unset($_SESSION['status']);
+    // unset($_SESSION['paymentScreen']);
+    
+    // unset($_SESSION['amount']);
     header("Location: {$site}renovacao"); 
 }elseif(diasDatas(date('Y-m-d'), $empresa_data_renovacao) >= 1 && diasDatas(date('Y-m-d'), $empresa_data_renovacao) < 4 && !empty($_SESSION['userlogin']) && $_SESSION['userlogin']['user_id'] == $userId){
-   
+    // unset($_SESSION['qr_code_base64']);
+    // unset($_SESSION['qr_code']);
+    // unset($_SESSION['id_payment']);
+    // unset($_SESSION['status']);
+    // unset($_SESSION['paymentScreen']);
+     
+    // unset($_SESSION['amount']);
     header("Location: {$site}renovacao"); 
 }else
 ?>	
