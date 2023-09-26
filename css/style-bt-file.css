@@ -25,7 +25,7 @@
 .js .input-file-trigger:hover,
 .js .input-file-trigger:focus {
   background: #34495E;
-  color: #39D2B4;
+  color: white;
   cursor: pointer;
 }
 

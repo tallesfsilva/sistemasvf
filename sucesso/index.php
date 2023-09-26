@@ -287,7 +287,7 @@ $loginUrl = LOGIN;
 		$status = filter_var($status, FILTER_VALIDATE_BOOLEAN);
 
 
-    if(!empty($_SESSION['userlogin']) && $status && $_SESSION['userlogin']['user_id'] == $userId){
+    if(!empty($_SESSION['userlogin']) && $status && !empty($_SESSION['plano']) && !empty($_SESSION['id_payment']) &&  $_SESSION['userlogin']['user_id'] == $userId){
 
     ?>
       
@@ -301,56 +301,66 @@ $loginUrl = LOGIN;
 								 
 								 
 								<div class="row">
-									<div class="col-md-12">
-										<div class="container-text">
-                                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
+									<div class="flex justify-center">
+										<div class="flex container-text flex-col justify-center">
+										<div class="flex w-full justify-center">
+										<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
                                             <path fill="#4caf50" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#ccff90" d="M34.602,14.602L21,28.199l-5.602-5.598l-2.797,2.797L21,33.801l16.398-16.402L34.602,14.602z"></path>
                                         </svg>
+										</div>
+										<div class="flex w-full">
 												<p>Plano renovado </p>
+											</div>
 										</div>
 									</div>
 								</div>
 								 
                                 <?php
 
-                          
-                                        $dias = "0";
-                                        $diasExtras = diasDatas(date('Y-m-d'), $empresa_data_renovacao);
-										$diasExtras = $diasExtras < 0 ? 0 : $diasExtras;
-                                        if($_SESSION['plano'] == "PLANO MENSAL"):
-                                          $dias = (int) $texto['DiasPlanoDois'] + $diasExtras;
-                                        elseif($_SESSION['plano'] == "PLANO ANUAL"):
-                                            $dias = (int) $texto['DiasPlanoTres'] + $diasExtras;                                         
-                                        endif;
-									 
-                                        $novadata = array();
+								try{
+
+									$dias = "0";
+									$diasExtras = diasDatas(date('Y-m-d'), $empresa_data_renovacao);
+									$diasExtras = $diasExtras < 0 ? 0 : $diasExtras;
+									if($_SESSION['plano'] == "PLANO MENSAL"):
+									  $dias = (int) $texto['DiasPlanoDois'] + $diasExtras;
+									elseif($_SESSION['plano'] == "PLANO ANUAL"):
+										$dias = (int) $texto['DiasPlanoTres'] + $diasExtras;                                         
+									endif;
 								 
-                                        
-                                        $novadata['empresa_data_renovacao'] = date("Y-m-d", strtotime("+{$dias} days"));
-                                       
+									$novadata = array();
+							 
+									
+									$novadata['empresa_data_renovacao'] = date("Y-m-d", strtotime("+{$dias} days"));
+								   
+								 
+									$updatebanco->ExeUpdate("ws_empresa", $novadata, "WHERE user_id = :userid", "userid={$_SESSION['userlogin']['user_id']}");
+																	 
+
+									$mensalidade['status_pagamento'] = $_SESSION['statusPayment'];
+									$mensalidade['data_pagamento'] =  $_SESSION['date_approved'];
+									$mensalidade['data_renovacao'] =  $novadata['empresa_data_renovacao'];
+									$updatebanco->ExeUpdate("ws_mensalidades", $mensalidade, "WHERE id_user = :userid and id_mercado_pago= :idMercadoPago", "userid={$_SESSION['userlogin']['user_id']}&idMercadoPago={$_SESSION['id_payment']}");
+									
+									if($updatebanco->getResult()){
+										unset($_SESSION['qr_code_base64']);
+										unset($_SESSION['qr_code']);
+										unset($_SESSION['id_payment']);
+										unset($_SESSION['status']);
+										unset($_SESSION['paymentScreen']);
+										unset($_SESSION['plano']);
+										unset($_SESSION['amount']);
+										unset( $_SESSION['statusPayment']);
+										header("Refresh:5; url=$site", true, 302);        
 									 
-                                        $updatebanco->ExeUpdate("ws_empresa", $novadata, "WHERE user_id = :userid", "userid={$_SESSION['userlogin']['user_id']}");
-																		 
+									}else{
 
-										$mensalidade['status_pagamento'] = $_SESSION['statusPayment'];
-										$mensalidade['data_pagamento'] =  $_SESSION['date_approved'];
-										$mensalidade['data_renovacao'] =  $novadata['empresa_data_renovacao'];
-										$updatebanco->ExeUpdate("ws_mensalidades", $mensalidade, "WHERE id_user = :userid and id_mercado_pago= :idMercadoPago", "userid={$_SESSION['userlogin']['user_id']}&idMercadoPago={$_SESSION['id_payment']}");
-										
-										if($updatebanco->getResult()){
-											unset($_SESSION['qr_code_base64']);
-											unset($_SESSION['qr_code']);
-											unset($_SESSION['id_payment']);
-											unset($_SESSION['status']);
-											unset($_SESSION['paymentScreen']);
-											unset($_SESSION['plano']);
-											unset($_SESSION['amount']);
-											unset( $_SESSION['statusPayment']);
-											header("Refresh:5; url=$site", true, 302);        
-										 
-										}else{
+									}
 
-										}
+								}catch (PDOException $e) {
+									echo "Ocorreu um erro em sua solicitação. Por favor tentar novamente " . $e->getMessage();
+									header("Location: {$site}");
+								}                                     
 										                               
                                      ?>
 								 
@@ -372,16 +382,13 @@ $loginUrl = LOGIN;
 		</div>
  
 
-		<?php }
+		<?php }else{
+			header("Location: {$site}");
+
+		}
 
 		?>
-		<?php				
- 
- if(file_exists('includes/'.$Url[0] . '.php')):
- require 'includes/'.$Url[0] . '.php';					 
-  
- endif;
- ?>
+	 
 				 
  
  
@@ -405,8 +412,5 @@ $loginUrl = LOGIN;
 		</body> 
 </html>
 <?php
-
-
-
 ob_end_flush();
 ?>

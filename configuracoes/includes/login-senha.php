@@ -37,22 +37,16 @@ $updatebanco = new Update();
 	</script>
 </head>
 <html>
-<div  class="container-main-page flex h-screen justify-center items-center p-4">
+<div  class="container-main-page overflow-hidden flex h-screen justify-center items-center p-4">
 	<div style="background-color:#ffffff;"   class="container h-full p-0 m-0">	 		
-	<div  class="config-header w-full text-bold text-center text-white">
+	<div  class="config-header w-screen text-bold text-center text-white">
 											<p>Configuração da Conta</p>
 									</div>
 		<section class="container section-config m-0 p-0 h-screen" style="" id="section-1">
 		<div  class="row">	
 			<div class="col-md-12">	
 
-				<div id="sendnewpass" class="indent_title_in">
-					<i class="icon_shield"></i>
-					<h3>Configurações de conta</h3>
-					<p>
-						ALTERAR SENHA:
-					</p>
-				</div>
+				 
 				<?php
 				$lerbanco->ExeRead("ws_users", "WHERE user_id = :a", "a={$userlogin['user_id']}");
 				if ($lerbanco->getResult()):
@@ -122,39 +116,39 @@ $updatebanco = new Update();
 				<div class="widget ">
 				
 					<div style="height: 380px" class="widget-content padding">        
-						<form class="form-horizontal" role="form" method="post" action="#sendnewpass">
+						<form class="flex flex-col" role="form" method="post" action="#sendnewpass">
 							<div class="form-group">
 								<label class="col-sm-2 control-label text-black">E-mail:</label>
-								<div class="col-sm-10">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="icon-key" aria-hidden="true"></i></span>
+								<div class="col-sm-12">
+									<div class="w-full input-group">
+										 
 										<input type="text" name="user_email" value="<?=$user_email?>" class="form-control text-input" placeholder="e-mail">
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label text-black">Senha atual:</label>
-								<div class="col-sm-10">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="icon-key" aria-hidden="true"></i></span>
+								<div class="col-sm-12">
+									<div class="w-full input-group">
+										 
 										<input type="password" name="passatual" class="form-control text-input" placeholder="********">
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label text-black">Nova senha:</label>
-								<div class="col-sm-10">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="icon-key" aria-hidden="true"></i></span>
+								<div class="col-sm-12">
+									<div class="w-full input-group">
+										 
 										<input type="password" name="user_password" class="form-control text-input" placeholder="********">
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label text-black">Confirme a senha:</label>
-								<div class="col-sm-10">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="icon-key" aria-hidden="true"></i></span>
+								<div class="col-sm-12">
+									<div class="w-full input-group">
+										 
 										<input type="password" name="confirmpass" class="form-control text-input" placeholder="********">
 									</div>
 								</div>
@@ -163,7 +157,8 @@ $updatebanco = new Update();
 							<div class="form-group">							 
 								<div class="col-sm-10">
 									<div class="input-group">
-									<input class='btn_1 btn-success' name="sendnewpass" type='submit' value='Salvar'/> 							
+									<button style="background-color: #00BB07;"class="btn_1 btn-success"  name="sendnewpass" type="submit">Salvar Alterações</button>
+									<!-- <input style="background-color: #00BB07;" class='btn_1 btn-success'  type='submit' value='Salvar Alterações'/> 							 -->
 									</div>
 								</div>
 							</div>

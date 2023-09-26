@@ -23,7 +23,7 @@
 	<div  class="container-main-page flex h-full justify-center items-center p-4">
 		
 	<div class="container p-0 m-0 text-black">
-	<div  class="config-header w-full text-bold text-center text-white">
+	<div  class="config-header w-screen text-bold text-center text-white">
 											<p>Configuração Financeiro</p>
 									</div>	
 				 
@@ -59,34 +59,27 @@
 				endif;
 			endif;
 			?>
-			<div class="h-screen section-config">
+			<div style="height:400px" class="section-config">
 			<div class="row">
 		
 		<div class="col-md-12">
 			<div class="m-5">	
 				<form method="post" autocomplete="off">
  
-					<h2>DADOS DE PAGAMENTO</h2>
+				
 					<div class="form-group">
-						<label>*****************************************************************<br />
-							DEPOIS DE CRIAR SUA CONTA NO MERCADO PAGO VOCÊ DEVE <br />
-							TERMINAR DE PREENCHER ALGUNS DADOS E PEGAR ESSAS 2 INFORMAÇÕES NO LINK E SUBISTITUIR ABAIXO:<br />
-							https://www.mercadopago.com.br/developers/panel/credentials<br />
-							Entre em " credenciais de produção ":<br />
-						******************************************************************</label>
-						<br />
-						<br />
 						<label>Public Key:
 						</label>
 						<input type="text" name="public_key_mp" value="<?=(!empty($getEmpresa[0]['public_key_mp']) ? $getEmpresa[0]['public_key_mp'] : "")?>" id="public_key_mp" class="form-control" placeholder="">
 					</div>
-
+					<div class="form-group">
 					<label>Access Token:
 					</label>
 					<input type="text" name="access_token_mp" value="<?=(!empty($getEmpresa[0]['access_token_mp']) ? $getEmpresa[0]['access_token_mp'] : "")?>" id="access_token_mp" class="form-control" placeholder="">
+					</div>
 					<br />
 					<br />
-					<button class="btn_1 btn-success" type="submit">Alterar dados</button>
+					<button style="background-color: #00BB07;"class="btn_1 btn-success" type="submit">Salvar Alterações</button>
 				</div>
 
 

@@ -210,11 +210,13 @@ class Check {
     public static function Image($ImageUrl, $ImageDesc, $ImageW = null, $ImageH = null) {
 
         self::$Data = $ImageUrl;
-
-        if (file_exists(self::$Data) && !is_dir(self::$Data)):
+        $upload_path = UPLOAD_PATH.'uploads/';
+     
+        if (file_exists( $upload_path.self::$Data) && !is_dir( $upload_path.self::$Data)):
             $patch = HOME;
+            $url = URL_IMAGE;
             $imagem = self::$Data;
-            return "<img class=\"lightbox\" src=\"{$patch}tim.php?src={$patch}{$imagem}&w={$ImageW}&h={$ImageH}\" alt=\"{$ImageDesc}\" title=\"{$ImageDesc}\"/>";
+            return "<img class=\"lightbox\" data-url=\"{$patch}\" src=\"{$patch}tim.php?src={$url}{$imagem}&w={$ImageW}&h={$ImageH}\" alt=\"{$ImageDesc}\" title=\"{$ImageDesc}\"/>";
         else:
             return false;
         endif;

@@ -24,10 +24,14 @@ if($isProduction) {
     define ('LOGIN', 'http://sistemasvf.com.br/login/');
     define('HOME', 'http://sistemasvf.com.br/sistema/'); // SEMPRE COM A BARRA NA FRENTE ---- ---- ---- ----
     define('LINK_LOJA','http://sistemasvf.com.br/pedidofacil/');
+    define('UPLOAD_PATH', $_SERVER['DOCUMENT_ROOT'].'/sistema/');
+    define('URL_IMAGE', 'http://sistemasvf.com.br/sistema/uploads/');
 }else{
     define ('LOGIN', 'http://localhost/svf/login/');
     define('HOME', 'http://localhost/svf/sistema/' ); // SEMPRE COM A BARRA NA FRENTE ---- ---- ---- ----
     define('LINK_LOJA','http://localhost/svf/pedidofacil/');
+    define('UPLOAD_PATH', $_SERVER['DOCUMENT_ROOT'].'/svf/sistema/');
+    define('URL_IMAGE', 'http://localhost/svf/sistema/uploads/');
 }
 date_default_timezone_set('America/Sao_Paulo');
 

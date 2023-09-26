@@ -22,8 +22,11 @@ require_once('../mercadopago/vendor/autoload.php');
 
  
 $userId = $_SESSION['userlogin']['user_id'];	
-$lerbanco->FullRead("select * from ws_mensalidades WHERE id_user = :user and status_pagamento='pending'", "user={$userId}");
-    if (!$lerbanco->getResult()){        
+
+try{
+	$lerbanco->FullRead("select * from ws_mensalidades WHERE id_user = :user and status_pagamento='pending'", "user={$userId}");
+    if (!$lerbanco->getResult()){ 
+				 
     }else{    
         foreach ($lerbanco->getResult() as $j):
             extract($j);
@@ -42,10 +45,19 @@ $lerbanco->FullRead("select * from ws_mensalidades WHERE id_user = :user and sta
           
             $_SESSION['statusPayment'] = $payment->status;
             $_SESSION['date_approved'] = $payment->date_approved;
+			$_SESSION['plano'] = $plano_user;
+			$_SESSION['id_payment'] = $payment->id;
             header("Location: {$site}sucesso?q=true");
         }  
                  
     }
+
+}catch (PDOException $e) {
+	echo "Ocorreu um erro em sua solicitação. Por favor tentar novamente " . $e->getMessage();
+	header("Location: {$site}");
+}
+ 
+
   
  
 if(empty($Url[0]) || $Url[0] == 'index'){

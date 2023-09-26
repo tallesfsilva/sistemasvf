@@ -545,7 +545,7 @@ $(document).ready(function () {
 		 
 	</head>
 
-	<body class="leading-normal tracking-normal text-white"> 
+	<body class="bg-white leading-normal tracking-normal text-white"> 
 		
 		<button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button"  class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
 					<span class="sr-only">Open sidebar</span>
@@ -556,19 +556,16 @@ $(document).ready(function () {
 		<div class="flex flex-col">
 			 	<div class="flex">
 					<aside style="background:#7233A1; box-shadow: 2px 2px 2px 2px gray;" id="default-sidebar" class="fixed top-0 left-0 z-40 w-90 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-					<a style="position: initial;top: -15px;" href="<?=$site?>configuracoes">
-					<div style="margin-top:10px; background: #7233A1;box-shadow: 0px 1px 1px black" class="mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline text-white font-bold  my-6 py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
+				 
+					<div style="margin-top:10px; background: #7233A1;box-shadow: 0px 1px 1px black" class="mx-auto flex-row justify-center flex lg:mx-0 text-white font-bold  py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
 					<div class="flex flex-row">			
-					<div style="position: relative;right: 14px;" class="w-full">
-								<img src="<?=$site ?>img/configuracao 2.png">
-										 
-								</div>			
-								<div class="w-full ml-2 self-center">
+						 		
+								<div class="w-full self-center">
 									<span style="font-size:23px;">Configurações</span>
 								</div>
 							</div>
 		</div>
-		</a>	
+ 	
 			<div  style="background: #7233A1" class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
 						
 			<ul id="side-bar-menu" class="space-y-2 font-medium text-white">

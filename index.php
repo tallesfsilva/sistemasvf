@@ -12,9 +12,6 @@ if(empty($_SESSION['hasShowed'])){
 require('_app/Mobile_Detect.php');
 $detect = new Mobile_Detect;
 
-
- 
-
 $loginUrl = LOGIN;
 
 $linkLoja = LINK_LOJA;
@@ -566,7 +563,7 @@ endif;
 											<div class="col-md-12">
 											<a  class="text-values">
 												<div class="object-fit img-container">													
-													<img style="margin:10px" src="<?=$site. $img_log_dir.$img_logo?>"  height="200" width="200" alt="" data-retina="true" class="img-fluid">	 
+													<img style="margin:10px" src="<?=URL_IMAGE.$img_logo?>"  height="200" width="200" alt="" data-retina="true" class="img-fluid">	 
 												</div>
 											</div>
 											</a>	
@@ -624,8 +621,8 @@ endif;
 											</div>
 												<div class="w-1/2 w-full flex flex-col content-center">											
 									 
-												<div class="p-2"><span>Segunda à sexta:  <span class="text-values">08h às 19h</span><span></div>
-												<div class="p-2"><span>Final de semana:  <span class="text-values">08h às 18h</span><span></div>
+												<div class="p-2"><span>Segunda à Sexta:  <span class="text-values">08h às 19h</span><span></div>
+												<div class="p-2"><span>Fim de Semana e Feriados:  <span class="text-values">08h às 18h</span><span></div>
 													</div>
 													<div class="w-1/2 w-full flex flex-col content-center">											
 													<?php 
@@ -696,7 +693,7 @@ endif;
 									</div>
 
 									<div class="p-4 text-menu font-medium leading-tight">
-										<span>Cadastro</span>
+										<span>Cadastros</span>
 									</div>
 								</div>			
 							</div>
@@ -732,7 +729,7 @@ endif;
 													</div>
 													
 												<div class="p-4 text-menu font-medium leading-tight">
-													<span>Configuração</span>
+													<span>Configurações</span>
 												</div>
 										</div>					
 									</div>

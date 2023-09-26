@@ -29,9 +29,11 @@ class Upload {
      * Verifica e cria o diretório padrão de uploads no sistema!<br>
      * <b>../uploads/</b>
      */
-    function __construct($BaseDir = null) {
-        self::$BaseDir = ( (string) $BaseDir ? $BaseDir : 'uploads/');
-        if (!file_exists(self::$BaseDir) && !is_dir(self::$BaseDir)):
+    function __construct($BaseDir = null) {    
+        $dir = UPLOAD_PATH;
+        
+        self::$BaseDir = ( (string) $BaseDir ? $dir.$BaseDir : $dir.'uploads/');
+        if (!file_exists(self::$BaseDir) && !is_dir(self::$BaseDir)):            
             mkdir(self::$BaseDir, 0777);
         endif;
     }
@@ -45,13 +47,14 @@ class Upload {
      * @param STRING $Folder = Pasta personalizada
      */
     public function Image(array $Image, $Name = null, $Width = null, $Folder = null, $IdEmpresa = null) {
-        $this->File = $Image;        
+        $this->File = $Image;      
+        
         $this->IdEmpresa = (string) $Image['id_empresa'] ? $Image['id_empresa'] : '0';  
           
         $this->Name = ( (string) $Name ? $Name : substr($Image['name'], 0, strrpos($Image['name'], '.')) );
         $this->Width = ( (int) $Width ? $Width : 1024 );
         $this->Folder = ( (string) $Folder ? $Folder : 'images' );
-         
+        
         $this->CheckFolder($this->Folder);
         $this->setFileName();
         $this->UploadImage();
@@ -70,7 +73,7 @@ class Upload {
         $this->Name = ( (string) $Name ? $Name : substr($File['name'], 0, strrpos($File['name'], '.')) );
         $this->Folder = ( (string) $Folder ? $Folder : 'files' );
         $MaxFileSize = ( (int) $MaxFileSize ? $MaxFileSize : 2 );
-
+        
         $FileAccept = [
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             'application/pdf'
@@ -158,6 +161,7 @@ class Upload {
 
     //Verifica e cria o diretório base!
     private function CreateFolder($Folder) {
+       
         if (!file_exists(self::$BaseDir . $Folder) && !is_dir(self::$BaseDir . $Folder)):
             mkdir(self::$BaseDir . $Folder, 0777);
         endif;

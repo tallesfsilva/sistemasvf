@@ -104,11 +104,28 @@ margin-bottom: 5px;
 	background: linear-gradient(90deg, #6303C3 86.21%, #6303C3 69%, #6303C3 100%);
 }
 
+.wrapper_indent{
+	padding-left: 0px !important;
+}
+#confirm_delivery:checked{
+	background-color: #7233A1 !important;
+}
+
+.line-hr{
+	border: 1px solid;
+    border-top-color: currentcolor;
+    border-right-color: currentcolor;
+    border-bottom-color: currentcolor;
+    border-left-color: currentcolor;
+  border-color: #7233A1;
+}
+
 .section-config{
-	background:white;
-	 padding-bottom:20px;
+	/* background:white;
+	  
 	 border:5px solid transparent; 
-	 box-shadow: 2px 2px 2px 2px gray
+	 box-shadow: 2px 2px 2px 2px gray */
+	 margin-top:15px;
 }
 
 .config-header{
@@ -181,14 +198,44 @@ justify-content: center;
 margin:10px;
 }
 
+.form-group{
+	display: flex !important;
+	flex-direction: column !important;
+}
+.btn_1:hover{
+	background-color: #7ccf7f !important;
+}
+
+.btn_1{
+	border-radius: 15px !important;
+}
+.label_img{
+	font-size: 35px;
+	text-align: center;
+	font-weight: 100 !important;
+}
+.form-group >input{
+	font-size: 15px;
+}
+
+.input-group > input{
+	font-size: 15px;
+}
+
+.icheck-material-green > input:first-child:checked + label::before, .icheck-material-green > input:first-child:checked + input[type="hidden"] + label::before {
+	background-color: #FFC000 !important;
+	border-color: #FFC000 !important;
+	
+  }
+
+  /* .icheck-material-green > input:first-child:hover {
+	border-color: #FFC000 !important;
+  } */
+
 .container-items{
-	border: 1px solid;
-	border-radius: 10px;
-	border-color: white; 
-	border-radius: 10px;
-	border-color: #B7B6B6;
-	box-shadow:  1px 1px 1px 1px black;
-	padding: 10px;
+	 
+ 
+	 
  
 }
 .table-condensed{
@@ -203,14 +250,21 @@ margin:10px;
 	font-size: 18px;
 	padding:30px;
 }
+.indent_title_in{
+	padding-left: unset !important;
+}
 
+.indent_title_in > h3{
+	font-weight: bolder;
+}
 .text-values{
 	font-weight: bold;
 	font-size: 14px;
 }
 .container-main-page{
-
-	margin-left:257px;
+	background: white;
+	margin-left:204px;
+	overflow: hidden;
 }
 /* 
 @media screen and (min-width: 1000px ) and (orientation: landscape) {
@@ -2092,7 +2146,7 @@ s.checkbox-holder {
 .loader { margin-left:5px; position:absolute;}
 .error_message { color:#F33; font-weight:600; margin-bottom:4px;}
 .form-control {
-	color: #00a000;
+	color: #7233A1;
 	height:40px;
 	border-radius: 3px;
 	box-shadow:none;

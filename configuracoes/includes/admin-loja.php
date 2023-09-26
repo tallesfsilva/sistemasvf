@@ -92,6 +92,17 @@ $updatebanco = new Update();
 	
 			 
 	</script>
+	<style>
+			.img_temp > img {
+				height: 240px !important;
+  				width: 240px !important;
+			}
+
+
+
+
+	</style>
+
 </head>
 <html>
 				<?php
@@ -221,14 +232,7 @@ $updatebanco = new Update();
 					
 					 // Display open / closed menssagem
 					 ?>
-					<br />
-					<br />
-					 
-
-				</div><!-- End sub_content -->
-			</div><!-- End subheader -->
-		</section><!-- End section -->
-
+			 
 
 		<!-- End SubHeader ============================================ -->
 
@@ -239,15 +243,16 @@ $updatebanco = new Update();
 							
 							<div style="background-color:#ffffff;color:black" class="container p-0 m-0">
 									
-							<div  class="config-header w-full text-bold text-center text-white">
+							<div  class="config-header w-screen text-bold text-center text-white">
 											<p>Configuração Pedido Fácil</p>
 									</div>	
 							<div id="sendempresa"></div>
 
 
-								<section class="section-config" id="section-1">
+								<section class="m-5 section-config" id="section-1">
+								    <br>
 									<div class="indent_title_in">
-										<i class="icon_house_alt"></i>
+										 
 										<h3>Descrição geral do seu negócio</h3>
 										<p>Insira no formulario abaixo detalhes do seu negócio e informações de contato.</p>
 									</div>				
@@ -341,14 +346,16 @@ $updatebanco = new Update();
 
 
 									// COMO NÃO EXISTE UM INPUT PARA IMAGEM TEMOS QUE FAZER VALIDAÇÃO VIA $_FILE MESMO
-
+							
+							
 						// INICIO DA VALIDAÇÃO DA IMAGEM DE FUNDO
 							if (isset($_FILES['img_header']['tmp_name']) && $_FILES['img_header']['tmp_name'] != ""):
 								$inputdadosempresa['img_header'] = $_FILES['img_header'];
+								$inputdadosempresa['img_header']['id_empresa'] = $id_empresa;
 							else:
 								unset($inputdadosempresa['img_header']);
 							endif;
-
+						 
 
 							if(!empty($inputdadosempresa['img_header'])):                        
 								$upload = new Upload("uploads/");
@@ -372,6 +379,7 @@ $updatebanco = new Update();
 									// INICIO DA VALIDAÇÃO DA IMAGEM PERFIL
 					if (isset($_FILES['img_logo']['tmp_name']) && $_FILES['img_logo']['tmp_name'] != ""):
 						$inputdadosempresa['img_logo'] = $_FILES['img_logo'];
+						$inputdadosempresa['img_logo']['id_empresa'] = $id_empresa;
 					else:
 						unset($inputdadosempresa['img_logo']);
 					endif;
@@ -379,6 +387,7 @@ $updatebanco = new Update();
 
 					if(!empty($inputdadosempresa['img_logo'])):                        
 						$upload = new Upload("uploads/");
+						 
 						$upload->Image($inputdadosempresa['img_logo']);
 
 						if (isset($upload) && $upload->getResult()):	
@@ -479,11 +488,13 @@ $updatebanco = new Update();
 				else:
 					$updatebanco->ExeUpdate("ws_empresa", $inputdadosempresa, "WHERE user_id = :up", "up={$userlogin['user_id']}");
 					if ($updatebanco->getResult()):
+						
+						header("Refresh: 1; url={$site}configuracoes/{$Url[0]}");
 						echo "<div class=\"alert alert-success alert-dismissable\">
 						<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
 						<b class=\"alert-link\">SUCESSO!</b> Seus dados foram Atualizados no sistema.
 						</div>";
-						// header("Refresh: 5; url={$site}{$Url[0]}/admin-loja");
+					 
 					else:
 						echo "<div class=\"alert alert-danger alert-dismissable\">
 						<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
@@ -520,12 +531,12 @@ $updatebanco = new Update();
 			</div>
 			</div><!-- End wrapper_indent -->
 
-			<hr />
+			  <hr class="line-hr"/>
 
 
-			
+			<br>
 			<div class="indent_title_in">
-				<i class="icon_pin_alt"></i>
+			 
 				<h3>Endereço</h3>
 				<p>
 					Defina o endereço do seu negócio!
@@ -575,10 +586,10 @@ $updatebanco = new Update();
 				</div>
 			</div><!-- End wrapper_indent -->
 
-			<hr />
-
+			  <hr class="line-hr"/>
+<br>
 			<div class="indent_title_in">
-				<i class="fa fa-motorcycle" aria-hidden="true"></i>
+		 
 				<h3>Opções de entrega</h3>
 				<div class="form-group">	
 
@@ -634,10 +645,10 @@ $updatebanco = new Update();
 				</div>
 			</div>
 
-			<hr />
-
+			  <hr class="line-hr"/>
+<br>
 			<div class="indent_title_in">
-				<i class="fa fa-clock-o" aria-hidden="true"></i>
+		 
 				<h3>Horários de funcionamento</h3>
 				<p>
 					Defina o seu horário de atendimento para que seus clientes saibam quando seus serviços estiverem disponíveis.
@@ -645,7 +656,7 @@ $updatebanco = new Update();
 			</div>
 
 			<div class="panel panel-default">
-				<div style="background-color: #85c99d;color: #ffffff;" class="panel-heading">
+				<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
 					<h4 data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="panel-title expand">
 						<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
 						<center><a style="color: #ffffff;" href="#">Cique aqui para Configurar Horários.</a></center>
@@ -657,7 +668,7 @@ $updatebanco = new Update();
 						<div class="wrapper_indent">
 							<label>SEGUNDA FEIRA</label>
 							<br />
-							<input id="config_segunda" name="config_segunda" type="checkbox" <?=(!empty($config_segunda) && $config_segunda == 'true' ? 'checked' : '');?> value="true" /> <label for="config_segunda"><strong style="color:#85c99d;"> PERIODO DA MANHÃ </strong></label>
+							<input id="config_segunda" name="config_segunda" type="checkbox" <?=(!empty($config_segunda) && $config_segunda == 'true' ? 'checked' : '');?> value="true" /> <label for="config_segunda"><strong style="color:#7233A1;"> PERIODO DA MANHÃ </strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -672,7 +683,7 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input id="config_segundaa" name="config_segundaa" type="checkbox" <?=(!empty($config_segundaa) && $config_segundaa == 'true' ? 'checked' : '');?> value="true" /> <label for="config_segundaa"><strong style="color:#85c99d;"> PERIODO DA TARDE</strong></label>
+							<input id="config_segundaa" name="config_segundaa" type="checkbox" <?=(!empty($config_segundaa) && $config_segundaa == 'true' ? 'checked' : '');?> value="true" /> <label for="config_segundaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -688,12 +699,12 @@ $updatebanco = new Update();
 								</div>
 							</div>
 						</div><!-- End wrapper_indent -->	
-						<hr />
+						  <hr class="line-hr"/>
 						
 						<div class="wrapper_indent">
 							<label>TERÇA FEIRA</label>
 							<br />
-							<input <?=(!empty($config_terca) && $config_terca == 'true' ? 'checked' : '');?> id="config_terca" name="config_terca" value="true" type="checkbox"> <label for="config_terca"><strong style="color:#85c99d;"> PERIODO DA MANHÃ</strong></label>
+							<input <?=(!empty($config_terca) && $config_terca == 'true' ? 'checked' : '');?> id="config_terca" name="config_terca" value="true" type="checkbox"> <label for="config_terca"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -708,7 +719,7 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_tercaa) && $config_tercaa == 'true' ? 'checked' : '');?> id="config_tercaa" name="config_tercaa" value="true" type="checkbox"><label for="config_tercaa"><strong style="color:#85c99d;"> PERIODO DA TARDE</strong></label>
+							<input <?=(!empty($config_tercaa) && $config_tercaa == 'true' ? 'checked' : '');?> id="config_tercaa" name="config_tercaa" value="true" type="checkbox"><label for="config_tercaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -724,12 +735,12 @@ $updatebanco = new Update();
 								</div>
 							</div>
 						</div><!-- End wrapper_indent -->
-						<hr />
+						  <hr class="line-hr"/>
 						
 						<div class="wrapper_indent">
 							<label>QUARTA FEIRA</label>
 							<br />
-							<input <?=(!empty($config_quarta) && $config_quarta == 'true' ? 'checked' : '');?> id="config_quarta" name="config_quarta" value="true" type="checkbox"> <label for="config_quarta"><strong style="color:#85c99d;"> PERIODO DA MANHÃ</strong></label>
+							<input <?=(!empty($config_quarta) && $config_quarta == 'true' ? 'checked' : '');?> id="config_quarta" name="config_quarta" value="true" type="checkbox"> <label for="config_quarta"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -744,7 +755,7 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_quartaa) && $config_quartaa == 'true' ? 'checked' : '');?> id="config_quartaa" name="config_quartaa" value="true" type="checkbox"><label for="config_quartaa"><strong style="color:#85c99d;"> PERIODO DA TARDE</strong></label>
+							<input <?=(!empty($config_quartaa) && $config_quartaa == 'true' ? 'checked' : '');?> id="config_quartaa" name="config_quartaa" value="true" type="checkbox"><label for="config_quartaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -760,11 +771,11 @@ $updatebanco = new Update();
 								</div>
 							</div>
 						</div><!-- End wrapper_indent -->
-						<hr />
+						  <hr class="line-hr"/>
 						<div class="wrapper_indent">
 							<label>QUINTA FEIRA</label>
 							<br />
-							<input <?=(!empty($config_quinta) && $config_quinta == 'true' ? 'checked' : '');?> id="config_quinta" name="config_quinta" value="true" type="checkbox"> <label for="config_quinta"><strong style="color:#85c99d;"> PERIODO DA MANHÃ</strong></label>
+							<input <?=(!empty($config_quinta) && $config_quinta == 'true' ? 'checked' : '');?> id="config_quinta" name="config_quinta" value="true" type="checkbox"> <label for="config_quinta"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -779,7 +790,7 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_quintaa) && $config_quintaa == 'true' ? 'checked' : '');?> id="config_quintaa" name="config_quintaa" value="true" type="checkbox"><label for="config_quintaa"><strong style="color:#85c99d;"> PERIODO DA TARDE</strong></label>
+							<input <?=(!empty($config_quintaa) && $config_quintaa == 'true' ? 'checked' : '');?> id="config_quintaa" name="config_quintaa" value="true" type="checkbox"><label for="config_quintaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -795,12 +806,12 @@ $updatebanco = new Update();
 								</div>
 							</div>
 						</div><!-- End wrapper_indent -->
-						<hr />
+						  <hr class="line-hr"/>
 
 						<div class="wrapper_indent">
 							<label>SEXTA FEIRA</label>
 							<br />
-							<input <?=(!empty($config_sexta) && $config_sexta == 'true' ? 'checked' : '');?> id="config_sexta" name="config_sexta" value="true" type="checkbox"> <label for="config_sexta"><strong style="color:#85c99d;"> PERIODO DA MANHÃ</strong></label>
+							<input <?=(!empty($config_sexta) && $config_sexta == 'true' ? 'checked' : '');?> id="config_sexta" name="config_sexta" value="true" type="checkbox"> <label for="config_sexta"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -815,7 +826,7 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_sextaa) && $config_sextaa == 'true' ? 'checked' : '');?> id="config_sextaa" name="config_sextaa" value="true" type="checkbox"> <label for="config_sextaa"><strong style="color:#85c99d;"> PERIODO DA TARDE</strong></label>
+							<input <?=(!empty($config_sextaa) && $config_sextaa == 'true' ? 'checked' : '');?> id="config_sextaa" name="config_sextaa" value="true" type="checkbox"> <label for="config_sextaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -831,12 +842,12 @@ $updatebanco = new Update();
 								</div>
 							</div>
 						</div><!-- End wrapper_indent -->
-						<hr />
+						  <hr class="line-hr"/>
 						
 						<div class="wrapper_indent">
 							<label>SABADO</label>
 							<br />
-							<input <?=(!empty($config_sabado) && $config_sabado == 'true' ? 'checked' : '');?> id="config_sabado" name="config_sabado" value="true" type="checkbox"> <label for="config_sabado"><strong style="color:#85c99d;"> PERIODO DA MANHÃ</strong></label>
+							<input <?=(!empty($config_sabado) && $config_sabado == 'true' ? 'checked' : '');?> id="config_sabado" name="config_sabado" value="true" type="checkbox"> <label for="config_sabado"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -851,7 +862,7 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_sabadoo) && $config_sabadoo == 'true' ? 'checked' : '');?> id="config_sabadoo" name="config_sabadoo" value="true" type="checkbox"> <label for="config_sabadoo"><strong style="color:#85c99d;"> PERIODO DA TARDE</strong></label>
+							<input <?=(!empty($config_sabadoo) && $config_sabadoo == 'true' ? 'checked' : '');?> id="config_sabadoo" name="config_sabadoo" value="true" type="checkbox"> <label for="config_sabadoo"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -867,12 +878,12 @@ $updatebanco = new Update();
 								</div>
 							</div>
 						</div><!-- End wrapper_indent -->
-						<hr />
+						  <hr class="line-hr"/>
 						
 						<div class="wrapper_indent">
 							<label>DOMINGO</label>
 							<br />
-							<input <?=(!empty($config_domingo) && $config_domingo == 'true' ? 'checked' : '');?> id="config_domingo" name="config_domingo" value="true" type="checkbox"> <label for="config_domingo"><strong style="color:#85c99d;"> PERIODO DA MANHÃ</strong></label>
+							<input <?=(!empty($config_domingo) && $config_domingo == 'true' ? 'checked' : '');?> id="config_domingo" name="config_domingo" value="true" type="checkbox"> <label for="config_domingo"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -887,7 +898,7 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_domingoo) && $config_domingoo == 'true' ? 'checked' : '');?> id="config_domingoo" name="config_domingoo" value="true" type="checkbox"><label for="config_domingoo"><strong style="color:#85c99d;"> PERIODO DA TARDE</strong></label>
+							<input <?=(!empty($config_domingoo) && $config_domingoo == 'true' ? 'checked' : '');?> id="config_domingoo" name="config_domingoo" value="true" type="checkbox"><label for="config_domingoo"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -907,19 +918,19 @@ $updatebanco = new Update();
 				</div>
 			</div>
 
-			<hr />
-
+			  <hr class="line-hr"/>
+<br>
 			<div class="indent_title_in">
-				<i class="fa fa-calendar" aria-hidden="true"></i>
+				 
 				<h3>Fechado na Data</h3>
 				<p>
 					Adicione exceções (ótimo para feriados etc.)
 				</p>
 			</div>
 
-			<div class="panel-group" id="accordion">
+			<div class="mb-0 panel-group" id="accordion">
 				<div class="panel panel-default">
-					<div style="background-color: #85c99d;color: #ffffff;" class="panel-heading">
+					<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
 						<h4 data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="panel-title expand">
 							<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
 							<center><a style="color: #ffffff;" href="#">Clique aqui para adicionar uma data</a></center>
@@ -964,15 +975,15 @@ $updatebanco = new Update();
 
 					</div>
 				</div>
-
-				<hr />
+				<br>
+				  <hr class="line-hr"/>
 				
 
 
 				
-
+<br>
 				<div class="indent_title_in">
-					<i class="fa fa-share-square-o" aria-hidden="true"></i>
+				 
 					<h3>Redes Sociais</h3>
 					<p>
 						Insira as urls de suas redes sociais!
@@ -1068,52 +1079,96 @@ $updatebanco = new Update();
 						</div>
 					</div>
 				</div><!-- End wrapper_indent -->
+<br>
+<hr class="line-hr"/>
+<br>
 
-				<div class="indent_title_in">
-					<i class="icon_images"></i>
-					<h3>Imagens de fundo e de Perfil</h3>
-					<p>
-						Imagens que serão usadas na página inicial do site!
-					</p>
-				</div>
-
-				<div class="wrapper_indent add_bottom_45">
-
-					<div class="form-group">
-						<label>Imagem utilizada como banner de fundo no site:</label>
-						<div class="input-file-container">  
-							<input name="img_header" class="input-file" id="my-file" type="file" />
-							<label tabindex="0" for="my-file" class="input-file-trigger">Enviar Imagem...</label>
-						</div>
-						<p class="file-return"></p>
-						<br />
-						<?=(!empty($img_header) ? "<spa style=\"color:#70bb0f;\">VOCÊ JÁ ENVIOU UMA IMAGEM!</span>" : "");?>
-					</div>	
-
-					<div class="form-group">
-						<label>Imagem de perfil, será redimensionada em 240 X 240:</label>
-						<div class="input-file-container">  
-							<input name="img_logo" class="input-file" id="my-file" type="file" />
-							<label tabindex="0" for="my-file" class="input-file-trigger">Enviar Imagem...</label>
-						</div>
-						<p class="file-return"></p>
-						<br />
-						<?=(!empty($img_logo) ? "<spa style=\"color:#70bb0f;\">VOCÊ JÁ ENVIOU UMA IMAGEM!</span>" : "");?>
+<div class="mb-0 panel-group" id="accordion">
+				<div class="panel panel-default">
+					<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
+						<h4 data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="panel-title expand">
+							<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
+							<center><a style="color: #ffffff;" href="#">Clique aqui para personalizar sua loja</a></center>
+						</h4>
 					</div>
-				</div><!-- End wrapper_indent -->
-				<div class="wrapper_indent add_bottom_45">
-				</div><!-- End wrapper_indent -->
-				<hr />
+
+					<div id="collapse3" style="visibility:unset" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="col-md-12 col-sm-12">
+							<div class="indent_title_in">
+					 
+					 <h3>Imagens de fundo e de Perfil</h3>
+					 <p>
+						 Imagens que serão usadas na página inicial do site!
+					 </p>
+				 </div>
+ 
+				 <div class="flex flex-col md:flex-row  wrapper_indent add_bottom_45"> 
+					 <div style="margin-right: 50px;" class="m-5 md:w-auto w-full form-group">
+					 <label class="text-center">Fundo da Loja</label>
+						 
+						 <?php
+							if(!empty($img_header)):
+								$url = URL_IMAGE;					
+								echo "<div id=\"thumb\">".Check::Image("{$img_header}", "Logo", 240, 240)."</div>";
+							else:
+								echo "<div id=\"thumb\"><img src=\"{$site}img/thumb_restaurant.jpg\" alt=\"\"></div>";
+							endif;
+							?>
+						 
+						 
+						 <div class="mt-5 md:w-auto w-full  input-file-container">  
+
+						 
+							 <input data-url=<?= HOME ?> name="img_header" class="input-file" id="my-file" type="file" />
+							 <label style="background: #7232A0; border-radius: 3px;text-align: center;padding: 5px 5px;" tabindex="0" for="my-file" class="input-file-trigger">Enviar Imagem +</label>
+						 </div>
+						 <!-- <p class="file-return"></p> -->
+						 <br />
+						 
+					 </div>	
+ 
+					 <div class="m-5 md:w-auto w-full form-group">
+						 <label class="text-center">LogoTipo</label>
+						 
+						 <?php
+							if(!empty($img_logo)):
+								$url = URL_IMAGE;					
+								echo "<div id=\"thumb\">".Check::Image("{$img_logo}", "Logo", 240, 240)."</div>";
+							else:
+								echo "<div id=\"thumb\"><img src=\"{$site}img/thumb_restaurant.jpg\" alt=\"\"></div>";
+							endif;
+							?>
+						 
+					 
+						 <div class="mt-5  md:w-auto w-full input-file-container">  
+							 <input name="img_logo" class="input-file" id="my-file" type="file" />
+							 <label style="background: #7232A0; border-radius: 3px;text-align: center;padding: 5px 5px;" tabindex="0" for="my-file" class="input-file-trigger">Enviar Imagem +</label>
+						 </div>
+						 
+						 <br />
+					 
+					 </div>
+				 </div><!-- End wrapper_indent -->
+				 <div class="wrapper_indent add_bottom_45">
+				 </div><!-- End wrapper_indent -->			
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<br>
+				   
+			
+				 
 				<div class="wrapper_indent">
 					<input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>" />
 					<input type="hidden" name="sendempresa" value="true" />
-					<button type="input" class="btn_1">SALVAR ALTERAÇOES</button>
-					<b style="float: right;color: green;font-weight: bold;">Data de Renovação: 
-						<?php
-						echo $dataFomatadarenovacao;
-						?></b>
+					<button style="background-color: #00BB07;" type="input" class="btn_1">Salvar Alterações</button>
+					 
 					</div><!-- End wrapper_indent -->
-					<div class="panel-group" id="accordion">
+					<div style="margin-bottom:0px !important" class="panel-group" id="accordion">
 
 					</form>
 
@@ -1143,6 +1198,8 @@ $updatebanco = new Update();
 		$('a').not('[href*="'+document.domain+'"]').attr('target', '_blank');
 		$('a').not('[href*="'+document.domain+'"]').attr('rel', 'external nofollow');
 	});
+
+ 
 </script>
 
 <script>
