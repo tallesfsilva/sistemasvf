@@ -103,10 +103,11 @@ try{
 			$cadatroUsuario['user_cont'] = 1;
 			$cadatroUsuario['user_nome_plano'] = "Teste";
 			$cadatroUsuario['user_dias_plano'] = 7;
-			$cadatroUsuario['status_assinatura_plano'] = " ";
-			$cadatroUsuario['codigo_assinante'] = " ";
-			$cadatroUsuario['user_data_renova'] = " ";		 
+			$cadatroUsuario['status_assinatura_plano'] = "";
+			$cadatroUsuario['codigo_assinante'] = "";
+			$cadatroUsuario['user_data_renova'] = date("Y-m-d", strtotime("+{$texto['DiasDeTeste']} days"));;		 
 			$cadatroUsuario['user_registration'] = date('Y-m-d H:i:s');
+			$cadatroUsuario['user_img_perfil'] = 'default/LOGOPADRAO.png';
 			// FIM ARRAY DO USUARIO.
 
 			//INICIO ARRAY DA EMPRESA
@@ -122,7 +123,9 @@ try{
 			$cadatroUsuarioEmpresa['segmento_empresa'] = $inputDadosCadastro['segmento_empresa'];
 			$cadatroUsuarioEmpresa['telefone_empresa'] = preg_replace("/[^0-9]/", "", $inputDadosCadastro['user_telefone']);
 			$cadatroUsuarioEmpresa['empresa_data_renovacao'] = date("Y-m-d", strtotime("+{$texto['DiasDeTeste']} days"));
-
+			$cadatroUsuarioEmpresa['img_logo'] = 'default/LOGOPADRAO.png';
+			$cadatroUsuarioEmpresa['descricao_empresa'] = 'Empresa de deliveryt';
+			$cadatroUsuarioEmpresa['img_header'] = 'default/FUNDOLOJAPADRAO.png';
 			
 			//FIM ARRAY DA EMPRESA falta >   
 				

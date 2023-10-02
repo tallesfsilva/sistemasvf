@@ -20,7 +20,7 @@
 </head>
 <html>
 		
-	<div  class="container-main-page flex h-full justify-center items-center p-4">
+	<div  style="padding-right: 0px;"  class="container-main-page flex h-full justify-center items-center p-4">
 		
 	<div class="container p-0 m-0 text-black">
 	<div  class="config-header w-screen text-bold text-center text-white">

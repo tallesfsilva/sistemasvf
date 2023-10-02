@@ -56,6 +56,15 @@ else:
 		$linkLoja = $linkLoja.$nome_empresa_link;
 	endif;
 
+
+	$lerbanco->FullRead("select * from configuracoes_site");
+	if (!$lerbanco->getResult()):		 
+	else:
+		foreach ($lerbanco->getResult() as $k):
+			extract($k);
+		endforeach;
+	endif;
+
 	$cart = new Cart([
 	//Total de item que pode ser adicionado ao carrinho 0 = Ilimitado
 		'cartMaxItem' => 0,
@@ -621,28 +630,33 @@ endif;
 											</div>
 												<div class="w-1/2 w-full flex flex-col content-center">											
 									 
-												<div class="p-2"><span>Segunda à Sexta:  <span class="text-values">08h às 19h</span><span></div>
-												<div class="p-2"><span>Fim de Semana e Feriados:  <span class="text-values">08h às 18h</span><span></div>
+												<div class="p-2"><span>Segunda à Segunda:  <span class="text-values"><?= $h_suporte?></span><span></div>
+							 
 													</div>
 													<div class="w-1/2 w-full flex flex-col content-center">											
 													<?php 
 
 														$today = getdate();
-
-														if($today['wday']>='1' && $today['wday']<='5' && $today['hours']>='08' && ($today['hours']<='19' && $today['minutes']<='59')){
+													 	$time = date('H:i:s');
+													 
+													
+														 if((($today['wday']>='1' && $today['wday']<='5')  && (strtotime($time) >= strtotime('08:00:00')) && (strtotime($time) <= strtotime('18:00:00'))   )
+														 || (($today['wday']=='6' || $today['wday']=='0') && (strtotime($time) >= strtotime('08:00:00')) && (strtotime($time) <= strtotime('18:00:00'))  )
+														 ){
+														 
 
 															$status = "ONLINE";
 															$class = "status-on";
-														}else if(($today['wday']=='6' || $today['wday']=='0') && ($today['hours']>='08' && ($today['hours']<='18') && $today['minutes']<='59'))
-															{
-																$status = "ONLINE";
-																$class = "status-on";
-															}else{
+															 
+														}else{
 																$status = "OFFLINE";
 																$class = "status-off";
-															}
+																 
+														}														
+														
+														 
 														?>
-
+													<div><span id="tel_suporte" style="font-size:20px;font-weight: bolder;" class=""><?= $tel_adm?></div>
 													<div><span style="font-size:25px;font-weight: bolder;" class="<?= $class ?>"><?= $status ?></div>
 													</div>
 										 
@@ -684,7 +698,8 @@ endif;
 				<div class="height-container container-buttons"> 	
 				<div class="row">
 					<div class="col-md-12 col-xs-12">	
-						<div class="col-md-6">
+					<a  href="<?=$site.'cadastros/'?>">	
+					<div class="col-md-6">
 							<div  class="new-menu mt-5 p-5">
 			
 								<div class="flex w-full flex-row p-4 justify-center">
@@ -698,7 +713,7 @@ endif;
 								</div>			
 							</div>
 						</div>
-
+													</a>
 						<div class="col-md-6">
 						<a  href="<?=$linkLoja?>" target="_blank">
 								<div  class="new-menu mt-5 p-5">
@@ -797,8 +812,24 @@ endif;
 								</div>			
 							</div>			 
 						</div>	 
-						<div class="col-md-6">											
-							<div id="suporte_button" style="background-color: #00BB07; color: white" class="new-menu mt-5 p-5">				
+						<div class="col-md-6">
+							
+						<?php 
+
+$today = getdate();
+$time = date('H:i:s');
+
+if((($today['wday']>='1' && $today['wday']<='5')  && (strtotime($time) >= strtotime('08:00:00')) && (strtotime($time) <= strtotime('18:00:00'))   )
+|| (($today['wday']=='6' || $today['wday']=='0') && (strtotime($time) >= strtotime('08:00:00')) && (strtotime($time) <= strtotime('18:00:00'))  )
+){
+
+			$class = "suporte_btn new-menu mt-5 p-5";
+														
+}else{
+		$class = "button-disabled new-menu mt-5 p-5 bg-gray-300";	 	 
+	}  
+?>
+							<div id="suporte_button" class="<?= $class ?>">				
 								<div class="flex w-full flex-row p-4 justify-center">
 									<div class="icon-new-menu">
 											<img width="50" height="50" src="<?=$site?>img/aperto-de-mao.png">
@@ -896,6 +927,8 @@ endif;
 		$('a').not('[href*="'+document.domain+'"]').attr('target', '_blank');
 		$('a').not('[href*="'+document.domain+'"]').attr('rel', 'external nofollow');
 	});
+
+	$('#tel_suporte').mask('(00) 0 0000-0000');
 </script>
  
 

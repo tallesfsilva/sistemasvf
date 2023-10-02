@@ -237,7 +237,7 @@ $updatebanco = new Update();
 		<!-- End SubHeader ============================================ -->
 
 		 
-				<div  class="container-main-page flex h-full justify-center items-center p-4">
+				<div   style="padding-right: 0px;" class="container-main-page flex h-full justify-center items-center p-4">
 					 
 					
 							
@@ -668,7 +668,11 @@ $updatebanco = new Update();
 						<div class="wrapper_indent">
 							<label>SEGUNDA FEIRA</label>
 							<br />
-							<input id="config_segunda" name="config_segunda" type="checkbox" <?=(!empty($config_segunda) && $config_segunda == 'true' ? 'checked' : '');?> value="true" /> <label for="config_segunda"><strong style="color:#7233A1;"> PERIODO DA MANHÃ </strong></label>
+							<div class="icheck-material-green">
+								<input id="config_segunda" name="config_segunda" type="checkbox" <?=(!empty($config_segunda) && $config_segunda == 'true' ? 'checked' : '');?> value="true" />
+								<label for="config_segunda"><strong style="color:#7233A1;"> PERIODO DA MANHÃ </strong></label>
+							</div>
+							 
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -683,7 +687,9 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
+							<div class="icheck-material-green">
 							<input id="config_segundaa" name="config_segundaa" type="checkbox" <?=(!empty($config_segundaa) && $config_segundaa == 'true' ? 'checked' : '');?> value="true" /> <label for="config_segundaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -704,7 +710,9 @@ $updatebanco = new Update();
 						<div class="wrapper_indent">
 							<label>TERÇA FEIRA</label>
 							<br />
-							<input <?=(!empty($config_terca) && $config_terca == 'true' ? 'checked' : '');?> id="config_terca" name="config_terca" value="true" type="checkbox"> <label for="config_terca"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_terca) && $config_terca == 'true' ? 'checked' : '');?> id="config_terca" name="config_terca" value="true" type="checkbox"> <label for="config_terca"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -719,7 +727,9 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_tercaa) && $config_tercaa == 'true' ? 'checked' : '');?> id="config_tercaa" name="config_tercaa" value="true" type="checkbox"><label for="config_tercaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							<div class="icheck-material-green">
+									<input <?=(!empty($config_tercaa) && $config_tercaa == 'true' ? 'checked' : '');?> id="config_tercaa" name="config_tercaa" value="true" type="checkbox"><label for="config_tercaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -740,7 +750,9 @@ $updatebanco = new Update();
 						<div class="wrapper_indent">
 							<label>QUARTA FEIRA</label>
 							<br />
-							<input <?=(!empty($config_quarta) && $config_quarta == 'true' ? 'checked' : '');?> id="config_quarta" name="config_quarta" value="true" type="checkbox"> <label for="config_quarta"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_quarta) && $config_quarta == 'true' ? 'checked' : '');?> id="config_quarta" name="config_quarta" value="true" type="checkbox"> <label for="config_quarta"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -755,7 +767,9 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_quartaa) && $config_quartaa == 'true' ? 'checked' : '');?> id="config_quartaa" name="config_quartaa" value="true" type="checkbox"><label for="config_quartaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_quartaa) && $config_quartaa == 'true' ? 'checked' : '');?> id="config_quartaa" name="config_quartaa" value="true" type="checkbox"><label for="config_quartaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -775,7 +789,9 @@ $updatebanco = new Update();
 						<div class="wrapper_indent">
 							<label>QUINTA FEIRA</label>
 							<br />
-							<input <?=(!empty($config_quinta) && $config_quinta == 'true' ? 'checked' : '');?> id="config_quinta" name="config_quinta" value="true" type="checkbox"> <label for="config_quinta"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_quinta) && $config_quinta == 'true' ? 'checked' : '');?> id="config_quinta" name="config_quinta" value="true" type="checkbox"> <label for="config_quinta"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -790,7 +806,9 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_quintaa) && $config_quintaa == 'true' ? 'checked' : '');?> id="config_quintaa" name="config_quintaa" value="true" type="checkbox"><label for="config_quintaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_quintaa) && $config_quintaa == 'true' ? 'checked' : '');?> id="config_quintaa" name="config_quintaa" value="true" type="checkbox"><label for="config_quintaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -811,7 +829,9 @@ $updatebanco = new Update();
 						<div class="wrapper_indent">
 							<label>SEXTA FEIRA</label>
 							<br />
-							<input <?=(!empty($config_sexta) && $config_sexta == 'true' ? 'checked' : '');?> id="config_sexta" name="config_sexta" value="true" type="checkbox"> <label for="config_sexta"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_sexta) && $config_sexta == 'true' ? 'checked' : '');?> id="config_sexta" name="config_sexta" value="true" type="checkbox"> <label for="config_sexta"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -826,7 +846,9 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_sextaa) && $config_sextaa == 'true' ? 'checked' : '');?> id="config_sextaa" name="config_sextaa" value="true" type="checkbox"> <label for="config_sextaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_sextaa) && $config_sextaa == 'true' ? 'checked' : '');?> id="config_sextaa" name="config_sextaa" value="true" type="checkbox"> <label for="config_sextaa"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -847,7 +869,9 @@ $updatebanco = new Update();
 						<div class="wrapper_indent">
 							<label>SABADO</label>
 							<br />
-							<input <?=(!empty($config_sabado) && $config_sabado == 'true' ? 'checked' : '');?> id="config_sabado" name="config_sabado" value="true" type="checkbox"> <label for="config_sabado"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_sabado) && $config_sabado == 'true' ? 'checked' : '');?> id="config_sabado" name="config_sabado" value="true" type="checkbox"> <label for="config_sabado"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -862,7 +886,9 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_sabadoo) && $config_sabadoo == 'true' ? 'checked' : '');?> id="config_sabadoo" name="config_sabadoo" value="true" type="checkbox"> <label for="config_sabadoo"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_sabadoo) && $config_sabadoo == 'true' ? 'checked' : '');?> id="config_sabadoo" name="config_sabadoo" value="true" type="checkbox"> <label for="config_sabadoo"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -883,7 +909,9 @@ $updatebanco = new Update();
 						<div class="wrapper_indent">
 							<label>DOMINGO</label>
 							<br />
-							<input <?=(!empty($config_domingo) && $config_domingo == 'true' ? 'checked' : '');?> id="config_domingo" name="config_domingo" value="true" type="checkbox"> <label for="config_domingo"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_domingo) && $config_domingo == 'true' ? 'checked' : '');?> id="config_domingo" name="config_domingo" value="true" type="checkbox"> <label for="config_domingo"><strong style="color:#7233A1;"> PERIODO DA MANHÃ</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -898,7 +926,9 @@ $updatebanco = new Update();
 									</div>
 								</div>
 							</div>
-							<input <?=(!empty($config_domingoo) && $config_domingoo == 'true' ? 'checked' : '');?> id="config_domingoo" name="config_domingoo" value="true" type="checkbox"><label for="config_domingoo"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							<div class="icheck-material-green">
+								<input <?=(!empty($config_domingoo) && $config_domingoo == 'true' ? 'checked' : '');?> id="config_domingoo" name="config_domingoo" value="true" type="checkbox"><label for="config_domingoo"><strong style="color:#7233A1;"> PERIODO DA TARDE</strong></label>
+							</div>
 							<div class="row">						
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -1082,7 +1112,13 @@ $updatebanco = new Update();
 <br>
 <hr class="line-hr"/>
 <br>
-
+<div class="indent_title_in">
+					 
+					 <h3>Imagens de fundo e de Perfil</h3>
+					 <p>
+						 Imagens que serão usadas na página inicial do site!
+					 </p>
+				 </div>
 <div class="mb-0 panel-group" id="accordion">
 				<div class="panel panel-default">
 					<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
@@ -1095,13 +1131,7 @@ $updatebanco = new Update();
 					<div id="collapse3" style="visibility:unset" class="panel-collapse collapse">
 						<div class="panel-body">
 							<div class="col-md-12 col-sm-12">
-							<div class="indent_title_in">
-					 
-					 <h3>Imagens de fundo e de Perfil</h3>
-					 <p>
-						 Imagens que serão usadas na página inicial do site!
-					 </p>
-				 </div>
+						
  
 				 <div class="flex flex-col md:flex-row  wrapper_indent add_bottom_45"> 
 					 <div style="margin-right: 50px;" class="m-5 md:w-auto w-full form-group">

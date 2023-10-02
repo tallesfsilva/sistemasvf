@@ -1,6 +1,8 @@
 <?php
 
 $login = new Login(3);
+$site = HOME;
+ 
 
 if(!$login->CheckLogin()):
 	unset($_SESSION['userlogin']);
@@ -35,9 +37,10 @@ $updatebanco = new Update();
 	
 			 
 	</script>
+
 </head>
-<html>
-<div  class="container-main-page overflow-hidden flex h-screen justify-center items-center p-4">
+
+<div   style="padding-right: 0px;" class="container-main-page overflow-hidden flex h-screen justify-center items-center p-4">
 	<div style="background-color:#ffffff;"   class="container h-full p-0 m-0">	 		
 	<div  class="config-header w-screen text-bold text-center text-white">
 											<p>Configuração da Conta</p>
@@ -55,10 +58,24 @@ $updatebanco = new Update();
 					endforeach;
 				endif;
 
-
+		
 				$inputnewsenha = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
+
+			
+
+				 
+
 				if($inputnewsenha && !empty($inputnewsenha['sendnewpass'])):
+
+					$lerbanco->ExeRead("ws_users", "WHERE user_email = :a", "a={$inputnewsenha['user_email']}");
+					if ($lerbanco->getResult()):
+						foreach ($lerbanco->getResult() as $j):
+							extract($j);
+						endforeach;
+					endif;
+	
+					 
 					unset($inputnewsenha['sendnewpass']);
 						// LIMPA OS CAMPOS RETIRANDO TAGS E ESPAÇOS DESNECESSÁRIOS
 					$inputnewsenha = array_map('strip_tags', $inputnewsenha);
@@ -69,6 +86,11 @@ $updatebanco = new Update();
 					<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
 					Preencha todos os campos!
 					</div>";
+				elseif (!empty($user_email) && $user_email == $inputnewsenha['user_email']):
+						echo "<div class=\"alert alert-info alert-dismissable\">
+						<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+						O e-mail informado já existe!
+						</div>";
 				elseif (!Check::Email($inputnewsenha['user_email'])):
 					echo "<div class=\"alert alert-info alert-dismissable\">
 					<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
@@ -157,8 +179,8 @@ $updatebanco = new Update();
 							<div class="form-group">							 
 								<div class="col-sm-10">
 									<div class="input-group">
-									<button style="background-color: #00BB07;"class="btn_1 btn-success"  name="sendnewpass" type="submit">Salvar Alterações</button>
-									<!-- <input style="background-color: #00BB07;" class='btn_1 btn-success'  type='submit' value='Salvar Alterações'/> 							 -->
+									<button style="background-color: #00BB07;"class="btn_1 btn-success"  name="sendnewpass" value="Salvar" type="submit">Salvar Alterações</button>
+									<!-- <input style="background-color: #00BB07;" class='btn_1 btn-success'  name="sendnewpass" type='submit' value='Salvar Alterações'/> 							 -->
 									</div>
 								</div>
 							</div>
@@ -172,3 +194,4 @@ $updatebanco = new Update();
 			</section>
 	</div>
 </div><!-- End container  -->
+</html>

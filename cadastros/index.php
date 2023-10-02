@@ -102,7 +102,7 @@ if(empty($_SESSION['userlogin'])){
 		
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
-
+		<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
 		
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
 	
@@ -144,6 +144,7 @@ if(empty($_SESSION['userlogin'])){
 		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" />
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
+		
 		<link href="<?=$site;?>css/style-configuracao.css" rel="stylesheet">
 
 
@@ -154,13 +155,16 @@ if(empty($_SESSION['userlogin'])){
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
 
 
+	
 
+		
 
 			<!--https://gao-sun.github.io/x0popup/-->
 			<link href="<?= $site; ?>css/x0popup-master/dist/x0popup.min.css" rel="stylesheet">
 			<script src="<?= $site; ?>css/x0popup-master/dist/x0popup.min.js"></script>
 
 			<script src="<?= $site; ?>js/jquery.gotop.js"></script>
+			
 
 			<script src="<?= $site; ?>js/player.js"></script>
 			<script src="<?= $site; ?>js/howler.js"></script>
@@ -545,7 +549,7 @@ $(document).ready(function () {
 		 
 	</head>
 
-	<body class="leading-normal tracking-normal text-white"> 
+	<body class="bg-white leading-normal tracking-normal text-white"> 
 		
 		<button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button"  class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
 					<span class="sr-only">Open sidebar</span>
@@ -555,56 +559,213 @@ $(document).ready(function () {
 		</button>
 		<div class="flex flex-col">
 			 	<div class="flex">
-					<aside style="background:#7233A1; box-shadow: 2px 2px 2px 2px gray;" id="default-sidebar" class="fixed top-0 left-0 z-40 w-90 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-					<a style="position: initial;top: -15px;" href="<?=$site?>configuracoes">
-					<div style="background: #7233A1;box-shadow: 0px 1px 1px black" class="mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline text-white font-bold  my-6 py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
-								<div class="w-full">
-										<svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M9.53207 11.5H0.601562V0.5H9.53207V11.5ZM26.0829 3.5H13.8422V0.5H26.0829V3.5ZM22.7728 11.5H13.8422V8.5H22.7728V11.5ZM9.53207 27.5H0.601562V16.5H9.53207V27.5ZM26.0829 19.5H13.8422V16.5H26.0829V19.5ZM22.7728 27.5H13.8422V24.5H22.7728V27.5Z" fill="white" stroke="black"/>
-											</svg>		
-								</div>			
-								<div class="w-full ml-2 self-center">
-									<span style="font-size:23px;">Configurações</span>
+					<aside style="width: 211.33px; background:#7233A1; box-shadow: 2px 2px 2px 2px gray;" id="default-sidebar" class="fixed top-0 left-0 z-40 w-90 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+				 
+					<div style="margin-top:10px; background: #7233A1;box-shadow: 0px 1px 1px black" class="mx-auto flex-row justify-center flex lg:mx-0 text-white font-bold  py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
+					<div class="flex flex-row">			
+						 		
+								<div class="w-full self-center">
+									<span style="font-size:23px;">Cadastros</span>
 								</div>
 							</div>
-		</a>	
+						</div>
+ 	
 			<div  style="background: #7233A1" class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
 						
 			<ul id="side-bar-menu" class="space-y-2 font-medium text-white">
           
          <li style="border-color: #837979" class="w-full border-t">
+				 <div class="">
+					<div style="background-color: #7233A1;color: #ffffff;" class="">
+						
+					<button href=""   data-collapse-toggle="collapse" aria-controls="collapse" aria-expanded="false" class="flex panel-title expand items-center p-2 rounded-lg text-white  group">
+               		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+				</svg>
+               <span class="flex-1 ml-3  ">Produtos</span>
+		
+		</button>
+
+			<div id="collapse" class="hidden">
+						<div class="flex flex-col">
+							 
+									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
+          
+         						<li style="border-color: #837979" class="w-full border-t">
 		 
-            <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-               <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+           						 <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
+              						 <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+						</svg>
+							<span class="flex-1 ml-3  ">Cadastrar Produtos</span>
+		
+           							 </a>
+		 
+       					 </li>
+
+							<li style="border-color: #837979" class="w-full border-t">
+		 
+		 <a href="<?=$site.'cadastros/'?>view-item" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
+			<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
 </svg>
-               <span class="flex-1 ml-3  ">Pedido Fácil</span>
-		
-            </a>
+ <span class="flex-1 ml-3  ">Meus Produtos</span>
+
+			 </a>
+
+ </li>
+
+ <li style="border-color: #837979;" class="w-full border-t">
+		 
+		 <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
+			<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+</svg>
+ <span class="flex-1 ml-3  ">Cadastrar Categorias</span>
+
+			 </a>
+
+ </li>
+		</ul>
+
+					 
+            
+				</div>
+					</div>
+		</div>
+		</div>
+
+			
 		 
          </li>
-         <li style="border-color: #837979" class="w-full  border-t">
-		 <a href="<?=$site.'configuracoes/'?>painel" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-		 <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14.0862 28C21.1376 28 26.854 21.9558 26.854 14.5C26.854 7.04415 21.1376 1 14.0862 1C7.03469 1 1.31836 7.04415 1.31836 14.5C1.31836 21.9558 7.03469 28 14.0862 28Z" fill="white" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M17.9165 9.77498C17.0419 8.85024 15.5018 8.20702 14.0862 8.16675L17.9165 9.77498ZM10.2559 18.55C11.0787 19.71 12.6087 20.3717 14.0862 20.4278L10.2559 18.55ZM14.0862 8.16675C12.402 8.11882 10.8942 8.92445 10.8942 11.125C10.8942 15.175 17.9165 13.15 17.9165 17.2C17.9165 19.5098 16.0476 20.5023 14.0862 20.4278M14.0862 8.16675V5.72498V8.16675ZM14.0862 20.4278V23.275V20.4278Z" fill="white"/>
-<path d="M17.9165 9.77498C17.0419 8.85024 15.5018 8.20702 14.0862 8.16675M14.0862 8.16675C12.402 8.11882 10.8942 8.92445 10.8942 11.125C10.8942 15.175 17.9165 13.15 17.9165 17.2C17.9165 19.5098 16.0476 20.5023 14.0862 20.4278M14.0862 8.16675V5.72498M10.2559 18.55C11.0787 19.71 12.6087 20.3717 14.0862 20.4278M14.0862 20.4278V23.275" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-               <span class="flex-1 ml-3 whitespace-nowrap">Financeiro</span>
-             
-            </a>
+		 <li style="border-color: #837979" class="w-full border-t">
+				 <div class="">
+					<div style="background-color: #7233A1;color: #ffffff;" class="">
+						
+					<button href=""   data-collapse-toggle="collapse-2" aria-controls="collapse" aria-expanded="false" class="flex panel-title expand items-center p-2 rounded-lg text-white  group">
+               		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+				</svg>
+               <span class="flex-1 ml-3  ">Financeiro</span>
+		
+		</button>
+
+			<div id="collapse-2" class="hidden">
+						<div class="flex flex-col">
+							 
+									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
+          
+         						<li style="border-color: #837979" class="w-full border-t">
+		 
+           						 <a href="<?=$site.'cadastros/'?>cadastrar-formas-pagamento" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
+              						 <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+						</svg>
+							<span class="flex-1 ml-3  ">Cadastrar Pagamentos</span>
+		
+           							 </a>
+		 
+       					 </li>
+
+						 
+		</ul>
+
+					 
+            
+				</div>
+					</div>
+		</div>
+		</div>
+
+			
+		 
          </li>
-		 <li style="border-color: #837979" class="w-full   border-b border-t">
-		 <a href="<?=$site.'configuracoes/'?>login-senha"  class="flex items-center p-2 rounded-lg text-white  group">
-		 <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.9778 28C21.0292 28 26.7456 21.9558 26.7456 14.5C26.7456 7.04416 21.0292 1 13.9778 1C6.9263 1 1.20996 7.04416 1.20996 14.5C1.20996 21.9558 6.9263 28 13.9778 28Z" fill="white" stroke="black"/>
-<path d="M7.59375 22.6V21.25C7.59375 17.5221 10.4519 14.5 13.9776 14.5C17.5033 14.5 20.3615 17.5221 20.3615 21.25V22.6" fill="white"/>
-<path d="M7.59375 22.6V21.25C7.59375 17.5221 10.4519 14.5 13.9776 14.5C17.5033 14.5 20.3615 17.5221 20.3615 21.25V22.6" stroke="black" stroke-linecap="round"/>
-<path d="M13.9778 14.5C16.0933 14.5 17.8081 12.6868 17.8081 10.45C17.8081 8.21328 16.0933 6.40002 13.9778 6.40002C11.8623 6.40002 10.1475 8.21328 10.1475 10.45C10.1475 12.6868 11.8623 14.5 13.9778 14.5Z" fill="white" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-               <span class="flex-1 ml-3 whitespace-nowrap">Conta</span>
-            </a>
+		 <li style="border-color: #837979" class="w-full border-t">
+				 <div class="">
+					<div style="background-color: #7233A1;color: #ffffff;" class="">
+						
+					<button href=""   data-collapse-toggle="collapse-3" aria-controls="collapse" aria-expanded="false" class="flex panel-title expand items-center p-2 rounded-lg text-white  group">
+               		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+				</svg>
+               <span class="flex-1 ml-3  ">Delivery</span>
+		
+		</button>
+
+			<div id="collapse-3" class="hidden">
+						<div class="flex flex-col">
+							 
+									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
+          
+         						<li style="border-color: #837979" class="w-full border-t">
+		 
+           						 <a href="<?=$site.'cadastros/'?>enderecos-delivery" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
+              						 <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+						</svg>
+							<span class="flex-1 ml-3  ">Cadastros de Endereços</span>
+		
+           							 </a>
+		 
+       					 </li>
+
+						 
+		</ul>
+
+					 
+            
+				</div>
+					</div>
+		</div>
+		</div>
+
+			
+		 
          </li>
+
+		 <li style="border-color: #837979" class="w-full border-t">
+				 <div class="">
+					<div style="background-color: #7233A1;color: #ffffff;" class="">
+						
+					<button href=""   data-collapse-toggle="collapse-4" aria-controls="collapse" aria-expanded="false" class="flex panel-title expand items-center p-2 rounded-lg text-white  group">
+               		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+				</svg>
+               <span class="flex-1 ml-3  ">Promoções</span>
+		
+		</button>
+
+			<div id="collapse-4" class="hidden">
+						<div class="flex flex-col">
+							 
+									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
+          
+         						<li style="border-color: #837979" class="w-full border-t">
+		 
+           						 <a href="<?=$site.'cadastros/'?>cupom-desconto" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
+              						 <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+						</svg>
+							<span class="flex-1 ml-3  ">Cupons de Desconto</span>
+		
+           							 </a>
+		 
+       					 </li>
+
+						 
+		</ul>
+
+					 
+            
+				</div>
+					</div>
+		</div>
+		</div>
+
+			
+		 
+         </li>
+         
          
          
       </ul>
@@ -632,8 +793,9 @@ $(document).ready(function () {
    </div>
    
 </aside>
-		</div>
- 
+	 
+	
+</div>
 		<?php				
  
  if(file_exists('includes/'.$Url[0] . '.php')):
@@ -641,19 +803,32 @@ $(document).ready(function () {
   
  endif;
  ?>
+ 
 				<div  id="img-container" class="container-main-page flex bg-white h-screen justify-center items-center p-4">
 				
 				
-				<div  class="flex h-full w-full items-center justify-center container-items" >
+						<div  class="flex h-full w-full items-center justify-center container-items" >
 					<img style="width: 400px;height: 300px;" src="../../Imagens/INICIO.png"/>	
 
 						</div>
 				</div>
-		 
+				
 
+				<script>
+	$( function() {
+		$( "#datepicker" ).datepicker();
+
+
+		
+	} );
+</script>
 
  
 			<script src="<?= $site; ?>js/flowbite.min.js"></script>
+
+
+
+
 
 <script src="<?= $site; ?>js/common_scripts_min.js"></script>
 <script src="<?= $site; ?>js/functions.js"></script>

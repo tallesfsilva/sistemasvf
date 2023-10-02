@@ -186,7 +186,7 @@ margin-top:10px;
 	 
 } 
 .height-container{
-	height: 582.85 !important;
+	height: 620.35 !important;
 }
 .text-info-menu{
 	font-size: 15px;
@@ -220,7 +220,11 @@ margin-top: 5px;
 	border-radius: 50%;
 }
 #suporte_button:hover{
-	background-color: #7ccf7f !important;
+	background-color: #7ccf7f;
+}
+.suporte_btn{
+	background-color: #00BB07; 
+	color: white
 }
 
 
