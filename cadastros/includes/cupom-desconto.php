@@ -71,7 +71,7 @@ endif;
     }
      
 
-    #aceita_entrega{
+    .aceita_entrega{
       border: none;
      font-family: inherit;
   font-size: inherit;
@@ -131,14 +131,14 @@ endif;
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Código de Ativação</label>
-                  <input required type="text" maxlength="20" class="form-control" name="ativacao" aria-describedby="emailHelp" placeholder="EX: CUPOM10" />
+                  <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9]/g, '')"required type="text" maxlength="20" class="form-control" name="ativacao" aria-describedby="emailHelp" placeholder="EX: CUPOM10" />
                   <small id="emailHelp" class="form-text text-muted">Para enviar para seus clientes. (max. 20 caracteres)</small>
                 </div>
               </div>
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputPassword1">Desconto %</label>
-                  <input required type="number" class="form-control descontoporcentagem" value="1" name="porcentagem" min="1" max="100" />
+                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required type="text" class="form-control descontoporcentagem" value="1" maxlength="2"  step="1" pattern="[0-9]{2}" name="porcentagem" min="1" max="99" />
                   <small class="form-text text-muted">Porcentagem de desconto.</small>
                 </div>
               </div>
@@ -155,7 +155,7 @@ endif;
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputPassword1">Quantidade</label>
-                  <input required type="number" class="form-control numero" name="total_vezes" value="1" min="1" max="100000" />
+                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required type="text" class="form-control numero" name="total_vezes" value="1" min="1" maxlength="3"  step="1" pattern="[0-9]{3}" max="999" />
                   <small class="form-text text-muted">Número de vezes que o cupom pode ser usado!</small>
                 </div>
               </div>
@@ -172,6 +172,8 @@ endif;
 
        
           <script type="text/javascript">
+              
+
             $(document).ready(function(){
               $('#submitbtncupom').click(function(){
                 $.ajax({
@@ -238,7 +240,7 @@ endif;
                       ?> 
 
                     </td>
-                    <td><button type="button" class="btn btn-defalt exibirsite" data-idcupom="<?=$id_cupom;?>"><?=($mostrar_site == 0 ? 'Não' : 'Sim');?></button></td>
+                    <td><button style="background: <?=$mostrar_site ? '#00BB07' : '#A70000' ?>" type="button" class="btn btn-defalt aceita_entrega exibirsite" data-idcupom="<?=$id_cupom;?>"><?=($mostrar_site == 0 ? 'Não' : 'Sim');?></button></td>
                     <td><button  style="background-color: #A70000; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete excluircupom" data-idcupom="<?=$id_cupom;?>">Excluir</button></td>
                   </tr>
                   <?php
@@ -298,7 +300,7 @@ endif;
               'Ocorreu um arro!',
               'error', false);
           }else if(data == 'erro0'){
-            window.location.replace('<?=$site.$Url[0].'/cupom-desconto';?>');
+            window.location.replace('<?=$site.'cadastros/cupom-desconto';?>');
           }
 
         }
@@ -352,6 +354,25 @@ endif;
 
  
 	<script src="js/flowbite.min.js"></script>
+  <script>
+
+
+
+$(document).ready(function(){
+
+
+$('.descontoporcentagem').on('change', function(e){
+
+    $(this).val($(this).val().replace(/[^0-9]+/g, ''));
+  });
+
+
+
+
+
+})
+
+  </script>
 
  
   </html>

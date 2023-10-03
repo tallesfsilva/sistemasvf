@@ -65,7 +65,7 @@ else:
 			<b class=\"alert-link\">SUCESSO!</b> Cupom cadastrado.
 			</div>";      
 			echo "<script>setTimeout(function() {
-				window.location.replace('{$site}{$urlsite}/cupom-desconto');
+				window.location.replace('{$site}cadastros/cupom-desconto');
 			}, 2000);</script>"; 
 		else:
 			echo "<div class=\"alert alert-danger alert-dismissable\">

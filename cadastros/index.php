@@ -101,8 +101,9 @@ if(empty($_SESSION['userlogin'])){
 
 		
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
-		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
+				<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
+		 
+
 		
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
 	
@@ -117,11 +118,11 @@ if(empty($_SESSION['userlogin'])){
 
 
 		<!-- Radio and check inputs -->
-		<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
+		 
 		<link href="<?= $site; ?>css/skins/square/grey.css" rel="stylesheet">
 		
 		<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">
-
+		<link href="<?= $site; ?>css/flowbite.min.css" rel="stylesheet">
 		<?php
 		if(!empty($_SESSION['userlogin'])):
 			?>
@@ -132,7 +133,7 @@ if(empty($_SESSION['userlogin'])){
 
 
 			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/normalize.css" />
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/demo.css" />
+			
 			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/component.css" />
 			<?php
 		else:
@@ -142,7 +143,7 @@ if(empty($_SESSION['userlogin'])){
 		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/frappuccino-modal.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" />
-		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
+	  
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
 		
 		<link href="<?=$site;?>css/style-configuracao.css" rel="stylesheet">
@@ -327,6 +328,9 @@ $(document).ready(function () {
 				opacity:1;    	
 			}
 
+			.active{
+				display:block;
+			}
 			.omb_login .omb_loginOr {
 				position: relative;
 				font-size: 1.5em;
@@ -543,7 +547,7 @@ $(document).ready(function () {
 
 		 
 
-		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
+		 
  
  
 		 
@@ -571,22 +575,22 @@ $(document).ready(function () {
 						</div>
  	
 			<div  style="background: #7233A1" class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
-						
+				
 			<ul id="side-bar-menu" class="space-y-2 font-medium text-white">
-          
-         <li style="border-color: #837979" class="w-full border-t">
-				 <div class="">
-					<div style="background-color: #7233A1;color: #ffffff;" class="">
+						 <div id="accordion" aria-multiselectable="true" role="tablist">
+       				  <li style="border-color: #837979" class="w-full border-t">
+			
+					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
 						
-					<button href=""   data-collapse-toggle="collapse" aria-controls="collapse" aria-expanded="false" class="flex panel-title expand items-center p-2 rounded-lg text-white  group">
-               		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-				</svg>
-               <span class="flex-1 ml-3  ">Produtos</span>
+						<button href="#collapse-1" data-toggle="collapse" aria-controls="collapse-1" aria-expanded="false" class="flex btn-menu panel-title expand items-center p-2 rounded-lg text-white  group">
+						<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+					</svg>
+				<span class="flex-1 ml-3  ">Produtos</span>
 		
 		</button>
 
-			<div id="collapse" class="hidden">
+			<div id="collapse-1" data-parent="#accordion" class="collapse">
 						<div class="flex flex-col">
 							 
 									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
@@ -633,16 +637,17 @@ $(document).ready(function () {
 				</div>
 					</div>
 		</div>
-		</div>
+ 
 
 			
 		 
          </li>
+		 
 		 <li style="border-color: #837979" class="w-full border-t">
-				 <div class="">
-					<div style="background-color: #7233A1;color: #ffffff;" class="">
+				 
+					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
 						
-					<button href=""   data-collapse-toggle="collapse-2" aria-controls="collapse" aria-expanded="false" class="flex panel-title expand items-center p-2 rounded-lg text-white  group">
+			<button href="#collapse-2"   data-toggle="collapse" aria-controls="collapse-2" aria-expanded="false" class="flex btn-menu panel-title expand items-center p-2 rounded-lg text-white  group">
                		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
 				</svg>
@@ -650,7 +655,7 @@ $(document).ready(function () {
 		
 		</button>
 
-			<div id="collapse-2" class="hidden">
+			<div id="collapse-2" aria-expanded="false" data-parent="#accordion" class="collapse">
 						<div class="flex flex-col">
 							 
 									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
@@ -675,16 +680,17 @@ $(document).ready(function () {
 				</div>
 					</div>
 		</div>
-		</div>
+	 
 
 			
 		 
          </li>
+	 
 		 <li style="border-color: #837979" class="w-full border-t">
-				 <div class="">
-					<div style="background-color: #7233A1;color: #ffffff;" class="">
+			 
+					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
 						
-					<button href=""   data-collapse-toggle="collapse-3" aria-controls="collapse" aria-expanded="false" class="flex panel-title expand items-center p-2 rounded-lg text-white  group">
+					<button href="#collapse-3" data-toggle="collapse" aria-controls="collapse-3" aria-expanded="false" class="flex btn-menu panel-title expand items-center p-2 rounded-lg text-white  group">
                		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
 				</svg>
@@ -692,7 +698,7 @@ $(document).ready(function () {
 		
 		</button>
 
-			<div id="collapse-3" class="hidden">
+			<div id="collapse-3" class="collapse">
 						<div class="flex flex-col">
 							 
 									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
@@ -717,25 +723,26 @@ $(document).ready(function () {
 				</div>
 					</div>
 		</div>
-		</div>
+	
 
 			
 		 
          </li>
 
 		 <li style="border-color: #837979" class="w-full border-t">
-				 <div class="">
+				 <div  class="head-panel">
 					<div style="background-color: #7233A1;color: #ffffff;" class="">
 						
-					<button href=""   data-collapse-toggle="collapse-4" aria-controls="collapse" aria-expanded="false" class="flex panel-title expand items-center p-2 rounded-lg text-white  group">
+					<button href="#collapse-4"  id="btn_4" data-toggle="collapse" aria-controls="collapse-4" aria-expanded="false" class="flex btn-menu panel-title expand items-center p-2 rounded-lg text-white  group">
                		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-				</svg>
-               <span class="flex-1 ml-3  ">Promoções</span>
+							<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
+						</svg>
+              		 <span class="flex-1 ml-3  ">Promoções</span>
 		
-		</button>
+						</button>
+ 
 
-			<div id="collapse-4" class="hidden">
+			<div id="collapse-4"   class="collapse">
 						<div class="flex flex-col">
 							 
 									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
@@ -766,15 +773,15 @@ $(document).ready(function () {
 		 
          </li>
          
-         
+		</div>
          
       </ul>
-	  <ul  class="fixed w-full bottom-0 pt-4 mt-4 dark:border-gray-700">
+	  <ul  class="fixed w-1/2 md:w-full bottom-0 pt-4 mt-4 dark:border-gray-700">
         
        
-         <li class="w-full">
+         <li class="md:w-full">
 
-		 <a class="w-full" href="<?=$site;?>">
+		 <a class="md:w-full" href="<?=$site;?>">
 					<div style="background: #A70000; height:64px" id="voltar_button" class="items-center mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white font-bold  shadow-lg focus:outline-none focus:shadow-outline">
 								<div class="w-40">
 									<svg width="50" height="40" viewBox="0 0 37 39" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -818,19 +825,29 @@ $(document).ready(function () {
 	$( function() {
 		$( "#datepicker" ).datepicker();
 
+		$('.btn-menu').on('click', function(e){
+			
+			 
+    jQuery('.collapse').collapse('hide');
+ 
 
-		
+		 
+		 
+
+			 
+	})
 	} );
 </script>
 
- 
-			<script src="<?= $site; ?>js/flowbite.min.js"></script>
 
 
 
 
 
-<script src="<?= $site; ?>js/common_scripts_min.js"></script>
+
+<!-- <script src="<?= $site; ?>js/common_scripts_min.js"></script> -->
+<script src="<?= $site; ?>js/flowbite.min.js"></script>
+<script src="<?= $site; ?>js/bootstrap.js"></script>
 <script src="<?= $site; ?>js/functions.js"></script>
 <script src="<?= $site; ?>assets/validate.js"></script>
 <script src="<?= $site; ?>js/jquery.mask.js"></script>

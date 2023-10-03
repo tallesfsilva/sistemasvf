@@ -63,7 +63,7 @@ $updatebanco = new Update();
 							<div style="background-color:#ffffff;color:black" class="container p-0 m-0">
 									
 							<div  class="config-header w-full text-bold text-center text-white">
-											<p>Cadastro de Endereços</p>
+											<p>Taxa de Entrega</p>
 									</div>	
 							<div id="sendempresa"></div>
 
@@ -234,7 +234,7 @@ endif;
       
      ;
      ?>
-      <tr style="font-size: 20px" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
  
             <th scope="row" class="px-6 py-4 col-md-4 col-xs-2  font-medium text-gray-900 whitespace-nowrap dark:text-white">
                    <?= $uf ?>

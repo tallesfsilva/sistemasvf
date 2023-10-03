@@ -71,7 +71,7 @@ endif;
     }
 
   
-    #aceita_entrega{
+    .aceita_entrega{
       border: none;
      font-family: inherit;
   font-size: inherit;
@@ -106,7 +106,7 @@ endif;
 							<div style="background-color:#ffffff;color:black" class="container p-0 m-0">
 									
 							<div  class="config-header w-full text-bold text-center text-white">
-											<p>Cadastro de Formas de Pagamento</p>
+											<p>Formas de Pagamento</p>
 									</div>	
 							<div id="sendempresa"></div>
 
@@ -139,7 +139,7 @@ endif;
 							'error', false);
 							</script>";
 						else:
-              $getformapagamento['aceita_entrega']= $getformapagamento['aceita_entrega'] == 'on' ? 1 : 0;
+              $getformapagamento['aceita_entrega']= 1;
 							$addbanco->ExeCreate("ws_formas_pagamento", $getformapagamento);
 							if(!$addbanco->getResult()):
 								echo "<script>
@@ -158,15 +158,8 @@ endif;
 					<form method="post">
 						<div class="form-group">							
 							<label for="f_pagamento">Forma de Pagamento</label>						
-							<input type="text" id="f_pagamento" name="f_pagamento" class="form-control" placeholder="Dinheiro, Crédito Visa, etc...">
-                </div>
-
-                <div class="form-group">
-                <div class="icheck-material-green">			              
-                    <input type="checkbox" id="aceita_entrega" name="aceita_entrega" class="form-control">
-                    <label for="aceita_entrega">Aceita na Entrega?</label>						  
-              </div>  
-              </div>
+							<input oninput="this.value = this.value.replace(/[^a-z-A-Z ]/g, '')" maxlength="30" type="text" id="f_pagamento" name="f_pagamento" class="form-control" placeholder="Dinheiro, Crédito Visa, etc...">
+                </div>                 
                 <input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>">
              	
                 <button style="background-color: #00BB07;"class="btn_1 btn-success"  type="submit">Cadastrar Pagamento</button>						
@@ -217,16 +210,16 @@ endif;
         extract($tt);                                    
         ?>     
    
-      <tr style="font-size: 20px" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
  
             <th scope="row" class="px-6 py-4 col-md-6 col-xs-6  font-medium text-gray-900 whitespace-nowrap dark:text-white">
                    <?= $f_pagamento  ?>
                 </th>
                 <td class="col-md-3 col-sm-2 px-6 py-4 text-right">               
                     <?php if($aceita_entrega) { ?>
-                    <div id="aceita_entrega" style="background-color: #00BB07;">Sim</div>						
+                      <button type="button" class="aceita_entrega" data-id_pag="<?= $id_f_pagamento ?>" style="background-color: #00BB07;">Sim</div>						
                     <?php }else { ?>
-                      <div id="aceita_entrega" style="background-color: #A70000;">Não</div>						
+                      <button type="button" class="aceita_entrega" data-id_pag="<?= $id_f_pagamento?>" style="background-color: #A70000;">Não</div>						
                      <?php } ?>
                     </td>
                 
@@ -272,7 +265,36 @@ endif;
 		</div>
 				</div>
 		 
+        <script type="text/javascript">
+  $(document).ready(function(){
+   
  
+      $('.aceita_entrega').click(function(){
+      var id_pag = $(this).data('id_pag');
+      $(this).prop('disabled', true);
+
+      $.ajax({
+        url: 'includes/processa-aceita-entrega.php',
+        method: 'post',
+        data: {'id_pag' : id_pag, 'iduser' : '<?=$userlogin['user_id'];?>'},
+        success: function(data){
+          console.log(data);
+          $('#aceita_entrega').prop('disabled', false);
+          if(data == 'false'){
+            x0p('Opss...', 
+              'Ocorreu um erro!',
+              'error', false);
+          }else if(data == 'success'){
+            window.location.replace('<?=$site.'cadastros/cadastrar-formas-pagamento';?>');
+          }
+
+        }
+      });
+    });
+     
+  
+  });
+</script>
 
  
 	<script src="js/flowbite.min.js"></script>
