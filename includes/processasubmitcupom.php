@@ -66,7 +66,7 @@ else:
 			</div>";      
 			echo "<script>setTimeout(function() {
 				window.location.replace('{$site}cadastros/cupom-desconto');
-			}, 2000);</script>"; 
+			}, 1000);</script>"; 
 		else:
 			echo "<div class=\"alert alert-danger alert-dismissable\">
 			<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>

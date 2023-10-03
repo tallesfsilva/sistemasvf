@@ -155,7 +155,7 @@ endif;
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputPassword1">Quantidade</label>
-                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required type="text" class="form-control numero" name="total_vezes" value="1" min="1" maxlength="3"  step="1" pattern="[0-9]{3}" max="999" />
+                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required type="text" class="form-control numero" name="total_vezes" value="1" min="1" maxlength="3"      max="999" />
                   <small class="form-text text-muted">Número de vezes que o cupom pode ser usado!</small>
                 </div>
               </div>
@@ -242,7 +242,7 @@ endif;
                     </td>
                     <td><button style="background: <?=$mostrar_site ? '#00BB07' : '#A70000' ?>" type="button" class="btn btn-defalt aceita_entrega exibirsite" data-idcupom="<?=$id_cupom;?>"><?=($mostrar_site == 0 ? 'Não' : 'Sim');?></button></td>
                     
-                    <td><button  style="background-color: #d9534f;border-color: #d43f3a; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete excluircupom" data-idcupom="<?=$id_cupom;?>"><span class="glyphicon glyphicon-trash"></span></button></td>
+                    <td><button  style="background-color: #A70000;border-color: #A70000; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete excluircupom" data-idcupom="<?=$id_cupom;?>"><span class="glyphicon glyphicon-trash"></span></button></td>
                   </tr>
                   <?php
                 endforeach;

@@ -158,7 +158,7 @@ endif;
 					<form method="post">
 						<div class="form-group">							
 							<label for="f_pagamento">Forma de Pagamento</label>						
-							<input oninput="this.value = this.value.replace(/[^a-z-A-Z ]/g, '')" maxlength="30" type="text" id="f_pagamento" name="f_pagamento" class="form-control" placeholder="Dinheiro, Crédito Visa, etc...">
+							<input oninput="this.value = this.value.replace(/[^a-z-A-Z ]/g, '')"   maxlength="30" type="text" id="f_pagamento" name="f_pagamento" class="form-control" placeholder="Dinheiro, Crédito Visa, etc...">
                 </div>                 
                 <input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>">
              	
@@ -187,13 +187,13 @@ endif;
     <table class="w-full text-left text-gray-500 dark:text-gray-400">
         <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>               
-                <th style="padding:25px;" scope="col" class=" px-6 py-3">
+                <th style="padding:25px;" scope="col" class=" text-center px-6 py-3">
                    Forma de Pagamento
                 </th>
-                <th scope="col" class="px-6 py-3 text-right">
+                <th scope="col" class="text-center px-6 py-3">
                    Aceita na Entrega?
                 </th>
-                <th scope="col" class="px-6 py-3 text-right">
+                <th scope="col" class="text-center px-6 py-3">
                    Excluir
                 </th>
                
@@ -212,10 +212,10 @@ endif;
    
       <tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
  
-            <th scope="row" class="px-6 py-4 col-md-6 col-xs-6  font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="px-6 py-4 text-center">
                    <?= $f_pagamento  ?>
                 </th>
-                <td class="col-md-3 col-sm-2 px-6 py-4 text-right">               
+                <td class="text-center">         
                     <?php if($aceita_entrega) { ?>
                       <button type="button" class="aceita_entrega" data-id_pag="<?= $id_f_pagamento ?>" style="background-color: #00BB07;">Sim</div>						
                     <?php }else { ?>
@@ -223,10 +223,10 @@ endif;
                      <?php } ?>
                     </td>
                 
-                <td class="col-md-6 col-sm-2 px-6 py-4 text-right">               
+                    <td class="text-center">        
                   <a title="Deletar" href="<?=$site.'cadastros/cadastrar-formas-pagamento&delete='.$id_f_pagamento;?>">
-                      <button style="background-color: #A70000; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete -black">
-                        <strong>Excluir</strong>
+                      <button style="background-color: #A70000;border-color: #A70000; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete -black">
+                      <span class="glyphicon glyphicon-trash"></span>
                       </button>
                     </a><br />
   

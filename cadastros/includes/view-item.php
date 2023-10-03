@@ -261,9 +261,9 @@ $updatebanco = new Update();
                 </center>
               </td>
               <td class="col-md-3 col-sm-2  px-6 py-4">
-                <center>
-                  <button data-getiddell="<?=$id;?>" class="btn btn-danger deletarItem"><span class="glyphicon glyphicon-trash"></span></button>
-                </center>
+           
+                  <button style="background-color: #A70000;border-color: #A70000; margin-top: 3px;border-radius: 4px !important" data-getiddell="<?=$id;?>" class="btn_1 btn-delete deletarItem"><span class="glyphicon glyphicon-trash"></span></button>
+           
               </td>
             </tr>  
             <!-- FINAL DO LOOP DA LEITURA DO BANCO --> 

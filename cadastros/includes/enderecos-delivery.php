@@ -182,7 +182,7 @@ endif;
   <label class="col-sm-2">Valor da Taxa:</label>
   <div class="col-sm-10">
    <div class="input-group">    
-    <input type="text" required name="taxa" maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" data-mask="#.##0,00" maxlength="2"  step="1"  data-mask-reverse="true" class="form-control" placeholder="0,00">
+    <input type="text" required name="taxa" maxlength="6"  data-mask="#.##0,00"   step="1"  data-mask-reverse="true" class="form-control" placeholder="0,00">
   </div>
 </div>
 </div>
@@ -204,19 +204,19 @@ endif;
     <table class="w-full text-left text-gray-500 dark:text-gray-400">
         <thead style="background:#7232A0;" class="text-white text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th style="padding:25px;" scope="col" class="px-6 py-3">
-                    UF
+                <th style="padding:25px;" scope="col" class="text-center px-6 py-3">
+                    Estado
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="text-center px-6 py-3">
                     Cidade
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="text-center px-6 py-3">
                    Bairro
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="text-center px-6 py-3">
                    Valor
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="text-center px-6 py-3">
                    Excluir
                 </th>
                 
@@ -236,23 +236,23 @@ endif;
      ?>
       <tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
  
-            <th scope="row" class="px-6 py-4 col-md-4 col-xs-2  font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td scope="row" class="text-center">
                    <?= $uf ?>
-                </th>
+     </td>
    
-                <td class="col-md-3 col-sm-2  px-6 py-4">
+                <td class="text-center">
                 <?= $cidade ?>
                 </td>
-                <td class="col-md-3 col-sm-2 px-6 py-4">
+                <td class="text-center">
                 <?= $bairro ?>
                 </td>
-                <td class="col-md-3 col-sm-2 px-6 py-4">
+                <td class="text-center">
                 <?= $taxa ?>
                 </td>
-                <td class="col-md-3 col-sm-2 px-6 py-4">
+                <td class="text-center">
                
                <a title="Deletar" href="<?=$site.'cadastros/enderecos-delivery&delete='.$id.'#adicionarbairro';?>">
-                  <button style="background-color: #d9534f;border-color: #d43f3a; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete text-black">
+                  <button style="background-color: #A70000;border-color: #A70000; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete text-black">
                   <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </a><br />

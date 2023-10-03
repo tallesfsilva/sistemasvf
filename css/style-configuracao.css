@@ -479,7 +479,7 @@ a.btn_1, .btn_1{
 	cursor: pointer;
 	padding: 10px 20px;
 	outline: none;
-	font-size:12px;
+	/* font-size:12px; */
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
