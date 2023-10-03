@@ -243,7 +243,7 @@ $updatebanco = new Update();
 							
 							<div style="background-color:#ffffff;color:black" class="container p-0 m-0">
 									
-							<div  class="config-header w-screen text-bold text-center text-white">
+							<div  class="config-header w-full text-bold text-center text-white">
 											<p>Configuração Pedido Fácil</p>
 									</div>	
 							<div id="sendempresa"></div>

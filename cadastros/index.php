@@ -319,6 +319,24 @@ $(document).ready(function () {
        				 background: linear-gradient(90deg, #7233A1 0%, #8c52ff 100%);
       		}
 
+			 		 #btn-2:after,#btn-3:after,#btn-4:after,#btn-1:after {
+						font-family: "Glyphicons Halflings";
+						content: "\e080";
+					 
+						right: 0;
+						position: absolute;
+						margin-right:4px;
+						}
+
+						/* Icon when the collapsible content is hidden */
+						#btn-2.collapsed:after,#btn-3.collapsed:after,#btn-4.collapsed:after,#btn-1.collapsed:after {
+					
+						content: "\e114";
+					}
+
+
+
+
 			.omb_login .omb_socialButtons a {
 				color: white; // In yourUse @body-bg 
 				opacity:0.9;
@@ -582,7 +600,7 @@ $(document).ready(function () {
 			
 					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
 						
-						<button href="#collapse-1" data-toggle="collapse" aria-controls="collapse-1" aria-expanded="false" class="flex btn-menu panel-title expand items-center p-2 rounded-lg text-white  group">
+						<button id="btn-1" href="#collapse-1" data-toggle="collapse" aria-controls="collapse-1" aria-expanded="false" class="flex btn-menu panel-title expand collapsed items-center p-2 rounded-lg text-white  group">
 						<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
 					</svg>
@@ -595,17 +613,7 @@ $(document).ready(function () {
 							 
 									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
           
-         						<li style="border-color: #837979" class="w-full border-t">
-		 
-           						 <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-              						 <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-						</svg>
-							<span class="flex-1 ml-3  ">Cadastrar Produtos</span>
-		
-           							 </a>
-		 
-       					 </li>
+         					 
 
 							<li style="border-color: #837979" class="w-full border-t">
 		 
@@ -647,7 +655,7 @@ $(document).ready(function () {
 				 
 					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
 						
-			<button href="#collapse-2"   data-toggle="collapse" aria-controls="collapse-2" aria-expanded="false" class="flex btn-menu panel-title expand items-center p-2 rounded-lg text-white  group">
+			<button id="btn-2"  href="#collapse-2"   data-toggle="collapse" aria-controls="collapse-2" aria-expanded="false" class="flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
                		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
 				</svg>
@@ -666,7 +674,7 @@ $(document).ready(function () {
               						 <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
 						</svg>
-							<span class="flex-1 ml-3  ">Cadastrar Pagamentos</span>
+							<span class="flex-1 ml-3  ">Formas de Pagamentos</span>
 		
            							 </a>
 		 
@@ -690,7 +698,7 @@ $(document).ready(function () {
 			 
 					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
 						
-					<button href="#collapse-3" data-toggle="collapse" aria-controls="collapse-3" aria-expanded="false" class="flex btn-menu panel-title expand items-center p-2 rounded-lg text-white  group">
+					<button id="btn-3"  href="#collapse-3" data-toggle="collapse" aria-controls="collapse-3" aria-expanded="false" class="flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
                		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
 				</svg>
@@ -709,7 +717,7 @@ $(document).ready(function () {
               						 <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
 						</svg>
-							<span class="flex-1 ml-3  ">Cadastros de Endereços</span>
+							<span class="flex-1 ml-3  ">Taxa de Entrega</span>
 		
            							 </a>
 		 
@@ -729,11 +737,11 @@ $(document).ready(function () {
 		 
          </li>
 
-		 <li style="border-color: #837979" class="w-full border-t">
+		 <li style="border-color: #837979" class="w-full border-t border-b">
 				 <div  class="head-panel">
 					<div style="background-color: #7233A1;color: #ffffff;" class="">
 						
-					<button href="#collapse-4"  id="btn_4" data-toggle="collapse" aria-controls="collapse-4" aria-expanded="false" class="flex btn-menu panel-title expand items-center p-2 rounded-lg text-white  group">
+					<button id="btn-4"  href="#collapse-4"  id="btn_4" data-toggle="collapse" aria-controls="collapse-4" aria-expanded="false" class="flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
                		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
 						</svg>
@@ -815,7 +823,7 @@ $(document).ready(function () {
 				
 				
 						<div  class="flex h-full w-full items-center justify-center container-items" >
-					<img style="width: 400px;height: 300px;" src="../../Imagens/INICIO.png"/>	
+					<img id="img_container" style="width: 400px;height: 300px;" src="../../Imagens/INICIO.png"/>	
 
 						</div>
 				</div>
@@ -823,6 +831,9 @@ $(document).ready(function () {
 
 				<script>
 	$( function() {
+
+
+		
 		$( "#datepicker" ).datepicker();
 
 		$('.btn-menu').on('click', function(e){

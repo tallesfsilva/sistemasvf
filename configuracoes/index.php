@@ -572,7 +572,7 @@ $(document).ready(function () {
           
          <li style="border-color: #837979" class="w-full border-t">
 		 
-            <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
+            <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex panel-title items-center p-2 rounded-lg text-white  group">
                <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
 </svg>
@@ -582,8 +582,8 @@ $(document).ready(function () {
 		 
          </li>
          <li style="border-color: #837979" class="w-full  border-t">
-		 <a href="<?=$site.'configuracoes/'?>painel" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-		 <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+		 <a href="<?=$site.'configuracoes/'?>painel" target="_parent" class="flex panel-title items-center p-2 rounded-lg text-white  group">
+		 <svg width="23" height="27" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M14.0862 28C21.1376 28 26.854 21.9558 26.854 14.5C26.854 7.04415 21.1376 1 14.0862 1C7.03469 1 1.31836 7.04415 1.31836 14.5C1.31836 21.9558 7.03469 28 14.0862 28Z" fill="white" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M17.9165 9.77498C17.0419 8.85024 15.5018 8.20702 14.0862 8.16675L17.9165 9.77498ZM10.2559 18.55C11.0787 19.71 12.6087 20.3717 14.0862 20.4278L10.2559 18.55ZM14.0862 8.16675C12.402 8.11882 10.8942 8.92445 10.8942 11.125C10.8942 15.175 17.9165 13.15 17.9165 17.2C17.9165 19.5098 16.0476 20.5023 14.0862 20.4278M14.0862 8.16675V5.72498V8.16675ZM14.0862 20.4278V23.275V20.4278Z" fill="white"/>
 <path d="M17.9165 9.77498C17.0419 8.85024 15.5018 8.20702 14.0862 8.16675M14.0862 8.16675C12.402 8.11882 10.8942 8.92445 10.8942 11.125C10.8942 15.175 17.9165 13.15 17.9165 17.2C17.9165 19.5098 16.0476 20.5023 14.0862 20.4278M14.0862 8.16675V5.72498M10.2559 18.55C11.0787 19.71 12.6087 20.3717 14.0862 20.4278M14.0862 20.4278V23.275" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
@@ -593,8 +593,8 @@ $(document).ready(function () {
             </a>
          </li>
 		 <li style="border-color: #837979" class="w-full   border-b border-t">
-		 <a href="<?=$site.'configuracoes/'?>login-senha"  class="flex items-center p-2 rounded-lg text-white  group">
-		 <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+		 <a href="<?=$site.'configuracoes/'?>login-senha"  class="flex panel-title items-center p-2 rounded-lg text-white  group">
+		 <svg width="23" height="27" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M13.9778 28C21.0292 28 26.7456 21.9558 26.7456 14.5C26.7456 7.04416 21.0292 1 13.9778 1C6.9263 1 1.20996 7.04416 1.20996 14.5C1.20996 21.9558 6.9263 28 13.9778 28Z" fill="white" stroke="black"/>
 <path d="M7.59375 22.6V21.25C7.59375 17.5221 10.4519 14.5 13.9776 14.5C17.5033 14.5 20.3615 17.5221 20.3615 21.25V22.6" fill="white"/>
 <path d="M7.59375 22.6V21.25C7.59375 17.5221 10.4519 14.5 13.9776 14.5C17.5033 14.5 20.3615 17.5221 20.3615 21.25V22.6" stroke="black" stroke-linecap="round"/>

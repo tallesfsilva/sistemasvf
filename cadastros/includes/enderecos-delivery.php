@@ -182,7 +182,7 @@ endif;
   <label class="col-sm-2">Valor da Taxa:</label>
   <div class="col-sm-10">
    <div class="input-group">    
-    <input type="text" required name="taxa" maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" data-mask="#.##0,00" data-mask-reverse="true" class="form-control" placeholder="0,00">
+    <input type="text" required name="taxa" maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" data-mask="#.##0,00" maxlength="2"  step="1"  data-mask-reverse="true" class="form-control" placeholder="0,00">
   </div>
 </div>
 </div>
@@ -252,8 +252,8 @@ endif;
                 <td class="col-md-3 col-sm-2 px-6 py-4">
                
                <a title="Deletar" href="<?=$site.'cadastros/enderecos-delivery&delete='.$id.'#adicionarbairro';?>">
-                  <button style="background-color: #A70000; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete text-black">
-                    <strong>Excluir</strong>
+                  <button style="background-color: #d9534f;border-color: #d43f3a; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete text-black">
+                  <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </a><br />
   
@@ -277,15 +277,7 @@ endif;
 
 </form>
 <br />
-<div class="alert alert-info fade in nomargin">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-  <h4><i class="icon-attach-3"></i> NOTAS!</h4>
-  <p>
-   <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Se não for inserido nenhum endereço aqui nessa página, o sistema vai tomar como base apenas "UF E CIDADE" cadastrado na página configurações! isso e aconselhado em cidades pequenas com uma taxa fixa de delivery.
- </p>
-
-</div>
-</div>
+ 
 </div>
 </div>
 				</section><!-- End section 1 -->

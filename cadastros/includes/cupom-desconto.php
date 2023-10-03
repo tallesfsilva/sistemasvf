@@ -241,7 +241,8 @@ endif;
 
                     </td>
                     <td><button style="background: <?=$mostrar_site ? '#00BB07' : '#A70000' ?>" type="button" class="btn btn-defalt aceita_entrega exibirsite" data-idcupom="<?=$id_cupom;?>"><?=($mostrar_site == 0 ? 'Não' : 'Sim');?></button></td>
-                    <td><button  style="background-color: #A70000; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete excluircupom" data-idcupom="<?=$id_cupom;?>">Excluir</button></td>
+                    
+                    <td><button  style="background-color: #d9534f;border-color: #d43f3a; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete excluircupom" data-idcupom="<?=$id_cupom;?>"><span class="glyphicon glyphicon-trash"></span></button></td>
                   </tr>
                   <?php
                 endforeach;
