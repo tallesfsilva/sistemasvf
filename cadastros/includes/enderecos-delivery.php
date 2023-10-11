@@ -198,10 +198,10 @@ endif;
 
 
 <div class="form-group">        
- <div class="col-sm-12"> 
+ <div class=""> 
 
 <div class="overflow-x-auto">
-    <table class="w-full text-left text-gray-500 dark:text-gray-400">
+    <table class="border w-full text-left text-gray-500 dark:text-gray-400">
         <thead style="background:#7232A0;" class="text-white text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th style="padding:25px;" scope="col" class="text-center px-6 py-3">
@@ -252,7 +252,7 @@ endif;
                 <td class="text-center">
                
                <a title="Deletar" href="<?=$site.'cadastros/enderecos-delivery&delete='.$id.'#adicionarbairro';?>">
-                  <button style="background-color: #A70000;border-color: #A70000; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete text-black">
+                  <button style="background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete text-black">
                   <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </a><br />

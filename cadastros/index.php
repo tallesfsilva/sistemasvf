@@ -92,28 +92,26 @@ if(empty($_SESSION['userlogin'])){
 		<link href="<?= $site; ?>css/reset.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/datepicker.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/style-bt-file.css" rel="stylesheet">
-		<link href="<?=$site;?>css/suportewats.css" rel="stylesheet">
+ 
 
- <!-- GOOGLE WEB FONT -->
- <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,300,300italic' rel='stylesheet' type='text/css'>
-
+ 
 <!-- BASE CSS -->
 
 		
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
-				<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
 		 
 
 		
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
 	
 		 
-
+<!-- 
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
 
 
-		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'> -->
 
 
 
@@ -149,8 +147,8 @@ if(empty($_SESSION['userlogin'])){
 		<link href="<?=$site;?>css/style-configuracao.css" rel="stylesheet">
 
 
-		<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script> -->
 
 
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
@@ -167,7 +165,7 @@ if(empty($_SESSION['userlogin'])){
 			<script src="<?= $site; ?>js/jquery.gotop.js"></script>
 			
 
-			<script src="<?= $site; ?>js/player.js"></script>
+			<!-- <script src="<?= $site; ?>js/player.js"></script> -->
 			<script src="<?= $site; ?>js/howler.js"></script>
 
  
@@ -258,7 +256,7 @@ $(document).ready(function () {
 		 
 
 
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@0.2.1/output/moretoggles.min.css">
+			<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@0.2.1/output/moretoggles.min.css"> -->
 
 			<!-- Select da pagina carrinho -->
 			<link href="<?=$site?>css/selectcarrinho/dist/css/select2.min.css" rel="stylesheet" />
@@ -334,7 +332,16 @@ $(document).ready(function () {
 						content: "\e114";
 					}
 
-
+				ul > li > a > span{
+					 left: 25px;
+ 					 position: relative
+				}
+				li > div > button > img{
+					position: relative;
+					left: 2px;
+					width:24px;
+					height:24px;
+				}
 
 
 			.omb_login .omb_socialButtons a {
@@ -549,7 +556,7 @@ $(document).ready(function () {
 
 
 
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+		
 
 
 
@@ -601,9 +608,8 @@ $(document).ready(function () {
 					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
 						
 						<button id="btn-1" href="#collapse-1" data-toggle="collapse" aria-controls="collapse-1" aria-expanded="false" class="flex btn-menu panel-title expand collapsed items-center p-2 rounded-lg text-white  group">
-						<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-					</svg>
+						<img src="<?=URL_IMAGE.'img/produto1.png'?>"/>
+						 
 				<span class="flex-1 ml-3  ">Produtos</span>
 		
 		</button>
@@ -611,28 +617,24 @@ $(document).ready(function () {
 			<div id="collapse-1" data-parent="#accordion" class="collapse">
 						<div class="flex flex-col">
 							 
-									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
+									<ul style="background:#9C42DD" class="font-medium text-white">
           
          					 
 
 							<li style="border-color: #837979" class="w-full border-t">
 		 
 		 <a href="<?=$site.'cadastros/'?>view-item" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-			<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-</svg>
+		 
  <span class="flex-1 ml-3  ">Meus Produtos</span>
 
 			 </a>
-
+	
  </li>
-
+ 
  <li style="border-color: #837979;" class="w-full border-t">
 		 
-		 <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-			<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-</svg>
+		 <a href="<?=$site.'cadastros/'?>categorias" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
+		 
  <span class="flex-1 ml-3  ">Cadastrar Categorias</span>
 
 			 </a>
@@ -656,9 +658,7 @@ $(document).ready(function () {
 					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
 						
 			<button id="btn-2"  href="#collapse-2"   data-toggle="collapse" aria-controls="collapse-2" aria-expanded="false" class="flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
-               		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-				</svg>
+			<img src="<?=URL_IMAGE.'img/financeiro1.png'?>"/>
                <span class="flex-1 ml-3  ">Financeiro</span>
 		
 		</button>
@@ -671,9 +671,7 @@ $(document).ready(function () {
          						<li style="border-color: #837979" class="w-full border-t">
 		 
            						 <a href="<?=$site.'cadastros/'?>cadastrar-formas-pagamento" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-              						 <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-						</svg>
+              						 
 							<span class="flex-1 ml-3  ">Formas de Pagamentos</span>
 		
            							 </a>
@@ -699,9 +697,7 @@ $(document).ready(function () {
 					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
 						
 					<button id="btn-3"  href="#collapse-3" data-toggle="collapse" aria-controls="collapse-3" aria-expanded="false" class="flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
-               		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-				</svg>
+					<img src="<?=URL_IMAGE.'img/delivery1.png'?>"/>
                <span class="flex-1 ml-3  ">Delivery</span>
 		
 		</button>
@@ -714,9 +710,7 @@ $(document).ready(function () {
          						<li style="border-color: #837979" class="w-full border-t">
 		 
            						 <a href="<?=$site.'cadastros/'?>enderecos-delivery" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-              						 <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-						</svg>
+              						 
 							<span class="flex-1 ml-3  ">Taxa de Entrega</span>
 		
            							 </a>
@@ -742,9 +736,7 @@ $(document).ready(function () {
 					<div style="background-color: #7233A1;color: #ffffff;" class="">
 						
 					<button id="btn-4"  href="#collapse-4"  id="btn_4" data-toggle="collapse" aria-controls="collapse-4" aria-expanded="false" class="flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
-               		<svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-						</svg>
+					<img src="<?=URL_IMAGE.'img/promocao1.png'?>"/>
               		 <span class="flex-1 ml-3  ">Promoções</span>
 		
 						</button>
@@ -758,9 +750,7 @@ $(document).ready(function () {
          						<li style="border-color: #837979" class="w-full border-t">
 		 
            						 <a href="<?=$site.'cadastros/'?>cupom-desconto" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-              						 <svg width="23" height="27" viewBox="0 0 23 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M9.38581 13.5V13.9H9.78581H22.1536V26.6H0.609961V0.4H9.38581V13.5ZM3.40191 6.35H3.00191V6.75V10.125V10.525H3.40191H6.59386H6.99386V10.125V6.75V6.35H6.59386H3.40191ZM3.40191 13.1H3.00191V13.5V16.875V17.275H3.40191H6.59386H6.99386V16.875V13.5V13.1H6.59386H3.40191ZM3.40191 19.85H3.00191V20.25V23.625V24.025H3.40191H16.1697H16.5697V23.625V20.25V19.85H16.1697H3.40191ZM21.6247 9.725H13.3778V1.00507L21.6247 9.725Z" fill="white" stroke="black" stroke-width="0.8"/>
-						</svg>
+              					 
 							<span class="flex-1 ml-3  ">Cupons de Desconto</span>
 		
            							 </a>
@@ -837,15 +827,11 @@ $(document).ready(function () {
 		$( "#datepicker" ).datepicker();
 
 		$('.btn-menu').on('click', function(e){
-			
-			 
-    jQuery('.collapse').collapse('hide');
+			  
+  			 
+					jQuery('#accordion .collapse').collapse('hide');
  
-
 		 
-		 
-
-			 
 	})
 	} );
 </script>
@@ -853,20 +839,17 @@ $(document).ready(function () {
 
 
 
-
-
-
-<!-- <script src="<?= $site; ?>js/common_scripts_min.js"></script> -->
+ 
 <script src="<?= $site; ?>js/flowbite.min.js"></script>
 <script src="<?= $site; ?>js/bootstrap.js"></script>
 <script src="<?= $site; ?>js/functions.js"></script>
 <script src="<?= $site; ?>assets/validate.js"></script>
 <script src="<?= $site; ?>js/jquery.mask.js"></script>
-<script src="<?= $site; ?>js/index-btn-file.js"></script>
+<!-- <script src="<?= $site; ?>js/index-btn-file.js"></script> -->
 <script src="<?= $site; ?>js/funcoesjs.js"></script>
 <script src="<?= $site; ?>js/custom-file-input.js"></script>
 <script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<!-- <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
 <script src="<?= $site; ?>js/parallax.js"></script>
 <script src="<?= $site; ?>js/parallax.min.js"></script>
 <script src="<?= $site; ?>js/printThis.js"></script>

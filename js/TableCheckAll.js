@@ -11,15 +11,26 @@ $.fn.TableCheckAll = function (options) {
     checkAllCheckboxClass: '.check-all',
     checkboxClass: '.check'
   }, options);
+  
   return this.each(function () {
     $(this).find(settings.checkAllCheckboxClass).on('click', function () {
+ 
       if ($(this).is(':checked')) {
-        $.each($(this).parents("table").find(settings.checkboxClass), function () {
-          $(this).prop('checked', true);
+        $.each($(this).parents("table").find(settings.checkboxClass), function () {      
+           if($(this).parents("table tr").find(settings.checkboxClass).is(":visible")) {
+            $(this).prop('checked', true);       
+           }   else{
+            $(this).prop('checked', false);       
+           }     
+              
         });
       } else {
         $.each($(this).parents("table").find(settings.checkboxClass), function () {
-          $(this).prop('checked', false);
+          if($(this).parents("table tr").find(settings.checkboxClass).is(":visible")) {
+            $(this).prop('checked', false);       
+           }   else{
+            $(this).prop('checked', true);       
+           }     
         });
       }
     });

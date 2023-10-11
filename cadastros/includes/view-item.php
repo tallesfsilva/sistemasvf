@@ -35,23 +35,19 @@ $updatebanco = new Update();
 <html>
 
 <head>
+<script src="<?= $site;?>cadastros/js/datatables.min.js"></script> 
 <script src="<?= $site;?>js/TableCheckAll.js"></script>
-
+<script src="<?= $site;?>cadastros/js/main.js"></script>
 
 <script type="text/javascript">
-            $(document).ready(function() {
-
-              $( '#produtos' ).TableCheckAll();
+            $(document).ready(function() {         
+              $('#img-container').hide();
+             $( '#produtos' ).TableCheckAll();
+            });         
               
-            });
+       
         </script>
-	<script>
-		$(document).ready(function(){
-			$('#img-container').hide();
-		})	
-			 
-	</script>
-
+ 
   <style>
 
     .btn-delete:hover{
@@ -65,8 +61,9 @@ $updatebanco = new Update();
 
 <script type="text/javascript">
             $(document).ready(function() {
+             
               
-                $( '#produtos' ).TableCheckAll({
+                $( '#produtos').TableCheckAll({
                     checkAllCheckboxClass: '.check-all-products',
                     checkboxClass: '.check-products'
                 });
@@ -104,19 +101,32 @@ $updatebanco = new Update();
    </p>
       </div>
       <div class="widget-content">
-      <form>
+ 
 
 
       <div class="form-group">
-        <div class="row">							
+        <div class="row">			
+          			
               <div class="col-md-8">
                     <label for="search_produto">Nome do Produto</label>						
-                    <input type="text" id="search" name="search_produto" class="form-control" placeholder="Digite o nome do produto">
+                    <input type="text" id="search-product" name="search_produto" class="form-control" placeholder="Digite o nome do produto">
                 </div>
 
                 <div class="col-md-4">
                     <label for="categoria">Categoria</label>						
-                    <select required class="form-control" name="categorias" id="categoria">     
+                    <select class="form-control" name="categorias" id="categoria">   
+                    <?php
+                    $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid", "userid={$userlogin['user_id']}");
+                    if (!$lerbanco->getResult()):
+                      echo "<option value=\"\">Adicione uma categoria</option>";
+                    else:
+                      echo "<option value=\"\">Todas</option>";
+                      foreach ($lerbanco->getResult() as $cat):
+                        extract($cat);
+                        echo "<option value=\"{$nome_cat}\">{$nome_cat}</option>";
+                      endforeach;
+                    endif;
+                  ?>  
                     </select>
                 </div>
         </div>
@@ -133,30 +143,33 @@ $updatebanco = new Update();
 
              <div class="col-md-6">
               <div class="flex flex-row justify-end">
-                 <div style="padding-right:10px" class="flex">
-                      <button style="background-color: #00BB07;border-radius:3px !important"class="btn_1 btn-success"  name="sendAddBairro" value="Salvar" type="submit">Procurar</button>
-                  </div>
+                 
             
                   <div style="padding-right:10px" class="flex">
                       <button style="background-color: #FFC000;border-radius:3px !important"class="btn_1 btn-success"  name="sendAddBairro" value="Salvar" type="submit">Novo Produto</button>
+                  </div> 
+
+                  <div style="padding-right:10px" class="flex">
+                      <button id="btn_inativar" data-url="<?= $site ?>" data-user="<?=$userlogin['user_id'];?>" style="background-color: #A70000;border-radius:3px !important"class="btn_1 btn-success">Inativar</button>
                   </div>
 
                   <div style="padding-right:10px" class="flex">
-                      <button style="background-color: #A70000;border-radius:3px !important"class="btn_1 btn-success"  name="sendAddBairro" value="Salvar" type="submit">Inativar</button>
+                      <button id="btn_excluir" data-url="<?= $site?>" data-user="<?=$userlogin['user_id'];?>" style="background-color: #A70000;border-radius:3px !important"class="btn_1 btn-success">Excluir</button>
                   </div>
                   </div>
 
                </div>
-
+        
              </div>
-
-        </form>
+                  </br>
+             <div id="msg_error"></div>	
+       
   </div>
         <div class="table-responsive">
-        <table id="produtos" class="w-full text-left text-gray-500 dark:text-gray-400">
+        <table id="produtos" class="border w-full text-left text-gray-500 dark:text-gray-400">
              <thead style="background:#7232A0;" class="text-white text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-              <th scope="col" class="p-4">
+              <tr class="text-center">
+              <th scope="col" class="px-6 py-3">
                     <div class="flex items-center">
                     <div class="icheck-material-green">			
                         <input id="checkbox-all-search" type="checkbox" class="check-all-products w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -177,7 +190,7 @@ $updatebanco = new Update();
               </tr>
             </thead>
 
-            <tbody>
+            <tbody id="table1">
               <?php
               //INICIO PAGINAÇÃO
               $getpage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
@@ -192,7 +205,7 @@ $updatebanco = new Update();
                 extract($getItensBanco);               
                 ?>
                 <!-- INICIO DO LOOP DA LEITURA DO BANCO --> 
-                <tr>
+                <tr class="border-b">
                 <td scope="row" class="w-4 p-4">
                     <div class="flex items-center">
                     <div class="icheck-material-green">			
@@ -213,8 +226,8 @@ $updatebanco = new Update();
                 </div>
               </td>
              
-              <td class="col-md-3 col-sm-2  px-6 py-4"><?=(!empty($nome_item) ? limitarTexto($nome_item, 40) : '');?></td>
-              <td>
+              <td id="nome_produto" class="col-md-3 col-sm-2  px-6 py-4"><?=(!empty($nome_item) ? limitarTexto($nome_item, 40) : '');?></td>
+              <td id="categoria-row">
                 
                 <strong>
                   <?php
@@ -228,23 +241,21 @@ $updatebanco = new Update();
               </td>
               <td class="col-md-3 col-sm-2  px-6 py-4"><?=(!empty($descricao_item) ? limitarTexto($descricao_item, 30) : '');?></td>
               <td class="col-md-3 col-sm-2  px-6 py-4"><?=(!empty($preco_item) ? 'R$ '.Check::Real($preco_item) : '');?></td>
-              <td class="col-md-3 col-sm-2  px-6 py-4">
-
-                <div class="ckbx-style-14">
-                  <input <?=(!empty($disponivel) && $disponivel == 1 ? 'checked' : '');?> value="<?=$id;?>" type="checkbox" id="atualizar_<?=$id;?>" name="ckbx-style-14">
-                  <label class="atualizar_<?=$id;?>" for="atualizar_<?=$id;?>"></label>
-                </div>                  
-                
+              <td  id="atualizar_<?=$id;?>" data-id="<?=$id;?>" class="col-md-3 col-sm-2  px-6 py-4">
+               <button id="<?= (!empty($disponivel) && $disponivel) == 1 ? 'btn_s'.$id : 'btn_n'.$id?>" value="<?=$id;?>" style="background: <?= (!empty($disponivel) && $disponivel) == 1 ? '#00BB07' : '#A70000;'?>" type="button" class="atualizar_<?=$id;?> aceita_entrega exibirsite"><?=(!empty($disponivel) && $disponivel) == 1 ? 'Sim' : 'Não'?></button>
+                               
                 <script type="text/javascript">
                   $(document).ready(function(){
                     $('.atualizar_<?=$id;?>').click(function(){
-                      var idDoItem = $('#atualizar_<?=$id;?>').val();
+                      var idDoItem = $('#atualizar_<?=$id;?>').data('id');
                       $.ajax({
                         url: '<?=$site;?>includes/processaDisponibilidadeItens.php',
                         method: "post",
                         data: {'iditem' : idDoItem, 'iduser' : '<?=$userlogin['user_id'];?>'},
 
-                        success: function(data){  
+                        success: function(data){ 
+                          window.location.reload(1);
+                          //  window.location.replace('<?=$site.'cadastros/view-item';?>'); 
                         }
                       });
                     });
@@ -274,19 +285,24 @@ $updatebanco = new Update();
       </tbody>
     </table>
   </div>
-  <div class="data-table-toolbar">
+  <!-- <div class="data-table-toolbar">
    <?php
-      //INICIO PAGINAÇÃO
-   $pager->ExePaginator("ws_itens", "WHERE user_id = :userid", "userid={$userlogin['user_id']}");
-   echo $pager->getPaginator();
-      //FIM PAGINAÇÃO
+ 
+  //  $pager->ExePaginator("ws_itens", "WHERE user_id = :userid", "userid={$userlogin['user_id']}");
+  //  echo $pager->getPaginator();
+ 
    ?>        
- </div>
+ </div> -->
 </div>
 </div>
 </div>
 
 </div>
+ 
+ 
+ 
+
+
 
 <div id="resultadiasemana"></div>
 
@@ -332,7 +348,7 @@ $updatebanco = new Update();
           visible: true,
           customImage: '<?=$site;?>img/danger.png'
         },
-        position: 'bottom-left',
+        position: 'top-center',
         showProgress: true,
         showButtons: true,
         buttons: {
@@ -342,11 +358,12 @@ $updatebanco = new Update();
               $.ajax({
                 url: '<?=$site;?>includes/processadeletaritem.php',
                 method: 'post',
-                data: {'iditemdeletar' : iddoitemdel, 'iduser' : '<?=$userlogin['user_id'];?>'},
+                data: {'iditem' : iddoitemdel, 'iduser' : '<?=$userlogin['user_id'];?>'},
                 success: function(data){
-                  if(data == 'true'){
-                    window.location.reload(1);
-                  }
+                  let t = JSON.parse(data);
+                                  if(t.s){                     
+                                      window.location.reload(1);
+                                  }  
                 }
               });
 

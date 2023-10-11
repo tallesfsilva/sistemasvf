@@ -173,18 +173,18 @@ endif;
 <hr style="position: relative;top: -13px;" class="line-hr"/>
 <br/>
  
-			</div><!-- End col  -->
+		
 	
 	
 
-<div class="col-sm-12">
+ 
 <div class="form-group">   
        
 
   
 
 <div class="overflow-x-auto">
-    <table class="w-full text-left text-gray-500 dark:text-gray-400">
+    <table class="border w-full text-left text-gray-500 dark:text-gray-400">
         <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>               
                 <th style="padding:25px;" scope="col" class=" text-center px-6 py-3">
@@ -212,20 +212,20 @@ endif;
    
       <tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
  
-            <th scope="row" class="px-6 py-4 text-center">
+            <td scope="row" class="px-6 py-4 text-center">
                    <?= $f_pagamento  ?>
-                </th>
+      </td>
                 <td class="text-center">         
                     <?php if($aceita_entrega) { ?>
-                      <button type="button" class="aceita_entrega" data-id_pag="<?= $id_f_pagamento ?>" style="background-color: #00BB07;">Sim</div>						
+                      <button id="btn_s" type="button" class="aceita_entrega" data-id_pag="<?= $id_f_pagamento ?>" style="background-color: #00BB07;">Sim</div>						
                     <?php }else { ?>
-                      <button type="button" class="aceita_entrega" data-id_pag="<?= $id_f_pagamento?>" style="background-color: #A70000;">Não</div>						
+                      <button id="btn_n" type="button" class="aceita_entrega" data-id_pag="<?= $id_f_pagamento?>" style="background-color: #A70000;">Não</div>						
                      <?php } ?>
                     </td>
                 
                     <td class="text-center">        
                   <a title="Deletar" href="<?=$site.'cadastros/cadastrar-formas-pagamento&delete='.$id_f_pagamento;?>">
-                      <button style="background-color: #A70000;border-color: #A70000; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete -black">
+                      <button style="background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete -black">
                       <span class="glyphicon glyphicon-trash"></span>
                       </button>
                     </a><br />
@@ -241,7 +241,7 @@ endif;
             
         </tbody>
     </table>
-</div>
+ 
  </div>
 </div>
 

@@ -418,11 +418,11 @@ endif;
 
 
 
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+		<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
 
 
-		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'> -->
 
 
 
@@ -457,9 +457,9 @@ endif;
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
 
 		
-
+<!-- 
 		<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script> -->
 
 
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
@@ -481,7 +481,7 @@ endif;
 		<script type="text/javascript" src="<?= $site; ?>notificacao/growl-notification.min.js"></script> 
 
 
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@0.2.1/output/moretoggles.min.css">
+		<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@0.2.1/output/moretoggles.min.css"> -->
 
 		<!-- Select da pagina carrinho -->
 		<link href="<?=$site?>css/selectcarrinho/dist/css/select2.min.css" rel="stylesheet" />
@@ -494,7 +494,7 @@ endif;
 		<!-- <link href="<?= $site; ?>css/modal.css" rel="stylesheet"> -->
 		<script type="text/javascript" src="<?= $site; ?>js/modalhorarios.js"></script> 
 		<!-- https://www.cssscript.com/pure-css-checkbox-radio-button-replacement-bootstrap-icheck/ -->
-		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+		<!-- <script defer src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> -->
 		<link href="<?= $site; ?>css/chackbox/dist/css/checkboxes.css" rel="stylesheet">
 
 		<script type="text/javascript">

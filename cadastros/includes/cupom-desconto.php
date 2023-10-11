@@ -6,7 +6,9 @@ $loginURL = LOGIN;
 
 $login = new Login(3); 
  
- 
+$btn_hover_sim = '#7ccf7f !important';
+  
+$btn_hover_nao = '#d19898 !important';
 
 if(!$login->CheckLogin()):
  unset($_SESSION['userlogin']);
@@ -30,27 +32,7 @@ endif;
 
 $updatebanco = new Update();
 ?>
-
-<?php
-$getdellbairro = filter_input(INPUT_GET, 'delete', FILTER_VALIDATE_INT);
-
-if(!empty($getdellbairro)):
-
-	$lerbanco->ExeRead('ws_formas_pagamento', "WHERE user_id = :userid AND id_f_pagamento = :v1", "userid={$userlogin['user_id']}&v1={$getdellbairro}");
-	if ($lerbanco->getResult()):
-		$deletbanco->ExeDelete("ws_formas_pagamento", "WHERE user_id = :userid AND id_f_pagamento = :k1", "userid={$userlogin['user_id']}&k1={$getdellbairro}");
-		if ($deletbanco->getResult()):
-			header("Location: {$site}cadastros/cadastrar-formas-pagamento");
-		else:
-			echo "<script>
-			x0p('Opss...', 
-			'Ocorreu um Erro!',
-			'error', false);
-			</script>";
-		endif;
-	endif;
-endif;
-?>
+ 
 
 <html>
 
@@ -70,7 +52,9 @@ endif;
   background: #d19898 !important
     }
      
-
+  
+  
+ 
     .aceita_entrega{
       border: none;
      font-family: inherit;
@@ -131,7 +115,7 @@ endif;
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Código de Ativação</label>
-                  <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9]/g, '')"required type="text" maxlength="20" class="form-control" name="ativacao" aria-describedby="emailHelp" placeholder="EX: CUPOM10" />
+                  <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9]/g, '')"required type="text" maxlength="20" class="form-control" name="ativacao" aria-describedby="emailHelp" placeholder="Ex: Cupom10" />
                   <small id="emailHelp" class="form-text text-muted">Para enviar para seus clientes. (max. 20 caracteres)</small>
                 </div>
               </div>
@@ -193,8 +177,8 @@ endif;
           <br />
         
           <div class="overflow-x-auto">
-            <table class="w-full text-left text-gray-500 dark:text-gray-400">
-             <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="border w-full text-left text-gray-500 dark:text-gray-400">
+ 
                <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr class="text-center">
                     <th style="padding:25px;" scope="col" class="text-center px-6 py-3">Cupom</th>
@@ -215,7 +199,7 @@ endif;
                   foreach ($lerbanco->getResult() as $dadoscupons):
                     extract($dadoscupons); 
                     ?>
-                    <tr class="text-center">
+                    <tr class="border-b text-center">
                     <td><?=$ativacao;?></th>
                       <td  ><?=$porcentagem;?> %</td>
                       <td ><?=$total_vezes;?></td>
@@ -238,11 +222,13 @@ endif;
                         echo "<strong style='color: #82C152;'>ATIVO</strong>";
                       endif;
                       ?> 
-
+                 
                     </td>
-                    <td><button style="background: <?=$mostrar_site ? '#00BB07' : '#A70000' ?>" type="button" class="btn btn-defalt aceita_entrega exibirsite" data-idcupom="<?=$id_cupom;?>"><?=($mostrar_site == 0 ? 'Não' : 'Sim');?></button></td>
+                  
+                 
+                    <td><button id="<?= (!isDateExpired($data_validade, 1) || $total_vezes==0) ? 'btn_d' : (($mostrar_site == 1) ? 'btn_s' : 'btn_n' )?>" style="background: <?= (!isDateExpired($data_validade, 1) || $total_vezes==0) ? 'rgba(209,213,219,var(--tw-bg-opacity))' : (($mostrar_site==1) ? '#00BB07' : '#A70000;' )?>" type="button" <?= (!isDateExpired($data_validade, 1) || $total_vezes==0) ? 'disabled' : "" ?> class="<?= (!isDateExpired($data_validade, 1) || $total_vezes==0) ? 'button-disabled' : "" ?> aceita_entrega exibirsite" data-idcupom="<?=$id_cupom;?>"><?=($mostrar_site == 0 ? 'Não' : 'Sim');?></button></td>
                     
-                    <td><button  style="background-color: #A70000;border-color: #A70000; margin-top: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete excluircupom" data-idcupom="<?=$id_cupom;?>"><span class="glyphicon glyphicon-trash"></span></button></td>
+                    <td><button  style="background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete excluircupom" data-idcupom="<?=$id_cupom;?>"><span class="glyphicon glyphicon-trash"></span></button></td>
                   </tr>
                   <?php
                 endforeach;

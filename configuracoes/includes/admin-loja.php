@@ -659,7 +659,7 @@ $updatebanco = new Update();
 				<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
 					<h4 data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="panel-title expand">
 						<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
-						<center><a style="color: #ffffff;" href="#">Cique aqui para Configurar Horários.</a></center>
+					<a style="color: #ffffff;" href="#">Cique aqui para Configurar Horários.</a>
 					</h4>
 				</div>
 				<div id="collapse1" style="visibility:unset" class="panel-collapse collapse">
@@ -963,7 +963,7 @@ $updatebanco = new Update();
 					<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
 						<h4 data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="panel-title expand">
 							<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
-							<center><a style="color: #ffffff;" href="#">Clique aqui para adicionar uma data</a></center>
+							<a style="color: #ffffff;" href="#">Clique aqui para adicionar uma data</a>
 						</h4>
 					</div>
 
@@ -1124,7 +1124,7 @@ $updatebanco = new Update();
 					<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
 						<h4 data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="panel-title expand">
 							<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
-							<center><a style="color: #ffffff;" href="#">Clique aqui para personalizar sua loja</a></center>
+							<a style="color: #ffffff;" href="#">Clique aqui para personalizar sua loja</a>
 						</h4>
 					</div>
 
