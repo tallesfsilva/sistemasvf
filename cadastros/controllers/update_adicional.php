@@ -14,17 +14,18 @@ try{
   $res['success'] = false;
 
 
-  $AtualizaTipoAdicional = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-  $flagName = $AtualizaTipoAdicional['flagName']=='false' ? false : true;
+  $atualizaAdicional = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+  $flagName = $atualizaAdicional['flagName']=='false' ? false : true;
+   
  
 
-  if(!empty($AtualizaTipoAdicional) && isset($AtualizaTipoAdicional['id_tipo']) && isset($AtualizaTipoAdicional['updatetipoadicional'])){
-          $lerbanco->ExeRead("ws_tipo_adicional", "WHERE user_id = :userid and nome_adicional = :nome", "userid={$userlogin['user_id']}&nome={$AtualizaTipoAdicional['nome_adicional']}");
+  if(!empty($atualizaAdicional) && isset($atualizaAdicional['id_adicionais']) && isset($atualizaAdicional['updateadicional'])){
+          $lerbanco->ExeRead("ws_adicionais_itens", "WHERE user_id = :userid and nome_adicional = :nome", "userid={$userlogin['user_id']}&nome={$atualizaAdicional['nome_adicional']}");
           if ($lerbanco->getResult() && $flagName && !empty($flagName)){             
 
             $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
             <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-            Já existe um tipo de adicional com este nome. Por favor selecione outro!
+            Já existe um adicional com este nome. Por favor selecione outro!
             </div>";
             $res['success'] = false;
             $res['error'] = true;  
@@ -32,17 +33,18 @@ try{
           }else{
 
 
-            if(!empty($AtualizaTipoAdicional['updatetipoadicional'])){
-              unset($AtualizaTipoAdicional['updatetipoadicional']);
-              $id_tipo = $AtualizaTipoAdicional['id_tipo'];
-              unset($AtualizaTipoAdicional['id_tipo']);
-              unset($AtualizaTipoAdicional['flagName']);
+            if(!empty($atualizaAdicional['updateadicional'])){
+              unset($atualizaAdicional['updateadicional']);
+              $id_adicionais = $atualizaAdicional['id_adicionais'];
+              unset($atualizaAdicional['id_adicionais']);
+              unset($atualizaAdicional['flagName']);
+             
 
-              $AtualizaTipoAdicional = array_map('strip_tags', $AtualizaTipoAdicional);
-              $AtualizaTipoAdicional = array_map('trim', $AtualizaTipoAdicional);
+              $atualizaAdicional = array_map('strip_tags', $atualizaAdicional);
+              $atualizaAdicional = array_map('trim', $atualizaAdicional);
           
            
-          if(empty($AtualizaTipoAdicional['id_cat'])){   
+          if(empty($atualizaAdicional['id_cat'])){   
                 $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
                 <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
                 Por favor selecione uma categoria!
@@ -51,18 +53,18 @@ try{
                 $res['error'] = true;  
                 echo json_encode($res);
             
-        } else if(empty($AtualizaTipoAdicional['quantidade']) || (int)$AtualizaTipoAdicional['quantidade']==0){   
+        } else if(empty($atualizaAdicional['valor_adicional'])){   
               
           $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
               <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-              Quantidade do tipo de adicional é obrigatório!
+              Valor do Adicional é obrigatório!
               </div>";
               $res['success'] = false;
               $res['error'] = true;  
               echo json_encode($res);
          
         
-        } else if(empty($AtualizaTipoAdicional['nome_adicional'])){   
+        } else if(empty($atualizaAdicional['nome_adicional'])){   
             $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
             <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
             Você precisa preecher o campo tipo de adcional para continuar!
@@ -71,20 +73,19 @@ try{
             $res['error'] = true;  
             echo json_encode($res);
     }else{ 
-      $AtualizaTipoAdicional['nome_adicional'] = strtoupper($AtualizaTipoAdicional['nome_adicional']);
-      $AtualizaTipoAdicional['quantidade'] = (int) $AtualizaTipoAdicional['quantidade'];
-          $updatebanco->ExeUpdate("ws_tipo_adicional", $AtualizaTipoAdicional, "WHERE user_id = :userid AND id_tipo = :newcatupdat", "userid={$userlogin['user_id']}&newcatupdat={$id_tipo}");
+      $atualizaAdicional['nome_adicional'] = strtoupper($atualizaAdicional['nome_adicional']);
+      $atualizaAdicional['desc_adicional'] = strtoupper($atualizaAdicional['desc_adicional']);
+      $atualizaAdicional['valor_adicional'] = (float) $atualizaAdicional['valor_adicional'];
+          $updatebanco->ExeUpdate("ws_adicionais_itens", $atualizaAdicional, "WHERE user_id = :userid AND id_adicionais = :newcatupdat", "userid={$userlogin['user_id']}&newcatupdat={$id_adicionais}");
           if($updatebanco->getResult()){
               $res['msg'] =  "<div class=\"alert alert-success alert-dismissable\">
               <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">x</button>
               <b class=\"alert-link\">SUCESSO!</b>Tipo Adicional atualizado com sucesso.
               </div>";
               $res['success'] = true;  
-              $res['error'] = false;          
-
+              $res['error'] = false;
               
-           
-              echo json_encode($res);
+             echo json_encode($res);
           }else{
             $res['msg'] =  "<div class=\"alert alert-danger alert-dismissable\">
             <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">x</button>

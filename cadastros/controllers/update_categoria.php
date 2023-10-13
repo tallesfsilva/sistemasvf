@@ -11,10 +11,10 @@ try{
   $res['msg'] = "";
   $res['success'] = false;
 
-  $novaCategoria = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+  $updateAdicional = filter_input_array(INPUT_POST, FILTER_DEFAULT);
   
 
-  if(!empty($novaCategoria) && isset($novaCategoria['cat_update']) && $novaCategoria['nome_cat']){
+  if(!empty($updateAdicional) && isset($updateAdicional['cat_update']) && $novaCategoria['nome_cat']){
   
    $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid AND nome_cat = :cat", "userid={$userlogin['user_id']}&cat={$novaCategoria['nome_cat']}");
    if ($lerbanco->getResult()){

@@ -254,11 +254,24 @@ $updatebanco = new Update();
   <hr class="line-hr"/>
   </br>
  
-  
- 
+    <div class="row">
+    <div class="col-md-6">
       <label for="search_tipo_adicional">Buscar Tipos de Adicionais</label>						
       <input type="text" id="search_tipo_adicional"  class="form-control" placeholder="Digite o nome do tipo de adicional">
-      </br>
+  </div>
+
+  <div class="col-md-6">
+  <div class="form-group">
+                   
+                    <label for="categoria">Categoria</label>						
+                    <select class="list-categoria form-control" name="id_cat" id="categoria-busca-tipo">   
+                   
+                    </select>
+               
+                  </div>
+  </div>
+  </div>
+    </br>
       </br>   
       <div class="overflow-x-auto">
       <div id="msg-tip"></div>
@@ -300,7 +313,7 @@ $updatebanco = new Update();
 						</h4>
 					</div>
           <div id="collapse-cad"  style="visibility:unset" class="panel-collapse  collapse">
-                <form class="" id="formaddacate" method="post">
+                <form data-url="<?=$site?>cadastros" class="" id="cadAdicionais" method="post">
         <br />
  
  
@@ -309,7 +322,7 @@ $updatebanco = new Update();
         <div class="form-group">
       
                     <label for="categoria">Categoria</label>						
-                    <select class="list-categoria form-control" name="categorias" id="categoria">   
+                    <select class="list-categoria form-control" name="categoria-adicional" id="categoria_adicionais">   
                    
                     </select>
                
@@ -320,19 +333,8 @@ $updatebanco = new Update();
         <div class="form-group">
       
                     <label for="categoria">Tipo de Adicional</label>						
-                    <select class="form-control" name="categorias" id="categoria">   
-                    <?php
-                    $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid", "userid={$userlogin['user_id']}");
-                    if (!$lerbanco->getResult()):
-                      echo "<option value=\"\">Adicione uma categoria</option>";
-                    else:
-                      echo "<option value=\"\">Selecione um tipo de adicional</option>";
-                      foreach ($lerbanco->getResult() as $cat):
-                        extract($cat);
-                        echo "<option value=\"{$nome_cat}\">{$nome_cat}</option>";
-                      endforeach;
-                    endif;
-                  ?>  
+                    <select class="list-tipo-adcionais form-control" name="tipo-adicionais" id="adicionais">   
+                    <option value=>Selecione um Tipo de Adicional</option>
                     </select>
                
                   </div>
@@ -342,23 +344,13 @@ $updatebanco = new Update();
               <label><span style="color: red;"></span>Adicionais:</label>
            
               
-              <input type="text" name="nome_cat" class="form-control" placeholder="Digite o nome do adicional">
+              <input type="text" name="nome_adicional" class="form-control" placeholder="Digite o nome do adicional">
               <input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>" />
           
           </div>
         </div>
 
-<div class="col-md-6 col-sm-6">
-<div class="form-group">
-  <label class="control-label">Descrição do adicional:</label>
- 
-    
-   
-    <input type="text" name="desc_cat" class="form-control" placeholder="Digite uma descrição do adicional">
- 
-</div>
 
-</div>
 
 <div class="col-md-6 col-sm-6">
 <div class="form-group">
@@ -366,13 +358,21 @@ $updatebanco = new Update();
  
     
    
-    <input type="text" name="desc_cat" class="form-control" placeholder="Digite um valor para seu adicional">
+    <input type="text" name="valor_adicional" class="form-control" placeholder="Digite um valor para seu adicional">
  
 </div>
 
 </div>
  
+<div class="col-md-12 col-sm-6">
+<div class="form-group">
+  <label class="control-label">Descrição do adicional:</label>    
+   
+    <textarea rows="5" cols="250" name="desc_adicional" class="form-control" placeholder="Digite uma descrição do adicional"></textarea>
+ 
+</div>
 
+</div>
 
 </div>
  
@@ -384,44 +384,55 @@ $updatebanco = new Update();
  
  
   </form>
+  <br />
+      
+  <hr class="line-hr"/>
           <br />
+         
+      <div class="row">  
+        <div class="col-md-4">
+          <label for="search_adicionais">Buscar Adicional</label>						
+          <input type="text" id="search_adicionais"  class="form-control" placeholder="Digite o nome do adicional">
           <br />
-        
-          <div class="overflow-x-auto">
-            <table class="border w-full text-left text-gray-500 dark:text-gray-400">
+  </div>
+  <div class="col-md-4">
+  <div class="form-group">
+      
+      <label for="categoria">Categoria</label>						
+      <select class="list-categoria form-control" name="categoria-adicional" id="categoria_adicionais_busca">   
+     
+      </select>
+ 
+    </div>
+  </div>
+  <div class="col-md-4">
+  <div class="form-group">
+      
+      <label for="categoria">Tipo de Adicional</label>						
+      <select class="form-control" name="tipo-adicionais" id="adicionais-busca">   
+      <option value=>Selecione um Tipo de Adicional</option>
+      </select>
+ 
+    </div>
+  </div>
+
+  </div>
+          <br />   
+      <div class="overflow-x-auto">
+      <div id="msg-add"></div>
+            <table id="cad_adicionais" class="border w-full text-left text-gray-500 dark:text-gray-400">
  
                <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr class="text-center">
                     <th style="padding:25px;" scope="col" class="text-center px-6 py-3">Categoria</th>
-                    <th  class="text-center px-6 py-3" scope="col">Descrição</th>                     
-                    <th  class="text-center px-6 py-3" scope="col">Editar</th>  
-                    <th  class="text-center px-6 py-3" scope="col">Excluir</th>              
+                    <th  class="text-center px-6 py-3" scope="col">Tipo Adicional</th>                     
+                    <th  class="text-center px-6 py-3" scope="col">Adicional</th>                          
+                    <th  class="text-center px-6 py-3" scope="col">Descrição</th>  
+                    <th  class="text-center px-6 py-3" scope="col">Valor</th>    
+                    <th  class="text-center px-6 py-3" scope="col">Excluir</th>             
                   </tr>
                 </thead>
-                <tbody>
-                <?php
-                      $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid", "userid={$userlogin['user_id']}");
-                      if($lerbanco->getResult()):
-                       
-                        foreach($lerbanco->getResult() as $tt):
-                        extract($tt);                                    
-                        ?>
-                       
-                   
-                
-                    <tr class="border-b text-center">
-              
-                      <td  ><?=$nome_cat;?></td>
-                      <td ><?=$desc_cat;?></td>                
-                      <td> <a href="<?=$site.$Url[0].'/upcategoria&id='.$id.'#upcat';?>"><button style="color:black;margin-top:4px;" type="button" class="btn btn-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Editar</button></a></td> 
-                    <td><button  style="background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete excluircupom" data-id="<?=$id;?>"><span class="glyphicon glyphicon-trash"></span></button></td>
-                   
-                  </tr>
-                  <?php
-                      endforeach;
-                    endif;
-                    ?>
-              </tbody>
+                 
             </table>
           </div>
                   </div>

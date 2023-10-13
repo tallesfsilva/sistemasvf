@@ -162,14 +162,23 @@ export const tipo = {
     },
 
     search : () => {
+       
         $("#search_tipo_adicional").off().on("keyup", function() {
                 
             tipo.table_tipos.column(1).search(this.value).draw();
         
         });
+
+        $("#categoria-busca-tipo").change(function() {
+                
+            tipo.table_tipos.column(0).search(this.value).draw();
+    
+        });
+    
         
 
 },
+
    
     init : () => {
         tipo.update();

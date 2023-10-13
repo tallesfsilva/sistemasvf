@@ -1,0 +1,327 @@
+
+'use-strict' 
+
+ 
+export const ad =  {
+
+    table_ad : $('#cad_adicionais').DataTable({
+        "dom":'lrtip',
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": true,
+        "bInfo": false,       
+        "bAutoWidth": false,
+       
+        
+        "search" : {
+            "caseInsensitive": true,
+             
+        },
+        
+       
+        "language": {          
+            "zeroRecords": "Nenhum registro encontrado.",
+            "infoEmpty": "Nenhum registro disponível"
+        }, 
+        "ajax" : {
+            url : '../cadastros/controllers/carrega_adicional.php'
+        },
+        columns: [
+            {data:'nome_cat'}, 
+            {data: 'tipo_adicional'},
+            {data: 'nome_adicional'},
+            {data: 'descricao_adicional'},
+            {data: 'valor_adicional'},
+            {data: 'excluir'},
+
+
+        ],
+        createdRow: (row) => {            
+                $(row).addClass('border-b text-center');
+        },
+        columnDefs: [
+            { targets: [5], className: "delete_adicional"},            
+        ]
+    
+    }), 
+
+    update : (e) =>{   
+                    
+        $('#cad_adicionais').on('change','.atualiza_adicional', function(e){
+                  
+            e.preventDefault();
+            
+            let idAdicional = $(e.currentTarget).data('idadd');
+            let url = $(e.currentTarget).data('url');    
+            let flag = $(e.currentTarget).data('flag') ? $(e.currentTarget).data('flag') : false;
+            let idTipoAdicional =     $("select[name='id_tipo_adicional']" ).filter('.'+'atualiza_adicional'+'[data-idadd="'+idAdicional+'"]').val();       
+            let nomeAdicional =  $("input[name='nome_adicional']" ).filter('.'+'atualiza_adicional'+'[data-idadd="'+idAdicional+'"]').val();
+            let descAdicional =  $("input[name='desc_adicional']" ).filter('.'+'atualiza_adicional'+'[data-idadd="'+idAdicional+'"]').val();
+            let idCategoria =  $("select[name='id_cat']" ).filter('.'+'categoria_grid'+'[data-idadd="'+idAdicional+'"]').val();
+            let valorAdicional =  $("input[name='valor_adicional']" ).filter('.'+'atualiza_adicional'+'[data-idadd="'+idAdicional+'"]').val();
+            let updateAdicional =  true;
+           
+       
+        $.ajax({
+            url: url + '/controllers/update_adicional.php',
+            method: "post",
+            data: {flagName:flag, id_adicionais: idAdicional, id_tipo_adicional: idTipoAdicional, nome_adicional: nomeAdicional,  updateadicional: updateAdicional, desc_adicional: descAdicional, id_cat:idCategoria, valor_adicional:valorAdicional,},
+        
+            success: function(data){ 
+                let j = JSON.parse(data);
+        
+                if(j.success && !j.error){                 
+                        
+                    tipo.table_tipos.ajax.reload();
+                   
+                }else if(!j.success & j.error)
+                         $('#msg-add').html(j.msg);   
+               
+                  
+              }
+            });
+     
+          })
+          
+    
+     
+       
+    },
+
+    create : () =>{
+
+        $('#cadAdicionais').on('submit', function(e){
+
+            e.preventDefault();
+        
+            let url = $(this).data('url');
+           
+            
+            let nomeAdicional =  $("input[name='nome_adicional']",this).val();
+            let idCategoria =  $("select[name='categoria-adicional']",this).val();
+            let idTipoAdicional =  $("select[name='tipo-adicionais']",this).val();
+            let cadAdicional =  true;
+            
+            let valorAdicional = $("input[name='valor_adicional']",this).val()
+            let descAdicional = $("textarea[name='desc_adicional']",this).val()
+        
+        
+            $.ajax({
+                url: url + '/controllers/cadastra_adicional.php',
+                method: "post",
+                data: {nome_adicional: nomeAdicional,  desc_adicional:descAdicional, valor_adicional:valorAdicional, id_tipo_adicional :idTipoAdicional, cadastraadicional: cadAdicional, id_cat:idCategoria},
+
+                success: function(data){ 
+                    let j = JSON.parse(data);
+
+                    if(j.success){
+                        $('#msg-add').html(j.msg);
+                        $('#cadAdicionais')[0].reset();
+                      
+                        ad.table_ad.ajax.reload();
+                    }else{
+                        $('#msg-add').html(j.msg);
+                    }                      
+                     
+                }
+                }); 
+        })
+ 
+
+},
+
+    delete : () => {
+
+        $("#cad_adicionais").on('click', '.deletar_adicional', function(e){
+          
+        
+        let idAdicional = $(e.currentTarget).data('idad');
+        let url = $(e.currentTarget).data('url');  
+          
+        GrowlNotification.notify({
+          title: 'Atenção!',
+          description: 'Tem certeza de que deseja deletar esse adicional? Isso irá excluir esse adicional do produto.',
+          type: 'error',
+          image: {
+            visible: true,
+            customImage: url+'img/danger.png'
+          },
+          position: 'top-center',
+          showProgress: true,
+          showButtons: true,
+          buttons: {
+            action: {
+              text: 'SIM',
+              callback: function(){
+                $.ajax({
+                  url: url+'/controllers/deleta_adicional.php',
+                  method: 'post',
+                  data: {'id_adicional' : idAdicional},
+    
+    
+                  success: function(data){ 
+                    let j = JSON.parse(data)
+                    if(j.success){
+                     
+                       ad.table_ad.ajax.reload();
+                    }
+                
+    
+                  }
+              });
+                
+              }
+            },
+            cancel: {
+              text: 'NÃO'
+            }
+          },
+          closeTimeout: 0
+        });
+    });
+    },
+
+    search : () => {
+    $("#search_adicionais").off().on("keyup", function() {
+                
+        ad.table_ad.column(2).search(this.value).draw();
+        
+
+    });
+    $("#categoria_adicionais_busca").change(function() {
+                
+        ad.table_ad.column(0).search(this.value).draw();
+
+    });
+
+    $("#adicionais-busca").change(function() {
+                
+        ad.table_ad.column(1).search(this.value).draw();
+
+    });
+
+   
+},
+   
+    loadTiposAdicionaisGrid : () => {
+
+        $('#cad_adicionais').on('change','#categoria-adicional-grid', function(e){
+                  
+            e.preventDefault();
+          let idcat = $(this).val();
+
+          $.ajax({
+            url: 'controllers/carrega_tipos_adicionais_inputs.php?idcat='+idcat,
+            method: "get",            
+    
+            success: function(data){ 
+                let j = JSON.parse(data);           
+                if(j.data.length){
+                    $("#tipo-adicional-grid").empty();                    
+                    $("#tipo-adicional-grid").append("<option value=>Selecione um Tipo de Adicional</option>")
+                    for(let i=0;i<j.data.length;i++){           
+                      
+                        $("#tipo-adicional-grid").append("<option value="+j.data[i].id_tipo+">"+j.data[i].nome_adicional+"</option>")
+                    
+                         }
+                      
+
+                }else{
+                    $("#tipo-adicional-grid").empty();               
+                    $('#tipo-adicional-grid').append("<option value=>Por favor cadastre um tipo de adicional</option>")
+                }
+               
+             
+            }
+             
+            });
+            
+          })
+    },
+
+ 
+
+
+    loadTiposAdicionais : () => {
+        $('#categoria_adicionais').change(function(e){
+
+            let idcat = $(this).val();
+
+          $.ajax({
+            url: 'controllers/carrega_tipos_adicionais_inputs.php?idcat='+idcat,
+            method: "get",            
+    
+            success: function(data){ 
+                let j = JSON.parse(data);           
+                if(j.data.length){
+                    $(".list-tipo-adcionais").empty();                    
+                    $(".list-tipo-adcionais").append("<option value=>Selecione um Tipo de Adicional</option>")
+                    for(let i=0;i<j.data.length;i++){           
+                      
+                        $(".list-tipo-adcionais").append("<option value="+j.data[i].id_tipo+">"+j.data[i].nome_adicional+"</option>")
+                    
+                         }
+
+
+                }else{
+                    $(".list-tipo-adcionais").empty();               
+                    $('.list-tipo-adcionais').append("<option value=>Por favor cadastre um tipo de adicional</option>")
+                }
+             
+            }
+             
+            });
+
+        });
+    },
+
+
+    loadTiposAdicionaisBusca : () => {
+             
+
+          $.ajax({
+            url: 'controllers/carrega_tipos_adicionais_busca.php',
+            method: "get",            
+    
+            success: function(data){ 
+                let j = JSON.parse(data);           
+                if(j.data.length){
+                                 
+                   
+                    for(let i=0;i<j.data.length;i++){           
+                      
+                        $("#adicionais-busca").append("<option value="+j.data[i].id_tipo+">"+j.data[i].nome_adicional+"</option>")
+                    
+                         }
+
+
+                }else{
+                    $("#adicionais-busca").empty();               
+                    $('#adicionais-busca').append("<option value=>Por favor cadastre um tipo de adicional</option>")
+                }
+             
+            }
+             
+            });
+
+      
+    },
+
+    init : () => {
+        ad.update();
+        ad.loadTiposAdicionaisBusca();
+        ad.loadTiposAdicionaisGrid();
+        ad.delete();
+        ad.search();
+        ad.loadTiposAdicionais();
+       
+        ad.create();
+    },
+    fn : () => {
+        return ad.init();
+    },
+    
+  
+ 
+
+}
