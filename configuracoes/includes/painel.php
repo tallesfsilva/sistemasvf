@@ -10,13 +10,13 @@
 	?>
 
 <head>
-	<script>
-		$(document).ready(function(){
-			$('#img-container').hide();
-		})
-	
-			 
-	</script>
+	 <style>
+
+#img-container{
+      display:none;
+    }
+
+	 </style>
 </head>
 <html>
 		

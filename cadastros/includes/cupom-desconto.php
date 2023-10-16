@@ -37,15 +37,11 @@ $updatebanco = new Update();
 <html>
 
 <head>
-	<script>
-		$(document).ready(function(){
-			$('#img-container').remove();
-		})
-	
-			 
-	</script>
-
+ 
   <style>
+#img-container{
+      display:none;
+    }
 
     .btn-delete:hover{
       text-decoration-line: none !important;
@@ -81,7 +77,7 @@ $updatebanco = new Update();
 </head>
 <html> 
 	
-
+ 
  
 				<div  style="padding-right: 0px;" class="container-main-page flex h-full justify-center items-center p-4">
 					 

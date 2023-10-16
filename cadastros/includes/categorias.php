@@ -36,16 +36,14 @@ $updatebanco = new Update();
 <html>
 
 <head>
-
-	<script>
-		$(document).ready(function(){
-			$('#img-container').hide();
-		})
-
-			 
-	</script>
+ 
   
   <style>
+
+#img-container{
+      display:none;
+    }
+
 
     .btn-delete:hover{
       text-decoration-line: none !important;
@@ -358,7 +356,7 @@ $updatebanco = new Update();
  
     
    
-    <input type="text" name="valor_adicional" class="form-control" placeholder="Digite um valor para seu adicional">
+    <input type="text"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="valor_adicional" class="form-control" placeholder="Digite um valor para seu adicional">
  
 </div>
 

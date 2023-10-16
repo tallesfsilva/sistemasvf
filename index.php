@@ -137,7 +137,7 @@ endif;
 		<!-- Favicons-->
 		<link rel="shortcut icon" href="../../Imagens/LOGO.ico" type="image/x-icon">
 		<!-- GOOGLE WEB FONT -->
-		<link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,300,300italic' rel='stylesheet' type='text/css'>
+		<link href="<?= $site; ?>css/fonts-google.css" rel="stylesheet">
 
 		<!-- BASE CSS -->
 		<link href="<?= $site; ?>css/base.css" rel="stylesheet">
@@ -145,206 +145,15 @@ endif;
 		<link href="<?= $site; ?>css/reset.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/datepicker.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/style-bt-file.css" rel="stylesheet">
-		<link href="<?=$site;?>css/suportewats.css" rel="stylesheet">
+	 
 		
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/style.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/style.css" rel="stylesheet">
+		<link href="<?= $site; ?>css/style.css" rel="stylesheet">	 
 		<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">
 
 		<style type="text/css">
-			@media (min-width: 768px) {
-				.omb_row-sm-offset-3 div:first-child[class*="col-"] {
-					margin-left: 25%;
-				}
-			}
- 
-			.omb_login .omb_authTitle {
-				text-align: center;
-				line-height: 300%;
-			}
-
-			.gradient {
-       				 background: linear-gradient(90deg, #7233A1 0%, #8c52ff 100%);
-      		}
-
-			.omb_login .omb_socialButtons a {
-				color: white; // In yourUse @body-bg 
-				opacity:0.9;
-			}
-			.omb_login .omb_socialButtons a:hover {
-				color: white;
-				opacity:1;    	
-			}
-
-			.omb_login .omb_loginOr {
-				position: relative;
-				font-size: 1.5em;
-				color: #aaa;
-				margin-top: 1em;
-				margin-bottom: 1em;
-				padding-top: 0.5em;
-				padding-bottom: 0.5em;
-			}
-			.omb_login .omb_loginOr .omb_hrOr {
-				background-color: #cdcdcd;
-				height: 1px;
-				margin-top: 0px !important;
-				margin-bottom: 0px !important;
-			}
-			.omb_login .omb_loginOr .omb_spanOr {
-				display: block;
-				position: absolute;
-				left: 50%;
-				top: -0.6em;
-				margin-left: -1.5em;
-				background-color: white;
-				width: 3em;
-				text-align: center;
-			}			
-
- 
- #social_footer{
-	text-align:center;
- 
- 
-}
-#social_footer p{
-	font-size:12px;
-	color:#8c8c8c;
-}
-#social_footer ul{
-	margin:0;
-	padding:0 0 10px 0;
-	text-align:center;
-}
-#social_footer ul li{
-	display:inline-block;
-	margin:0 5px 10px 5px;
-}
- 
-#social_footer ul li a{
-	color:white;
-	text-align:center;
-	line-height:34px;
-	display:flex;
-	font-size:16px;
-	width:35px;
-	height:35px;
-	background-color:#7233a1;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-	align-items: center;
-	justify-content: center;
-	outline:none;
-}
-#social_footer ul li a:hover{
-	background:#fff;
-	color:#111;
-}
-
-.omb_login .omb_loginForm .input-group.i {
-	width: 2em;
-}
-.omb_login .omb_loginForm  .help-block {
-	color: red;
-}
-
-
-			@media (min-width: 768px) {
-				.omb_login .omb_forgotPwd {
-					text-align: right;
-					margin-top:10px;
-				}		
-			}
-
-			#whatsapp{
-				position:fixed;
-				width:60px;
-				height:60px;
-				right:10px;
-				bottom:10px;
-				display:block;
-				z-index:1000000;
-			}
-			.cart-count{
-				display: inline-block;
-				position: absolute;
-				top: 0;
-				right: 0;
-				background: #ff2646;
-				color: #fff;
-				padding: 4px 10px;
-				border-radius: 100px;
-				font-size: 10px;
-				text-shadow: 0 1px 2px rgba(0,0,0,.1);
-				box-shadow: 0 2px 4px rgba(0,0,0,.1);
-				z-index: 10;
-				text-align: center;
-				opacity: 1;
-				transition: .33s cubic-bezier(0.34, 0.13, 0.34, 1.43);
-			}
-
-
-			/*--thank you pop starts here--*/
-			.thank-you-pop{
-				width:100%;
-				padding:20px;
-				text-align:center;
-			}
-			.thank-you-pop img{
-				width:76px;
-				height:auto;
-				margin:0 auto;
-				display:block;
-				margin-bottom:25px;
-			}
-
-			.thank-you-pop h1{
-				font-size: 42px;
-				margin-bottom: 25px;
-				color:#5C5C5C;
-			}
-			.thank-you-pop p{
-				font-size: 20px;
-				margin-bottom: 27px;
-				color:#5C5C5C;
-			}
-			.thank-you-pop h3.cupon-pop{
-				font-size: 25px;
-				margin-bottom: 40px;
-				color:#222;
-				display:inline-block;
-				text-align:center;
-				padding:10px 20px;
-				border:2px dashed #222;
-				clear:both;
-				font-weight:normal;
-			}
-			.thank-you-pop h3.cupon-pop span{
-				color:#03A9F4;
-			}
-			.thank-you-pop a{
-				display: inline-block;
-				margin: 0 auto;
-				padding: 9px 20px;
-				color: #fff;
-				text-transform: uppercase;
-				font-size: 14px;
-				background-color: #8BC34A;
-				border-radius: 17px;
-			}
-			.thank-you-pop a i{
-				margin-right:5px;
-				color:#fff;
-			}
-			#ignismyModal .modal-header{
-				border:0px;
-			}
-			/*--thank you pop ends here--*/
-
+		 
 
 
 			#img-head-loja{
@@ -417,13 +226,7 @@ endif;
 		</style>
 
 
-
-		<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-
-
-
-		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'> -->
-
+ 
 
 
 		<!-- Radio and check inputs -->
@@ -451,7 +254,7 @@ endif;
 		?>
 
 		<!-- <link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/frappuccino-modal.css" /> -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+		<link rel="stylesheet" href="css/font-awesome.css">
 		<!-- <link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" /> -->
 
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
@@ -915,18 +718,17 @@ if((($today['wday']>='1' && $today['wday']<='5')  && (strtotime($time) >= strtot
 <script src="<?= $site; ?>js/funcoesjs.js"></script>
 <script src="<?= $site; ?>js/custom-file-input.js"></script>
 <script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-<script src="<?= $site; ?>js/parallax.js"></script>
-<script src="<?= $site; ?>js/parallax.min.js"></script>
+<!-- <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
+ 
 <script src="<?= $site; ?>js/printThis.js"></script>
-<script src="<?=$site;?>js/suportewats.js"></script>
+ 
 
  
 <script>
-	jQuery(document).ready(function($){
-		$('a').not('[href*="'+document.domain+'"]').attr('target', '_blank');
-		$('a').not('[href*="'+document.domain+'"]').attr('rel', 'external nofollow');
-	});
+	// jQuery(document).ready(function($){
+	// 	$('a').not('[href*="'+document.domain+'"]').attr('target', '_blank');
+	// 	$('a').not('[href*="'+document.domain+'"]').attr('rel', 'external nofollow');
+	// });
 
 	$('#tel_suporte').mask('(00) 0 0000-0000');
 </script>
@@ -948,8 +750,8 @@ endif;
 
 
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js'></script>
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js'></script> -->
 
 
 <!-- SPECIFIC SCRIPTS -->
@@ -958,7 +760,7 @@ endif;
 
 
 
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 //plugin bootstrap minus and plus
 //http://jsfiddle.net/laelitenetwork/puJ6G/
 $('.btn-number').click(function(e){
@@ -1016,7 +818,7 @@ $('.input-number').change(function() {
 	}
 
 
-});
+}); -->
 
 
 
@@ -1061,48 +863,48 @@ $('.input-number').change(function() {
 	}; */
 </script>
 
-<!-- <script type="text/javascript">
-	const selected = document.querySelector(".selected");
-	const optionsContainer = document.querySelector(".options-container");
-	const searchBox = document.querySelector(".search-box input");
+// <!-- <script type="text/javascript">
+// 	const selected = document.querySelector(".selected");
+// 	const optionsContainer = document.querySelector(".options-container");
+// 	const searchBox = document.querySelector(".search-box input");
 
-	const optionsList = document.querySelectorAll(".option");
+// 	const optionsList = document.querySelectorAll(".option");
 
-	selected.addEventListener("click", () => {
-		optionsContainer.classList.toggle("active");
+// 	selected.addEventListener("click", () => {
+// 		optionsContainer.classList.toggle("active");
 
-		searchBox.value = "";
-		filterList("");
+// 		searchBox.value = "";
+// 		filterList("");
 
-		if (optionsContainer.classList.contains("active")) {
-			searchBox.focus();
-		}
-	});
+// 		if (optionsContainer.classList.contains("active")) {
+// 			searchBox.focus();
+// 		}
+// 	});
 
-	optionsList.forEach(o => {
-		o.addEventListener("click", () => {
-			selected.innerHTML = o.querySelector("label").innerHTML;
-			optionsContainer.classList.remove("active");
-		});
-	});
+// 	optionsList.forEach(o => {
+// 		o.addEventListener("click", () => {
+// 			selected.innerHTML = o.querySelector("label").innerHTML;
+// 			optionsContainer.classList.remove("active");
+// 		});
+// 	});
 
-	searchBox.addEventListener("keyup", function(e) {
-		filterList(e.target.value);
-	});
+// 	searchBox.addEventListener("keyup", function(e) {
+// 		filterList(e.target.value);
+// 	});
 
-	const filterList = searchTerm => {
-		searchTerm = searchTerm.toLowerCase();
-		optionsList.forEach(option => {
-			let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
-			if (label.indexOf(searchTerm) != -1) {
-				option.style.display = "block";
-			} else {
-				option.style.display = "none";
-			}
-		});
-	};
+// 	const filterList = searchTerm => {
+// 		searchTerm = searchTerm.toLowerCase();
+// 		optionsList.forEach(option => {
+// 			let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+// 			if (label.indexOf(searchTerm) != -1) {
+// 				option.style.display = "block";
+// 			} else {
+// 				option.style.display = "none";
+// 			}
+// 		});
+// 	};
 
-</script>
+// </script>
 
 
 

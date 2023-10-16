@@ -57,13 +57,21 @@ endif;
 <head>
 	<script>
 		$(document).ready(function(){
-			$('#img-container').remove();
+			// $('body').css('background-image', "");
 		})
 	
 			 
 	</script>
 
   <style>
+
+    #img-container{
+      display:none;
+    }
+
+    body{
+      background-image : unset !important;
+    }
 
     .btn-delete:hover{
       text-decoration-line: none !important;
@@ -97,7 +105,7 @@ endif;
 </head>
 <html> 
 	
-
+<?php  echo '<body style="background-color:white">'; ?>
  
 				<div  style="padding-right: 0px;" class="container-main-page flex h-full justify-center items-center p-4">
 					 

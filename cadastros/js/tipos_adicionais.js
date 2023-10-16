@@ -34,7 +34,9 @@ export const tipo = {
             createdRow: (row) => {            
                     $(row).addClass('border-b text-center');
             },
+            "order": [],
             columnDefs: [
+                { orderable: true, targets: 0 },
                 { targets: [3], className: "delete_tipo"},            
             ]
     }), 
@@ -69,11 +71,11 @@ export const tipo = {
                         
                     tipo.table_tipos.ajax.reload();
                    
-                }else if(!j.success & j.error)
-                $('#msg-tip').html(j.msg);   
-               
-                  
-              }
+                }else if(!j.success & j.error){
+                    tipo.table_tipos.ajax.reload();
+                    $('#msg-tip').html(j.msg);   
+                } 
+            }
             });
         })
     },

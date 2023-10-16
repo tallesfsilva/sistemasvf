@@ -30,14 +30,13 @@ $updatebanco = new Update();
 <html>
 
 <head>
-	<script>
-		$(document).ready(function(){
-			$('#img-container').hide();
-		})
-	
-			 
-	</script>
+ 
+<style>
+	#img-container{
+      display:none;
+    }
 
+</style>
 </head>
 
 <div   style="padding-right: 0px;" class="container-main-page overflow-hidden flex h-screen justify-center items-center p-4">

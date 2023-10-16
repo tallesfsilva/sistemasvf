@@ -85,14 +85,12 @@ $updatebanco = new Update();
 <html>
 
 <head>
-	<script>
-		$(document).ready(function(){
-			$('#img-container').hide();
-		})
-	
-			 
-	</script>
+	 
 	<style>
+		#img-container{
+      display:none;
+    }
+
 			.img_temp > img {
 				height: 240px !important;
   				width: 240px !important;

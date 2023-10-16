@@ -20,15 +20,16 @@ try{
  
 
   if(!empty($atualizaAdicional) && isset($atualizaAdicional['id_adicionais']) && isset($atualizaAdicional['updateadicional'])){
-          $lerbanco->ExeRead("ws_adicionais_itens", "WHERE user_id = :userid and nome_adicional = :nome", "userid={$userlogin['user_id']}&nome={$atualizaAdicional['nome_adicional']}");
+    $lerbanco->ExeRead("ws_adicionais_itens", "WHERE user_id = :userid and nome_adicional = :nome and id_cat = :idcat", "idcat={$atualizaAdicional['id_cat']}&userid={$userlogin['user_id']}&nome={$atualizaAdicional['nome_adicional']}");
           if ($lerbanco->getResult() && $flagName && !empty($flagName)){             
 
             $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
             <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-            Já existe um adicional com este nome. Por favor selecione outro!
+            Já existe um adicional com este nome na categoria selecionada. Por favor selecione outro!
             </div>";
             $res['success'] = false;
             $res['error'] = true;  
+           
             echo json_encode($res);
           }else{
 
@@ -51,9 +52,10 @@ try{
                 </div>";
                 $res['success'] = false;
                 $res['error'] = true;  
+               
                 echo json_encode($res);
             
-        } else if(empty($atualizaAdicional['valor_adicional'])){   
+        } else if($atualizaAdicional['valor_adicional']==""){   
               
           $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
               <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
@@ -61,6 +63,7 @@ try{
               </div>";
               $res['success'] = false;
               $res['error'] = true;  
+             
               echo json_encode($res);
          
         
@@ -71,6 +74,7 @@ try{
             </div>";
             $res['success'] = false;
             $res['error'] = true;  
+          
             echo json_encode($res);
     }else{ 
       $atualizaAdicional['nome_adicional'] = strtoupper($atualizaAdicional['nome_adicional']);
@@ -93,6 +97,7 @@ try{
             </div>";
             $res['success'] = false;
             $res['error'] = true;  
+            
             echo json_encode($res);
             
           }

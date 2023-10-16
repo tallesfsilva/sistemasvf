@@ -35,14 +35,14 @@ try{
     
     foreach($lerbanco->getResult() as $tt){
       extract($tt);
-     
+ 
         $lerbanco->FullRead("select cat.desc_cat,cat.icon_cat, cat.id, tipo.id_tipo, cat.nome_cat from ws_cat as cat join ws_tipo_adicional as tipo on tipo.id_cat = cat.id WHERE tipo.user_id = {$userlogin['user_id']} and tipo.id_tipo = {$id_tipo}");
         
-            
+       
         $pegacatitens = $lerbanco->getResult();       
        
         $variaveloption =  "<option value=\"{$pegacatitens[0]['id']}\">{$pegacatitens[0]['nome_cat']}</option>";  
-    
+   
         $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid and id != :idcattipo", "idcattipo={$pegacatitens[0]['id']}&userid={$userlogin['user_id']}");
     
         if($lerbanco->getResult()){

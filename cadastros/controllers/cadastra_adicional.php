@@ -19,13 +19,13 @@ try{
  
 
   if(!empty($adicional) && isset($adicional['cadastraadicional'])){
-          $lerbanco->ExeRead("ws_adicionais_itens", "WHERE user_id = :userid and nome_adicional = :nome", "userid={$userlogin['user_id']}&nome={$adicional['nome_adicional']}");
+          $lerbanco->ExeRead("ws_adicionais_itens", "WHERE user_id = :userid and nome_adicional = :nome and id_cat = :idcat", "idcat={$adicional['id_cat']}&userid={$userlogin['user_id']}&nome={$adicional['nome_adicional']}");
           if ($lerbanco->getResult()){
              
 
             $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
             <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-            Já existe um tipo de adicional com este nome. Por favor selecione outro!
+            Já existe um tipo de adicional com este nome na categoria selecionada. Por favor selecione outro!
             </div>";
             $res['success'] = false;
             $res['error'] = true;  
@@ -49,10 +49,10 @@ try{
                 $res['error'] = true;  
                 echo json_encode($res);
             
-            } else if(empty($adicional['valor_adicional'])){   
+            } else if(($adicional['valor_adicional']=='')){   
               $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
               <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-              Quantidade do tipo de adicional é obrigatório!
+              Valor do adicional é obrigatório!
               </div>";
               $res['success'] = false;
               $res['error'] = true;  

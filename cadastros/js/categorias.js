@@ -2,6 +2,7 @@
 'use-strict' 
 
 import{ tipo } from './tipos_adicionais.js'
+import{ ad } from './adicionais.js'
 
 export const cad =  {
 
@@ -31,7 +32,9 @@ export const cad =  {
         createdRow: (row) => {            
                 $(row).addClass('border-b text-center');
         },
+        "order": [],
         columnDefs: [
+            { orderable: true, targets: 0 },
             { targets: [1], className: "delete_cat"},            
         ]
     
@@ -65,8 +68,11 @@ export const cad =  {
                     cad.table_cat.ajax.reload();
                     tipo.loadTable();
                    
-                }else if(!j.success & j.error)
-                $('#msg-cat').html(j.msg);   
+                }else if(!j.success & j.error){
+                    $('#msg-cat').html(j.msg);   
+                    cad.table_cat.ajax.reload();
+                }
+            
                
                   
               }
@@ -101,6 +107,7 @@ export const cad =  {
                         $('#cadCategoria')[0].reset();
                         cad.loadCategorias();
                         tipo.loadTable();
+                        ad.loadTable();                      
                         cad.table_cat.ajax.reload();
                        
                     }else if(!j.success & j.error)

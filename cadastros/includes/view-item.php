@@ -41,7 +41,7 @@ $updatebanco = new Update();
 
 <script type="text/javascript">
             $(document).ready(function() {         
-              $('#img-container').hide();
+              // $('#img-container').hide();
              $( '#produtos' ).TableCheckAll();
             });         
               
@@ -53,6 +53,9 @@ $updatebanco = new Update();
     .btn-delete:hover{
       text-decoration-line: none !important;
   background: #d19898 !important
+    }
+    #img-container{
+      display:none;
     }
 
   </style>

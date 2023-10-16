@@ -19,15 +19,16 @@ try{
  
 
   if(!empty($AtualizaTipoAdicional) && isset($AtualizaTipoAdicional['id_tipo']) && isset($AtualizaTipoAdicional['updatetipoadicional'])){
-          $lerbanco->ExeRead("ws_tipo_adicional", "WHERE user_id = :userid and nome_adicional = :nome", "userid={$userlogin['user_id']}&nome={$AtualizaTipoAdicional['nome_adicional']}");
+    $lerbanco->ExeRead("ws_tipo_adicional", "WHERE user_id = :userid and nome_adicional = :nome and id_cat =:idcat ", "idcat={$AtualizaTipoAdicional['id_cat']}&userid={$userlogin['user_id']}&nome={$AtualizaTipoAdicional['nome_adicional']}");
           if ($lerbanco->getResult() && $flagName && !empty($flagName)){             
 
             $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
             <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-            Já existe um tipo de adicional com este nome. Por favor selecione outro!
+            Já existe um tipo de adicional com este nome na categoria selecionada. Por favor selecione outro!
             </div>";
             $res['success'] = false;
             $res['error'] = true;  
+           
             echo json_encode($res);
           }else{
 
@@ -48,10 +49,11 @@ try{
                 Por favor selecione uma categoria!
                 </div>";
                 $res['success'] = false;
-                $res['error'] = true;  
+                $res['error'] = true;
+                
                 echo json_encode($res);
             
-        } else if(empty($AtualizaTipoAdicional['quantidade']) || (int)$AtualizaTipoAdicional['quantidade']==0){   
+        } else if($AtualizaTipoAdicional['quantidade']==""){   
               
           $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
               <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
@@ -69,6 +71,7 @@ try{
             </div>";
             $res['success'] = false;
             $res['error'] = true;  
+            
             echo json_encode($res);
     }else{ 
       $AtualizaTipoAdicional['nome_adicional'] = strtoupper($AtualizaTipoAdicional['nome_adicional']);
@@ -92,6 +95,7 @@ try{
             </div>";
             $res['success'] = false;
             $res['error'] = true;  
+            
             echo json_encode($res);
             
           }

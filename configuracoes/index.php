@@ -84,7 +84,7 @@ if(empty($_SESSION['userlogin'])){
 		<!-- Favicons-->
 		<link rel="shortcut icon" href="../../Imagens/LOGO.ico" type="image/x-icon">
 		<!-- GOOGLE WEB FONT -->
-		<link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,300,300italic' rel='stylesheet' type='text/css'>
+		<link href="<?= $site; ?>css/fonts-google.css" rel="stylesheet" type="text/css">
 
 		<!-- BASE CSS -->
 		<link href="<?= $site; ?>css/base.css" rel="stylesheet">
@@ -92,7 +92,7 @@ if(empty($_SESSION['userlogin'])){
 		<link href="<?= $site; ?>css/reset.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/datepicker.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/style-bt-file.css" rel="stylesheet">
-		<link href="<?=$site;?>css/suportewats.css" rel="stylesheet">
+		 
  
 <!-- BASE CSS -->
 
@@ -136,7 +136,7 @@ if(empty($_SESSION['userlogin'])){
 		?>
 
 		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/frappuccino-modal.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+		<link rel="stylesheet" href="<?= $site; ?>css/font-awesome.css">
 		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" />
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
@@ -155,12 +155,8 @@ if(empty($_SESSION['userlogin'])){
 			<!--https://gao-sun.github.io/x0popup/-->
 			<link href="<?= $site; ?>css/x0popup-master/dist/x0popup.min.css" rel="stylesheet">
 			<script src="<?= $site; ?>css/x0popup-master/dist/x0popup.min.js"></script>
-
-			<script src="<?= $site; ?>js/jquery.gotop.js"></script>
-
-			<script src="<?= $site; ?>js/player.js"></script>
-			<script src="<?= $site; ?>js/howler.js"></script>
-
+ 
+ 
  
 			<script type="text/javascript">	
 
@@ -264,8 +260,7 @@ $(document).ready(function () {
 			<!-- https://www.cssscript.com/pure-css-checkbox-radio-button-replacement-bootstrap-icheck/ -->
 			<link href="<?= $site; ?>notificacao/light-theme.min.css" rel="stylesheet">
 			<link href="<?= $site; ?>css/chackbox/dist/css/checkboxes.css" rel="stylesheet">
-
-			<script type="text/javascript" src="<?= $site; ?>notificacao/growl-notification.min.js"></script> 
+ 
 
 
 			<script type="text/javascript">
@@ -527,7 +522,7 @@ $(document).ready(function () {
 
 
 
-		<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"> -->
+		 
 
 
 
@@ -654,11 +649,8 @@ $(document).ready(function () {
 <script src="<?= $site; ?>js/funcoesjs.js"></script>
 <script src="<?= $site; ?>js/custom-file-input.js"></script>
 <script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
-
-<script src="<?= $site; ?>js/parallax.js"></script>
-<script src="<?= $site; ?>js/parallax.min.js"></script>
-<script src="<?= $site; ?>js/printThis.js"></script>
-<script src="<?=$site;?>js/suportewats.js"></script>
+ 
+ 
  
 
 		</body> 

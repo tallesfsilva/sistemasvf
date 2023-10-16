@@ -35,15 +35,12 @@ $updatebanco = new Update();
 <html>
 
 <head>
-	<script>
-		$(document).ready(function(){
-			$('#img-container').remove();
-		})
-	
-			 
-	</script>
-
+ 
   <style>
+
+#img-container{
+      display:none;
+    }
 
     .btn-delete:hover{
       text-decoration-line: none !important;

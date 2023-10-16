@@ -26,6 +26,7 @@ export const ad =  {
         "ajax" : {
             url : '../cadastros/controllers/carrega_adicional.php'
         },
+        "order": [],
         columns: [
             {data:'nome_cat'}, 
             {data: 'tipo_adicional'},
@@ -40,6 +41,7 @@ export const ad =  {
                 $(row).addClass('border-b text-center');
         },
         columnDefs: [
+            { orderable: true, targets: 0 },
             { targets: [5], className: "delete_adicional"},            
         ]
     
@@ -72,11 +74,13 @@ export const ad =  {
         
                 if(j.success && !j.error){                 
                         
-                    tipo.table_tipos.ajax.reload();
+                    ad.table_ad.ajax.reload();
                    
-                }else if(!j.success & j.error)
-                         $('#msg-add').html(j.msg);   
+                }else if(!j.success & j.error){
+                         $('#msg-add').html(j.msg);  
+                         ad.table_ad.ajax.reload();
                
+                } 
                   
               }
             });
@@ -144,7 +148,7 @@ export const ad =  {
           type: 'error',
           image: {
             visible: true,
-            customImage: url+'img/danger.png'
+            customImage: '/uploads/img/danger.png'
           },
           position: 'top-center',
           showProgress: true,
@@ -277,7 +281,7 @@ export const ad =  {
 
 
     loadTiposAdicionaisBusca : () => {
-             
+        $('#categoria_adicionais_busca').change(function(e){
 
           $.ajax({
             url: 'controllers/carrega_tipos_adicionais_busca.php',
@@ -286,8 +290,8 @@ export const ad =  {
             success: function(data){ 
                 let j = JSON.parse(data);           
                 if(j.data.length){
-                                 
-                   
+                    $("#adicionais-busca").empty();      
+                    $('#adicionais-busca').append("<option value=>Selecione um  Tipo de Adicional</option>")
                     for(let i=0;i<j.data.length;i++){           
                       
                         $("#adicionais-busca").append("<option value="+j.data[i].id_tipo+">"+j.data[i].nome_adicional+"</option>")
@@ -304,9 +308,14 @@ export const ad =  {
              
             });
 
-      
+        });
     },
 
+     loadTable : () =>{
+
+        ad.table_ad.ajax.reload();
+    },
+    
     init : () => {
         ad.update();
         ad.loadTiposAdicionaisBusca();
