@@ -64,11 +64,11 @@ export const cupom =  {
         $("#cupoms" ).on('focus', 'input#datepicker.atualiza_cupom', function(e){
            $(e.currentTarget).datepicker({
             autoclose: true,
+            container: true,
             format: 'dd/mm/yyyy',
             daysOfWeekDisabled: '0,6',
             todayHighlight: true,
-            orientation: 'top',
-         
+            orientation: 'top',         
              }).on('changeDate', function(){             
                    
                     $(this).trigger('change');               
@@ -96,12 +96,23 @@ export const cupom =  {
               success: function(data){
                 $('.exibirsite').prop('disabled', false);
                 let j = JSON.parse(data);
+                $('#msg1').html("");
+                $('#msg1').show();
                 if(j.success && !j.error){                 
                     $('#msg1').html(j.msg);  
+                    setTimeout(function(){                      
+                       
+                        $('#msg1').fadeOut();
+                        $('#msg1').html("");
+                    },3000)
                      cupom.table_cupom.ajax.reload();                    
                    
                 }else if(!j.success & j.error){
-                    $('#msg1').html(j.msg);   
+                    $('#msg1').html(j.msg);  
+                    setTimeout(function(){                        
+                      
+                        $('#msg1').fadeOut();
+                    },3000)   
                     cad.table_cat.ajax.reload();
                 }
       
@@ -138,12 +149,23 @@ export const cupom =  {
             success: function(data){ 
                 let j = JSON.parse(data);
         
-                if(j.success && !j.error){                 
+                if(j.success && !j.error){   
+                    $('#msg1').html("");
+                    $('#msg1').show();               
+                    setTimeout(function(){
                         
+                      
+                        $('#msg1').fadeOut();
+                    },3000)
                     cupom.table_cupom.ajax.reload();
                    
                 }else if(!j.success & j.error){
-                         $('#msg1').html(j.msg);  
+                    $('#msg1').html(j.msg);  
+                    setTimeout(function(){
+                        
+                       
+                        $('#msg1').fadeOut();
+                    },3000)
                          cupom.table_cupom.ajax.reload();
                
                 } 
@@ -178,14 +200,24 @@ export const cupom =  {
 
                 success: function(data){ 
                     let j = JSON.parse(data);
-
+                    $('#msg').html("");
+                    $('#msg').show();
                     if(j.success && !j.error){
-                        $('#msg').html(j.msg);
+                        $('#msg').html(j.msg);  
+                        setTimeout(function(){
+                        
+                          
+                            $('#msg').fadeOut();
+                        },3000)
                         $('#cadCupom')[0].reset();
                         cupom.table_cupom.ajax.reload();
                      
                     }else{
-                        $('#msg').html(j.msg);
+                        $('#msg').html(j.msg);  
+                        setTimeout(function(){                        
+                         
+                            $('#msg').fadeOut();
+                        },3000)
                     }                      
                      
                 }
@@ -222,13 +254,25 @@ export const cupom =  {
                               method: 'post',
                               data: {'iddocupom' : idcupom,},
                               success: function(data){
-                                let j = JSON.parse(data)
-                                if(j.success && !j.error){                            
-                                    $('#msg1').html(j.msg);                       
+                                let j = JSON.parse(data);
+                                $('#msg1').html("");
+                                $('#msg1').show();
+                                if(j.success && !j.error){  
+                                    $('#msg1').html(j.msg);                            
+                                    setTimeout(function(){
+                        
+                                     
+                                        $('#msg1').fadeOut();
+                                    },3000)                  
                                     cupom.table_cupom.ajax.reload();                            
                                     $('.excluircupom').prop('disabled', false);
                                 }else{
-                                    $('#msg1').html(j.msg);
+                                    $('#msg1').html(j.msg);  
+                                    setTimeout(function(){
+                        
+                                      
+                                        $('#msg1').fadeOut();
+                                    },3000)
                                 }
                                
                               }

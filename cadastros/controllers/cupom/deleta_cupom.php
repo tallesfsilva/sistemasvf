@@ -15,7 +15,7 @@ $res['success'] = false;
 $deletbanco->ExeDelete("cupom_desconto", "WHERE user_id = :userid AND id_cupom = :idcupom", "userid={$userlogin['user_id']}&idcupom={$idcupom}");
     if($deletbanco->getResult()){
       $res['msg'] =  "<div class=\"alert alert-success alert-dismissable\">
-      <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+     
       <b class=\"alert-link\">SUCESSO! </b> Cupom foi excluído!.
       </div>";     
       $res['success'] = true;

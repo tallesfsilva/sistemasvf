@@ -61,8 +61,7 @@ if(!empty($inputCupom['submitcupomconfirm'])){
 	
 	$lerbanco->ExeRead('cupom_desconto', "WHERE user_id = :userid AND ativacao = :pativacao", "userid={$inputCupom['user_id']}&pativacao={$inputCupom['ativacao']}");
 	if ($lerbanco->getResult()){
-		$res['msg'] = "<div class=\"alert alert-info alert-dismissable\">
-		<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+		$res['msg'] = "<div class=\"alert alert-info alert-dismissable\">		
 		Já existe um cupom com essa ativação! exclua e crie outra com novas propriedades.
 		</div>";
 		$res['success'] = false;
@@ -76,7 +75,7 @@ if(!empty($inputCupom['submitcupomconfirm'])){
 		$addbanco->ExeCreate("cupom_desconto", $inputCupom);
 		if ($addbanco->getResult()){                                            
 			$res['msg'] =  "<div class=\"alert alert-success alert-dismissable\">
-			<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+			
 			<b class=\"alert-link\">SUCESSO! </b> Cupom cadastrado.
 			</div>";     
 			$res['success'] = true;
@@ -85,8 +84,7 @@ if(!empty($inputCupom['submitcupomconfirm'])){
 		 
 		 
 		}else{
-			$res['msg'] =  "<div class=\"alert alert-danger alert-dismissable\">
-			<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+			$res['msg'] =  "<div class=\"alert alert-danger alert-dismissable\">			
 			<b class=\"alert-link\">OCORREU UM ERRO!</b> Tente novamente.
 			</div>";  
 			

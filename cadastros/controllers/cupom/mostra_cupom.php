@@ -47,14 +47,14 @@ if($idatualizazero == $idcupom){
 	$updatebanco->ExeUpdate("cupom_desconto", $updatezerom, "WHERE user_id = :userid AND id_cupom = :idcupom", "userid={$userlogin['user_id']}&idcupom={$idcupom}");
 	if(!$updatebanco->getResult()){
 		$res['msg']  = "<div class=\"alert alert-info alert-dismissable\">
-			<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+			
 			Ocorreu um erro no processamento
 			</div>";
 			$res['success'] = false;
 			$res['error'] = true;
 	}else{
 		$res['msg'] =  "<div class=\"alert alert-success alert-dismissable\">
-		<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+		
 		<b class=\"alert-link\">SUCESSO! </b> Cupom foi atualizado e aparecerá no site!.
 		</div>";     
 		$res['success'] = true;
@@ -68,7 +68,7 @@ if($idatualizazero == $idcupom){
 	$updatebanco->ExeUpdate("cupom_desconto", $updatezero, "WHERE user_id = :userid AND id_cupom = :idcupom", "userid={$userlogin['user_id']}&idcupom={$idatualizazero}");
 	if(!$updatebanco->getResult()){
 		$res['msg']  = "<div class=\"alert alert-info alert-dismissable\">
-		<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+		 
 		Ocorreu um erro no processamento
 		</div>";
 		$res['success'] = false;
@@ -78,14 +78,14 @@ if($idatualizazero == $idcupom){
 		$updatebanco->ExeUpdate("cupom_desconto", $novonumeroum, "WHERE user_id = :userid AND id_cupom = :idcupom", "userid={$userlogin['user_id']}&idcupom={$idcupom}");
 		if(!$updatebanco->getResult()){
 			$res['msg']  = "<div class=\"alert alert-info alert-dismissable\">
-			<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+			
 			Ocorreu um erro no processamento
 			</div>";
 			$res['success'] = false;
 			$res['error'] = true;
 		}else{
 				$res['msg'] =  "<div class=\"alert alert-success alert-dismissable\">
-				<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+				
 				<b class=\"alert-link\">SUCESSO! </b> Cupom foi atualizado e aparecerá no site!.
 				</div>";     
 				$res['success'] = true;

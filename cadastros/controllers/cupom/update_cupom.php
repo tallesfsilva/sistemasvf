@@ -85,7 +85,7 @@ if(!empty($atualizaCupom) && isset($atualizaCupom['id_cupom']) && isset($atualiz
 		$updatebanco->ExeUpdate("cupom_desconto",$atualizaCupom, "WHERE user_id = :userid AND id_cupom = :idCupom", "userid={$userlogin['user_id']}&idCupom={$atualizaCupom['id_cupom']}");
 		if ($updatebanco->getResult()){                                            
 			$res['msg'] =  "<div class=\"alert alert-success alert-dismissable\">
-			<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+			
 			<b class=\"alert-link\">SUCESSO! </b> Cupom atualizado!.
 			</div>";     
 			$res['success'] = true;
@@ -95,7 +95,7 @@ if(!empty($atualizaCupom) && isset($atualizaCupom['id_cupom']) && isset($atualiz
 		 
 		}else{
 			$res['msg'] =  "<div class=\"alert alert-danger alert-dismissable\">
-			<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
+			
 			<b class=\"alert-link\">OCORREU UM ERRO!</b> Tente novamente.
 			</div>";  
 			
