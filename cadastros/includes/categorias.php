@@ -444,35 +444,7 @@ $updatebanco = new Update();
 			</div><!-- End col  -->
 	 
 				</section><!-- End section 1 -->
-  
  
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.exibirsite').click(function(){
-      var idcupom = $(this).data('idcupom');
-      $(this).prop('disabled', true);
-
-      $.ajax({
-        url: '<?=$site;?>includes/processamostrarcupom.php',
-        method: 'post',
-        data: {'iddocupom' : idcupom, 'url' : '<?=$Url[0];?>', 'iduser' : '<?=$userlogin['user_id'];?>'},
-        success: function(data){
-          $('.exibirsite').prop('disabled', false);
-          if(data == 'erro1'){
-            x0p('Opss...', 
-              'Ocorreu um arro!',
-              'error', false);
-          }else if(data == 'erro0'){
-            window.location.replace('<?=$site.'cadastros/cupom-desconto';?>');
-          }
-
-        }
-      });
-    });
-  });
-</script>
-
 <script>
 
 $( function() {
@@ -486,73 +458,14 @@ $('#accordion-1 .cat').on('click', function(e){
 })			
 } );
 </script>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.excluircupom').click(function(){
-      var idcupom = $(this).data('idcupom');
-      x0p({
-        title: 'Atenção!',
-        text: 'Tem certeza de que deseja excluir esse cupom?',
-        animationType: 'slideUp',
-        buttons: [
-        {
-          type: 'error',
-          key: 49,
-          text: 'Cancelar',
-
-        },
-        {
-          type: 'info',
-          key: 50,
-          text: 'Excluir'
-        }
-        ]
-      }).then(function(data) {
-        if(data.button == 'error'){
-
-        }else if(data.button == 'info'){
-
-          $.ajax({
-            url: '<?=$site;?>includes/processadeletarcupom.php',
-            method: 'post',
-            data: {'iddocupom' : idcupom, 'url' : '<?=$Url[0];?>', 'iduser' : '<?=$userlogin['user_id'];?>'},
-            success: function(data){
-              $('#sucsesscupom').html(data);
-              $('.excluircupom').prop('disabled', false);
-            }
-          });
-        }
-      });
-    });
-  });
-</script>
+ 
 <script type="module" src="<?= $site;?>cadastros/js/main.js"></script>
   <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
 
  
 	<script src="js/flowbite.min.js"></script>
 
-  <script>
-
-
-
-$(document).ready(function(){
-
-
-$('.descontoporcentagem').on('change', function(e){
-
-    $(this).val($(this).val().replace(/[^0-9]+/g, ''));
-  });
-
-
-
-
-
-})
-
-  </script>
-
+  
  
  
   </html>

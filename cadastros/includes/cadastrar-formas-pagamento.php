@@ -55,13 +55,7 @@ endif;
 <html>
 
 <head>
-	<script>
-		$(document).ready(function(){
-			// $('body').css('background-image', "");
-		})
-	
-			 
-	</script>
+ 
 
   <style>
 
@@ -133,42 +127,14 @@ endif;
 						<span>Cadastre as formas de pagamento que você aceita em sua loja!</span>
 					</p>
 					<br />
-					<?php
-					$getformapagamento = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-          
-					if(!empty($getformapagamento)):
-						$getformapagamento = array_map('strip_tags', $getformapagamento);
-						$getformapagamento = array_map('trim', $getformapagamento);
-
-						if(in_array('', $getformapagamento)):
-							echo "<script>
-							x0p('Opss...', 
-							'Preencha o campo com a forma de pagamento!',
-							'error', false);
-							</script>";
-						else:
-              $getformapagamento['aceita_entrega']= 1;
-							$addbanco->ExeCreate("ws_formas_pagamento", $getformapagamento);
-							if(!$addbanco->getResult()):
-								echo "<script>
-								x0p('Opss...', 
-								'Ocorreu um Erro!',
-								'error', false);
-								</script>";
-							else:
-								header("Location: {$site}cadastros/cadastrar-formas-pagamento");
-							endif;
-
-						endif;
-
-					endif;
-					?>
-					<form method="post">
+				 
+          <div id="msg"></div>
+					<form data-url="<?=$site.'cadastros'?>" id="cadFormasPagamento" method="post">
 						<div class="form-group">							
 							<label for="f_pagamento">Forma de Pagamento</label>						
 							<input oninput="this.value = this.value.replace(/[^a-z-A-Z ]/g, '')"   maxlength="30" type="text" id="f_pagamento" name="f_pagamento" class="form-control" placeholder="Dinheiro, Crédito Visa, etc...">
                 </div>                 
-                <input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>">
+                <input type="hidden" name="cadastraformas" value="true"/>
              	
                 <button style="background-color: #00BB07;"class="btn_1 btn-success"  type="submit">Cadastrar Pagamento</button>						
 					 
@@ -184,15 +150,28 @@ endif;
 		
 	
 	
+<br />
+          <br />
+        
+         
+      <div class="row">  
+        <div class="col-md-12">
+          <label for="search_cupom">Buscar Forma de Pagamento</label>						
+          <input type="text" id="search_forma"  class="form-control" placeholder="Digite o nome de uma forma de pagamento">
+          <br />
+  </div>
+  
+ 
+  </div>
 
  
 <div class="form-group">   
        
 
   
-
+<div id="msg1"></div>
 <div class="overflow-x-auto">
-    <table class="border w-full text-left text-gray-500 dark:text-gray-400">
+    <table id="formas-pagamento" class="border w-full text-left text-gray-500 dark:text-gray-400">
         <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>               
                 <th style="padding:25px;" scope="col" class=" text-center px-6 py-3">
@@ -209,45 +188,7 @@ endif;
                 
             </tr>
         </thead>
-        <tbody>
-
-        <?php
-  	$lerbanco->ExeRead("ws_formas_pagamento", "WHERE user_id = :userid ORDER BY id_f_pagamento ASC", "userid={$userlogin['user_id']}");
-    if($lerbanco->getResult()){
-      foreach($lerbanco->getResult() as $tt){
-        extract($tt);                                    
-        ?>     
-   
-      <tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
- 
-            <td scope="row" class="px-6 py-4 text-center">
-                   <?= $f_pagamento  ?>
-      </td>
-                <td class="text-center">         
-                    <?php if($aceita_entrega) { ?>
-                      <button id="btn_s" type="button" class="aceita_entrega" data-id_pag="<?= $id_f_pagamento ?>" style="background-color: #00BB07;">Sim</div>						
-                    <?php }else { ?>
-                      <button id="btn_n" type="button" class="aceita_entrega" data-id_pag="<?= $id_f_pagamento?>" style="background-color: #A70000;">Não</div>						
-                     <?php } ?>
-                    </td>
-                
-                    <td class="text-center">        
-                  <a title="Deletar" href="<?=$site.'cadastros/cadastrar-formas-pagamento&delete='.$id_f_pagamento;?>">
-                      <button style="background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete -black">
-                      <span class="glyphicon glyphicon-trash"></span>
-                      </button>
-                    </a><br />
-  
-                </td>
-            </tr>
-           
-     <?php
-     }
-    };
-   ?>
-  
-            
-        </tbody>
+        
     </table>
  
  </div>
@@ -305,6 +246,8 @@ endif;
 </script>
 
  
+<script type="module" src="<?= $site;?>cadastros/js/main.js"></script>
+<script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
 	<script src="js/flowbite.min.js"></script>
 
  

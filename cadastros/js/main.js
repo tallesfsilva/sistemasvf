@@ -2,11 +2,13 @@ import {cad } from './categorias.js'
 import {tipo } from './tipos_adicionais.js'
 import {ad } from './adicionais.js'
 import {cupom } from './cupom.js'
+import {f_pagamento } from './formas_pagamento.js'
 $(document).ready(function (){    
     cad.fn();
     tipo.fn();
     ad.fn();
     cupom.fn();
+    f_pagamento.fn();
  
     $('#btn_inativar').click(function(){
             var rows = $('#table1 tr :checked');

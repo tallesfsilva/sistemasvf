@@ -5,18 +5,17 @@ $site = HOME;
 try{
 
 $userlogin = $_SESSION['userlogin'];
-$idcupom = $_POST['iddocupom'];
+$idfp = $_POST['idfp'];
 $res['msg'] = "";
 $res['success'] = false;
 
  
- 
-if(!empty($idcupom) && (int)$idcupom){
-  $deletbanco->ExeDelete("cupom_desconto", "WHERE user_id = :userid AND id_cupom = :idcupom", "userid={$userlogin['user_id']}&idcupom={$idcupom}");
+if(!empty($idfp) && (int) $idfp){
+    $deletbanco->ExeDelete("ws_formas_pagamento", "WHERE user_id = :userid AND id_f_pagamento = :idfp", "userid={$userlogin['user_id']}&idfp={$idfp}");
     if($deletbanco->getResult()){
       $res['msg'] =  "<div class=\"alert alert-success alert-dismissable\">
      
-      <b class=\"alert-link\">SUCESSO! </b> Cupom foi excluído!.
+      <b class=\"alert-link\"></b> A forma de pagamento foi excluída!.
       </div>";     
       $res['success'] = true;
       $res['error'] = false;
@@ -32,7 +31,7 @@ if(!empty($idcupom) && (int)$idcupom){
   }else{
     $res['msg']  = "<div class=\"alert alert-info alert-dismissable\">
     <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-    Ocorreu um erro no processamento
+    Ocorreu um erro no processamento. Por favor tente novamente!
     </div>";
     $res['success'] = false;
     $res['error'] = true;

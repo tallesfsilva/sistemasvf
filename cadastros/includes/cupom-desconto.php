@@ -164,7 +164,33 @@ $updatebanco = new Update();
 
           <br />
           <br />
-        
+            
+  <hr class="line-hr"/>
+          <br />
+         
+      <div class="row">  
+        <div class="col-md-6">
+          <label for="search_cupom">Buscar Cupom</label>						
+          <input type="text" id="search_cupom"  class="form-control" placeholder="Digite o nome do cupom">
+          <br />
+  </div>
+  <div class="col-md-6">
+  <div class="form-group">
+      
+      <label for="categoria">Situação</label>						
+      <select class="form-control" name="cupom-busca" id="cupom_busca_situacao">   
+      <option value="">Selecione uma situação</option>
+      <option value="EXPIROU">EXPIROU</option>
+        <option value="ACABOU">ACABOU</option>
+        <option value="ATIVO">ATIVO</option>
+      </select>
+ 
+    </div>
+  </div>
+ 
+  </div>
+
+  </div>
           <div class="overflow-x-auto">
             <div id="msg1"></div>
             <table style="display:none" id="cupoms" class="border w-full text-left text-gray-500 dark:text-gray-400">
