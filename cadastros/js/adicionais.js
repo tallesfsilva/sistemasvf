@@ -47,7 +47,7 @@ export const ad =  {
     
     }), 
 
-    update : (e) =>{   
+    update : () =>{   
                     
         $('#cad_adicionais').on('change','.atualiza_adicional', function(e){
                   
@@ -144,7 +144,7 @@ export const ad =  {
           
         GrowlNotification.notify({
           title: 'Atenção!',
-          description: 'Tem certeza de que deseja deletar esse adicional? Isso irá excluir esse adicional do produto.',
+          description: 'Tem certeza de que deseja deletar esse adicional? Isso irá excluir esse adicional do cadastro do produto.',
           type: 'error',
           image: {
             visible: true,
@@ -193,14 +193,15 @@ export const ad =  {
 
     });
     $("#categoria_adicionais_busca").change(function() {
-                
+        ad.table_ad.column(1).search("").draw();       
         ad.table_ad.column(0).search(this.value).draw();
-
+       
     });
 
     $("#adicionais-busca").change(function() {
                 
         ad.table_ad.column(1).search(this.value).draw();
+         
 
     });
 
@@ -213,6 +214,7 @@ export const ad =  {
                   
             e.preventDefault();
           let idcat = $(this).val();
+          let idadd = $(this).data('idadd')
 
           $.ajax({
             url: 'controllers/carrega_tipos_adicionais_inputs.php?idcat='+idcat,
@@ -221,18 +223,18 @@ export const ad =  {
             success: function(data){ 
                 let j = JSON.parse(data);           
                 if(j.data.length){
-                    $("#tipo-adicional-grid").empty();                    
-                    $("#tipo-adicional-grid").append("<option value=>Selecione um Tipo de Adicional</option>")
+                    $("#tipo-adicional-grid_"+idadd).empty();                    
+                    $("#tipo-adicional-grid_"+idadd).append("<option value=>Selecione um Tipo de Adicional</option>")
                     for(let i=0;i<j.data.length;i++){           
                       
-                        $("#tipo-adicional-grid").append("<option value="+j.data[i].id_tipo+">"+j.data[i].nome_adicional+"</option>")
+                        $("#tipo-adicional-grid_"+idadd).append("<option value="+j.data[i].id_tipo+">"+j.data[i].nome_adicional+"</option>")
                     
                          }
                       
 
                 }else{
-                    $("#tipo-adicional-grid").empty();               
-                    $('#tipo-adicional-grid').append("<option value=>Por favor cadastre um tipo de adicional</option>")
+                    $("#tipo-adicional-grid_"+idadd).empty();               
+                    $("#tipo-adicional-grid_"+idadd).append("<option value=>Por favor cadastre um tipo de adicional</option>")
                 }
                
              
@@ -282,27 +284,24 @@ export const ad =  {
 
     loadTiposAdicionaisBusca : () => {
         $('#categoria_adicionais_busca').change(function(e){
-
-          $.ajax({
-            url: 'controllers/carrega_tipos_adicionais_busca.php',
-            method: "get",            
+            let idcat = $(this).val();
+              
+            $.ajax({
+              url: 'controllers/carrega_tipos_adicionais_inputs.php?idcat='+idcat,
+              method: "get",            
+                
     
             success: function(data){ 
                 let j = JSON.parse(data);           
                 if(j.data.length){
                     $("#adicionais-busca").empty();      
                     $('#adicionais-busca').append("<option value=>Selecione um  Tipo de Adicional</option>")
-                    for(let i=0;i<j.data.length;i++){           
+                    for(let i=0;i<j.data.length;i++){          
                       
                         $("#adicionais-busca").append("<option value="+j.data[i].id_tipo+">"+j.data[i].nome_adicional+"</option>")
                     
                          }
-
-
-                }else{
-                    $("#adicionais-busca").empty();               
-                    $('#adicionais-busca').append("<option value=>Por favor cadastre um tipo de adicional</option>")
-                }
+                } 
              
             }
              

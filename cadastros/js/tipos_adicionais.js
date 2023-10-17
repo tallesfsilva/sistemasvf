@@ -1,6 +1,6 @@
 'use-strict'
 
-
+import{ ad } from './adicionais.js'
 export const tipo = {
  
 
@@ -68,7 +68,9 @@ export const tipo = {
                 let j = JSON.parse(data);
         
                 if(j.success && !j.error){                 
-                        
+                    ad.loadTiposAdicionaisBusca();  
+                    ad.loadTiposAdicionais();                           
+                    ad.loadTable();  
                     tipo.table_tipos.ajax.reload();
                    
                 }else if(!j.success & j.error){
@@ -104,6 +106,9 @@ export const tipo = {
                         if(j.success){
                             $('#msg-tip').html(j.msg);
                             $('#cadTipoAdicional')[0].reset();
+                            ad.loadTiposAdicionaisBusca();  
+                            ad.loadTiposAdicionais();                           
+                            ad.loadTable();
                             tipo.table_tipos.ajax.reload();
                         }else{
                             $('#msg-tip').html(j.msg);
@@ -124,7 +129,7 @@ export const tipo = {
             let url = $(e.currentTarget).data('url');  
             GrowlNotification.notify({
               title: 'Atenção!',
-              description: 'Tem certeza de que deseja deletar esse tipo de adicional?',
+              description: 'Tem certeza de que deseja deletar esse tipo de adicional? Isso irá apagar todos os adicionais vinculados a este tipo de adicional.',
               type: 'error',
               image: {
                 visible: true,
@@ -144,6 +149,9 @@ export const tipo = {
                       success: function(data){ 
                         let j = JSON.parse(data)
                         if(j.success){
+                            ad.loadTiposAdicionaisBusca();  
+                            ad.loadTiposAdicionais();                           
+                            ad.loadTable();
                             tipo.table_tipos.ajax.reload();
                         }                   
         

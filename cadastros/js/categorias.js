@@ -65,8 +65,10 @@ export const cad =  {
         
                 if(j.success && !j.error){                 
                     cad.loadCategorias();
-                    cad.table_cat.ajax.reload();
                     tipo.loadTable();
+                    ad.loadTable();  
+                    cad.table_cat.ajax.reload();
+                    
                    
                 }else if(!j.success & j.error){
                     $('#msg-cat').html(j.msg);   
@@ -134,7 +136,7 @@ export const cad =  {
           
         GrowlNotification.notify({
           title: 'Atenção!',
-          description: 'Tem certeza de que deseja deletar essa categoria? Isso irá apagar a categoria de todos os produtos associados a ela.',
+          description: 'Tem certeza de que deseja deletar essa categoria? Isso irá apagar todos os tipos de adicionais e adicionais vinculados a essa categoria.',
           type: 'error',
           image: {
             visible: true,
@@ -156,6 +158,9 @@ export const cad =  {
                   success: function(data){ 
                     let j = JSON.parse(data)
                     if(j.success){
+                        
+                        tipo.loadTable();
+                        ad.loadTable();    
                         cad.loadCategorias();
                         cad.table_cat.ajax.reload();
                     }

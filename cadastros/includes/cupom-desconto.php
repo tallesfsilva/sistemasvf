@@ -106,19 +106,20 @@ $updatebanco = new Update();
             Ofereça descontos para conseguir mais clientes.
           </p>
           <br />
-          <form id="formcupom" method="post">
+          <div id="msg"></div>
+          <form data-url="<?=$site.'cadastros'?>" id="cadCupom" method="post">
             <div class="row">
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Código de Ativação</label>
-                  <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9]/g, '')"required type="text" maxlength="20" class="form-control" name="ativacao" aria-describedby="emailHelp" placeholder="Ex: Cupom10" />
+                  <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9]/g, '')" type="text" maxlength="20" class="form-control" name="ativacao" aria-describedby="emailHelp" placeholder="Ex: Cupom10" />
                   <small id="emailHelp" class="form-text text-muted">Para enviar para seus clientes. (max. 20 caracteres)</small>
                 </div>
               </div>
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputPassword1">Desconto %</label>
-                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required type="text" class="form-control descontoporcentagem" value="1" maxlength="2"  step="1" pattern="[0-9]{2}" name="porcentagem" min="1" max="99" />
+                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text" class="form-control descontoporcentagem" value="1" maxlength="2"  step="1" pattern="[0-9]{2}" name="porcentagem" min="1" max="99" />
                   <small class="form-text text-muted">Porcentagem de desconto.</small>
                 </div>
               </div>
@@ -135,7 +136,7 @@ $updatebanco = new Update();
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputPassword1">Quantidade</label>
-                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required type="text" class="form-control numero" name="total_vezes" value="1" min="1" maxlength="3"      max="999" />
+                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text" class="form-control numero" name="total_vezes" value="1" min="1" maxlength="3"      max="999" />
                   <small class="form-text text-muted">Número de vezes que o cupom pode ser usado!</small>
                 </div>
               </div>
@@ -151,29 +152,15 @@ $updatebanco = new Update();
       <hr style="position: relative;top: -13px;" class="line-hr"/>
 
        
-          <script type="text/javascript">
-              
-
-            $(document).ready(function(){
-              $('#submitbtncupom').click(function(){
-                $.ajax({
-                  url: '<?=$site;?>includes/processasubmitcupom.php',
-                  method: 'post',
-                  data: $('#formcupom').serialize(),
-                  success: function(data){
-                    $('#sucsesscupom').html(data);
-                  }
-                });
-              });
-            });
-          </script>
+          
           <div id="sucsesscupom"></div>
 
           <br />
           <br />
         
           <div class="overflow-x-auto">
-            <table class="border w-full text-left text-gray-500 dark:text-gray-400">
+            <div id="msg1"></div>
+            <table style="display:none" id="cupoms" class="border w-full text-left text-gray-500 dark:text-gray-400">
  
                <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr class="text-center">
@@ -186,55 +173,11 @@ $updatebanco = new Update();
                     <th  class="text-center px-6 py-3" scope="col">Excluir</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <?php
-                 
-                    $lerbanco->ExeRead('cupom_desconto', "WHERE user_id = :userid ORDER BY id_cupom DESC", "userid={$userlogin['user_id']}");
-                    if ($lerbanco->getResult()):
-              
-                  foreach ($lerbanco->getResult() as $dadoscupons):
-                    extract($dadoscupons); 
-                    ?>
-                    <tr class="border-b text-center">
-                    <td><?=$ativacao;?></th>
-                      <td  ><?=$porcentagem;?> %</td>
-                      <td ><?=$total_vezes;?></td>
-                      <td>
-                        <?php
-                        $datavalidade = explode("-", $data_validade);
-                        $datavalidade = array_reverse($datavalidade);
-                        $datavalidade = implode("/",  $datavalidade);
-                        echo $datavalidade;
-                        ?>                      
-                      </td>
-                      <td >
-
-                        <?php
-                        if(!isDateExpired($data_validade, 1)):
-                          echo "<strong style='color: red;'>EXPIROU!</strong>";
-                        elseif($total_vezes <= 0):
-                         echo "<strong style='color: red;'>ACABOU!</strong>";
-                       else:
-                        echo "<strong style='color: #82C152;'>ATIVO</strong>";
-                      endif;
-                      ?> 
-                 
-                    </td>
-                  
-                 
-                    <td><button id="<?= (!isDateExpired($data_validade, 1) || $total_vezes==0) ? 'btn_d' : (($mostrar_site == 1) ? 'btn_s' : 'btn_n' )?>" style="background: <?= (!isDateExpired($data_validade, 1) || $total_vezes==0) ? 'rgba(209,213,219,var(--tw-bg-opacity))' : (($mostrar_site==1) ? '#00BB07' : '#A70000;' )?>" type="button" <?= (!isDateExpired($data_validade, 1) || $total_vezes==0) ? 'disabled' : "" ?> class="<?= (!isDateExpired($data_validade, 1) || $total_vezes==0) ? 'button-disabled' : "" ?> aceita_entrega exibirsite" data-idcupom="<?=$id_cupom;?>"><?=($mostrar_site == 0 ? 'Não' : 'Sim');?></button></td>
-                    
-                    <td><button  style="background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete excluircupom" data-idcupom="<?=$id_cupom;?>"><span class="glyphicon glyphicon-trash"></span></button></td>
-                  </tr>
-                  <?php
-                endforeach;
-                ?>
+                
               </tbody>
             </table>
           </div>
-          <?php
-        endif;
-        ?>
+       
 
       </div>
 
@@ -258,84 +201,13 @@ $updatebanco = new Update();
   </div>
 
  
-
-
-
- 
 </div>
 				</section><!-- End section 1 -->
   
- 
-        <script type="text/javascript">
-  $(document).ready(function(){
-    $('.exibirsite').click(function(){
-      var idcupom = $(this).data('idcupom');
-      $(this).prop('disabled', true);
+  
 
-      $.ajax({
-        url: '<?=$site;?>includes/processamostrarcupom.php',
-        method: 'post',
-        data: {'iddocupom' : idcupom, 'url' : '<?=$Url[0];?>', 'iduser' : '<?=$userlogin['user_id'];?>'},
-        success: function(data){
-          $('.exibirsite').prop('disabled', false);
-          if(data == 'erro1'){
-            x0p('Opss...', 
-              'Ocorreu um arro!',
-              'error', false);
-          }else if(data == 'erro0'){
-            window.location.replace('<?=$site.'cadastros/cupom-desconto';?>');
-          }
-
-        }
-      });
-    });
-  });
-</script>
-
-
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.excluircupom').click(function(){
-      var idcupom = $(this).data('idcupom');
-      x0p({
-        title: 'Atenção!',
-        text: 'Tem certeza de que deseja excluir esse cupom?',
-        animationType: 'slideUp',
-        buttons: [
-        {
-          type: 'error',
-          key: 49,
-          text: 'Cancelar',
-
-        },
-        {
-          type: 'info',
-          key: 50,
-          text: 'Excluir'
-        }
-        ]
-      }).then(function(data) {
-        if(data.button == 'error'){
-
-        }else if(data.button == 'info'){
-
-          $.ajax({
-            url: '<?=$site;?>includes/processadeletarcupom.php',
-            method: 'post',
-            data: {'iddocupom' : idcupom, 'url' : '<?=$Url[0];?>', 'iduser' : '<?=$userlogin['user_id'];?>'},
-            success: function(data){
-              $('#sucsesscupom').html(data);
-              $('.excluircupom').prop('disabled', false);
-            }
-          });
-        }
-      });
-    });
-  });
-</script>
-
- 
+  <script type="module" src="<?= $site;?>cadastros/js/main.js"></script>
+  <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
 	<script src="js/flowbite.min.js"></script>
   <script>
 

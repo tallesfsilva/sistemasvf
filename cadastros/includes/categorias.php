@@ -162,7 +162,7 @@ $updatebanco = new Update();
  
                <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr class="text-center">
-                    <th id="nome_cat" style="padding:25px;" scope="col" class="text-center px-6 py-3">Categoria</th>
+                    <th id="nome_cat" style="padding:25px;" scope="col" class="text-center cursor-pointer px-6 py-3">Categoria</th>
                        
                  
                     <th  class="text-center px-6 py-3" scope="col">Excluir</th>              
@@ -228,7 +228,7 @@ $updatebanco = new Update();
  
     
    
-    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  value="1" step="1" min="1" max="99" name="quantidade" class="form-control" placeholder="Digite uma quantidade do adicional obrigatória">
+    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  value="0" step="1" min="1" max="99" name="quantidade" class="form-control" placeholder="Digite uma quantidade do adicional obrigatória">
  
 </div>
 
@@ -277,9 +277,9 @@ $updatebanco = new Update();
  
                <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr class="text-center">
-                  <th  class="text-center px-6 py-3" scope="col">Categoria</th>      
-                    <th style="padding:25px;" scope="col" class="text-center px-6 py-3">Tipo Adicional</th>
-                    <th  class="text-center px-6 py-3" scope="col">Quantidade</th>               
+                  <th  class="text-center cursor-pointer px-6 py-3" scope="col">Categoria</th>      
+                    <th style="padding:25px;" scope="col" class="text-center cursor-pointer  px-6 py-3">Tipo Adicional</th>
+                    <th  class="text-center cursor-pointer  px-6 py-3" scope="col">Quantidade</th>               
               
                     <th  class="text-center px-6 py-3" scope="col">Excluir</th>              
                   </tr>
@@ -422,12 +422,12 @@ $updatebanco = new Update();
  
                <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr class="text-center">
-                    <th style="padding:25px;" scope="col" class="text-center px-6 py-3">Categoria</th>
-                    <th  class="text-center px-6 py-3" scope="col">Tipo Adicional</th>                     
-                    <th  class="text-center px-6 py-3" scope="col">Adicional</th>                          
-                    <th  class="text-center px-6 py-3" scope="col">Descrição</th>  
-                    <th  class="text-center px-6 py-3" scope="col">Valor</th>    
-                    <th  class="text-center px-6 py-3" scope="col">Excluir</th>             
+                    <th style="padding:25px;" scope="col" class="cursor-pointer  text-center px-6 py-3">Categoria</th>
+                    <th  class="text-center cursor-pointer px-6 py-3" scope="col">Tipo Adicional</th>                     
+                    <th  class="text-center cursor-pointer px-6 py-3" scope="col">Adicional</th>                          
+                    <th  class="text-center cursor-pointer px-6 py-3" scope="col">Descrição</th>  
+                    <th  class="text-center cursor-pointer px-6 py-3" scope="col">Valor</th>    
+                    <th  class="text-center cursor-pointer px-6 py-3" scope="col">Excluir</th>             
                   </tr>
                 </thead>
                  

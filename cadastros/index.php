@@ -631,7 +631,7 @@ $(document).ready(function () {
 
 		
 		$( "#datepicker" ).datepicker();
-
+		
 		$('.btn-menu').on('click', function(e){
 			  
   			 

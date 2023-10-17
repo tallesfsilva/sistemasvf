@@ -70,7 +70,7 @@ try{
          
           $variaveloptionTipos =  "<option value=\"{$pegaTipoAdicional[0]['id_tipo']}\">{$pegaTipoAdicional[0]['nome_adicional']}</option>";  
       
-          $lerbanco->ExeRead("ws_tipo_adicional", "WHERE user_id = :userid and id_tipo != :idcattipo", "idcattipo={$pegaTipoAdicional[0]['id_tipo']}&userid={$userlogin['user_id']}");
+          $lerbanco->ExeRead("ws_tipo_adicional", "WHERE user_id = :userid and id_tipo != :idcattipo and id_cat =:idcat ", "idcat={$pegacatitens[0]['id']}&idcattipo={$pegaTipoAdicional[0]['id_tipo']}&userid={$userlogin['user_id']}");
       
           if($lerbanco->getResult()){
             foreach ($lerbanco->getResult() as $tipoAdcional){    
@@ -85,11 +85,11 @@ try{
         
            array_push($res->data, array("nome_cat" => "<td\"><select data-idadd=\"$id_adicionais\" class=\"categoria_grid form-control\" name=\"id_cat\" value=\"{$pegacatitens[0]['id']}\" id=\"categoria-adicional-grid\" name=\"nome_cat\" data-url=\"{$site}cadastros\" data-idcat=\"{$pegacatitens[0]['id']}\">
            {$variaveloption}{$optionsCat}</select>
-          <span hidden>{$pegacatitens[0]['id']}</span></td>", "tipo_adicional" => "<td><select data-idadd=\"$id_adicionais\" class=\"atualiza_adicional form-control\" name=\"id_tipo_adicional\" value=\"{$pegaTipoAdicional[0]['id_tipo']}\" id=\"tipo-adicional-grid\" name=\"tipo_adicional\" data-url=\"{$site}cadastros\" data-idtipot=\"{$tt['id_tipo_adicional']}\">
+          <span hidden>{$pegacatitens[0]['id']}</span></td>", "tipo_adicional" => "<td><select data-idadd=\"$id_adicionais\" class=\"atualiza_adicional form-control\" name=\"id_tipo_adicional\" value=\"{$pegaTipoAdicional[0]['id_tipo']}\" id=\"tipo-adicional-grid_{$id_adicionais}\" name=\"tipo_adicional\" data-url=\"{$site}cadastros\" data-idtipot=\"{$tt['id_tipo_adicional']}\">
           {$variaveloptionTipos}{$optionsTipo}</select> <span hidden>{$pegaTipoAdicional[0]['id_tipo']}</span></td>",
-          "nome_adicional" => "<td><input type=\"text\" data-flag=\"true\" data-idadd=\"$id_adicionais\" data-url=\"{$site}cadastros\" value=\"{$tt['nome_adicional']}\"  name=\"nome_adicional\" class=\"atualiza_adicional form-control\"><span hidden>{$nome_adicional}</span></td>",
+          "nome_adicional" => "<td><input type=\"text\" data-flag=\"true\" data-idadd=\"$id_adicionais\" data-url=\"{$site}cadastros\" value=\"{$tt['nome_adicional']}\"  name=\"nome_adicional\" class=\"atualiza_adicional form-control\"><span hidden>{$tt['nome_adicional']}</span></td>",
           "descricao_adicional"=> "<td><input rows=\"5\" cols=\"250\" type=\"text\" data-url=\"{$site}cadastros\" value=\"{$desc_adicional}\" data-idadd=\"$id_adicionais\" name=\"desc_adicional\" class=\"atualiza_adicional form-control\"></> <span hidden>\"{$desc_adicional}\"</span></td>",
-          "valor_adicional" => "<td><input data-idadd=\"$id_adicionais\" data-url=\"{$site}cadastros\" type=\"text\" value=\"$valor_adicional\" name=\"valor_adicional\" class=\"atualiza_adicional form-control\">",
+          "valor_adicional" => "<td><input data-idadd=\"$id_adicionais\" data-url=\"{$site}cadastros\" type=\"text\" value=\"$valor_adicional\" name=\"valor_adicional\"class=\"atualiza_adicional form-control\"><span hidden>{$valor_adicional}</span></td>",
           "excluir" => "<td><button data-url=\"{$site}cadastros\" style=\"background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important\" type=\"button\" class=\"btn_1 btn-delete deletar_adicional\" data-idad=\"$id_adicionais\"><span class=\"glyphicon glyphicon-trash\"></span></button>")) ;
           $optionsCat = "";
           $optionsTipo = "";
