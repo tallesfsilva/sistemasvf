@@ -80,76 +80,9 @@ $updatebanco = new Update();
   
    </p>
  </div>
-
- <?php
- $getdellbairro = filter_input(INPUT_GET, 'delete', FILTER_VALIDATE_INT);
-
- if(!empty($getdellbairro)):
-
-  $lerbanco->ExeRead('bairros_delivery', "WHERE user_id = :userid AND id = :v1", "userid={$userlogin['user_id']}&v1={$getdellbairro}");
-  if ($lerbanco->getResult()):
-  $deletbanco->ExeDelete("bairros_delivery", "WHERE user_id = :userid AND id = :k1", "userid={$userlogin['user_id']}&k1={$getdellbairro}");
-    if ($deletbanco->getResult()):
-      echo "<div class=\"alert alert-success alert-dismissable\">
-      <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-      <b class=\"alert-link\">SUCESSO!</b> Bairro deletado do sistema.
-      </div>";
-     // header("Refresh: 3; url={$site}cadastros/enderecos-delivery#adicionarbairro");
-    else:
-      echo "<div class=\"alert alert-danger alert-dismissable\">
-      <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-      <b class=\"alert-link\">OCORREU UM ERRO DE CONEXÃO!</b> Tente novamente.
-      </div>";
-      // header("Refresh: 3; url={$site}cadastros/enderecos-delivery#adicionarbairro");
-    endif;
-  endif;
-endif;
-
-
-
-
-$addBairros = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
-if($addBairros && isset($addBairros['sendAddBairro'])):
-  unset($addBairros['sendAddBairro']);
-
-  $addBairros = array_map('strip_tags', $addBairros);
-  $addBairros = array_map('trim', $addBairros);
-
-  if(in_array('', $addBairros) || in_array('null', $addBairros)):
-    echo "<div class=\"alert alert-info alert-dismissable\">
-  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-  Preencha todos os campos!
-  </div>";
-else:
-  $addBairros['bairro'] = tratar_nome($addBairros['bairro']);
-  $addBairros['taxa'] = Check::Valor($addBairros['taxa']);
-
-  $lerbanco->ExeRead('bairros_delivery', "WHERE user_id = :userid AND (uf = :u AND cidade = :c AND bairro = :v)", "userid={$userlogin['user_id']}&u={$addBairros['uf']}&c={$addBairros['cidade']}&v={$addBairros['bairro']}");
-
-  if(!$lerbanco->getResult()):   
-    $addbanco->ExeCreate("bairros_delivery", $addBairros);
-    if($addbanco->getResult()):                        
-      echo "<div class=\"alert alert-success alert-dismissable\">
-      <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-      <b class=\"alert-link\">SUCESSO!</b> Bairro inserido no sistema.
-      </div>";
-    else:
-      echo "<div class=\"alert alert-danger alert-dismissable\">
-      <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-      <b class=\"alert-link\">OCORREU UM ERRO TENTE NOVAMENTE!</b> Tente novamente.
-      </div>";
-    endif;
-  else:
-    echo "<div class=\"alert alert-info alert-dismissable\">
-    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-    Você já cadastrou esse bairro!
-    </div>";
-  endif;
-endif;
-endif;
-?>
-<form class="form-horizontal" action="#adicionarbairro" role="form" method="post">
+ 
+<div id="msg"></div>
+<form class="form-horizontal"  id="cadTaxaEntrega"  data-url="<?=$site.'cadastros'?>" role="form" method="post">
  <br />
  <div class="form-group"> 
  <div class="flex flex-col">
@@ -159,7 +92,8 @@ endif;
      </select>
    </div>
 </div>
- </div><div class="form-group"> 
+ </div>
+ <div class="form-group"> 
    <label class="col-sm-1">Cidade:</label>       
    <div class="col-sm-12">
      <select required class="form-control" name="cidade" id="cidades2">    
@@ -170,7 +104,7 @@ endif;
   <label class="col-sm-1">Bairro:</label>
   <div class="col-sm-12">
     
-    <input type="text" required name="bairro" class="form-control" placeholder="Nome do bairro...">
+    <input type="text" name="bairro" class="form-control" placeholder="Nome do bairro...">
   
 </div>
 </div>
@@ -179,11 +113,11 @@ endif;
   <label class="col-sm-2">Valor da Taxa:</label>
   <div class="col-sm-10">
    <div class="input-group">    
-    <input type="text" required name="taxa" maxlength="6"  data-mask="#.##0,00"   step="1"  data-mask-reverse="true" class="form-control" placeholder="0,00">
+    <input type="text" name="taxa" maxlength="6"  data-mask="#.##0,00"   step="1"  data-mask-reverse="true" class="form-control" placeholder="0,00">
   </div>
 </div>
 </div>
-<input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>">
+<input type="hidden" name="cadastrataxa" value="true"">
 <button style="background-color: #00BB07;"class="btn_1 btn-success"  name="sendAddBairro" value="Salvar" type="submit">Cadastrar Endereço</button>
 <!-- <input type="submit" name="sendAddBairro" value="Cadastrar Endereço" class="btn btn-success" /> -->
 <br/>
@@ -193,12 +127,39 @@ endif;
 <br/>
 <br/>
 
-
+<br />
+<div class="row">  
+      <div class="col-md-4">
+        <label for="search_taxa">Buscar Taxa de Entrega</label>						
+        <input type="text" id="search_taxa"  class="form-control" placeholder="Digite o nome de um bairro">
+        <br />
+        
+      </div>
+<div class="col-md-4"> 
+ <label class="col-sm-1 ">UF:</label>       
+   <div class="col-sm-12">
+     <select  data-url="<?=$site?>" required class="form-control" name="uf" id="estados_busca">     
+     </select>
+   </div>
+</div>
+ 
+<div class="col-md-4">
+   <label class="col-sm-1">Cidade:</label>       
+   <div class="col-sm-12">
+     <select required class="form-control" name="cidade" id="cidades_busca">    
+     </select>
+   </div>
+  </div>
+    
+   
+    </div>
+         
+       
 <div class="form-group">        
  <div class=""> 
-
+<div id="msg1"></div>
 <div class="overflow-x-auto">
-    <table class="border w-full text-left text-gray-500 dark:text-gray-400">
+    <table style="display:none" id="taxa-entrega" class="border w-full text-left text-gray-500 dark:text-gray-400">
         <thead style="background:#7232A0;" class="text-white text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th style="padding:25px;" scope="col" class="text-center px-6 py-3">
@@ -220,50 +181,7 @@ endif;
                 
             </tr>
         </thead>
-        <tbody>
-
-        <?php
-   $lerbanco->ExeRead("bairros_delivery", "WHERE user_id = :userid ORDER BY id DESC", "userid={$userlogin['user_id']}");
-   
-   if($lerbanco->getResult()){
-     foreach($lerbanco->getResult() as $tt){
-       extract($tt);                                   
       
-     ;
-     ?>
-      <tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
- 
-            <td scope="row" class="text-center">
-                   <?= $uf ?>
-     </td>
-   
-                <td class="text-center">
-                <?= $cidade ?>
-                </td>
-                <td class="text-center">
-                <?= $bairro ?>
-                </td>
-                <td class="text-center">
-                <?= $taxa ?>
-                </td>
-                <td class="text-center">
-               
-               <a title="Deletar" href="<?=$site.'cadastros/enderecos-delivery&delete='.$id.'#adicionarbairro';?>">
-                  <button style="background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important" type="button" class="btn_1 btn-delete text-black">
-                  <span class="glyphicon glyphicon-trash"></span>
-                  </button>
-                </a><br />
-  
-                </td>
-            </tr>
-           
-     <?php
-     }
-    };
-   ?>
-  
-            
-        </tbody>
     </table>
 </div>
  </div>
@@ -286,6 +204,8 @@ endif;
  
 
  
+  <script type="module" src="<?= $site;?>cadastros/js/main.js"></script>
+  <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
 	<script src="js/flowbite.min.js"></script>
 
  
