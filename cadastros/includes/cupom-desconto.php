@@ -156,14 +156,14 @@ $updatebanco = new Update();
               <!-- <a id="submitbtncupom" class="btn btn-primary">Cadastrar Cupom</a> -->
           </form>
           <br/>      
-      <hr style="position: relative;top: -13px;" class="line-hr"/>
+   
 
        
           
           <div id="sucsesscupom"></div>
 
           <br />
-          <br />
+         
             
   <hr class="line-hr"/>
           <br />

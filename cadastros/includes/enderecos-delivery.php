@@ -125,9 +125,8 @@ $updatebanco = new Update();
 
 <hr style="position: relative;top: -13px;" class="line-hr"/>
 <br/>
-<br/>
-
-<br />
+ 
+ 
 <div class="row">  
       <div class="col-md-4">
         <label for="search_taxa">Buscar Taxa de Entrega</label>						
@@ -138,7 +137,7 @@ $updatebanco = new Update();
 <div class="col-md-4"> 
  <label class="col-sm-1 ">UF:</label>       
    <div class="col-sm-12">
-     <select  data-url="<?=$site?>" required class="form-control" name="uf" id="estados_busca">     
+     <select  data-url="<?=$site?>"  class="form-control"   id="estados_busca">     
      </select>
    </div>
 </div>
@@ -146,7 +145,7 @@ $updatebanco = new Update();
 <div class="col-md-4">
    <label class="col-sm-1">Cidade:</label>       
    <div class="col-sm-12">
-     <select required class="form-control" name="cidade" id="cidades_busca">    
+     <select class="form-control" id="cidades_busca">    
      </select>
    </div>
   </div>
