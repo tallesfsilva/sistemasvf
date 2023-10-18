@@ -117,6 +117,9 @@ if(empty($_SESSION['userlogin'])){
 
 		<!-- Radio and check inputs -->
 		 
+		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/normalize.css" />
+			
+			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/component.css" />
 		<link href="<?= $site; ?>css/skins/square/grey.css" rel="stylesheet">
 		
 		<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">
@@ -130,9 +133,6 @@ if(empty($_SESSION['userlogin'])){
 			<link href="<?= $site; ?>css/dropzone.css" rel="stylesheet">
 
 
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/normalize.css" />
-			
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/component.css" />
 			<?php
 		else:
 		endif;
@@ -271,7 +271,7 @@ $(document).ready(function () {
 			<!-- https://www.cssscript.com/pure-css-checkbox-radio-button-replacement-bootstrap-icheck/ -->
 			<link href="<?= $site; ?>notificacao/light-theme.min.css" rel="stylesheet">
 			<link href="<?= $site; ?>css/chackbox/dist/css/checkboxes.css" rel="stylesheet">
-
+			<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
 			<script type="text/javascript" src="<?= $site; ?>notificacao/growl-notification.min.js"></script> 
 
 

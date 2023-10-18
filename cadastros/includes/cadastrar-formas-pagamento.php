@@ -171,7 +171,7 @@ endif;
   
 <div id="msg1"></div>
 <div class="overflow-x-auto">
-    <table id="formas-pagamento" class="border w-full text-left text-gray-500 dark:text-gray-400">
+    <table style="display:none" id="formas-pagamento" class="border w-full text-left text-gray-500 dark:text-gray-400">
         <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>               
                 <th style="padding:25px;" scope="col" class=" text-center px-6 py-3">

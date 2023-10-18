@@ -196,10 +196,7 @@ hr.styled_2{
 }
 .strip_menu_items h3{
 	font-size:16px;
-	text-transform:uppercase;
-	position:relative;
-	top:10px;
-	padding-left:65px;
+ 
 }
 .strip_menu_items h3 span{
 	color:#999;

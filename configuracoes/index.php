@@ -101,7 +101,7 @@ if(empty($_SESSION['userlogin'])){
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
 
 		
-		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
+ 
 	
 		 
 

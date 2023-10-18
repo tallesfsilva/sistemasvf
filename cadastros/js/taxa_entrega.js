@@ -221,7 +221,7 @@ export const entrega =  {
     loadOptions : () =>{
             
             let url = $('#estados_busca').data('url');
-            console.log(url);
+          
 
             $.getJSON(url+ 'estados_cidades.json', function (data) {
 

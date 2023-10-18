@@ -25,8 +25,11 @@ export const f_pagamento =  {
             "zeroRecords": "Nenhum registro encontrado.",
             "infoEmpty": "Nenhum registro disponível"
         }, 
+     
+        processing: true,
         "ajax" : {
-            url : '../cadastros/controllers/formas_pagamento/carrega_formas_pagamento.php'
+            url : '../cadastros/controllers/formas_pagamento/carrega_formas_pagamento.php',
+            
         },
        
         "order": [],

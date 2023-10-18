@@ -149,8 +149,10 @@ $updatebanco = new Update();
                  
             
                   <div style="padding-right:10px" class="flex">
+                  <a href="<?=$site.'cadastros/'?>produtos">
                       <button style="background-color: #FFC000;border-radius:3px !important"class="btn_1 btn-success"  name="sendAddBairro" value="Salvar" type="submit">Novo Produto</button>
-                  </div> 
+                  </a>
+                    </div> 
 
                   <div style="padding-right:10px" class="flex">
                       <button id="btn_inativar" data-url="<?= $site ?>" data-user="<?=$userlogin['user_id'];?>" style="background-color: #A70000;border-radius:3px !important"class="btn_1 btn-success">Inativar</button>
@@ -336,6 +338,7 @@ $updatebanco = new Update();
 
   });
 </script>
+ 
 
 <script type="text/javascript">
   $(document).ready(function(){

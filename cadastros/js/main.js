@@ -4,6 +4,7 @@ import {ad } from './adicionais.js'
 import {cupom } from './cupom.js'
 import {f_pagamento } from './formas_pagamento.js'
 import {entrega } from './taxa_entrega.js'
+import {prod } from './produtos.js'
 $(document).ready(function (){    
     cad.fn();
     tipo.fn();
@@ -11,6 +12,7 @@ $(document).ready(function (){
     cupom.fn();
     f_pagamento.fn();
     entrega.fn();
+    prod.fn();
  
     $('#btn_inativar').click(function(){
             var rows = $('#table1 tr :checked');
