@@ -19,7 +19,7 @@ try{
   $res->data = array(); 
   $idtipo =  filter_input(INPUT_GET,'idtipo', FILTER_DEFAULT);
 
- 
+  
   if(!empty($idtipo && (int)$idtipo)){
   
    $lerbanco->FullRead("select ad.id_adicionais, ad.nome_adicional 'nome_adicional', ad.valor_adicional,ad.desc_adicional, tp.id_tipo, tp.nome_adicional 'nome_tipo_adicional'
@@ -33,7 +33,7 @@ try{
     foreach($lerbanco->getResult() as $tt){
         extract($tt);
  
-            array_push($res->data, array('adicionais' => "<div class=\"m-3 icheck-material-green\"><input type=\"checkbox\" name=\"adicional_prod\" class=\"adicional\" data-idad=\"{$id_adicionais}\" value=\"$id_adicionais\" id=ad_\"$id_adicionais\"><label for=ad_\"{$id_adicionais}\">{$nome_adicional}</label></div>"));
+            array_push($res->data, array('adicionais' => "<div class=\"m-3 icheck-material-green\"><input type=\"checkbox\" name=\"adicional_prod\" class=\"adicional\" data-idtipo=\"$id_tipo\" data-idad=\"{$id_adicionais}\" value=\"$id_adicionais\" id=ad_\"$id_adicionais\"><label for=ad_\"{$id_adicionais}\">{$nome_adicional}</label></div>"));
         }
        
     $res->success = true;

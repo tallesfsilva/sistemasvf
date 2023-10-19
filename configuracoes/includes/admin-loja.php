@@ -349,7 +349,7 @@ $updatebanco = new Update();
 						// INICIO DA VALIDAÇÃO DA IMAGEM DE FUNDO
 							if (isset($_FILES['img_header']['tmp_name']) && $_FILES['img_header']['tmp_name'] != ""):
 								$inputdadosempresa['img_header'] = $_FILES['img_header'];
-								$inputdadosempresa['img_header']['id_empresa'] = $id_empresa;
+								$inputdadosempresa['img_header']['id_user'] = $user_id;
 							else:
 								unset($inputdadosempresa['img_header']);
 							endif;
@@ -377,7 +377,7 @@ $updatebanco = new Update();
 									// INICIO DA VALIDAÇÃO DA IMAGEM PERFIL
 					if (isset($_FILES['img_logo']['tmp_name']) && $_FILES['img_logo']['tmp_name'] != ""):
 						$inputdadosempresa['img_logo'] = $_FILES['img_logo'];
-						$inputdadosempresa['img_logo']['id_empresa'] = $id_empresa;
+						$inputdadosempresa['img_logo']['id_user'] = $user_id;
 					else:
 						unset($inputdadosempresa['img_logo']);
 					endif;

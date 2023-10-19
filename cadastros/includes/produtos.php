@@ -119,7 +119,9 @@ endif;
     <?php
     // require('includes/configItens.php');
     ?>
-    <form method="post"  id="cadProduto" enctype="multipart/form-data">
+
+    <div id="msg"></div>
+    <form method="post" data-url="<?=$site?>cadastros" id="cadProduto" enctype="multipart/form-data">
       <div class="wrapper_indent">
        
         
@@ -128,7 +130,7 @@ endif;
               <div class="flex flex-col text-center">
               <div class="menu-item-pic">
                 <div style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="w-full box">
-                  <input type="file" name="img_item" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
+                  <input type="file" name="img_item" id="file-5" class="" data-multiple-caption="{count} files selected" multiple />
                   <label for="file-5"><img src="<?=URL_IMAGE.'img/upload_product.png'?>"/></label>  
                 </div>
                   </div>
@@ -168,42 +170,42 @@ endif;
             <div class="col-md-12">
             <div class="form-group">
              <label>Quais dias você vende este produto?</label>
-             <div class="flex w-full flex-row" style="border: 1px solid; border-color: #D9D9D9">
+             <div class="flex w-full dias-produto flex-row" style="border: 1px solid; border-color: #D9D9D9">
              <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="todos_checked" value="true" id="op_todos" />
+						<input type="checkbox" name="dia_prod" value="todos_checked" id="op_todos" />
 			             <label for="op_todos">Todos</label>
 			            </div>   
              
              <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="domingo" value="true" id="op_domingo" />
+						<input type="checkbox" name="dia_prod" value="domingo" id="op_domingo" />
 			             <label for="op_domingo">Domingo</label>
 			            </div>
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="segunda" value="true" id="op_segunda" />
+						<input type="checkbox" name="dia_prod" value="segunda" id="op_segunda" />
 			    <label for="op_segunda">Segunda</label>
 			</div>
 
             <div class="m-3 icheck-material-green">
-				  <input type="checkbox" name="terca" value="true" id="op_terca" />
+				  <input type="checkbox" name="dia_prod" value="terca" id="op_terca" />
 			    <label for="op_terca">Terça</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="quarta" value="true" id="op_quarta" />
+						<input type="checkbox" name="dia_prod" value="quarta" id="op_quarta" />
 			    <label for="op_quarta">Quarta</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="quinta" value="true" id="op_quinta" />
+						<input type="checkbox" name="dia_prod" value="quinta" id="op_quinta" />
 			    <label for="op_quinta">Quinta</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="sexta" value="true" id="op_sexta" />
+						<input type="checkbox" name="dia_prod" value="sexta" id="op_sexta" />
 			    <label for="op_sexta">Sexta</label>
 			</div>
  
@@ -270,13 +272,13 @@ endif;
 
  
  </div><!-- End strip_menu_items -->
- <hr /> 
+
 
  <div class="form-group">
            <div class="add_more_cat">
              <input type="hidden" name="disponivel" value="1">
            
-             <input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>">
+             <input type="hidden" name="action" value="pc">
              <input type="submit" class="btn_1" value="ADICIONAR ITEM" name="add_item" />
            </div>
          </div>
@@ -285,8 +287,8 @@ endif;
  
 </section><!-- End section 2 -->
 </div><!-- End wrapper_indent -->
-<script type="module" src="<?= $site;?>cadastros/js/main.js"></script>
-  <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
+<script type="module" src="<?= $site;?>cadastros/js/produtos/main.js"></script>
+<script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
 
 <script>
   var select=new MSFmultiSelect(

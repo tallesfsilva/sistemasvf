@@ -188,7 +188,7 @@ $updatebanco = new Update();
                 <th scope="col" class="px-6 py-3">Descrição</th>
                 <th scope="col" class="px-6 py-3">Preço</th>    
                 <th scope="col" class="px-6 py-3" data-sortable="false">Disponível</th>                  
-                <th scope="col" class="px-6 py-3">Seleção de Adicionais</th>                      
+                               
               
                 <th scope="col" class="px-6 py-3" data-sortable="false">Editar</th>
                 <th scope="col" class="px-6 py-3" data-sortable="false">Excluir</th>
@@ -222,8 +222,8 @@ $updatebanco = new Update();
                  <td class="col-md-3 col-sm-2  px-6 py-4">
                   <div style="width:40px;" class="img-wrap">
                     <?php
-                    if (!empty($img_item) && $img_item != "" && file_exists("uploads/{$img_item}") && !is_dir("uploads/{$img_item}")):
-                      echo Check::Image('uploads/'.$img_item, 'Imagem-item', 40, 33);
+                    if (!empty($img_item) && $img_item != "" && file_exists(UPLOAD_PATH.'/uploads/'.$img_item) && !is_dir(UPLOAD_PATH.'/uploads/'.$img_item)):
+                      echo Check::Image($img_item, 'Imagem-item', 40, 33);
                   else:
                     echo Check::Image('img/camara2.png', 'Imagem-item', 40, 33);
                   endif;
@@ -269,8 +269,7 @@ $updatebanco = new Update();
 
                 </script>
               </td>   
-              <td class="col-md-3 col-sm-2  px-6 py-4"><input type="number" data-produtoid="<?=$id;?>" class="form-control number_adicional" name="number_adicional" value="<?=(!empty($number_adicional) ? $number_adicional : "")?>" placeholder="0"></td>
-                        
+                       
               <td class="col-md-3 col-sm-2  px-6 py-4">
                 <center>
                   <a href="<?=$site.$Url[0].'/up-item&id='.$id.'#upitem';?>"><p data-placement="top" data-toggle="tooltip" title="Editar"><button class="btn btn-primary" data-title="Editar"><span class="glyphicon glyphicon-pencil"></span></button></p></a>
@@ -310,34 +309,7 @@ $updatebanco = new Update();
 
 
 <div id="resultadiasemana"></div>
-
-<script type="text/javascript">
-  $('.number_adicional').change(function (){
-
-    var valor_total_number = $(this).val();
-    var id_produto = $(this).data('produtoid');
-    var iduser = '<?=$userlogin['user_id'];?>';
-
-    $.ajax({
-      url: '<?=$site;?>controlers/edit-opcao-adicionais.php',
-      method: "post",
-      data: {'idproduto' : id_produto, 'valor' : valor_total_number, 'iduser' : iduser},
-
-      success: function(data){       
-        if(data == 'true'){
-          x0p('Sucesso!', 
-            'O item foi atualizado!', 
-            'ok', false);
-        }else if(data == 'false'){
-          x0p('Opss...', 
-            'OCORREU UM ERRO!',
-            'error', false);
-        }
-      }
-    }); 
-
-  });
-</script>
+ 
  
 
 <script type="text/javascript">

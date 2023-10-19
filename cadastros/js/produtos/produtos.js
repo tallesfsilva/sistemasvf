@@ -5,6 +5,94 @@ export const prod = {
 
 
 
+    create : () => {
+
+        $('#cadProduto').on('submit', function(e){
+
+            e.preventDefault();
+             
+                    
+
+            let url = $(this).data('url');
+            
+            let adicionaisArray = [];
+            let diasProdutoArray = [];
+
+            $("input:checkbox[name=adicional_prod]:checked").each(function() {
+                adicionaisArray.push({                    
+                        "id_tipo_adicional" : $(this).data('idtipo'),
+                        "id_adicionais" : $(this).data('idad')                
+               
+                              
+                     
+                })
+           });
+
+           $("input:checkbox[name=dia_prod]:checked").each(function() {
+                  diasProdutoArray.push($(this).val())
+                
+            })
+            console.log(adicionaisArray);
+
+           let nomeItem = $('input[name=nome_item').val();
+           let precoItem = $('input[name=preco_item').val();
+           let idCat = $('select[name=id_cat').val();
+           let descItem = $('textarea[name=descricao_item').val();
+           let imgItem = $('#file-5')[0].files[0];
+           
+           let formData = new FormData();
+           formData.append('img_item', imgItem);
+           formData.append('action', 'pc');
+           formData.append('disponivel', '1');
+           formData.append('nome_item', nomeItem);
+           formData.append('id_cat', idCat);
+           formData.append('descricao_item', descItem);
+           formData.append('preco_item', precoItem);
+           formData.append('adicionais', JSON.stringify(adicionaisArray));
+           formData.append('dia_semana', diasProdutoArray);
+
+            
+          
+        
+            $.ajax({
+                url: url + '/controllers/produto.php',
+                method: "post",   
+                processData: false,
+                contentType: false,       
+                data: formData,
+
+                success: function(data){ 
+                    let j = JSON.parse(data);
+                    $('#msg').html("");
+                    $('#msg').show();
+                    if(j.success && !j.error){
+                        $('#msg').html(j.msg);  
+                        setTimeout(function(){                
+                          
+                            $('#msg').fadeOut();
+                        },3000)
+                        $('#cadTaxaEntrega')[0].reset();
+                        entrega.table_taxa.ajax.reload();         
+                     
+                    }else{
+                        $('#msg').html(j.msg);  
+                        setTimeout(function(){                        
+                         
+                            $('#msg').fadeOut();
+                        },3000)
+                    }                      
+                     
+                }
+                }); 
+        })
+ 
+
+
+
+
+
+
+    },
 
 
     loadAdicionais : () => {
@@ -14,10 +102,11 @@ export const prod = {
 
 
             if(!$(e.currentTarget).is(':checked')){
-                $("#container_adicional_"+idtipo).remove();
+                $("#container_adicional_"+idtipo).hide();
+            }else if($(e.currentTarget).is(':checked') && $("#container_adicional_"+idtipo).length ){
+                $("#container_adicional_"+idtipo).show();
             }else{
-
-       
+     
            
           $.ajax({
             url: 'controllers/carrega_adicional_produto.php?idtipo='+idtipo,
@@ -102,6 +191,7 @@ export const prod = {
         // ad.delete();
         // ad.search();
         prod.loadTiposAdicionais();
+        prod.create();
         
        
        //ad.create();
@@ -110,7 +200,8 @@ export const prod = {
         return prod.init();
     },
     
-
+    
 
 
 }
+ 

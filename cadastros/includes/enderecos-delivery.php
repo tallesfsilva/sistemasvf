@@ -203,7 +203,7 @@ $updatebanco = new Update();
  
 
  
-  <script type="module" src="<?= $site;?>cadastros/js/main.js"></script>
+  <script type="module" src="<?= $site;?>cadastros/js/taxa_entrega/main.js"></script>
   <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
 	<script src="js/flowbite.min.js"></script>
 
