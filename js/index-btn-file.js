@@ -2,8 +2,7 @@ document.querySelector("html").classList.add('js');
 
 var fileInput  = document.querySelectorAll( ".input-file" ),  
     button     = document.querySelector( ".input-file-trigger" ),
-    the_return = document.querySelector(".file-return");
-    
+    the_return = document.querySelector(".file-return");    
     actual = document.querySelectorAll('.lightbox');
   
       
@@ -16,6 +15,7 @@ button.addEventListener( "click", function( event ) {
    fileInput.focus();
    return false;
 });  
+ 
 for(let i=0;i<fileInput.length;i++){
     fileInput[i].addEventListener( "change", function( event ) {  
         

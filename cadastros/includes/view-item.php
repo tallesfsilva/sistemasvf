@@ -37,7 +37,7 @@ $updatebanco = new Update();
 <head>
 <script src="<?= $site;?>cadastros/js/datatables.min.js"></script> 
 <script src="<?= $site;?>js/TableCheckAll.js"></script>
-<script src="<?= $site;?>cadastros/js/main.js"></script>
+
 
 <script type="text/javascript">
             $(document).ready(function() {         
@@ -58,13 +58,19 @@ $updatebanco = new Update();
       display:none;
     }
 
+    .td-img{
+      display: flex;
+  justify-content: center;
+  top: 5px;
+  position: relative;
+    }
+
   </style>
 
 
 
 <script type="text/javascript">
-            $(document).ready(function() {
-             
+            $(document).ready(function() {     
               
                 $( '#produtos').TableCheckAll({
                     checkAllCheckboxClass: '.check-all-products',
@@ -96,7 +102,7 @@ $updatebanco = new Update();
   <div class="col-md-12">
     <div class="widget">
       <div class="indent_title_in">
-        
+      <div id="msg"></div>
       <h3>Listagem de Produtos:</h3>
     <p>
       <span>Para buscar mais produtos, utilize os filtros abaixo:</span><br />
@@ -155,11 +161,11 @@ $updatebanco = new Update();
                     </div> 
 
                   <div style="padding-right:10px" class="flex">
-                      <button id="btn_inativar" data-url="<?= $site ?>" data-user="<?=$userlogin['user_id'];?>" style="background-color: #A70000;border-radius:3px !important"class="btn_1 btn-success">Inativar</button>
+                      <button id="btn_inativar" data-url="<?= $site?>cadastros"  style="background-color: #A70000;border-radius:3px !important"class="btn_1 btn-success">Inativar</button>
                   </div>
 
                   <div style="padding-right:10px" class="flex">
-                      <button id="btn_excluir" data-url="<?= $site?>" data-user="<?=$userlogin['user_id'];?>" style="background-color: #A70000;border-radius:3px !important"class="btn_1 btn-success">Excluir</button>
+                      <button id="btn_excluir" data-url="<?= $site?>cadastros"  style="background-color: #A70000;border-radius:3px !important"class="btn_1 btn-success">Excluir</button>
                   </div>
                   </div>
 
@@ -171,23 +177,26 @@ $updatebanco = new Update();
        
   </div>
         <div class="table-responsive">
+        
         <table id="produtos" class="border w-full text-left text-gray-500 dark:text-gray-400">
              <thead style="background:#7232A0;" class="text-white text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr class="text-center">
-              <th scope="col" class="px-6 py-3">
-                    <div class="flex items-center">
+         
+              <th scope="col" class="text-center px-6 py-3">
+                    <div class="flex justify-center items-center">
                     <div class="icheck-material-green">			
                         <input id="checkbox-all-search" type="checkbox" class="check-all-products w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="checkbox-all-search" class="sr-only">checkbox</label>
                   </div>
                       </div>
                 </th>
-                <th style="padding:25px;" scope="col" class="px-6 py-3">Imagem</th>              
-                <th scope="col" class="px-6 py-3">Nome do Produto</th>
-                <th scope="col" class="px-6 py-3">Categoria</th>
-                <th scope="col" class="px-6 py-3">Descrição</th>
-                <th scope="col" class="px-6 py-3">Preço</th>    
-                <th scope="col" class="px-6 py-3" data-sortable="false">Disponível</th>                  
+                <th style="padding:25px;" scope="col" class="text-center px-6 py-3">Imagem</th>              
+                <th scope="col" class="text-center px-6 py-3">Nome do Produto</th>
+                <th scope="col" class="text-center px-6 py-3">Categoria</th>              
+                <th scope="col" class="text-center px-6 py-3">Descrição</th>
+                <th scope="col" class="text-center px-6 py-3">Preço</th>    
+                <th scope="col" class="text-center px-6 py-3">Estoque</th>
+                <th scope="col" class="text-center px-6 py-3" data-sortable="false">Disponível</th>                  
                                
               
                 <th scope="col" class="px-6 py-3" data-sortable="false">Editar</th>
@@ -195,98 +204,7 @@ $updatebanco = new Update();
               </tr>
             </thead>
 
-            <tbody id="table1">
-              <?php
-              //INICIO PAGINAÇÃO
-              $getpage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
-              $pager = new Pager("{$site}{$Url[0]}/view-item&page=");
-              $pager->ExePager($getpage, 10);
-              //FIM PAGINAÇÃO
-              $lerbanco->ExeRead("ws_itens", "WHERE user_id = :userid ORDER BY id DESC LIMIT :limit OFFSET :offset", "userid={$userlogin['user_id']}&limit={$pager->getLimit()}&offset={$pager->getOffset()}");              
-              if (!$lerbanco->getResult()):
-               $pager->ReturnPage();               
-             else:
-              foreach ($lerbanco->getResult() as $getItensBanco):
-                extract($getItensBanco);               
-                ?>
-                <!-- INICIO DO LOOP DA LEITURA DO BANCO --> 
-                <tr class="border-b">
-                <td scope="row" class="w-4 p-4">
-                    <div class="flex items-center">
-                    <div class="icheck-material-green">			
-                        <input id="checkbox-product_<?=$id?>" type="checkbox" class="check-products w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="checkbox-product_<?=$id?>"" class="sr-only">checkbox</label>
-                     </div>
-                      </div>
-                </td>
-                 <td class="col-md-3 col-sm-2  px-6 py-4">
-                  <div style="width:40px;" class="img-wrap">
-                    <?php
-                    if (!empty($img_item) && $img_item != "" && file_exists(UPLOAD_PATH.'/uploads/'.$img_item) && !is_dir(UPLOAD_PATH.'/uploads/'.$img_item)):
-                      echo Check::Image($img_item, 'Imagem-item', 40, 33);
-                  else:
-                    echo Check::Image('img/camara2.png', 'Imagem-item', 40, 33);
-                  endif;
-                  ?>
-                </div>
-              </td>
-             
-              <td id="nome_produto" class="col-md-3 col-sm-2  px-6 py-4"><?=(!empty($nome_item) ? limitarTexto($nome_item, 40) : '');?></td>
-              <td id="categoria-row">
-                
-                <strong>
-                  <?php
-                  $lerbanco->ExeRead('ws_cat', "WHERE user_id = :userid AND id = :idcatt", "userid={$userlogin['user_id']}&idcatt={$id_cat}");
-                  if($lerbanco->getResult()):
-                    $dadoscat = $lerbanco->getResult();
-                    echo $dadoscat[0]['nome_cat'];
-                  endif;
-                  ?>
-                </strong>
-              </td>
-              <td class="col-md-3 col-sm-2  px-6 py-4"><?=(!empty($descricao_item) ? limitarTexto($descricao_item, 30) : '');?></td>
-              <td class="col-md-3 col-sm-2  px-6 py-4"><?=(!empty($preco_item) ? 'R$ '.Check::Real($preco_item) : '');?></td>
-              <td  id="atualizar_<?=$id;?>" data-id="<?=$id;?>" class="col-md-3 col-sm-2  px-6 py-4">
-               <button id="<?= (!empty($disponivel) && $disponivel) == 1 ? 'btn_s'.$id : 'btn_n'.$id?>" value="<?=$id;?>" style="background: <?= (!empty($disponivel) && $disponivel) == 1 ? '#00BB07' : '#A70000;'?>" type="button" class="atualizar_<?=$id;?> aceita_entrega exibirsite"><?=(!empty($disponivel) && $disponivel) == 1 ? 'Sim' : 'Não'?></button>
-                               
-                <script type="text/javascript">
-                  $(document).ready(function(){
-                    $('.atualizar_<?=$id;?>').click(function(){
-                      var idDoItem = $('#atualizar_<?=$id;?>').data('id');
-                      $.ajax({
-                        url: '<?=$site;?>includes/processaDisponibilidadeItens.php',
-                        method: "post",
-                        data: {'iditem' : idDoItem, 'iduser' : '<?=$userlogin['user_id'];?>'},
-
-                        success: function(data){ 
-                          window.location.reload(1);
-                          //  window.location.replace('<?=$site.'cadastros/view-item';?>'); 
-                        }
-                      });
-                    });
-                  });
-
-
-                </script>
-              </td>   
-                       
-              <td class="col-md-3 col-sm-2  px-6 py-4">
-                <center>
-                  <a href="<?=$site.$Url[0].'/up-item&id='.$id.'#upitem';?>"><p data-placement="top" data-toggle="tooltip" title="Editar"><button class="btn btn-primary" data-title="Editar"><span class="glyphicon glyphicon-pencil"></span></button></p></a>
-                </center>
-              </td>
-              <td class="col-md-3 col-sm-2  px-6 py-4">
-           
-                  <button style="background-color: #A70000;border-color: #A70000; margin-top: 3px;border-radius: 4px !important" data-getiddell="<?=$id;?>" class="btn_1 btn-delete deletarItem"><span class="glyphicon glyphicon-trash"></span></button>
-           
-              </td>
-            </tr>  
-            <!-- FINAL DO LOOP DA LEITURA DO BANCO --> 
-            <?php
-          endforeach;
-        endif;
-        ?>              
-      </tbody>
+          
     </table>
   </div>
   <!-- <div class="data-table-toolbar">
@@ -367,9 +285,11 @@ $updatebanco = new Update();
 </div>
 		</div>
 				</div>
-		 
+        <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+<script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
  
-
+        <script type="module" src="<?= $site;?>cadastros/js/produtos/main.js"></script>
+<script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
  
 	<script src="js/flowbite.min.js"></script>
 

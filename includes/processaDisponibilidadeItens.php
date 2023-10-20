@@ -35,10 +35,24 @@ try{
 			};
 		}
 		if($updatebanco->getResult()){
-			$res = array("s" => true);  
-			echo json_encode($res); 
+			$res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+        
+			<b class=\"alert-link\">Disponiblidade dos produtos atualizada!.
+			</div>";
+	
+	
+			$res['success'] = true;
+			$res['error'] = false;
+			echo json_encode($res);
 		}else{
-			$res = array("s" => false);  
+			$res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+        
+			<b class=\"alert-link\">Ocorreu um erro ao atualizar o produto!.
+			</div>";
+	
+	
+			$res['success'] = false;
+			$res['error'] = true;
 			echo json_encode($res);
 		}
 			
@@ -63,10 +77,24 @@ try{
 			
 			 $updatebanco->ExeUpdate("ws_itens", $novoStatus, "WHERE user_id = :userid AND id = :upp", "userid={$iduser}&upp={$idProduct}");
 			 if($updatebanco->getResult()){
-				$res = array("s" => true);  
-				echo json_encode($res); 
+				$res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+        
+				<b class=\"alert-link\">Disponiblidade do produto atualizada!.
+				</div>";
+		
+		
+				$res['success'] = true;
+				$res['error'] = false;
+				echo json_encode($res);
 			}else{
-				$res = array("s" => false);  
+				$res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+        
+				<b class=\"alert-link\">Ocorreu um erro ao atualizar o produto!.
+				</div>";
+		
+		
+				$res['success'] = false;
+				$res['error'] = true;
 				echo json_encode($res);
 			}
 				
@@ -92,10 +120,24 @@ try{
 				
 				 $updatebanco->ExeUpdate("ws_itens", $novoStatus, "WHERE user_id = :userid AND id = :upp", "userid={$iduser}&upp={$idProduct}");
 				 if($updatebanco->getResult()){
-					$res = array("s" => true);  
-					echo json_encode($res); 
+					$res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+        
+					<b class=\"alert-link\">Disponiblidade do produto atualizada!.
+					</div>";
+			
+			
+					$res['success'] = true;
+					$res['error'] = false;
+					echo json_encode($res);
 				}else{
-					$res = array("s" => false);  
+					$res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+        
+					<b class=\"alert-link\">Ocorreu um erro ao atualizar o produto!.
+					</div>";
+			
+			
+					$res['success'] = false;
+					$res['error'] = true;
 					echo json_encode($res);
 				}
 							

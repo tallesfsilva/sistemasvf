@@ -131,7 +131,7 @@ endif;
               <div class="menu-item-pic">
                 <div style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="cursor-pointer w-full box">
                 <div style="display:none" id="show_img_prod">
-                   <img class="cursor-pointer" id="img_prod"/>  
+                   <img id="img_prod"/>  
                      
                 </div>
                
@@ -177,7 +177,7 @@ endif;
              <label>Quais dias você vende este produto?</label>
              <div class="flex w-full dias-produto flex-row" style="border: 1px solid; border-color: #D9D9D9">
              <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="todos_dias" value="todos_checked" id="op_todos" />
+						<input type="checkbox" name="dia_prod" value="todos_checked" id="op_todos" />
 			             <label for="op_todos">Todos</label>
 			            </div>   
              
@@ -216,7 +216,7 @@ endif;
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="true" id="op_sabado" />
+						<input type="checkbox" name="sabado" value="true" id="op_sabado" />
 			    <label for="op_sabado">Sábado</label>
 			</div>
         </div>
@@ -246,9 +246,23 @@ endif;
                 <div class="col-md-12">
                 <div class="form-group">
                     <label><span style="color: red;"></span> Categoria</label>        
-                    <select id="categoria_produto" class="list-categoria form-control" name="id_cat">
+                    <select required class="form-control" name="id_cat">
+                            <?php
+                            $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid", "userid={$userlogin['user_id']}");
+                            if (!$lerbanco->getResult()):
+                            echo "<option value=\"\">Adicione uma categoria</option>";
+                            else:
+
+                            echo $variaveloption;
+                            foreach ($lerbanco->getResult() as $cat):
+                                extract($cat);
+                                echo "<option value=\"{$id}\">{$nome_cat}</option>";
+                            endforeach;
+                            endif;
+                             ?>
+                         </select>
                     
-                    </select>
+                    
                  </div>
                  </div>
                  <div class="col-md-12">
@@ -295,5 +309,24 @@ endif;
 <script type="module" src="<?= $site;?>cadastros/js/produtos/main.js"></script>
 <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
 
- 
+<script>
+  var select=new MSFmultiSelect(
+    document.querySelector('#multiselect'),
+    {
+
+      onChange:function(checked,value,instance){
+        console.log(checked,value,instance);
+
+
+      },
+
+
+
+      selectAll:true,  
+      appendTo:'#myselect',
+    //readOnly:true
+}
+);
+</script>
+
 

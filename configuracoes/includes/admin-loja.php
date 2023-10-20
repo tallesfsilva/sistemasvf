@@ -1140,7 +1140,7 @@ $updatebanco = new Update();
 								$url = URL_IMAGE;					
 								echo "<div id=\"thumb\">".Check::Image("{$img_header}", "Logo", 240, 240)."</div>";
 							else:
-								echo "<div id=\"thumb\"><img src=\"{$site}img/thumb_restaurant.jpg\" alt=\"\"></div>";
+								echo "<div id=\"thumb\"><img class=\"lightbox\" src=\"{$site}img/thumb_restaurant.jpg\" alt=\"\"></div>";
 							endif;
 							?>
 						 
@@ -1164,11 +1164,10 @@ $updatebanco = new Update();
 								$url = URL_IMAGE;					
 								echo "<div id=\"thumb\">".Check::Image("{$img_logo}", "Logo", 240, 240)."</div>";
 							else:
-								echo "<div id=\"thumb\"><img src=\"{$site}img/thumb_restaurant.jpg\" alt=\"\"></div>";
-							endif;
+								echo "<div id=\"thumb\"><img class=\"lightbox\" src=\"{$site}img/thumb_restaurant.jpg\" alt=\"\"></div>";
+							endif;							
 							?>
-						 
-					 
+						 					 
 						 <div class="mt-5  md:w-auto w-full input-file-container">  
 							 <input name="img_logo" class="input-file" id="my-file" type="file" />
 							 <label style="background: #7232A0; border-radius: 3px;text-align: center;padding: 5px 5px;" tabindex="0" for="my-file" class="input-file-trigger">Enviar Imagem +</label>

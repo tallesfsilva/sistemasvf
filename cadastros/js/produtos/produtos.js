@@ -4,6 +4,220 @@
 export const prod = {
 
 
+    table_prod : $('#produtos').DataTable({
+        "dom":'lrtip',
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": true,
+        "bInfo": false,       
+        "bAutoWidth": false,
+       
+        
+        "search" : {
+            "caseInsensitive": true,
+             
+        },
+
+       
+       
+        "language": {          
+            "zeroRecords": "Nenhum registro encontrado.",
+            "infoEmpty": "Nenhum registro disponível"
+        }, 
+        "ajax" : {
+            url : '../cadastros/controllers/produto.php?action=pl'
+        },
+       
+        "order": [],
+        columns: [
+            {data: 'check_prod'}, 
+            {data: 'img_prod'},         
+            {data: 'nome_produto'},   
+            {data: 'cat_prod'},           
+            {data: 'desc_prod'},
+            {data: 'preco_prod'},
+            {data: 'estoque'},
+            {data: 'btn_disponivel'},
+            {data: 'btn_editar'},
+            {data: 'btn_excluir'},
+            
+        ],
+        createdRow: (row) => {            
+                $(row).addClass('border-b text-center');
+        },
+        select: {
+            style:    'multi',
+            selector: 'td:first-child'
+        },
+        
+        columnDefs: [
+            { orderable: true, targets: 0 },  
+            {target: 1, className : "td-img"}   , 
+            
+        ],
+
+
+        "initComplete": function () {
+            var api = this.api();
+            
+            $('#taxa-entrega').show();
+            api.columns.adjust();
+          },
+       
+    }),
+ 
+    checkDiasSemana : () => {
+
+        $('#op_todos').change(function(){
+               
+                if($(this).is(":checked")){                    
+                    $('input[name=dia_prod').prop('checked', true);
+                }else{
+                    $('input[name=dia_prod').prop('checked', false);
+                }
+
+               
+        })
+        
+
+        $('input[name=dia_prod').change(function(){
+            let countCheckBox = $('input[name=dia_prod').length;
+            let countChecked = $('input[name=dia_prod').is(":checked").length;
+
+            if(countCheckBox == countChecked){
+                $('#op_todos').prop('checked', true);
+            } else{
+                $('#op_todos').prop('checked', false)
+            }
+
+           
+    })
+
+
+    },
+
+    atualizarProd : () => {
+
+
+
+    $('#btn_inativar').click(function(){
+        var rows = $('#produtos tbody tr :checked');
+ 
+        var ids = [];
+         
+        for(let i=0;i<rows.length;i++){
+            ids.push($(rows[i]).attr('id').split("_")[1]);
+        }
+        let url = $(this).data('url');
+ 
+        if(ids.length >0 ){
+            GrowlNotification.notify({
+                title: 'Atenção!',
+                description: 'Confirma inativar os produtos selecionados?',
+                type: 'error',
+                image: {
+                visible: true,
+                customImage: '<?=$site;?>img/danger.png'
+                },
+                position: 'top-center',
+                showProgress: true,
+                showButtons: true,
+                buttons: {
+                action: {
+                    text: 'Inativar',
+                    callback: function(){           
+                                          
+                        $.ajax({
+                            url: url + '/controllers/produto.php',
+                            method: "post",
+                            data: {'iditem' : ids, "action" : "pd", lote : true},
+          
+                            success: function(data){ 
+                                let j = JSON.parse(data);
+                                $('#msg').html("");
+                                $('#msg').show();
+                                if(j.success && !j.error){
+                                    $('#msg').html(j.msg);  
+                                    setTimeout(function(){              
+                                      
+                                        $('#msg').fadeOut();
+                                    },3000)
+                                    $('#checkbox-all-search').prop('checked', false);;
+                                    prod.table_prod.ajax.reload();         
+                                 
+                                }else{
+                                    $('#msg').html(j.msg);  
+                                    setTimeout(function(){                        
+                                     
+                                        $('#msg').fadeOut();
+                                    },3000)
+                                }                               
+                            }
+                          });
+                        
+                        
+                    
+        
+                    }
+                },
+                cancel: {
+                    text: ' Cancelar'
+                }
+                },
+                closeTimeout: 0
+            });         
+            }else{
+                $('#msg').html("<div class='alert alert-info alert-dismissable'>"+
+                "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>"+
+                "Por favor selecione pelo menos um produto!</div>") 
+                setTimeout(function(){                        
+                                     
+                    $('#msg').fadeOut();
+                },3000)               
+            }
+});
+   
+
+ 
+
+
+
+
+        $('#produtos').on('click', '.atualizar_prod', function(e){
+            var idprod = $(e.currentTarget).data('idprod');
+            let url = $(e.currentTarget).data('url');
+            $.ajax({
+              url: url + '/controllers/produto.php',
+              method: "post",
+              data: {'iditem' : idprod, "action" : "pd", lote : false},
+
+              success: function(data){ 
+                let j = JSON.parse(data);
+                $('#msg').html("");
+                $('#msg').show();
+                if(j.success && !j.error){
+                    $('#msg').html(j.msg);  
+                    setTimeout(function(){              
+                      
+                        $('#msg').fadeOut();
+                    },3000)
+                 
+                    prod.table_prod.ajax.reload();         
+                 
+                }else{
+                    $('#msg').html(j.msg);  
+                    setTimeout(function(){                        
+                     
+                        $('#msg').fadeOut();
+                    },3000)
+                }                      
+                 
+              }
+            });
+          });
+
+
+    },
 
     create : () => {
 
@@ -71,8 +285,7 @@ export const prod = {
                           
                             $('#msg').fadeOut();
                         },3000)
-                        $('#cadTaxaEntrega')[0].reset();
-                        entrega.table_taxa.ajax.reload();         
+                         window.location.assign(url+'/view-item') ;       
                      
                     }else{
                         $('#msg').html(j.msg);  
@@ -91,6 +304,221 @@ export const prod = {
 
 
 
+
+    },
+
+    search : () =>{
+
+                
+        $("#search-product").off().on("keyup", function() {
+                
+            prod.table_prod.column(2).search(this.value).draw();
+
+     });
+
+
+     $('#categoria').change( function(){
+         
+        prod.table_prod.column(3).search(this.value).draw();
+        });
+
+
+        $('#produtos_inativos').change( function(){
+          
+            if(!$(this).is(':checked')){           
+               
+                prod.table_prod.columns().search('').draw();
+                                  
+            }else {
+                prod.table_prod.column(7).search('Não').draw();               
+            }                
+       })      
+       
+     
+    },
+
+    delete : ()=>{
+
+        $("#produtos").on('click', '.deleta_prod', function(e){
+
+            var idprod = $(e.currentTarget).data('idprod');
+            let url = $(e.currentTarget).data('url');
+      
+            GrowlNotification.notify({
+              title: 'Atenção!',
+              description: 'Tem certeza de que deseja deletar este item?',
+              type: 'error',
+              image: {
+                visible: true,
+                customImage: '<?=$site;?>img/danger.png'
+              },
+              position: 'top-center',
+              showProgress: true,
+              showButtons: true,
+              buttons: {
+                action: {
+                  text: ' Deletar',
+                  callback: function(){
+                    $.ajax({
+                        url: url + '/controllers/produto.php',
+                      method: 'post',
+                      data: {'iditem' : idprod, action: "pe"},
+                      success: function(data){
+                        let j = JSON.parse(data);
+                        $('#msg').html("");
+                        $('#msg').show();
+                        if(j.success && !j.error){
+                            $('#msg').html(j.msg);  
+                            setTimeout(function(){                
+                              
+                                $('#msg').fadeOut();
+                            },3000)
+                          
+                            prod.table_prod.ajax.reload();         
+                         
+                        }else{
+                            $('#msg').html(j.msg);  
+                            setTimeout(function(){                        
+                             
+                                $('#msg').fadeOut();
+                            },3000)
+                        }
+                      }
+                    });
+      
+                  }
+                },
+                cancel: {
+                  text: ' Cancelar'
+                }
+              },
+              closeTimeout: 0
+            });         
+      
+          });
+
+        $('#btn_excluir').click(function(){
+
+            var rows = $('#produtos tr :checked');
+            
+            var ids = [];
+             
+            for(let i=0;i<rows.length;i++){
+                ids.push($(rows[i]).attr('id').split("_")[1]);
+            }
+            let url = $(this).data('url');
+         
+            if(ids.length >0 ){
+                        GrowlNotification.notify({
+                            title: 'Atenção!',
+                            description: 'Confirma a exclusão dos produtos?',
+                            type: 'error',
+                            image: {
+                            visible: true,
+                            customImage: '<?=$site;?>img/danger.png'
+                            },
+                            position: 'top-center',
+                            showProgress: true,
+                            showButtons: true,
+                            buttons: {
+                            action: {
+                                text: ' Deletar',
+                                callback: function(){           
+                                                      
+                                        
+                                        $.ajax({
+                                        url: url + '/controllers/produto.php',
+                                        method: "post",
+                                        data: {'iditem' : ids, 'action' : "pe", "lote" : true},
+                            
+                                        success: function(data){ 
+                                            let j = JSON.parse(data);
+                                            $('#msg').html("");
+                                            $('#msg').show();
+                                            if(j.success && !j.error){
+                                                $('#msg').html(j.msg);  
+                                                setTimeout(function(){                
+                                                  
+                                                    $('#msg').fadeOut();
+                                                },3000)
+                                              
+                                                prod.table_prod.ajax.reload();         
+                                             
+                                            }else{
+                                                $('#msg').html(j.msg);  
+                                                setTimeout(function(){                        
+                                                 
+                                                    $('#msg').fadeOut();
+                                                },3000)
+                                            }                 
+                                        }
+                                        });
+                                    
+                                    
+                                
+                    
+                                }
+                            },
+                            cancel: {
+                                text: ' Cancelar'
+                            }
+                            },
+                            closeTimeout: 0
+                        });         
+                        }else{
+                            $('#msg').html("<div class='alert alert-info alert-dismissable'>"+
+                            "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>"+
+                            "Por favor selecione pelo menos um produto!</div>") 
+                            setTimeout(function(){                        
+                                                 
+                                $('#msg').fadeOut();
+                            },3000)               
+                        }
+            });
+         
+           
+    
+     
+
+
+
+
+
+
+
+
+
+    },
+
+    loadImgProd : () =>{
+       
+      
+       
+            $("#file-5").change(function(event) {  
+                
+                var tmppath = URL.createObjectURL(event.target.files[0]);  
+             
+          
+                $("#img_prod").attr("src",  tmppath.toString());
+                $("#img_prod").attr("style", "margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;height: 340px;");    
+                $('#show_img_prod').show();
+                $("#label-file").hide();
+            });
+
+                    $("#show_img_prod").on('click', function(e){
+
+                        $('#file-5').click();
+
+                    })
+            
+        
+        
+        
+        
+        
+        
+      
+      
 
     },
 
@@ -189,10 +617,13 @@ export const prod = {
         // ad.loadTiposAdicionaisBusca();
         // ad.loadTiposAdicionaisGrid();
         // ad.delete();
-        // ad.search();
+        prod.search();
         prod.loadTiposAdicionais();
         prod.create();
-        
+        prod.loadImgProd();
+        prod.atualizarProd();
+        prod.delete();
+        prod.checkDiasSemana();
        
        //ad.create();
     },

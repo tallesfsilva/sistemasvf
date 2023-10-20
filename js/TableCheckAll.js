@@ -34,7 +34,8 @@ $.fn.TableCheckAll = function (options) {
         });
       }
     });
-    $(this).find(settings.checkboxClass).on('click', function () {
+    
+    $(this).on('click', settings.checkboxClass, function () {
       var totalCheckbox = $(this).parents("table").find(settings.checkboxClass).length;
       var totalChecked = $(this).parents("table").find(settings.checkboxClass + ":checked").length;
 
