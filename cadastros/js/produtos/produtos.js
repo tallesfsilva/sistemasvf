@@ -11,29 +11,23 @@ export const prod = {
         "bFilter": true,
         "bInfo": false,       
         "bAutoWidth": false,
-        "processing": true,
-       
-        
-          "responsive" : true,
-
-        
-       
-       
-        
+        "processing": true,      
+        "responsive" : true,
         "search" : {
             "caseInsensitive": true,
              
         },
-
-       
+        
        
         "language": {          
             "zeroRecords": "Nenhum registro encontrado.",
             "infoEmpty": "Nenhum registro disponível"
         }, 
         "ajax" : {
-            url : '../cadastros/controllers/produto.php?action=pl'
+            url : '../cadastros/controllers/produto.php?action=pl',
+            
         },
+        
        
         "order": [],
         columns: [
@@ -618,6 +612,11 @@ export const prod = {
         });
     },
 
+    tableRows : () => {
+        return prod.table_prod.rows().data();
+
+    },
+
 
     init : () => {
         // ad.update();
@@ -631,7 +630,7 @@ export const prod = {
         prod.atualizarProd();
         prod.delete();
         prod.checkDiasSemana();
-       
+      
        //ad.create();
     },
     fn : () => {

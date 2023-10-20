@@ -37,7 +37,7 @@ $updatebanco = new Update();
 <head>
 <script src="<?= $site;?>cadastros/js/datatables.min.js"></script> 
 <script src="<?= $site;?>js/TableCheckAll.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.19.0/clusterize.min.css" integrity="sha512-8KLHxyeJ2I3BzL2ma1RZxwT1cc/U5Rz/uJg+G25tCrQ8sFfPz3MfJdKZegZDPijTxK2A3+b4kAXvzyK/OLLU5A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <script type="text/javascript">
             $(document).ready(function() {         
@@ -70,7 +70,7 @@ $updatebanco = new Update();
       background: #d19898 !important;
     }
 
-    #novo_produto:hover{
+    #btn_inativar:hover{
       background: #FFC00082 !important;
     }
 
@@ -165,12 +165,12 @@ $updatebanco = new Update();
             
                   <div style="padding-right:10px" class="flex">
                   <a href="<?=$site.'cadastros/'?>produtos">
-                      <button id="novo_produto" style="background-color: #FFC000;border-radius:3px !important"class="btn_1 btn-success"  name="sendAddBairro" value="Salvar" type="submit">Novo Produto</button>
+                      <button id="novo_produto" style="background-color: #00BB07;border-radius:3px !important"class="btn_1 btn_s btn-success"  name="sendAddBairro" value="Salvar" type="submit">Novo Produto</button>
                   </a>
                     </div> 
 
                   <div style="padding-right:10px" class="flex">
-                      <button id="btn_inativar" data-url="<?= $site?>cadastros"  style="background-color: #A70000;border-radius:3px !important"class="btn_1 btns-lote btn-success">Inativar</button>
+                      <button id="btn_inativar" data-url="<?= $site?>cadastros"  style="background-color: #FFC000;border-radius:3px !important"class="btn_1 btn-success">Inativar</button>
                   </div>
 
                   <div style="padding-right:10px" class="flex">
@@ -212,7 +212,7 @@ $updatebanco = new Update();
                 <th scope="col" class="px-6 py-3" data-sortable="false">Excluir</th>
               </tr>
             </thead>
-
+            <tbody id="body-products"></tbody>
           
     </table>
   </div>
@@ -294,13 +294,12 @@ $updatebanco = new Update();
 </div>
 		</div>
 				</div>
-        <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
-<script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
  
         <script type="module" src="<?= $site;?>cadastros/js/produtos/main.js"></script>
 <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
- 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.19.0/clusterize.js" integrity="sha512-uoW1yw3jmcdHJxya6AdkfeecPCq6wg41n/H9OhSI78rCec3dnPksZ/h4nanFv+SnXw8Kyb7wE4D0ao1qVoGeRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="js/flowbite.min.js"></script>
 
+  
  
   </html>

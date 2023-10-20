@@ -267,7 +267,7 @@ $(document).ready(function () {
 			<!-- Radio and check inputs -->
 			<link href="<?= $site; ?>css/radio-check.css" rel="stylesheet">
 			<link href="<?= $site; ?>css/modal.css" rel="stylesheet">
-			<script type="text/javascript" src="<?= $site; ?>js/modalhorarios.js"></script> 
+			<!-- <script type="text/javascript" src="<?= $site; ?>js/modalhorarios.js"></script>  -->
 			<!-- https://www.cssscript.com/pure-css-checkbox-radio-button-replacement-bootstrap-icheck/ -->
 			<link href="<?= $site; ?>notificacao/light-theme.min.css" rel="stylesheet">
 			<link href="<?= $site; ?>css/chackbox/dist/css/checkboxes.css" rel="stylesheet">
@@ -648,11 +648,11 @@ $(document).ready(function () {
  
 <script src="<?= $site; ?>js/flowbite.min.js"></script>
 <script src="<?= $site; ?>js/bootstrap.js"></script>
-<script src="<?= $site; ?>js/functions.js"></script>
+<!-- <script src="<?= $site; ?>js/functions.js"></script> -->
 <script src="<?= $site; ?>assets/validate.js"></script>
 <script src="<?= $site; ?>js/jquery.mask.js"></script>
 <!-- <script src="<?= $site; ?>js/index-btn-file.js"></script> -->
-<script src="<?= $site; ?>js/funcoesjs.js"></script>
+<!-- <script src="<?= $site; ?>js/funcoesjs.js"></script> -->
 <script src="<?= $site; ?>js/custom-file-input.js"></script>
 <script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
 <!-- <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
