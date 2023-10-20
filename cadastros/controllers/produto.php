@@ -393,24 +393,24 @@ function carregaProdutos(){
             if($disponivel && (int)$disponivel==1) { 
               $idButton = "btn_s";
               $classButton = "aceita_entrega atualizar_prod";
-              $style= "background-color: #00BB07";
+              $style= "width:62px; height:38px;background-color: #00BB07";
               $value = "Sim";
               }else{
               $idButton = "btn_n";
               $classButton = "aceita_entrega atualizar_prod";
-              $style= "background-color: #A70000";
+              $style= "width:62px; height:38px;background-color: #A70000";
               $value = "Não";
                 }
-
-            extract($tt);
+            $descItem = !empty($descricao_item) ? limitarTexto($descricao_item, 30) : '';
+          
               array_push($res->data, array("check_prod" => "<td><div class=\"flex justify-center items-center\"><div class=\"icheck-material-green\"><input  id=\"checkbox-product_{$id}\" type=\"checkbox\" class=\"check-products w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600\">
               <label for=\"checkbox-product_{$id}\" class=\"sr-only\">checkbox</label></div></div></td>",
              "img_prod" => "<td style=\"display: flex;justify-content: center; top: 5px;position: relative;\"><div style=\"width:40px;\" class=\"img-wrap\">{$imgProd}</td>", "nome_produto" => "<td id=\"nome_produto\" class=\"col-md-3 col-sm-2  px-6 py-4\"><span>{$nome_item}</span></td>",
-              "cat_prod" => "<td><span>{$catProd}</span></td>", "desc_prod" => "<td><span>{$descricao_item}</span></td>","preco_prod" => "<td><span>{$precoProd}</span></td>", 
-              "estoque" => "<td><span>1</span></td>",
+              "cat_prod" => "<td><span>{$catProd}</span></td>", "preco_prod" => "<td><div style=\"position: relative;left: 15px;\"class=\"text-left\"><span>{$precoProd}</span></div></td>", 
+              "estoque" => "<td><span>0</span></td>",
               "btn_disponivel" => "<td class=\"col-md-3 col-sm-2  px-6 py-4\"><button  data-url=\"{$site}cadastros\" id=\"{$idButton}\" style=\"{$style}\" value=\"{$value}\" class=\"$classButton\" data-idprod=\"{$id}\">$value</button><span hidden>{$value}</span></td>",
-              "btn_editar" => "<td><a href=\"{$site}cadastros/editar-produto?idprod={$id}\"><p data-placement=\"top\" data-toggle=\"tooltip\" title=\"Editar\"><button class=\"btn btn-primary\" data-title=\"Editar\"><span class=\"glyphicon glyphicon-pencil\"></span></button></a></td>",	
-              "btn_excluir" => "<td><button data-url=\"{$site}cadastros\" data-idprod=\"{$id}\"style=\"background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important\" type=\"button\" class=\"btn_1 btn-delete deleta_prod\"><span class=\"glyphicon glyphicon-trash\"></span>
+              "btn_editar" => "<td><a href=\"{$site}cadastros/editar-produto?idprod={$id}\"><button id=\"btn_s\" style=\"width:62px; height:38px; background: #00BB07 \" class=\"aceita_entrega\" data-title=\"Editar\"><span class=\"glyphicon glyphicon-pencil\"></span></button></a></td>",	
+              "btn_excluir" => "<td><button data-url=\"{$site}cadastros\" data-idprod=\"{$id}\"style=\"width:62px; height:38px;background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important\" type=\"button\" class=\"btn_1 btn-delete deleta_prod\"><span class=\"glyphicon glyphicon-trash\"></span>
               </button></td>"));
        
                 

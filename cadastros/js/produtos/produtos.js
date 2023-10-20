@@ -11,6 +11,13 @@ export const prod = {
         "bFilter": true,
         "bInfo": false,       
         "bAutoWidth": false,
+        "processing": true,
+       
+        
+          "responsive" : true,
+
+        
+       
        
         
         "search" : {
@@ -34,7 +41,7 @@ export const prod = {
             {data: 'img_prod'},         
             {data: 'nome_produto'},   
             {data: 'cat_prod'},           
-            {data: 'desc_prod'},
+           
             {data: 'preco_prod'},
             {data: 'estoque'},
             {data: 'btn_disponivel'},
@@ -330,7 +337,7 @@ export const prod = {
                 prod.table_prod.columns().search('').draw();
                                   
             }else {
-                prod.table_prod.column(7).search('Não').draw();               
+                prod.table_prod.column(6).search('Não').draw();               
             }                
        })      
        

@@ -33,7 +33,7 @@ try{
     foreach($lerbanco->getResult() as $tt){
         extract($tt);
  
-            array_push($res->data, array('adicionais' => "<div class=\"m-3 icheck-material-green\"><input type=\"checkbox\" name=\"adicional_prod\" class=\"adicional\" data-idtipo=\"$id_tipo\" data-idad=\"{$id_adicionais}\" value=\"$id_adicionais\" id=ad_\"$id_adicionais\"><label for=ad_\"{$id_adicionais}\">{$nome_adicional}</label></div>"));
+            array_push($res->data, array('adicionais' => "<div class=\"m-3 icheck-material-green\"><input type=\"checkbox\" name=\"adicional_prod\" class=\"adicional\" data-idtipo=\"$id_tipo\" data-idad=\"{$id_adicionais}\" value=\"$id_adicionais\" id=ad_\"$id_adicionais\"><label for=ad_\"{$id_adicionais}\">{$nome_adicional} ({$valor_adicional})</label></div>"));
         }
        
     $res->success = true;

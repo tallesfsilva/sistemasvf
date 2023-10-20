@@ -65,6 +65,15 @@ $updatebanco = new Update();
   position: relative;
     }
 
+    .btns-lote:hover{
+
+      background: #d19898 !important;
+    }
+
+    #novo_produto:hover{
+      background: #FFC00082 !important;
+    }
+
   </style>
 
 
@@ -156,16 +165,16 @@ $updatebanco = new Update();
             
                   <div style="padding-right:10px" class="flex">
                   <a href="<?=$site.'cadastros/'?>produtos">
-                      <button style="background-color: #FFC000;border-radius:3px !important"class="btn_1 btn-success"  name="sendAddBairro" value="Salvar" type="submit">Novo Produto</button>
+                      <button id="novo_produto" style="background-color: #FFC000;border-radius:3px !important"class="btn_1 btn-success"  name="sendAddBairro" value="Salvar" type="submit">Novo Produto</button>
                   </a>
                     </div> 
 
                   <div style="padding-right:10px" class="flex">
-                      <button id="btn_inativar" data-url="<?= $site?>cadastros"  style="background-color: #A70000;border-radius:3px !important"class="btn_1 btn-success">Inativar</button>
+                      <button id="btn_inativar" data-url="<?= $site?>cadastros"  style="background-color: #A70000;border-radius:3px !important"class="btn_1 btns-lote btn-success">Inativar</button>
                   </div>
 
                   <div style="padding-right:10px" class="flex">
-                      <button id="btn_excluir" data-url="<?= $site?>cadastros"  style="background-color: #A70000;border-radius:3px !important"class="btn_1 btn-success">Excluir</button>
+                      <button id="btn_excluir" data-url="<?= $site?>cadastros"  style="background-color: #A70000;border-radius:3px !important"class="btn_1 btns-lote btn-success">Excluir</button>
                   </div>
                   </div>
 
@@ -193,7 +202,7 @@ $updatebanco = new Update();
                 <th style="padding:25px;" scope="col" class="text-center px-6 py-3">Imagem</th>              
                 <th scope="col" class="text-center px-6 py-3">Nome do Produto</th>
                 <th scope="col" class="text-center px-6 py-3">Categoria</th>              
-                <th scope="col" class="text-center px-6 py-3">Descrição</th>
+            
                 <th scope="col" class="text-center px-6 py-3">Preço</th>    
                 <th scope="col" class="text-center px-6 py-3">Estoque</th>
                 <th scope="col" class="text-center px-6 py-3" data-sortable="false">Disponível</th>                  
