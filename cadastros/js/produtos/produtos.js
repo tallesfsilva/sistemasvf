@@ -83,7 +83,8 @@ export const prod = {
 
         $('input[name=dia_prod').change(function(){
             let countCheckBox = $('input[name=dia_prod').length;
-            let countChecked = $('input[name=dia_prod').is(":checked").length;
+            let countChecked = $('.dias_prod:checked').length;
+            
 
             if(countCheckBox == countChecked){
                 $('#op_todos').prop('checked', true);
@@ -96,6 +97,84 @@ export const prod = {
 
 
     },
+
+    checkTiposAdicionais : () => {
+        $('.tipo_adicional_todos').change(function(e){
+             
+            if($(e.currentTarget).is(":checked")){                    
+                $('input[name=tipo_adicional').prop('checked', true);
+                $('input[name=tipo_adicional').trigger('change')
+            }else{
+                $('input[name=tipo_adicional').prop('checked', false);
+                $('input[name=tipo_adicional').trigger('change')
+            }
+
+           
+    })
+    
+
+    $('input[name=tipo_adicional').change(function(){
+        let countCheckBox = $('input[name=tipo_adicional').length;
+        let countChecked = $('.tipo_adicional:checked').length;
+        
+        
+        if(countCheckBox == countChecked){
+            $('#todos_tipos').prop('checked', true);
+        } else{
+            $('#todos_tipos').prop('checked', false)
+        }
+
+       
+})
+
+
+    },
+
+
+    checkAdicionais : () => {
+        $('.adicional_todos').change(function(e){
+             
+                let idtipo = $(e.currentTarget).data('idtipo');
+
+            if($(e.currentTarget).is(":checked")){      
+                 $("input[name='adicional_prod']" ).filter('.'+'adicional'+'[data-idtipo="'+idtipo+'"]').prop('checked', true);             
+               
+                 
+                 //$("input[name='adicional_prod']" ).filter('.'+'adicional'+'[data-idtipo="'+idtipo+'"]').trigger('change')
+            }else{
+                $("input[name='adicional_prod']" ).filter('.'+'adicional'+'[data-idtipo="'+idtipo+'"]').prop('checked', false);             
+               
+                 
+                //$("input[name='adicional_prod']" ).filter('.'+'adicional'+'[data-idtipo="'+idtipo+'"]').trigger('change')
+            }
+
+           
+    })
+    
+
+    $("input[name='adicional_prod']" ).change(function(e){
+
+      
+        let idtipo = $(e.currentTarget).data('idtipo');
+ 
+        let countCheckBox =  $("input[name='adicional_prod']" ).filter('.'+'adicional'+'[data-idtipo="'+idtipo+'"]').length;
+        let countChecked =  $("input[name='adicional_prod']" ).filter('.'+'adicional:checked'+'[data-idtipo="'+idtipo+'"]').length;
+         console.log('Total Checkbox ' + countCheckBox )
+         console.log('Total CheckboxChecked ' + countChecked )
+        if(countCheckBox == countChecked){            
+            $('#adicionais_todos_'+idtipo).prop('checked', true);
+        } else{
+       
+            $('#adicionais_todos_'+idtipo).prop('checked', false)
+        }
+
+       
+})
+
+
+    },
+
+
 
     atualizarProd : () => {
 
@@ -286,7 +365,7 @@ export const prod = {
                           
                             $('#msg').fadeOut();
                         },3000)
-                         window.location.assign(url+'/view-item') ;       
+                         //window.location.assign(url+'/view-item') ;       
                      
                     }else{
                         $('#msg').html(j.msg);  
@@ -551,8 +630,8 @@ export const prod = {
                     $("#container_adicional_"+j.data[0].id_tipo).append("<div id=adc_"+j.data[0].id_tipo +"  class='flex flex-col mt-2'></div>")
                     $("#adc_"+j.data[0].id_tipo).append(j.data[1].nome_tipo_adicional)
                     $("#adc_"+j.data[0].id_tipo).append("<div id=ad_"+j.data[0].id_tipo+ "  class='item-adicional flex flex-row'></div>")
-                    $("#container_adicional_"+j.data[0].id_tipo).append( $(".ad_"+j.data[0].id_tipo));
-                  
+                    $("#container_adicional_"+j.data[0].id_tipo).append( $("#ad_"+j.data[0].id_tipo));
+                    $("#ad_"+j.data[0].id_tipo).append("<div style='margin-right:80px;'class='m-3 icheck-material-green'><input data-idtipo="+j.data[0].id_tipo+ "  type=checkbox class='adicional_todos' name='adicional_todos' value='' id=adicionais_todos_"+j.data[0].id_tipo+ "><label for=adicionais_todos_"+j.data[0].id_tipo+"></label>Todos</div>")              
                     for(let i=0;i<j.data.length;i++){         
                         $('#ad_'+j.data[0].id_tipo).append(j.data[i].adicionais);
                      
@@ -564,7 +643,7 @@ export const prod = {
                     $("#title_adicional").hide();
                   
                 }
-             
+                prod.checkAdicionais();
             }
              
             });
@@ -593,7 +672,8 @@ export const prod = {
                 let j = JSON.parse(data);  
                
                 if(j.data.length){
-                   $("#title_tipo").show();                   
+                   $("#title_tipo").show();     
+                   $('#container_tipos').append("<div style='margin-right:80px;' class='m-3 icheck-material-green'><input type=checkbox class='tipo_adicional_todos' name='todos_tipo_adicional' value='' id=todos_tipos ><label for=todos_tipos></label>Todos</div>")              
                     for(let i=0;i<j.data.length;i++){         
                       
                         $('#container_tipos').append("<div class='m-3 icheck-material-green'><input type=checkbox class='tipo_adicional' name='tipo_adicional' data-idtipo="+j.data[i].id_tipo+" value="+j.data[i].id_tipo+" id=tipo_"+j.data[i].id_tipo+" ><label for=tipo_"+j.data[i].id_tipo+">"+j.data[i].nome_adicional+"</label></div>")
@@ -605,6 +685,7 @@ export const prod = {
                   
                 }
                 prod.loadAdicionais();
+                prod.checkTiposAdicionais();
             }
            
             });
@@ -630,6 +711,7 @@ export const prod = {
         prod.atualizarProd();
         prod.delete();
         prod.checkDiasSemana();
+       
       
        //ad.create();
     },

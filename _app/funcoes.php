@@ -9,12 +9,12 @@ function limitarTexto($texto, $limite, $quebrar = true){
   else:
     if($quebrar == true): //se for maior e $quebrar for true
       //corta o texto no limite indicado e retira o ultimo espaço branco
-    $newtext = trim(mb_substr($texto, 0, $limite))."...";
+    $newtext = trim(substr($texto, 0, $limite))."...";
   else:
       //localiza ultimo espaço antes de $limite
-    $ultimo_espaço = strrpos(mb_substr($texto, 0, $limite)," ");
+    $ultimo_espaço = strrpos(substr($texto, 0, $limite)," ");
       //corta o $texto até a posição lozalizada
-    $newtext = trim(mb_substr($texto, 0, $ultimo_espaço))."...";
+    $newtext = trim(substr($texto, 0, $ultimo_espaço))."...";
   endif;
 endif;
 return $newtext;

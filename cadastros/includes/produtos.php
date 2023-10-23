@@ -177,46 +177,46 @@ endif;
              <label>Quais dias você vende este produto?</label>
              <div class="flex w-full dias-produto flex-row" style="border: 1px solid; border-color: #D9D9D9">
              <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="todos_dias" value="todos_checked" id="op_todos" />
+						<input type="checkbox"  name="todos_dias" value="todos_checked" id="op_todos" />
 			             <label for="op_todos">Todos</label>
 			            </div>   
              
              <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="domingo" id="op_domingo" />
+						<input type="checkbox" class="dias_prod" name="dia_prod" value="domingo" id="op_domingo" />
 			             <label for="op_domingo">Domingo</label>
 			            </div>
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="segunda" id="op_segunda" />
+						<input type="checkbox" class="dias_prod" name="dia_prod" value="segunda" id="op_segunda" />
 			    <label for="op_segunda">Segunda</label>
 			</div>
 
             <div class="m-3 icheck-material-green">
-				  <input type="checkbox" name="dia_prod" value="terca" id="op_terca" />
+				  <input type="checkbox" class="dias_prod" name="dia_prod" value="terca" id="op_terca" />
 			    <label for="op_terca">Terça</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="quarta" id="op_quarta" />
+						<input type="checkbox" class="dias_prod" name="dia_prod" value="quarta" id="op_quarta" />
 			    <label for="op_quarta">Quarta</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="quinta" id="op_quinta" />
+						<input type="checkbox" class="dias_prod" name="dia_prod" value="quinta" id="op_quinta" />
 			    <label for="op_quinta">Quinta</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="sexta" id="op_sexta" />
+						<input type="checkbox" class="dias_prod" name="dia_prod" value="sexta" id="op_sexta" />
 			    <label for="op_sexta">Sexta</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="true" id="op_sabado" />
+						<input type="checkbox" class="dias_prod" name="dia_prod" value="true" id="op_sabado" />
 			    <label for="op_sabado">Sábado</label>
 			</div>
         </div>
