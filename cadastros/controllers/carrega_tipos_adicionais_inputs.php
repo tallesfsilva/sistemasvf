@@ -9,6 +9,7 @@ $site = HOME;
 $userlogin = $_SESSION['userlogin'];
 
 $idcat =  filter_input(INPUT_GET,'idcat', FILTER_DEFAULT);
+$idprod = filter_input(INPUT_GET,'idprod', FILTER_DEFAULT);
 
  
 try{
@@ -24,12 +25,18 @@ try{
  
  $lerbanco->ExeRead("ws_tipo_adicional", "WHERE user_id = :userid and id_cat = :idcat" , "idcat={$idcat}&userid={$userlogin['user_id']}");
   
- if($lerbanco->getResult()){
+  if($lerbanco->getResult()){
    
- foreach ($lerbanco->getResult() as $cat){
-         extract($cat);    
+ foreach ($lerbanco->getResult() as $tipo){
+  extract($tipo);    
+  $lerbanco->FullRead("select * from ws_produto_adicionais WHERE user_id = :userId and id_produto = :idprod and id_tipo_adicional =:idtipo", "idprod={$idprod}&idtipo={$id_tipo}&userId={$userlogin['user_id']}");
+ 
+  if($lerbanco->getResult()){
     
-   array_push($res->data, $cat);
+    $tipo['checked'] = true;
+  }
+    
+   array_push($res->data, $tipo);
    
  };
   

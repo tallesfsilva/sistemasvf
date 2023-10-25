@@ -26,7 +26,7 @@ function atualizaDispProduto($payLoad){
   
     $action = !empty($payLoad['lote']) ? $payLoad['action'] : false;
    
-    
+ 
     if(is_array($getId) && count($getId)>1 && $action) {
     
       foreach($getId as $item){
@@ -121,7 +121,7 @@ function atualizaDispProduto($payLoad){
     
     } else{
      
-        $idProduct = $getId;
+        $idProduct = $getId;    
         $lerbanco->ExeRead('ws_itens', "WHERE user_id = :userid AND id = :f", "userid={$userlogin['user_id']}&f={$idProduct}");
         if($lerbanco->getResult()){
           foreach($lerbanco->getResult() as $i){
@@ -185,15 +185,7 @@ function cadastraProduto($payLoad){
     $res['error'] = false;
 
     $userlogin = $_SESSION['userlogin'];
-
-    $lerbanco->FullRead("select * from ws_empresa WHERE binary user_id = :userId", "userId={$userlogin['user_id']}");
-	if (!$lerbanco->getResult()){		 
-	}else{
-		foreach ($lerbanco->getResult() as $i):
-			extract($i);
-		endforeach;
-    }
-
+ 
     
 if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / ELSE
     unset($payLoad['action']);
@@ -347,6 +339,249 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
   }
  }
 
+
+ function updateProduto($payLoad){
+
+  try{
+ 
+      global $lerbanco; 
+      global $addbanco; 
+      global $updatebanco; 
+      global $deletbanco;
+      
+      
+     $res['msg'] = "";
+     $res['success'] = false;
+     $res['error'] = false;
+ 
+     $userlogin = $_SESSION['userlogin'];
+ 
+  
+     
+ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / ELSE
+     unset($payLoad['action']);
+     
+     // INICIO DA VALIDAÇÃO DA IMAGEM ITEM:
+     if (isset($_FILES['img_item']['tmp_name']) && $_FILES['img_item']['tmp_name'] != ""){
+         $payLoad['img_item'] = $_FILES['img_item'];
+         $payLoad['img_item']['id_user'] = $userlogin['user_id'];
+    }
+     
+     if(!empty($payLoad['img_item'])){                        
+         $upload = new Upload("uploads/");
+         $upload->Image($payLoad['img_item']);
+     
+         if(isset($upload) && $upload->getResult()){
+             $payLoad['img_item'] = $upload->getResult();
+         }elseif(is_array($payLoad['img_item'])){
+          $payLoad['img_item'] = 'null';
+     };                    
+ };
+     
+     // FINAL DA VALIDAÇÃO DA IMAGEM ITEM:
+     
+     
+     $payLoad['nome_item'] = strip_tags(trim($payLoad['nome_item']));
+     $payLoad['preco_item'] = strip_tags(trim($payLoad['preco_item']));
+     $payLoad['descricao_item'] = strip_tags(trim($payLoad['descricao_item']));
+     $payLoad['user_id'] = $userlogin['user_id'];
+     $payLoad['config_total_s'] ="0";
+     $payLoad['number_adicional'] ="0";
+   
+     $payLoad['dia_semana'] = (!empty($payLoad['dia_semana']) ? $payLoad['dia_semana']  : "null");
+     
+     
+     
+     
+     if(empty($payLoad['id_cat']) || empty($payLoad['nome_item']) || empty($payLoad['preco_item']) || empty($payLoad['descricao_item'])){
+         $res['msg'] = "<div class=\"alert alert-info alert-dismissable\">                
+                 Preencha os campos obrigatórios!
+                 </div>";
+                 $res['success'] = false;
+                 $res['error'] = true;
+         echo json_encode($res);
+     }elseif(empty($payLoad['img_item'])){
+         $res['msg'] =  "<div class=\"alert alert-info alert-dismissable\">
+         
+         Formato de imagem não suportado!
+         </div>";
+         $res['success'] = false;
+         $res['error'] = true;
+         echo json_encode($res);
+ 
+                     
+      
+      
+     }else{
+        
+        //  if($payLoad['img_item'] == ''){
+        //      $payLoad['img_item'] = 'false';
+        //  };   
+     
+         $payLoad['preco_item'] = Check::Valor($payLoad['preco_item']);
+        
+         $adicionaisBuffer = array();
+         foreach(json_decode($payLoad['adicionais'], true) as $adicionais){
+                 array_push($adicionaisBuffer,  $adicionais);
+ 
+         }
+        
+         
+         unset($payLoad['adicionais']);
+        
+     
+     
+      $updatebanco->ExeUpdate("ws_itens", $payLoad, "where id = :idprod and user_id = :iduser", "idprod={$payLoad['id']}&iduser={$userlogin['user_id']}");
+    
+  
+     if ($updatebanco->getResult()){
+         $adicionaisArray = array();
+         foreach($adicionaisBuffer as $key => $value){
+          
+             array_push($adicionaisArray, array('user_id' => $userlogin['user_id'], 'id_produto' => $payLoad['id'],
+              'id_tipo_adicional' => $adicionaisBuffer[$key]['id_tipo_adicional'],'id_adicionais' =>  $adicionaisBuffer[$key]['id_adicionais']));
+         }
+         
+  
+         $deletbanco->ExeDelete("ws_produto_adicionais", "where id_produto = :idprod", "idprod={$payLoad['id']}");
+             
+         if ($deletbanco->getResult()){
+                foreach($adicionaisArray as $adicional){
+                    extract($adicional);
+                      $addbanco->ExeCreate("ws_produto_adicionais", $adicional);
+                  }
+                
+                  if ($addbanco->getResult()){
+      
+                      $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+              
+                      <b class=\"alert-link\">SUCESSO!</b> Item atualizado com sucesso!.
+                      </div>";
+              
+              
+                      $res['success'] = true;
+                      $res['error'] = false;
+                      echo json_encode($res);
+                  
+              }else{
+                  $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
+              
+                        Ocorreu um erro ao atualizar os adicionais. Por favor tente novamente\"
+                      </div>";
+              
+              
+                      $res['success'] = true;
+                      $res['error'] = false;
+                      echo json_encode($res);
+              }
+        
+         }else{
+             $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
+         
+             Ocorreu um erro ao atualizar os adicionais. Por favor tente novamente\"
+             </div>";
+     
+     
+             $res['success'] = true;
+             $res['error'] = false;
+             echo json_encode($res);
+         }
+     
+     }else{
+         $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
+         
+         <b class=\"alert-link\">Ocorreu um erro ao atualizar o produto no banco de dados. Tente novamente!.
+         </div>";  
+         unset($_POST); 
+         $res['success'] = false;
+         $res['error'] = true;
+         echo json_encode($res);
+     
+         
+          
+     };
+ }
+  
+ };//FINAL DO PRIMEIRO IF / ELSE
+ 
+ 
+ }catch (PDOException $e) {
+     echo "Ocorreu um erro em sua solicitação. Por favor tentar novamente " . $e->getMessage();
+   }
+  }
+ 
+
+
+
+ function carregaAdcionaisUser(){
+
+
+  try{
+    global $lerbanco; 
+    global $addbanco; 
+    
+     
+   $res['msg'] = "";
+   $res['success'] = false;
+   $res['error'] = false;
+
+   $userlogin = $_SESSION['userlogin'];
+ 
+ 
+    $res = new stdClass();
+   
+    $res->data = array(); 
+    $res->tipos = array();
+    $payload =  filter_input_array(INPUT_POST, FILTER_DEFAULT);
+  
+ 
+    if(!empty($payload['idtipos'] && (int)$payload['idtipos']) && !empty($payload['iditem'] && (int)$payload['iditem']) ){
+    
+      foreach($payload['idtipos'] as $idtipo){
+
+        $lerbanco->FullRead("select ad.id_adicionais, ad.nome_adicional 'nome_adicional', ad.valor_adicional,ad.desc_adicional, tp.id_tipo, tp.nome_adicional 'nome_tipo_adicional'
+        from ws_adicionais_itens ad join ws_tipo_adicional tp on ad.id_tipo_adicional = tp.id_tipo where ad.user_id = {$userlogin['user_id']} and ad.id_tipo_adicional = {$idtipo}");
+      
+        if($lerbanco->getResult()){
+         $nomeTipoAdicional = $lerbanco->getResult()[0];
+         array_push($res->tipos, array('id_tipo' => $nomeTipoAdicional['id_tipo'], "nome_tipo_adicional" =>"<div class=\"indent_title_in\"><h3>{$nomeTipoAdicional['nome_tipo_adicional']}</h3></div>"));
+   
+        
+         foreach($lerbanco->getResult() as $tt){
+          extract($tt);
+          $lerbanco->FullRead("select * from ws_produto_adicionais WHERE id_adicionais = :idadicional and user_id = :userId and id_produto = :idprod and id_tipo_adicional =:idtipo", "idadicional={$id_adicionais}&idprod={$payload['iditem']}&idtipo={$idtipo}&userId={$userlogin['user_id']}");
+          if($lerbanco->getResult()){
+                array_push($res->data, array('idtipo'=> $nomeTipoAdicional['id_tipo'], 'adicionais' => "<div class=\"m-3 icheck-material-green\"><input type=\"checkbox\" checked name=\"adicional_prod\" class=\"adicional\" data-idtipo=\"$id_tipo\" data-idad=\"{$id_adicionais}\" value=\"$id_adicionais\" id=ad_\"$id_adicionais\"><label for=ad_\"{$id_adicionais}\">{$nome_adicional} ({$valor_adicional})</label></div>"));
+             }else{
+              array_push($res->data, array('idtipo'=> $nomeTipoAdicional['id_tipo'], 'adicionais' => "<div class=\"m-3 icheck-material-green\"><input type=\"checkbox\" name=\"adicional_prod\" class=\"adicional\" data-idtipo=\"$id_tipo\" data-idad=\"{$id_adicionais}\" value=\"$id_adicionais\" id=ad_\"$id_adicionais\"><label for=ad_\"{$id_adicionais}\">{$nome_adicional} ({$valor_adicional})</label></div>"));
+             }
+                     
+         
+                
+             }
+      }else{
+        $res->success = false;
+        $res->data = array();
+       
+        echo json_encode($res);
+      }
+
+    }  
+        $res->success = true;
+      
+        echo json_encode($res);
+    }
+  
+    
+   
+  
+  }catch (PDOException $e) {
+    echo "Ocorreu um erro em sua solicitação. Por favor tentar novamente " . $e->getMessage();
+  }
+   
+   
+ }
+
 function carregaProdutos(){
 
     try{
@@ -409,7 +644,7 @@ function carregaProdutos(){
               "cat_prod" => "<td><span>{$catProd}</span></td>", "preco_prod" => "<td><div style=\"position: relative;left: 15px;\"class=\"text-left\"><span>{$precoProd}</span></div></td>", 
               "estoque" => "<td><span>0</span></td>",
               "btn_disponivel" => "<td class=\"col-md-3 col-sm-2  px-6 py-4\"><button  data-url=\"{$site}cadastros\" id=\"{$idButton}\" style=\"{$style}\" value=\"{$value}\" class=\"$classButton\" data-idprod=\"{$id}\">$value</button><span hidden>{$value}</span></td>",
-              "btn_editar" => "<td><a href=\"{$site}cadastros/editar-produto?idprod={$id}\"><button id=\"btn_s\" style=\"width:62px; height:38px; background: #00BB07 \" class=\"aceita_entrega\" data-title=\"Editar\"><span class=\"glyphicon glyphicon-pencil\"></span></button></a></td>",	
+              "btn_editar" => "<td><a href=\"{$site}cadastros/editar-produto&idprod={$id}\"><button id=\"btn_s\" style=\"width:62px; height:38px; background: #00BB07 \" class=\"aceita_entrega\" data-title=\"Editar\"><span class=\"glyphicon glyphicon-pencil\"></span></button></a></td>",	
               "btn_excluir" => "<td><button data-url=\"{$site}cadastros\" data-idprod=\"{$id}\"style=\"width:62px; height:38px;background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important\" type=\"button\" class=\"btn_1 btn-delete deleta_prod\"><span class=\"glyphicon glyphicon-trash\"></span>
               </button></td>"));
        
@@ -606,11 +841,149 @@ try{
   
    
 }
+
+
+
+
+
+
+
+   
+function clonaProduto($playload){
+
+  
+  try{
+       
+    global $lerbanco; 
+    global $deletbanco;
+    global $addbanco;
+  
+  
+    $idItem = $_POST['iditem'];
+    $idusuario   = $_SESSION['userlogin']['user_id'];
+     
+ 
+     
+       
+    
+    if( !empty($idItem) && (int)$idItem) {
+ 
+         
+       $lerbanco->ExeRead('ws_itens', "WHERE user_id = :userid AND id =:iditem", "userid={$idusuario}&iditem={$idItem}");
+        
+        if($lerbanco->getResult()){
+          $sourceProd = $lerbanco->getResult()[0];
+          $sourceProd['nome_item'] =  $sourceProd['nome_item'].' (Clonado) ';
+          unset( $sourceProd['id']);
+        
+          $addbanco->ExeCreate("ws_itens", $sourceProd);
+          if($addbanco->getResult()){
+            
+                  $idProd = $addbanco->getResult();
+                  $lerbanco->ExeRead('ws_produto_adicionais', "WHERE user_id = :userid AND id_produto =:iditem", "userid={$idusuario}&iditem={$idItem}");
+                  if($addbanco->getResult()){
+                        foreach($lerbanco->getResult() as $adicionais){
+                          unset($adicionais['id_item']);
+                          $adicionais['id_produto'] = $idProd;
+                          $addbanco->ExeCreate("ws_produto_adicionais", $adicionais );
+
+                        }
+          
+            
+            
+                      }else{
+
+                          $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+                        
+                          Ocorreu um problema ao clonar o produto, tente novamente!
+                          </div>";
+                      
+                      
+                          $res['success'] = false;
+                          $res['error'] = true;
+                          echo json_encode($res);
+                
+                        }        
+        }else{
+
+          $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+        
+          Ocorreu um problema ao clonar o produto, tente novamente!
+          </div>";
+      
+      
+          $res['success'] = false;
+          $res['error'] = true;
+          echo json_encode($res);
+
+        }     
+        
+              
+       
+            }else{
+
+              $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+            
+              Ocorreu um problema ao clonar o produto, tente novamente!
+              </div>";
+          
+          
+              $res['success'] = false;
+              $res['error'] = true;
+              echo json_encode($res);
+
+            }
+  
+            $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+            
+           Produto clonado com sucesso!
+           </div>";
+       
+       
+           $res['success'] = true;
+           $res['error'] = false;
+           $res['id'] = $idProd;
+           echo json_encode($res);
+           
+      
+      } else{
+
+        $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
+      
+        Ocorreu um problema ao clonar o produto, tente novamente!
+        </div>";
+    
+    
+        $res['success'] = false;
+        $res['error'] = true;
+        echo json_encode($res);
+
+      }  
+      
+      
+    
+    } catch (PDOException $e) {
+        echo "Ocorreu um erro em sua solicitação. Por favor tentar novamente " . $e->getMessage();
+    }
+    
+    
+    
+    
+    
+    
+     
+  }
+ 
  
 $action =  filter_input(INPUT_GET,'action', FILTER_DEFAULT);
 $produtoObj = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
+  //Cadastro Produto - POST
+  //body - action = pc 
+  if(!empty($produtoObj['action']) && (string)$produtoObj['action'] && $produtoObj['action']=='pu'){
+    updateProduto($produtoObj);
 
+ } 
 
   //Cadastro Produto - POST
   //body - action = pc 
@@ -638,6 +1011,17 @@ $produtoObj = filter_input_array(INPUT_POST, FILTER_DEFAULT);
   if(!empty($produtoObj['action']) && (string)$produtoObj['action'] && $produtoObj['action']=='pe' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem']){
 
     deletaProduto($produtoObj);
+}
+
+
+if(!empty($produtoObj['action']) && (string)$produtoObj['action'] && $produtoObj['action']=='uad' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem'] && !empty($produtoObj['idtipos']) && (int)$produtoObj['idtipos']){
+
+  carregaAdcionaisUser($produtoObj);
+}
+
+if(!empty($produtoObj['action']) && (string)$produtoObj['action'] && $produtoObj['action']=='pcl' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem']){
+
+  clonaProduto($produtoObj);
 }
 
 

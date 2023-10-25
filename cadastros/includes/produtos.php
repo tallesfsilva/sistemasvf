@@ -131,17 +131,18 @@ endif;
               <div class="menu-item-pic">
                 <div style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="cursor-pointer w-full box">
                 <div style="display:none" id="show_img_prod">
-                   <img class="cursor-pointer" id="img_prod"/>  
-                     
+                   <img class="cursor-pointer" id="img_prod"/>                      
                 </div>
                
                 <input type="file" name="img_item" id="file-5" class="" data-multiple-caption="{count} files selected" multiple />
                   <label class="cursor-pointer" id="label-file" for="file-5"><img src="<?=URL_IMAGE.'img/upload_product.png'?>"/></label>  
-                   </div>
+                  <div style="position:relative; top: -25px;color:white;font-size:24px;font-weight:unset" class="w-full" style="background:#7233A1; color:white;margin 0 auto;">
+                    <label style="font-weight:unset"  for="file-5">Enviar imagem...</label>
+                </div>     
+                
+                </div>
                   </div>
-                <!-- <div class="w-full" style="background:#7233A1; color:white;margin 0 auto;">
-                <label for="file-5">Clique aqui para adicionar uma foto do produto</label>
-                </div> -->
+               
             </div>
             </div>
        
@@ -280,11 +281,17 @@ endif;
 
 
  <div class="form-group">
-           <div class="add_more_cat">
+           <div class="flex flex-row justify-end add_more_cat">
              <input type="hidden" name="disponivel" value="1">
            
              <input type="hidden" name="action" value="pc">
-             <input type="submit" class="btn_1" value="ADICIONAR ITEM" name="add_item" />
+
+             <div style="padding-right:10px" class="flex">
+                  <a href="<?=$site.'cadastros/'?>produtos">
+                      <button style="background-color: #00BB07;border-radius:3px !important"class="btn_1 btn_s btn-success"  name="sendAddBairro" value="Salvar" type="submit">Salvar</button>
+                  </a>
+                    </div> 
+            
            </div>
          </div>
          </div><!-- End row -->

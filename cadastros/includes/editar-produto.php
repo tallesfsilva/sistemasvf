@@ -22,6 +22,25 @@ if(!empty($logoff) && $logoff == true):
   header("Location: {$site}");
 endif;
 
+
+
+$getIdItem = filter_input(INPUT_GET, 'idprod', FILTER_VALIDATE_INT);
+
+if(!isset($getIdItem)):
+ header("Location: {$site}cadastros/view-item");
+else:
+  $lerbanco->ExeRead("ws_itens", "WHERE user_id = :userid AND id = :aa", "userid={$userlogin['user_id']}&aa={$getIdItem}");
+  if ($lerbanco->getResult()):
+    foreach ($lerbanco->getResult() as $dd):
+      extract($dd);
+    endforeach;
+  else:
+    
+  endif;
+endif;
+
+$idprod = $id;
+
 ?>
 <script src="<?=$site;?>js/MSFmultiSelect.js"></script>
 
@@ -60,6 +79,16 @@ endif;
     background-color: #ffffff;
     cursor: pointer;
   }
+
+  .btns-lote:hover{
+
+background: #d19898 !important;
+}
+
+#btn_clonar:hover{
+background: #FFC00082 !important;
+}
+
   .msf_multiselect_container textarea{
     resize: none;
     padding-left: 2px;
@@ -104,7 +133,7 @@ endif;
 <div style="background-color:#ffffff;color:black" class="container p-0 m-0">
 									
                                     <div  class="config-header w-full text-bold text-center text-white">
-                                                    <p>Cadastro de Produtos</p>
+                                                    <p><?= $nome_item ?></p>
                                             </div>	
                                    
         
@@ -113,15 +142,15 @@ endif;
  
     <div class="indent_title_in">
     
-      <h3>Cadastrar produto:</h3>
-      <p>Cadastre os produtos que serão exibidos em sua loja!</p>
+      <h3>Editar produto:</h3>
+      <p>Edite seus os produtos que serão exibidos em sua loja!</p>
     </div>
     <?php
     // require('includes/configItens.php');
     ?>
 
     <div id="msg"></div>
-    <form method="post" data-url="<?=$site?>cadastros" id="cadProduto" enctype="multipart/form-data">
+    <form data-url="<?=$site?>cadastros" id="updateProduto" enctype="multipart/form-data">
       <div class="wrapper_indent">
        
         
@@ -129,19 +158,32 @@ endif;
             <div class="col-md-4">
               <div class="flex flex-col text-center">
               <div class="menu-item-pic">
+                <?php 
+
+             
+              if (!empty($img_item) && $img_item != "" && file_exists(UPLOAD_PATH."/uploads"."/".$img_item) && !is_dir(UPLOAD_PATH."/uploads"."/".$img_item)){
+                $imgProd =  URL_IMAGE.$img_item;
+                $flag = true;
+                $styleImg= "margin: 0 auto; align-items: center;display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;height: 340px;";
+              }else{
+                $styleImg= "";
+                $imgProd =  "";
+                $flag = false;
+              };   
+            ?>
                 <div style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="cursor-pointer w-full box">
-                <div style="display:none" id="show_img_prod">
-                   <img id="img_prod"/>  
-                     
+                 <div  id="show_img_prod">
+                   <img style="<?= !empty($styleImg) ?$styleImg : ""  ?>" class="cursor-pointer" id="img_prod"  src="<?=!empty($imgProd) ? $imgProd : "" ?>"/>                       
                 </div>
                
                 <input type="file" name="img_item" id="file-5" class="" data-multiple-caption="{count} files selected" multiple />
-                  <label class="cursor-pointer" id="label-file" for="file-5"><img src="<?=URL_IMAGE.'img/upload_product.png'?>"/></label>  
-                   </div>
+                  <label style="display: <?= $flag ? "none" : ""?>" class="cursor-pointer" id="label-file" for="file-5"><img src="<?=URL_IMAGE.'img/upload_product.png'?>"/></label>  
+                  <div id="label-icon" style="position:relative; top: -25px;color:white;font-size:24px;font-weight:unset" class="w-full" style="background:#7233A1; color:white;margin 0 auto;">
+                    <label   style="font-weight:unset"  for="file-5">Enviar imagem...</label>
+                </div>   
+                </div>
                   </div>
-                <!-- <div class="w-full" style="background:#7233A1; color:white;margin 0 auto;">
-                <label for="file-5">Clique aqui para adicionar uma foto do produto</label>
-                </div> -->
+              
             </div>
             </div>
        
@@ -151,7 +193,7 @@ endif;
                <div class="col-md-12">
                  <div class="form-group">
                    <label>Nome do produto:</label>
-                   <input placeholder="Nome do item" type="text"  name="nome_item" class="form-control">
+                   <input placeholder="Nome do item"  value="<?=$nome_item;?>" type="text"  name="nome_item" class="form-control">
                  </div>
                </div>
                   </div>
@@ -159,7 +201,7 @@ endif;
                <div class="col-md-6">
                 <div class="form-group">
                   <label>Preço:</label>
-                  <input type="text" data-mask="#.##0,00" data-mask-reverse="true" maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" name="preco_item" class="form-control" placeholder="R$ 0,00" />
+                  <input type="text" value="<?=$preco_item;?>" data-mask="#.##0,00" data-mask-reverse="true" maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" name="preco_item" class="form-control" placeholder="R$ 0,00" />
                 </div>
               </div>
             </div>
@@ -167,7 +209,7 @@ endif;
             <div class="col-md-12">
             <div class="form-group">
              <label>Descrição do produto:</label>
-             <textarea placeholder="Escreva uma descrição do item..." style="resize:none;" name="descricao_item" class="form-control" rows="2"></textarea>
+             <textarea placeholder="Escreva uma descrição do item..." style="resize:none;" name="descricao_item" class="form-control" rows="2"><?=$descricao_item;?></textarea>
            </div>
            </div>
             </div>
@@ -179,49 +221,73 @@ endif;
              <div class="m-3 icheck-material-green">
 						<input type="checkbox" name="dia_prod" value="todos_checked" id="op_todos" />
 			             <label for="op_todos">Todos</label>
-			            </div>   
-             
+			            </div>  
+                     
+                
+                        
              <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="domingo" id="op_domingo" />
+						    <input type="checkbox"  class="dias_prod" name="dia_prod" value="domingo" id="op_domingo" />
 			             <label for="op_domingo">Domingo</label>
 			            </div>
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="segunda" id="op_segunda" />
-			    <label for="op_segunda">Segunda</label>
-			</div>
+						<input type="checkbox"  class="dias_prod"  name="dia_prod" value="segunda" id="op_segunda" />
+			          <label for="op_segunda">Segunda</label>
+			      </div>
 
             <div class="m-3 icheck-material-green">
-				  <input type="checkbox" name="dia_prod" value="terca" id="op_terca" />
+				  <input type="checkbox" class="dias_prod" name="dia_prod"  value="terca" id="op_terca" />
 			    <label for="op_terca">Terça</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="quarta" id="op_quarta" />
+						<input type="checkbox" class="dias_prod" name="dia_prod" value="quarta" id="op_quarta" />
 			    <label for="op_quarta">Quarta</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="quinta" id="op_quinta" />
+						<input type="checkbox" class="dias_prod" name="dia_prod" value="quinta" id="op_quinta" />
 			    <label for="op_quinta">Quinta</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="dia_prod" value="sexta" id="op_sexta" />
+						<input type="checkbox" class="dias_prod" name="dia_prod"  value="sexta" id="op_sexta" />
 			    <label for="op_sexta">Sexta</label>
 			</div>
  
 
             <div class="m-3 icheck-material-green">
-						<input type="checkbox" name="sabado" value="true" id="op_sabado" />
+						<input type="checkbox" class="dias_prod" name="dia_prod" value="true" id="op_sabado" />
 			    <label for="op_sabado">Sábado</label>
 			</div>
-        </div>
+        
+                    <?php
+                  
+                
+
+        ?>
+          <script>
+               
+
+                      let qt =  $('.dias_prod').length;
+                      let checkBox =     $('.dias_prod');
+           
+                      for(let i=0;i<qt;i++){
+                        
+                        if("<?=$dia_semana?>".includes($(checkBox[i]).val())){                       
+                          $(checkBox[i]).prop('checked', true);
+                        }
+                    }
 
 
+                 
+
+
+                  </script>
+</div>
 </div>
           </div>
             </div>
@@ -246,18 +312,23 @@ endif;
                 <div class="col-md-12">
                 <div class="form-group">
                     <label><span style="color: red;"></span> Categoria</label>        
-                    <select required class="form-control" name="id_cat">
+                    <select id="categoria_produto" data-url="<?=$site?>cadastros/"data-idprod="<?=$id?>" class="form-control" name="id_cat">
                             <?php
+                            
+                            $categoriaProd = $lerbanco->getResult()[0];
+                            $variaveloption = "<option value=\"{$categoriaProd['id']}\">{$categoriaProd['nome_cat']}</option>";
+
                             $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid", "userid={$userlogin['user_id']}");
                             if (!$lerbanco->getResult()):
                             echo "<option value=\"\">Adicione uma categoria</option>";
                             else:
-
-                            echo $variaveloption;
+                            $lerbanco->ExeRead('ws_cat', "WHERE user_id = :userid AND id != :idcatt", "userid={$userlogin['user_id']}&idcatt={$categoriaProd['id']}");
+                            
                             foreach ($lerbanco->getResult() as $cat):
                                 extract($cat);
                                 echo "<option value=\"{$id}\">{$nome_cat}</option>";
                             endforeach;
+                            echo $variaveloption;
                             endif;
                              ?>
                          </select>
@@ -265,13 +336,18 @@ endif;
                     
                  </div>
                  </div>
+
                  <div class="col-md-12">
-                    <div style="display:none" id="title_tipo" class="indent_title_in">
+                    <div id="title_tipo" class="indent_title_in">
                         <h3>Tipos de Adicionais</h3>
                     </div>
+                          
+                
+                 
                 <div class="form-group">
-                    <div style="display:none" id="container_tipos" class="flex flex-row w-full">
-
+                    <div id="container_tipos" class="flex flex-row w-full">
+                       
+    
                     </div>
                     
                  </div>
@@ -281,10 +357,14 @@ endif;
             <div class="col-md-12">
                     
                 <div class="form-group">           
-                    <div id="container_adicionais"></div>                         
+                    <div id="container_adicionais">
+           
+                    </div>                         
                 </div>
 
             </div>
+
+             
 </div>
 
            
@@ -292,41 +372,60 @@ endif;
  
  </div><!-- End strip_menu_items -->
 
-
+ </form>
  <div class="form-group">
-           <div class="add_more_cat">
-             <input type="hidden" name="disponivel" value="1">
-           
-             <input type="hidden" name="action" value="pc">
-             <input type="submit" class="btn_1" value="ADICIONAR ITEM" name="add_item" />
-           </div>
+<?php
+
+if($disponivel && (int)$disponivel==1) { 
+  $idButton = "btn_s";
+  $classButton = "aceita_entrega atualizar_prod";
+  $style= "width:62px; height:38px;background-color: #00BB07";
+  $value = "Sim";
+  }else{
+  $idButton = "btn_n";
+  $classButton = "aceita_entrega atualizar_prod";
+  $style= "width:62px; height:38px;background-color: #A70000";
+  $value = "Não";
+    }
+
+?>
+<span>Disponível?</span>
+<div class="row">
+<div class="col-md-1">
+
+    <button  data-url="<?=$site."cadastros"?>" id="<?=$idButton ?>" style="<?=$style?>" value="<?=$value?>" class="<?=$classButton?>" data-idprod="<?=$idprod?>"><?=$value?></button><span hidden><?=$value?></span>
+ </div>
+ <div class="col-md-11">
+              <div class="flex flex-row justify-end">
+                 
+            
+                  <div style="padding-right:10px" class="flex">
+                 
+                      <button  data-idprod="<?=$idprod?>" data-url="<?=$site."cadastros"?>" id="salvar_produto" style="background-color: #00BB07;border-radius:3px !important"class="btn_1 btn_s btn-success"  name="sendAddBairro" value="Salvar" type="submit">Salvar</button>
+                
+                    </div> 
+
+                  <div style="padding-right:10px" class="flex">
+                      <button id="btn_clonar" data-idprod="<?=$idprod?>" data-url="<?= $site?>cadastros"  style="background-color: #FFC000;border-radius:3px !important"class="btn_1 btn-success">Clonar</button>
+                  </div>
+
+                  <div style="padding-right:10px" class="flex">
+                  <button data-url="<?=$site.'cadastros'?>" data-idprod="<?=$idprod?>"style="background-color: #A70000;border-color: #A70000;border-radius: 4px !important" type="button" class="btn_1 btn-delete deleta_prod">Excluir</span>
+                      
+                  </div>
+                  </div>
+
+               </div>
+        
+             </div>
+          
          </div>
          </div><!-- End row -->
-</form>
+
  
 </section><!-- End section 2 -->
 </div><!-- End wrapper_indent -->
 <script type="module" src="<?= $site;?>cadastros/js/produtos/main.js"></script>
 <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
-
-<script>
-  var select=new MSFmultiSelect(
-    document.querySelector('#multiselect'),
-    {
-
-      onChange:function(checked,value,instance){
-        console.log(checked,value,instance);
-
-
-      },
-
-
-
-      selectAll:true,  
-      appendTo:'#myselect',
-    //readOnly:true
-}
-);
-</script>
-
+ 
 
