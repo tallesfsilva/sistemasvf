@@ -1,11 +1,12 @@
 <?php
  
+ 
 
 $site = HOME;
 $loginURL = LOGIN;
 
 $login = new Login(3); 
- 
+
  
 
 if(!$login->CheckLogin()):
@@ -69,6 +70,10 @@ $updatebanco = new Update();
 
       background: #d19898 !important;
     }
+    .lightbox{
+    cursor: unset !important;
+  }
+
 
     #btn_inativar:hover{
       background: #FFC00082 !important;
@@ -154,7 +159,7 @@ $updatebanco = new Update();
             <div class="col-md-6">
                 <div class="icheck-material-green">	        
                       <input type="checkbox" id="produtos_inativos" name="check_produtos_inativos" class="form-control">
-                      <label for="produtos_inativos">Apenas produtos inativos</label>	
+                      <label for="produtos_inativos">Apenas produtos indisponíveis</label>	
                 </div>
 
              </div>
@@ -208,8 +213,8 @@ $updatebanco = new Update();
                 <th scope="col" class="text-center px-6 py-3" data-sortable="false">Disponível</th>                  
                                
               
-                <th scope="col" class="px-6 py-3" data-sortable="false">Editar</th>
-                <th scope="col" class="px-6 py-3" data-sortable="false">Excluir</th>
+                <th scope="col" class="text-center px-6 py-3" data-sortable="false">Editar</th>
+                <th scope="col" class="text-center px-6 py-3" data-sortable="false">Excluir</th>
               </tr>
             </thead>
             <tbody id="body-products"></tbody>

@@ -34,14 +34,25 @@ export const prod = {
             {data: 'check_prod'}, 
             {data: 'img_prod'},         
             {data: 'nome_produto'},   
-            {data: 'cat_prod'},           
-           
+            {data: 'cat_prod'},         
             {data: 'preco_prod'},
             {data: 'estoque'},
             {data: 'btn_disponivel'},
             {data: 'btn_editar'},
             {data: 'btn_excluir'},
             
+        ],
+        "searchCols": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            {"search" : 'Sim'},
+            null,
+            null,
+      
         ],
         createdRow: (row) => {            
                 $(row).addClass('border-b text-center');
@@ -53,7 +64,7 @@ export const prod = {
         
         columnDefs: [
             { orderable: true, targets: 0 },  
-            {target: 1, className : "td-img"}   , 
+            {target: 1, className : "td-img"}  
             
         ],
 
@@ -64,9 +75,10 @@ export const prod = {
             $('#taxa-entrega').show();
             api.columns.adjust();
           },
+          
        
     }),
- 
+   
     checkDiasSemana : () => {
 
         $('#op_todos').change(function(){
@@ -121,7 +133,7 @@ export const prod = {
 
            
     })
-    
+    //Mover para arquivo específico da página
     $(document).ready(function(){
         
             let countCheckBox = $('input[name=tipo_adicional').length;
@@ -174,13 +186,13 @@ export const prod = {
 
            
     })
-    
+    //Mover para arquivo específico da página 
     $(document).ready(function(){
 
   
  
         let checkTodos =  $('.adicional_todos');
-        console.log(checkTodos);
+       
         let idtipos = [];
         for(let i=0;i<checkTodos.length;i++){
             idtipos.push($(checkTodos[i]).data('idtipo'));
@@ -506,10 +518,12 @@ export const prod = {
            let idCat = $('select[name=id_cat').val();
            let descItem = $('textarea[name=descricao_item').val();
            let imgItem = $('#file-5')[0] ? $('#file-5')[0].files[0] : "";
-            console.log(imgItem)
+           let removImg = $('#file-5').data('rmv');
+            console.log(removImg);
            let formData = new FormData();
            formData.append('id', idProd);
            (imgItem!=undefined && imgItem != null) ? formData.append('img_item', imgItem) : "";
+           (removImg == true && removImg != undefined && imgItem==undefined && imgItem == null) ?  formData.append('img_item', "") : "";
            formData.append('action', 'pu');
            //formData.append('disponivel', '1');
            formData.append('nome_item', nomeItem);
@@ -539,7 +553,7 @@ export const prod = {
                           
                             $('#msg').fadeOut();
                         },3000)
-                        window.location.assign(url+'/view-item') ;       
+                       // window.location.assign(url+'/view-item') ;       
                      
                     }else{
                         $('#msg').html(j.msg);  
@@ -582,9 +596,10 @@ export const prod = {
           
             if(!$(this).is(':checked')){           
                
-                prod.table_prod.columns().search('').draw();
+                prod.table_prod.columns(6).search('Sim').draw();
                                   
             }else {
+                //prod.table_prod.column(6).data().filter(function(value, index){ return value == "Não"}.draw())
                 prod.table_prod.column(6).search('Não').draw();               
             }                
        })      
@@ -757,7 +772,7 @@ export const prod = {
 
         $('#btn_excluir').click(function(){
 
-            var rows = $('#produtos tr :checked');
+            var rows = $('#produtos tbody :checked');
             
             var ids = [];
              
@@ -856,12 +871,14 @@ export const prod = {
                 
                 var tmppath = URL.createObjectURL(event.target.files[0]);  
              
-          
+                $("#img_prod").attr("src",  "");
                 $("#img_prod").attr("src",  tmppath.toString());
                 $("#img_prod").attr("style", "margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;height: 340px;");    
                 $('#show_img_prod').show();
                 $("#label-file").hide();
                 $("#label-icon").hide();
+                
+                $('#container-img').removeClass('container-hover')
             });
 
                     $("#show_img_prod").on('click', function(e){
@@ -869,10 +886,33 @@ export const prod = {
                         $('#file-5').click();
 
                     })
+
+                    $("#remove-img").on('click', function(e){
+
+
+                        $("#img_prod").attr("src",  "");
+                        $("#img_prod").attr("style", "");
+                        $('#show_img_prod').hide();
+                        $("#label-file").show();
+                        $("#label-icon").show();
+                        $('#label-text').show();
+                        $('#container-img').addClass('container-hover')
+                        $("#file-5").attr('data-rmv', "true");
+
+                        e.stopPropagation();
+
+                    })
             
         
         
-        
+                    $(document).ready(function(){
+
+                        if($('#img_prod').attr('src') == ""){
+                            $('#show_img_prod').hide();
+                        }
+
+
+                    })
         
         
         
@@ -1103,7 +1143,7 @@ export const prod = {
         prod.atualizarProd();
         prod.delete();
         prod.checkDiasSemana();
-       
+        
       
        //ad.create();
     },

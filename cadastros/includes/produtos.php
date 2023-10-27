@@ -1,5 +1,6 @@
 <?php
-
+ 
+ 
 $login = new Login(3);
 
 if(!$login->CheckLogin()):
@@ -8,7 +9,7 @@ if(!$login->CheckLogin()):
 else:
   $userlogin = $_SESSION['userlogin'];
 endif;
-
+ 
 $logoff = filter_input(INPUT_GET, 'logoff', FILTER_VALIDATE_BOOLEAN);
 
 if(!empty($logoff) && $logoff == true):
@@ -37,6 +38,12 @@ endif;
   }
 
   
+  #container-img:hover{
+
+opacity:0.40 !important;
+
+}
+
 
 #img-container{
       display:none;
@@ -46,37 +53,7 @@ endif;
       text-decoration-line: none !important;
   background: #d19898 !important
     }
-
  
-  .msf_multiselect li:hover, .sb_multiselect li:active, .sb_multiselect li:focus{
-    background-color: #e5e5e5;
-  }
-  .msf_multiselect li.active{
-    background-color: #e5e5e5;
-      
-  }
-  .msf_multiselect li{
-    padding-left: 4px;
-    background-color: #ffffff;
-    cursor: pointer;
-  }
-  .msf_multiselect_container textarea{
-    resize: none;
-    padding-left: 2px;
-    padding-top: 2px;
-    overflow: auto;
-  }
-  .msf_multiselect_container .msf_multiselect{
-    height: 200px;
-    overflow: auto;
-    background-color: white;
-    display: grid;
-    text-align: left; 
-  }
-  .msf_multiselect label{
-    display: block;
-    margin-bottom: 1px;
-  }
   .item-adicional, #container_tipos{
     border: 1px solid rgb(217, 217, 217);
    
@@ -91,6 +68,7 @@ endif;
   z-index: -1
   }
 
+ 
   :focus-visible {
   outline: none !important;
 }
@@ -129,7 +107,7 @@ endif;
             <div class="col-md-4">
               <div class="flex flex-col text-center">
               <div class="menu-item-pic">
-                <div style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="cursor-pointer w-full box">
+                <div id="container-img" style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="cursor-pointer w-full box">
                 <div style="display:none" id="show_img_prod">
                    <img class="cursor-pointer" id="img_prod"/>                      
                 </div>
@@ -137,7 +115,7 @@ endif;
                 <input type="file" name="img_item" id="file-5" class="" data-multiple-caption="{count} files selected" multiple />
                   <label class="cursor-pointer" id="label-file" for="file-5"><img src="<?=URL_IMAGE.'img/upload_product.png'?>"/></label>  
                   <div style="position:relative; top: -25px;color:white;font-size:24px;font-weight:unset" class="w-full" style="background:#7233A1; color:white;margin 0 auto;">
-                    <label style="font-weight:unset"  for="file-5">Enviar imagem...</label>
+                    <label id="label-icon" style="font-weight:unset"  for="file-5">Enviar imagem...</label>
                 </div>     
                 
                 </div>
@@ -151,7 +129,7 @@ endif;
              <div class="row">
                <div class="col-md-12">
                  <div class="form-group">
-                   <label>Nome do produto:</label>
+                   <label>Nome do produto:<span style="color:red">*</span></label>
                    <input placeholder="Nome do item" type="text"  name="nome_item" class="form-control">
                  </div>
                </div>
@@ -159,7 +137,7 @@ endif;
                   <div class="row">
                <div class="col-md-6">
                 <div class="form-group">
-                  <label>Preço:</label>
+                  <label>Preço:<span style="color:red">*</span></label>
                   <input type="text" data-mask="#.##0,00" data-mask-reverse="true" maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" name="preco_item" class="form-control" placeholder="R$ 0,00" />
                 </div>
               </div>

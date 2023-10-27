@@ -1,5 +1,6 @@
 <?php
-
+ 
+ 
 $login = new Login(3);
 
 if(!$login->CheckLogin()):
@@ -45,17 +46,28 @@ $idprod = $id;
 <script src="<?=$site;?>js/MSFmultiSelect.js"></script>
 
 <style type="text/css">
-  .msf_multiselect_container .msf_multiselect {
-    border: 1px solid #e4e4e4;
-    list-style-type:none;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    z-index: 240;
-    width: 92%;
-  }
+   
+  #remove-img:hover{
 
-  
+    opacity:0.40 !important;
+
+}
+
+.container-hover:hover{
+  opacity:0.40 !important;
+}
+
+#img-container{
+      display:none;
+    }
+
+
+
+ 
+
+ 
+
+ 
 
 #img-container{
       display:none;
@@ -67,18 +79,7 @@ $idprod = $id;
     }
 
  
-  .msf_multiselect li:hover, .sb_multiselect li:active, .sb_multiselect li:focus{
-    background-color: #e5e5e5;
-  }
-  .msf_multiselect li.active{
-    background-color: #e5e5e5;
-      
-  }
-  .msf_multiselect li{
-    padding-left: 4px;
-    background-color: #ffffff;
-    cursor: pointer;
-  }
+   
 
   .btns-lote:hover{
 
@@ -88,24 +89,7 @@ background: #d19898 !important;
 #btn_clonar:hover{
 background: #FFC00082 !important;
 }
-
-  .msf_multiselect_container textarea{
-    resize: none;
-    padding-left: 2px;
-    padding-top: 2px;
-    overflow: auto;
-  }
-  .msf_multiselect_container .msf_multiselect{
-    height: 200px;
-    overflow: auto;
-    background-color: white;
-    display: grid;
-    text-align: left; 
-  }
-  .msf_multiselect label{
-    display: block;
-    margin-bottom: 1px;
-  }
+ 
   .item-adicional, #container_tipos{
     border: 1px solid rgb(217, 217, 217);
    
@@ -119,14 +103,42 @@ background: #FFC00082 !important;
   position: absolute;
   z-index: -1
   }
-
+.remove-icon{
+  position: absolute;
+  right: 10px;
+  margin: 10px;
+  font-size: 25px;
+ 
+  z-index: 1999;
+  color: white;
+  background: #00000024;
+  border-radius: 10px;
+  border: 2px solid;
+    border-top-color: currentcolor;
+    border-right-color: currentcolor;
+    border-bottom-color: currentcolor;
+    border-left-color: currentcolor;
+  border-color: transparent;
+  display: flex;
+  align-items: center;
+  width: 60px;
+  height: 50px;
+  justify-content: center;
+}
   :focus-visible {
   outline: none !important;
 }
 
 </style>
 
+<script>
 
+  $(document).ready(function(){
+
+    $('#container-img').removeClass('container-hover')
+  })
+
+</script>
 
 <div  style="padding-right: 0px;" class="container-main-page flex h-full justify-center items-center p-4">
 	
@@ -171,15 +183,21 @@ background: #FFC00082 !important;
                 $flag = false;
               };   
             ?>
-                <div style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="cursor-pointer w-full box">
-                 <div  id="show_img_prod">
-                   <img style="<?= !empty($styleImg) ?$styleImg : ""  ?>" class="cursor-pointer" id="img_prod"  src="<?=!empty($imgProd) ? $imgProd : "" ?>"/>                       
+                <div id="container-img" style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="container-hover cursor-pointer w-full box">
+                 <div   class="flex flex-row" id="show_img_prod">
+                        <div class="w-full">                          
+                        <img style="<?= !empty($styleImg) ?$styleImg : ""  ?>" class="cursor-pointer" id="img_prod"  src="<?=!empty($imgProd) ? $imgProd : "" ?>"/>                       
+                        </div>
+                        <div id="remove-img"  class="remove-icon h-1/2">
+                        <span  class="glyphicon glyphicon-trash"></span>
+                  
+                        </div>   
                 </div>
                
                 <input type="file" name="img_item" id="file-5" class="" data-multiple-caption="{count} files selected" multiple />
                   <label style="display: <?= $flag ? "none" : ""?>" class="cursor-pointer" id="label-file" for="file-5"><img src="<?=URL_IMAGE.'img/upload_product.png'?>"/></label>  
                   <div id="label-icon" style="position:relative; top: -25px;color:white;font-size:24px;font-weight:unset" class="w-full" style="background:#7233A1; color:white;margin 0 auto;">
-                    <label   style="font-weight:unset"  for="file-5">Enviar imagem...</label>
+                    <label id="label-text" style="display: <?= $flag ? "none" : ""?>" style="font-weight:unset"  for="file-5">Enviar imagem...</label>
                 </div>   
                 </div>
                   </div>
@@ -192,7 +210,7 @@ background: #FFC00082 !important;
              <div class="row">
                <div class="col-md-12">
                  <div class="form-group">
-                   <label>Nome do produto:</label>
+                   <label>Nome do produto:<span style="color:red">*</span></label>
                    <input placeholder="Nome do item"  value="<?=$nome_item;?>" type="text"  name="nome_item" class="form-control">
                  </div>
                </div>
@@ -200,7 +218,7 @@ background: #FFC00082 !important;
                   <div class="row">
                <div class="col-md-6">
                 <div class="form-group">
-                  <label>Preço:</label>
+                  <label>Preço:<span style="color:red">*</span></label>
                   <input type="text" value="<?=$preco_item;?>" data-mask="#.##0,00" data-mask-reverse="true" maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" name="preco_item" class="form-control" placeholder="R$ 0,00" />
                 </div>
               </div>
@@ -374,28 +392,9 @@ background: #FFC00082 !important;
 
  </form>
  <div class="form-group">
-<?php
-
-if($disponivel && (int)$disponivel==1) { 
-  $idButton = "btn_s";
-  $classButton = "aceita_entrega atualizar_prod";
-  $style= "width:62px; height:38px;background-color: #00BB07";
-  $value = "Sim";
-  }else{
-  $idButton = "btn_n";
-  $classButton = "aceita_entrega atualizar_prod";
-  $style= "width:62px; height:38px;background-color: #A70000";
-  $value = "Não";
-    }
-
-?>
-<span>Disponível?</span>
-<div class="row">
-<div class="col-md-1">
-
-    <button  data-url="<?=$site."cadastros"?>" id="<?=$idButton ?>" style="<?=$style?>" value="<?=$value?>" class="<?=$classButton?>" data-idprod="<?=$idprod?>"><?=$value?></button><span hidden><?=$value?></span>
- </div>
- <div class="col-md-11">
+ 
+ 
+ <div class="col-md-12">
               <div class="flex flex-row justify-end">
                  
             
