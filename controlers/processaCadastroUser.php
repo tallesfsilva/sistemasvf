@@ -4,12 +4,13 @@ session_start();
 require('../_app/Config.inc.php');
 require('../_app/Mobile_Detect.php');
  
-$site = HOME;
+$login = LOGIN;
 
 $emailUser  = MAILUSER;
 $senhaEmail = MAILPASS;
 $portaEmail = MAILPORT;
 $hostEmail  = MAILHOST;
+ 
 
 
 $inputDadosCadastro = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -200,7 +201,7 @@ try{
 						}else{
 								$res['message'] = "Seu cadastro foi criado. Você receberá um email com seus dados!";
 								$res['success'] = true;
-								$res['url'] = $site."login/";
+								$res['url'] = $login;
 								echo json_encode($res);
 							//echo "Erro no envio do e-mail: " . $Mailer->ErrorInfo;
 						}

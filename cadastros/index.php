@@ -92,7 +92,7 @@ if(empty($_SESSION['userlogin'])){
 		<link href="<?= $site; ?>css/reset.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/datepicker.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/style-bt-file.css" rel="stylesheet">
- 
+		<link href="<?= $site; ?>css/jquery.peekabar.min.css" rel="stylesheet">
 
  
 <!-- BASE CSS -->
@@ -660,7 +660,7 @@ $(document).ready(function () {
 <script src="<?= $site; ?>js/parallax.min.js"></script>
 <script src="<?= $site; ?>js/printThis.js"></script>
 <script src="<?=$site;?>js/suportewats.js"></script>
- 
+<script src="<?=$site;?>js/jquery.peekabar.min.js"></script>
 
 		</body> 
 </html>

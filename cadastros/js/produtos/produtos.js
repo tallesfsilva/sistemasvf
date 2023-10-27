@@ -1,5 +1,6 @@
 'use-strict'
 
+import{ noti } from '../notification.js'
 
 export const prod = {
 
@@ -553,7 +554,7 @@ export const prod = {
                           
                             $('#msg').fadeOut();
                         },3000)
-                       // window.location.assign(url+'/view-item') ;       
+                       window.location.assign(url+'/view-item') ;       
                      
                     }else{
                         $('#msg').html(j.msg);  
@@ -625,21 +626,12 @@ export const prod = {
                 let j = JSON.parse(data);
                 $('#msg').html("");
                 $('#msg').show();
-                if(j.success && !j.error && j.id){
-                    $('#msg').html(j.msg);  
-                    setTimeout(function(){              
-                      
-                        $('#msg').fadeOut();
-                    },3000)
-                    window.location.assign(url+'/editar-produto&idprod='+j.id) ; 
-                            
+                if(j.success && !j.error && j.id){                   
+                    window.location.assign(url+'/editar-produto&idprod='+j.id) ;                            
                  
-                }else{
-                    $('#msg').html(j.msg);  
-                    setTimeout(function(){                        
-                     
-                        $('#msg').fadeOut();
-                    },3000)
+                }else if(!j.success && j.error){
+                    noti.init(j.error, j.msg)           
+                    
                 }                      
                  
               }
@@ -878,7 +870,9 @@ export const prod = {
                 $("#label-file").hide();
                 $("#label-icon").hide();
                 
-                $('#container-img').removeClass('container-hover')
+                $('#container-img').removeClass('container-hover');
+                $(this).val(null);
+           
             });
 
                     $("#show_img_prod").on('click', function(e){
@@ -905,15 +899,7 @@ export const prod = {
             
         
         
-                    $(document).ready(function(){
-
-                        if($('#img_prod').attr('src') == ""){
-                            $('#show_img_prod').hide();
-                        }
-
-
-                    })
-        
+                     
         
         
       

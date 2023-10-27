@@ -938,7 +938,18 @@ function clonaProduto($playload){
           $sourceProd = $lerbanco->getResult()[0];
           $sourceProd['nome_item'] =  $sourceProd['nome_item'].' (Clonado) ';
           unset( $sourceProd['id']);
+
+          $lerbanco->ExeRead('ws_itens', "WHERE user_id = :userid AND nome_item =:nomeitem", "userid={$idusuario}&nomeitem={$sourceProd['nome_item'] }");
         
+        if($lerbanco->getResult()){
+
+            $res['msg'] = "Já existe um produto com esse nome!";
+            $res['success'] = false;
+            $res['error'] = true;
+          echo json_encode($res);
+
+          }else{
+
           $addbanco->ExeCreate("ws_itens", $sourceProd);
           if($addbanco->getResult()){
             
@@ -952,7 +963,16 @@ function clonaProduto($playload){
 
                         }
           
-            
+                        $res['msg']=  "Produto clonado com sucesso!";       
+                      
+                    
+                    
+                        
+                        $res['success'] = true;
+                        $res['error'] = false;
+                        $res['id'] = $idProd;
+                        echo json_encode($res);
+                        
             
                       }else{
 
@@ -980,7 +1000,7 @@ function clonaProduto($playload){
           echo json_encode($res);
 
         }     
-        
+      }
               
        
             }else{
@@ -997,17 +1017,7 @@ function clonaProduto($playload){
 
             }
   
-            $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-            
-           Produto clonado com sucesso!
-           </div>";
-       
-       
-           $res['success'] = true;
-           $res['error'] = false;
-           $res['id'] = $idProd;
-           echo json_encode($res);
-           
+          
       
       } else{
 

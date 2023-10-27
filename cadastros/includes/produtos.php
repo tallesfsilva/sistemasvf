@@ -38,12 +38,15 @@ endif;
   }
 
   
-  #container-img:hover{
+  #remove-img:hover{
 
 opacity:0.40 !important;
 
 }
 
+.container-hover:hover{
+opacity:0.40 !important;
+}
 
 #img-container{
       display:none;
@@ -68,13 +71,47 @@ opacity:0.40 !important;
   z-index: -1
   }
 
+
+.remove-icon{
+  position: absolute;
+  right: 10px;
+  margin: 10px;
+  font-size: 25px;
+ 
+  z-index: 1999;
+  color: white;
+  background: #00000024;
+  border-radius: 10px;
+  border: 2px solid;
+    border-top-color: currentcolor;
+    border-right-color: currentcolor;
+    border-bottom-color: currentcolor;
+    border-left-color: currentcolor;
+  border-color: transparent;
+  display: flex;
+  align-items: center;
+  width: 60px;
+  height: 50px;
+  justify-content: center;
+}
+
  
   :focus-visible {
   outline: none !important;
 }
 
 </style>
+<script>
 
+  $(document).ready(function(){
+
+    if($('#show_img_prod').is(':visible')){
+      $('#container-img').removeClass('container-hover')
+    }
+   
+  })
+
+</script>
 
 
 <div  style="padding-right: 0px;" class="container-main-page flex h-full justify-center items-center p-4">
@@ -107,9 +144,15 @@ opacity:0.40 !important;
             <div class="col-md-4">
               <div class="flex flex-col text-center">
               <div class="menu-item-pic">
-                <div id="container-img" style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="cursor-pointer w-full box">
-                <div style="display:none" id="show_img_prod">
-                   <img class="cursor-pointer" id="img_prod"/>                      
+                <div id="container-img" style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="container-hover cursor-pointer w-full box">
+                <div   style="display:none !important;" class="flex flex-row" id="show_img_prod">
+                        <div class="w-full">                          
+                        <img class="cursor-pointer" id="img_prod"  src=""/>                       
+                        </div>
+                        <div id="remove-img"  class="remove-icon h-1/2">
+                        <span  class="glyphicon glyphicon-trash"></span>
+                  
+                        </div>   
                 </div>
                
                 <input type="file" name="img_item" id="file-5" class="" data-multiple-caption="{count} files selected" multiple />

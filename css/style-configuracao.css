@@ -68,7 +68,12 @@ margin-right: 20px;
 margin-bottom: 5px;
 }
 
-
+.notication-msg{
+	font-size:20px;
+	color:white;
+	z-index: 9999;
+	font-weight: bolder;
+  }
 .new-menu-first-row{
 	 
  

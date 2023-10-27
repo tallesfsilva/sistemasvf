@@ -135,7 +135,10 @@ background: #FFC00082 !important;
 
   $(document).ready(function(){
 
-    $('#container-img').removeClass('container-hover')
+    if($('#show_img_prod').is(':visible')){
+      $('#container-img').removeClass('container-hover')
+    }
+   
   })
 
 </script>
@@ -184,7 +187,7 @@ background: #FFC00082 !important;
               };   
             ?>
                 <div id="container-img" style="margin: 0 auto;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="container-hover cursor-pointer w-full box">
-                 <div   class="flex flex-row" id="show_img_prod">
+                 <div   style="display:<?= $flag == true ? "flex" : "none !important;" ?>"class="flex flex-row" id="show_img_prod">
                         <div class="w-full">                          
                         <img style="<?= !empty($styleImg) ?$styleImg : ""  ?>" class="cursor-pointer" id="img_prod"  src="<?=!empty($imgProd) ? $imgProd : "" ?>"/>                       
                         </div>

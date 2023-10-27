@@ -3,6 +3,7 @@
 
 import{ tipo } from './tipos_adicionais.js'
 import{ ad } from './adicionais.js'
+import{ noti } from './notification.js'
 
 export const cad =  {
 
@@ -26,7 +27,7 @@ export const cad =  {
             "infoEmpty": "Nenhum registro disponível"
         }, 
         "ajax" : {
-            url : '../cadastros/controllers/carrega_categorias.php'
+            url : '../cadastros/controllers/categorias.php?action=cl'
         },
         columns: [{data:'nome_cat'}, {data: 'excluir'}],
         createdRow: (row) => {            
@@ -56,14 +57,15 @@ export const cad =  {
          
         
         $.ajax({
-            url: url + '/controllers/update_categoria.php',
+            url: url + '/controllers/categorias.php',
             method: "post",
-            data: {nome_cat: nomeCat, cat_id: catId,  cat_update:catUpdate},
+            data: {nome_cat: nomeCat, cat_id: catId,  cat_update:catUpdate , action: "cu"},
         
             success: function(data){ 
                 let j = JSON.parse(data);
         
-                if(j.success && !j.error){                 
+                if(j.success && !j.error){    
+                    noti.init(j.error, j.msg)             
                     cad.loadCategorias();
                     tipo.loadTable();
                     ad.loadTable();  
@@ -71,7 +73,8 @@ export const cad =  {
                     
                    
                 }else if(!j.success & j.error){
-                    $('#msg-cat').html(j.msg);   
+                    noti.show(j.error,j.msg);
+                     
                     cad.table_cat.ajax.reload();
                 }
             
@@ -97,15 +100,15 @@ export const cad =  {
             let catCadastrar =  $("input[name='cadastrarcategoria']",this).val();
           
             $.ajax({
-                url: url + '/controllers/cadastra_categoria.php',
+                url: url + '/controllers/categorias.php',
                 method: "post",
-                data: {nome_cat: nomeCat, user_id: userId, cadastrarcategoria:catCadastrar},
+                data: {nome_cat: nomeCat, user_id: userId, action: "cc" , cadastrarcategoria:catCadastrar},
         
                 success: function(data){ 
                     let j = JSON.parse(data);
         
                     if(j.success && !j.error){
-                        $('#msg-1').html(j.msg);
+                        noti.init(j.error, j.msg)                    
                         $('#cadCategoria')[0].reset();
                         cad.loadCategorias();
                         tipo.loadTable();
@@ -113,7 +116,7 @@ export const cad =  {
                         cad.table_cat.ajax.reload();
                        
                     }else if(!j.success & j.error)
-                    $('#msg-1').html(j.msg);          
+                        noti.init(j.error, j.msg)       
                       
                 }
                 });
@@ -150,23 +153,23 @@ export const cad =  {
               text: 'SIM',
               callback: function(){
                 $.ajax({
-                  url: url+'/controllers/deleta_categoria.php',
+                  url: url+'/controllers/categorias.php',
                   method: 'post',
-                  data: {'idcat' : idcat},
+                  data: {'idcat' : idcat, "action" : "ce"},
     
     
                   success: function(data){ 
                     let j = JSON.parse(data)
                     if(j.success){
-                        
+                        noti.init(j.error, j.msg)
                         tipo.loadTable();
                         ad.loadTable();    
                         cad.loadCategorias();
                         cad.table_cat.ajax.reload();
-                    }
-                
-    
-                  }
+                    }else if(!j.success & j.error)
+                         noti.init(j.error, j.msg)       
+                  
+            }
               });
                 
               }
