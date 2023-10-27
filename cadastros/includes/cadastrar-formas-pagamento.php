@@ -128,13 +128,13 @@ endif;
 					</p>
 					<br />
 				 
-          <div id="msg"></div>
+       
 					<form data-url="<?=$site.'cadastros'?>" id="cadFormasPagamento" method="post">
 						<div class="form-group">							
 							<label for="f_pagamento">Forma de Pagamento</label>						
 							<input oninput="this.value = this.value.replace(/[^a-z-A-Z ]/g, '')"   maxlength="30" type="text" id="f_pagamento" name="f_pagamento" class="form-control" placeholder="Dinheiro, Crédito Visa, etc...">
                 </div>                 
-                <input type="hidden" name="cadastraformas" value="true"/>
+                <input type="hidden" name="action" value="fc"/>
              	
                 <button style="background-color: #00BB07;"class="btn_1 btn-success"  type="submit">Cadastrar Pagamento</button>						
 					 

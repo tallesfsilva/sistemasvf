@@ -1,6 +1,6 @@
 
 'use-strict' 
-
+import{ noti } from '../notification.js'
  
 export const cupom =  {
 
@@ -26,7 +26,7 @@ export const cupom =  {
             "infoEmpty": "Nenhum registro disponível"
         }, 
         "ajax" : {
-            url : '../cadastros/controllers/cupom/carrega_cupom.php'
+            url : '../cadastros/controllers/cupom.php?action=cul'
         },
        
         "order": [],
@@ -90,31 +90,24 @@ export const cupom =  {
             let url = $(this).data('url');
       
             $.ajax({
-              url: url + '/controllers/cupom/mostra_cupom.php',
+              url: url + '/controllers/cupom.php',
               method: 'post',
-              data: {'iddocupom' : idcupom},
+              data: {'idcupom' : idcupom, action : "cum"},
               success: function(data){
                 $('.exibirsite').prop('disabled', false);
                 let j = JSON.parse(data);
-                $('#msg1').html("");
-                $('#msg1').show();
-                if(j.success && !j.error){                 
-                    $('#msg1').html(j.msg);  
-                    setTimeout(function(){                      
-                       
-                        $('#msg1').fadeOut();
-                        $('#msg1').html("");
-                    },3000)
-                     cupom.table_cupom.ajax.reload();                    
-                   
+          
+              
+                if(j.success && !j.error){
+                    noti.init(j.error, j.msg);
+                 
+                    cupom.table_cupom.ajax.reload();
+                 
                 }else if(!j.success & j.error){
-                    $('#msg1').html(j.msg);  
-                    setTimeout(function(){                        
-                      
-                        $('#msg1').fadeOut();
-                    },3000)   
-                    cad.table_cat.ajax.reload();
-                }
+                    noti.init(j.error,j.msg);
+                    cupom.table_cupom.ajax.reload();   
+                 
+                }     
       
               }
             });
@@ -142,33 +135,23 @@ export const cupom =  {
            
        
         $.ajax({
-            url: url + '/controllers/cupom/update_cupom.php',
+            url: url + '/controllers/cupom.php',
             method: "post",
-            data: {updatecupom: updateCupom, flagName:flag, id_cupom: idCupom, ativacao: nomeCupom, porcentagem: descontoCupom,  data_validade: dataValidaCupom, total_vezes: totalVezesCupom},
+            data: {action: "cuu", flagName:flag, id_cupom: idCupom, ativacao: nomeCupom, porcentagem: descontoCupom,  data_validade: dataValidaCupom, total_vezes: totalVezesCupom},
         
             success: function(data){ 
                 let j = JSON.parse(data);
         
-                if(j.success && !j.error){   
-                    $('#msg1').html("");
-                    $('#msg1').show();               
-                    setTimeout(function(){
-                        
-                      
-                        $('#msg1').fadeOut();
-                    },3000)
+                if(j.success && !j.error){
+                    noti.init(j.error, j.msg);
+                 
                     cupom.table_cupom.ajax.reload();
-                   
+                 
                 }else if(!j.success & j.error){
-                    $('#msg1').html(j.msg);  
-                    setTimeout(function(){
-                        
-                       
-                        $('#msg1').fadeOut();
-                    },3000)
-                         cupom.table_cupom.ajax.reload();
-               
-                } 
+                    noti.init(j.error,j.msg);
+                    cupom.table_cupom.ajax.reload();   
+                 
+                }               
                   
               }
             });
@@ -194,32 +177,24 @@ export const cupom =  {
         
         
             $.ajax({
-                url: url + '/controllers/cupom/cadastra_cupom.php',
+                url: url + '/controllers/cupom.php',
                 method: "post",
                 data: $('#cadCupom').serialize(),
 
                 success: function(data){ 
                     let j = JSON.parse(data);
-                    $('#msg').html("");
-                    $('#msg').show();
+                   
                     if(j.success && !j.error){
-                        $('#msg').html(j.msg);  
-                        setTimeout(function(){
-                        
-                          
-                            $('#msg').fadeOut();
-                        },3000)
+                        noti.init(j.error, j.msg);
                         $('#cadCupom')[0].reset();
                         cupom.table_cupom.ajax.reload();
                      
-                    }else{
-                        $('#msg').html(j.msg);  
-                        setTimeout(function(){                        
-                         
-                            $('#msg').fadeOut();
-                        },3000)
-                    }                      
+                    }else if(!j.success & j.error){
+                        noti.init(j.error,j.msg);
+                        cupom.table_cupom.ajax.reload();   
                      
+                    }                            
+                   
                 }
                 }); 
         })
@@ -250,34 +225,25 @@ export const cupom =  {
                         text: 'SIM',
                         callback: function(){
                             $.ajax({
-                                url: url+'/controllers/cupom/deleta_cupom.php',
+                                url: url+'/controllers/cupom.php',
                               method: 'post',
-                              data: {'iddocupom' : idcupom,},
+                              data: {'idcupom' : idcupom, action: "cue"},
                               success: function(data){
                                 let j = JSON.parse(data);
-                                $('#msg1').html("");
-                                $('#msg1').show();
-                                if(j.success && !j.error){  
-                                    $('#msg1').html(j.msg);                            
-                                    setTimeout(function(){
-                        
-                                     
-                                        $('#msg1').fadeOut();
-                                    },3000)                  
-                                    cupom.table_cupom.ajax.reload();                            
+                                if(j.success && !j.error){
+                                    noti.init(j.error, j.msg);
+                                    $('#cadCupom')[0].reset();
+                                    cupom.table_cupom.ajax.reload();
                                     $('.excluircupom').prop('disabled', false);
-                                }else{
-                                    $('#msg1').html(j.msg);  
-                                    setTimeout(function(){
-                        
-                                      
-                                        $('#msg1').fadeOut();
-                                    },3000)
-                                }
+                                }else if(!j.success & j.error){
+                                    noti.init(j.error,j.msg);
+                                    cupom.table_cupom.ajax.reload();   
+                                 
+                                } 
                                
                               }
                             });
-                          
+                       
                         }
                       },
                       cancel: {

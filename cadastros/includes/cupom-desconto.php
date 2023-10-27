@@ -113,7 +113,7 @@ $updatebanco = new Update();
             Ofereça descontos para conseguir mais clientes.
           </p>
           <br />
-          <div id="msg"></div>
+   
           <form data-url="<?=$site.'cadastros'?>" id="cadCupom" method="post">
             <div class="row">
               <div class="col-md-6 col-sm-6">
@@ -150,7 +150,7 @@ $updatebanco = new Update();
             </div>
             <input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>">
             <input type="hidden" name="lojaurl" value="<?=$Url[0];?>">
-            <input type="hidden" name="submitcupomconfirm" value="true">
+            <input type="hidden" name="action" value="cuc">
             <input type="hidden" name="mostrar_site" value="0">
             <button id="submitbtncupom" style="background-color: #00BB07;"class="btn_1 btn-success">Cadastrar Cupom</button>						
               <!-- <a id="submitbtncupom" class="btn btn-primary">Cadastrar Cupom</a> -->
@@ -192,7 +192,7 @@ $updatebanco = new Update();
 
   </div>
           <div class="overflow-x-auto">
-            <div id="msg1"></div>
+    
             <table style="display:none" id="cupoms" class="border w-full text-left text-gray-500 dark:text-gray-400">
  
                <thead style="background:#7232A0;" class="text-white md:text-md\[20px]  text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

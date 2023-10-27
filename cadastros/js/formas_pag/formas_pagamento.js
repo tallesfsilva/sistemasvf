@@ -1,6 +1,6 @@
 
 'use-strict' 
-
+import{ noti } from '../notification.js'
  
 export const f_pagamento =  {
 
@@ -28,7 +28,7 @@ export const f_pagamento =  {
      
         processing: true,
         "ajax" : {
-            url : '../cadastros/controllers/formas_pagamento/carrega_formas_pagamento.php',
+            url : '../cadastros/controllers/formas_pagamento.php?action=fl',
             
         },
        
@@ -74,34 +74,23 @@ export const f_pagamento =  {
            
        
         $.ajax({
-            url: url + '/controllers/formas_pagamento/update_formas_pagamento.php',
+            url: url + '/controllers/formas_pagamento.php',
             method: "post",
-            data: {id_f_pagamento: idfp, f_pagamento:formaPagamento, updateforma: updateForma},
+            data: {id_f_pagamento: idfp, action: "fu", f_pagamento:formaPagamento},
         
             success: function(data){ 
                 let j = JSON.parse(data);
-                $('#msg1').html("");
-                $('#msg1').show();   
-                if(j.success && !j.error){   
                 
-                    $('#msg1').html(j.msg);
-                               
-                    setTimeout(function(){                   
-               
-                        $('#msg1').fadeOut();
-                    },3000)
-                    f_pagamento.table_formas.ajax.reload();
-                   
+                if(j.success && !j.error){
+                    noti.init(j.error, j.msg);
+                  
+                    f_pagamento.table_formas.ajax.reload();         
+                 
                 }else if(!j.success & j.error){
-                    $('#msg1').html(j.msg);  
-                    setTimeout(function(){
-                        
-                       
-                        $('#msg1').fadeOut();
-                    },3000)
-                         f_pagamento.table_formas.ajax.reload();
-               
-                } 
+                    noti.init(j.error,j.msg);
+                    f_pagamento.table_formas.ajax.reload();         
+                 
+                }      
                   
               }
             });
@@ -127,7 +116,7 @@ export const f_pagamento =  {
         
         
             $.ajax({
-                url: url + '/controllers/formas_pagamento/cadastra_formas_pagamento.php',
+                url: url + '/controllers/formas_pagamento.php',
                 method: "post",
                 data: $('#cadFormasPagamento').serialize(),
 
@@ -136,21 +125,14 @@ export const f_pagamento =  {
                     $('#msg').html("");
                     $('#msg').show();
                     if(j.success && !j.error){
-                        $('#msg').html(j.msg);  
-                        setTimeout(function(){
-                        
-                          
-                            $('#msg').fadeOut();
-                        },3000)
+                        noti.init(j.error, j.msg)       
                         $('#cadFormasPagamento')[0].reset();
                         f_pagamento.table_formas.ajax.reload();         
                      
-                    }else{
-                        $('#msg').html(j.msg);  
-                        setTimeout(function(){                        
-                         
-                            $('#msg').fadeOut();
-                        },3000)
+                    }else if(!j.success & j.error){
+                        noti.init(j.error,j.msg);
+                        f_pagamento.table_formas.ajax.reload();         
+                     
                     }                      
                      
                 }
@@ -183,30 +165,22 @@ export const f_pagamento =  {
                         text: 'SIM',
                         callback: function(){
                             $.ajax({
-                                url: url+'/controllers/formas_pagamento/deleta_formas_pagamento.php',
+                                url: url+'/controllers/formas_pagamento.php',
                               method: 'post',
-                              data: {'idfp' : idfp,},
+                              data: {'idfp' : idfp, action : "fe"},
                               success: function(data){
                                 let j = JSON.parse(data);
-                                $('#msg1').html("");
-                                $('#msg1').show();
-                                if(j.success && !j.error){  
-                                    $('#msg1').html(j.msg);                            
-                                    setTimeout(function(){
-                        
-                                     
-                                        $('#msg1').fadeOut();
-                                    },3000)                  
-                                    f_pagamento.table_formas.ajax.reload();                            
+                    
+                                if(j.success && !j.error){
+                                    noti.init(j.error, j.msg)       
+                                
+                                    f_pagamento.table_formas.ajax.reload();         
                                  
-                                }else{
-                                    $('#msg1').html(j.msg);  
-                                    setTimeout(function(){
-                        
-                                      
-                                        $('#msg1').fadeOut();
-                                    },3000)
-                                }
+                                }else if(!j.success & j.error){
+                                    noti.init(j.error,j.msg);
+                                    f_pagamento.table_formas.ajax.reload();         
+                                 
+                                }                 
                                
                               }
                             });
