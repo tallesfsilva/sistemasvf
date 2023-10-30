@@ -94,7 +94,7 @@ try{
       $capturacat['nome_cat'] = strtoupper($capturacat['nome_cat']);
          if(empty($capturacat['nome_cat'])){
      
-          $res['msg'] =  " Por favor preencha o campo categoria!";
+          $res['msg'] =  " Por favor preencha todos os campos obrigatórios!";
           $res['success'] = false;
           $res['error'] = true;  
           echo json_encode($res);

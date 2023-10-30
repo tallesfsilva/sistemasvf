@@ -73,6 +73,28 @@ function tratar_nome($nome){
     return $saida;
 }
 
+function validateImage($image){
+
+  $res = null;
+  switch ($image['type']){
+    case 'image/jpg':
+    case 'image/jpeg':
+    case 'image/pjpeg':
+        $res = imagecreatefromjpeg($image['tmp_name']);
+        break;
+    case 'image/png':
+    case 'image/x-png':     
+      $res = imagecreatefrompng($image['tmp_name']);
+        break;
+    };
+ 
+  
+  
+    return !$res ? false : true;
+ 
+ 
+}
+
 
 function get_endereco($cep){
   // formatar o cep removendo caracteres nao numericos

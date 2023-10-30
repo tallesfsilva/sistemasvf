@@ -172,7 +172,7 @@ opacity:0.40 !important;
                <div class="col-md-12">
                  <div class="form-group">
                    <label>Nome do produto:<span style="color:red">*</span></label>
-                   <input placeholder="Nome do item" type="text"  name="nome_item" class="form-control">
+                   <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9 ]/g, '')" placeholder="Nome do item" type="text"  name="nome_item" class="form-control">
                  </div>
                </div>
                   </div>

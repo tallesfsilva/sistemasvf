@@ -859,6 +859,22 @@ export const prod = {
             
             let idtipo = $(e.currentTarget).data('idtipo')
 
+            if(!$(e.currentTarget).is(':checked')){
+        
+                let checkTodos =  $('.adicional_todos');
+            
+                let idtipos = [];
+                for(let i=0;i<checkTodos.length;i++){
+                    idtipos.push($(checkTodos[i]).data('idtipo'));
+                };
+               
+                for(let i=0;i<idtipos.length;i++){                 
+                          
+                   $("input[name='adicional_prod']" ).filter('.'+'adicional'+'[data-idtipo="'+idtipos[i]+'"]').prop('checked', false);
+                   $("input[name='adicional_todos']" ).filter('.'+'adicional_todos'+'[data-idtipo="'+idtipos[i]+'"]').prop('checked', false);
+           
+                }
+                }
 
             if(!$(e.currentTarget).is(':checked')){
                 $("#container_adicional_"+idtipo).hide();
@@ -966,7 +982,7 @@ export const prod = {
               
                 let idcat = $("#categoria_produto").val();
                 let idprod = $("#categoria_produto").data('idprod');
-    
+            if(idcat && idprod){
               $.ajax({
                 url: 'controllers/tipos_adicionais.php?action=tag',
                 method: "post",
@@ -1000,7 +1016,9 @@ export const prod = {
                
                 });
     
-      
+            }else{
+                return;
+            }
         })
     },
 

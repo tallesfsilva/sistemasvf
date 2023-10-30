@@ -208,6 +208,14 @@ export const ad =  {
 
    
 },
+
+formataValorAdicional : () => {
+
+    $(".valor_adicional").mask('#.##0,00', {reverse: true});
+ 
+
+
+},
    
     loadTiposAdicionaisGrid : () => {
 
@@ -327,7 +335,7 @@ export const ad =  {
         ad.delete();
         ad.search();
         ad.loadTiposAdicionais();
-       
+        ad.formataValorAdicional();
         ad.create();
     },
     fn : () => {

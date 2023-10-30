@@ -44,14 +44,7 @@ export const entrega =  {
             { orderable: true, targets: 0 },           
         ],
 
-        fields: [{
-            label: "taxa_entrega:",
-            name: "taxa_de_entrega",
-            type : "mask",
-
-        }],
-
-
+      
         "initComplete": function () {
             var api = this.api();
             

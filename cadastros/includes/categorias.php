@@ -127,7 +127,7 @@ $updatebanco = new Update();
               <label><span style="color: red;"></span> Categoria:</label>
            
               
-              <input type="text" name="nome_cat" class="form-control" placeholder="Nome da categoria...">
+              <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9 ]/g, '')" type="text" name="nome_cat" class="form-control" placeholder="Nome da categoria...">
               <input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>" />
           
   </div>
@@ -149,7 +149,7 @@ $updatebanco = new Update();
   
  
       <label for="search_categorias">Buscar Categoria</label>						
-      <input type="text" id="search-categorias"  class="form-control" placeholder="Digite o nome da categoria">
+      <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9 ]/g, '')" type="text" id="search-categorias"  class="form-control" placeholder="Digite o nome da categoria">
 
   </form>
 
@@ -217,7 +217,7 @@ $updatebanco = new Update();
               <label><span style="color: red;"></span> Tipo de adicional:</label>
            
               
-              <input type="text" oninput="this.value = this.value.toUpperCase()" name="nome_adicional" class="form-control" placeholder="Digite um nome para o tipo de adicional">
+              <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9 ]/g, '').toUpperCase()"  type="text" name="nome_adicional" class="form-control" placeholder="Digite um nome para o tipo de adicional">
               <input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>" />
               <input type="hidden" name="cadastratipoadicional" value="true" />
           </div>
@@ -225,11 +225,11 @@ $updatebanco = new Update();
 
 <div class="col-md-6 col-sm-6">
 <div class="form-group">
-  <label class="control-label">Quantidade:</label>
+  <label class="control-label">Quantidade máxima de adicional:</label>
  
     
    
-    <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  value="0" step="1" min="1" max="99" name="quantidade" class="form-control" placeholder="Digite uma quantidade do adicional obrigatória">
+    <input type="text" oninput="this.value = this.value > parseInt('20') ? '' : this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  maxlength="2" value="0"  min="1" max="20" name="quantidade" class="form-control" placeholder="Digite uma quantidade do adicional obrigatória">
  
 </div>
 
@@ -256,7 +256,7 @@ $updatebanco = new Update();
     <div class="row">
     <div class="col-md-6">
       <label for="search_tipo_adicional">Buscar Tipos de Adicionais</label>						
-      <input type="text" id="search_tipo_adicional"  class="form-control" placeholder="Digite o nome do tipo de adicional">
+      <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9 ]/g, '').toUpperCase()" type="text" id="search_tipo_adicional"  class="form-control" placeholder="Digite o nome do tipo de adicional">
   </div>
 
   <div class="col-md-6">
@@ -343,7 +343,7 @@ $updatebanco = new Update();
               <label><span style="color: red;"></span>Adicionais:</label>
            
               
-              <input type="text" name="nome_adicional" class="form-control" placeholder="Digite o nome do adicional">
+              <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9 ]/g, '').toUpperCase()" type="text" name="nome_adicional" class="form-control" placeholder="Digite o nome do adicional">
               <input type="hidden" name="user_id" value="<?=$userlogin['user_id'];?>" />
           
           </div>
@@ -357,7 +357,7 @@ $updatebanco = new Update();
  
     
    
-    <input type="text"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="valor_adicional" class="form-control" placeholder="Digite um valor para seu adicional">
+    <input type="text"  max="999.99"  maxlength="6" data-mask-reverse="true"  data-mask="#.##0,00" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="valor_adicional" class="form-control" placeholder="Digite um valor para seu adicional">
  
 </div>
 
@@ -391,7 +391,7 @@ $updatebanco = new Update();
       <div class="row">  
         <div class="col-md-4">
           <label for="search_adicionais">Buscar Adicional</label>						
-          <input type="text" id="search_adicionais"  class="form-control" placeholder="Digite o nome do adicional">
+          <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9 ]/g, '').toUpperCase()" type="text" id="search_adicionais"  class="form-control" placeholder="Digite o nome do adicional">
           <br />
   </div>
   <div class="col-md-4">

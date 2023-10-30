@@ -8,7 +8,6 @@ $loginURL = LOGIN;
 $login = new Login(3); 
 
  
-
 if(!$login->CheckLogin()):
  unset($_SESSION['userlogin']);
  header("Location: {$site}");
@@ -132,7 +131,7 @@ $updatebanco = new Update();
           			
               <div class="col-md-8">
                     <label for="search_produto">Nome do Produto</label>						
-                    <input type="text" id="search-product" name="search_produto" class="form-control" placeholder="Digite o nome do produto">
+                    <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9 ]/g, '')" type="text" id="search-product" name="search_produto" class="form-control" placeholder="Digite o nome do produto">
                 </div>
 
                 <div class="col-md-4">
@@ -300,10 +299,10 @@ $updatebanco = new Update();
 		</div>
 				</div>
  
-        <script type="module" src="<?= $site;?>cadastros/js/produtos/main.js"></script>
+<script type="module" type="javascript/text" src="<?= $site;?>cadastros/js/produtos/main.js"></script>
 <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.19.0/clusterize.js" integrity="sha512-uoW1yw3jmcdHJxya6AdkfeecPCq6wg41n/H9OhSI78rCec3dnPksZ/h4nanFv+SnXw8Kyb7wE4D0ao1qVoGeRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="js/flowbite.min.js"></script>
+
+<script src="js/flowbite.min.js"></script>
 
   
  

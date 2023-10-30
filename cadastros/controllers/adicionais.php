@@ -154,7 +154,7 @@ try{
             {$variaveloptionTipos}{$optionsTipo}</select> <span hidden>{$pegaTipoAdicional[0]['id_tipo']}</span></td>",
             "nome_adicional" => "<td><input type=\"text\" data-flag=\"true\" data-idadd=\"$id_adicionais\" data-url=\"{$site}cadastros\" value=\"{$tt['nome_adicional']}\"  name=\"nome_adicional\" class=\"atualiza_adicional form-control\"><span hidden>{$tt['nome_adicional']}</span></td>",
             "descricao_adicional"=> "<td><input rows=\"5\" cols=\"250\" type=\"text\" data-url=\"{$site}cadastros\" value=\"{$desc_adicional}\" data-idadd=\"$id_adicionais\" name=\"desc_adicional\" class=\"atualiza_adicional form-control\"></> <span hidden>\"{$desc_adicional}\"</span></td>",
-            "valor_adicional" => "<td><input data-idadd=\"$id_adicionais\" data-url=\"{$site}cadastros\" type=\"text\" value=\"$valor_adicional\" name=\"valor_adicional\"class=\"atualiza_adicional form-control\"><span hidden>{$valor_adicional}</span></td>",
+            "valor_adicional" => "<td><input data-idadd=\"$id_adicionais\" data-url=\"{$site}cadastros\" type=\"text\" value=\"$valor_adicional\"  max=\"999.99\"  maxlength=\"6\" name=\"valor_adicional\"class=\"valor_adicional atualiza_adicional form-control\"><span hidden>{$valor_adicional}</span></td>",
             "excluir" => "<td><button data-url=\"{$site}cadastros\" style=\"background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important\" type=\"button\" class=\"btn_1 btn-delete deletar_adicional\" data-idad=\"$id_adicionais\"><span class=\"glyphicon glyphicon-trash\"></span></button>")) ;
             $optionsCat = "";
             $optionsTipo = "";

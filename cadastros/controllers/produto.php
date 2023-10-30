@@ -342,18 +342,24 @@ if(!empty($payLoad)){
   
      
  if(!empty($payLoad)){ //INICIO DO PRIMEIRO IF / ELSE
-    
+  $imageValidator = validateImage($_FILES['img_item']);
      
      // INICIO DA VALIDAÇÃO DA IMAGEM ITEM:
-     if (isset($_FILES['img_item']['tmp_name']) && $_FILES['img_item']['tmp_name'] != ""){
+     if (isset($_FILES['img_item']['tmp_name']) &&  $imageValidator  && $_FILES['img_item']['tmp_name'] != ""){
+    
+     
+
          $payLoad['img_item'] = $_FILES['img_item'];
          $payLoad['img_item']['id_user'] = $userlogin['user_id'];
-    }
+
+    
+
+    
      
      if(!empty($payLoad['img_item'])){                        
          $upload = new Upload("uploads/");
-         $upload->Image($payLoad['img_item']);
-     
+         $res = $upload->Image($payLoad['img_item']);
+      
          if(isset($upload) && $upload->getResult()){
              $payLoad['img_item'] = $upload->getResult();
          }elseif(is_array($payLoad['img_item'])){
@@ -384,7 +390,7 @@ if(!empty($payLoad)){
                  $res['error'] = true;
          echo json_encode($res);
      }else{
-         $lerbanco->ExeRead('ws_itens', "WHERE nome_item = :novoProd", "novoProd={$payLoad['nome_item']}");
+         $lerbanco->ExeRead('ws_itens', "WHERE nome_item = :novoProd and id != :idprod", "idprod={$payLoad['id']}&novoProd={$payLoad['nome_item']}");
          if($lerbanco->getResult()){
           $res['msg'] = "Já existe um produto com esse nome!";
                     $res['success'] = false;
@@ -454,16 +460,16 @@ if(!empty($payLoad)){
               }else{
                 $res['msg']=  "Ocorreu um erro ao atualizar os adicionais. Por favor tente novamente!";
               
-                      $res['success'] = true;
-                      $res['error'] = false;
+                      $res['success'] = false;
+                      $res['error'] = true;
                       echo json_encode($res);
               }
         
          }else{
           $res['msg']=  "Ocorreu um erro ao atualizar os adicionais. Por favor tente novamente!";
      
-             $res['success'] = true;
-             $res['error'] = false;
+          $res['success'] = false;
+          $res['error'] = true;
              echo json_encode($res);
          }
      
@@ -486,7 +492,7 @@ if(!empty($payLoad)){
       
       if($lerbanco->getResult()){
 
-        $deletbanco->ExeDelete("ws_adicionais_itens", "WHERE user_id = :userId and id_produto =:idprod", "userId={$userlogin['user_id']}&idprod={$payLoad['id']}");
+        $deletbanco->ExeDelete("ws_produto_adicionais", "WHERE user_id = :userId and id_produto =:idprod", "userId={$userlogin['user_id']}&idprod={$payLoad['id']}");
 
       }
 
@@ -507,14 +513,27 @@ if(!empty($payLoad)){
         $res['msg']=  "Ocorreu um erro no processamento. Por favor tente novamente!";
     
     
-            $res['success'] = true;
-            $res['error'] = false;
+        $res['success'] = false;
+        $res['error'] = true;
             echo json_encode($res);
   
     }
     }
  }
 }
+
+ }else{
+
+ 
+  $res['msg']=  "Formato de imagem incorreto. Por favor selecione uma imagem válida!";
+          
+  $res['success'] = false;
+  $res['error'] = true;
+  echo json_encode($res);
+
+
+}
+ 
  };//FINAL DO PRIMEIRO IF / ELSE
  
  
