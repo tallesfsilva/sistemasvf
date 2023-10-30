@@ -19,7 +19,7 @@ function deletaFormasPagamento($payLoad){
         if(!empty($payLoad['idfp']) && (int) $payLoad['idfp']){
             $deletbanco->ExeDelete("ws_formas_pagamento", "WHERE user_id = :userid AND id_f_pagamento = :idfp", "userid={$userlogin['user_id']}&idfp={$payLoad['idfp']}");
             if($deletbanco->getResult()){
-              $res['msg'] =  "Forma de pagamento excluída com sucesso!";     
+              $res['msg'] =  "Excluído com sucesso!";     
               $res['success'] = true;
               $res['error'] = false;
               echo json_encode($res);
@@ -76,7 +76,7 @@ global $updatebanco;
             $payLoad['f_pagamento'] = strtoupper($payLoad['f_pagamento']);
       
         if (in_array('', $payLoad ) || in_array('null', $payLoad )){
-                $res['msg']  = "Por favor preencha o campo forma de pagamento!";  
+              $res['msg']  = "Preencha todos os campos necessários!";
                 
          
                 $res['success'] = false;
@@ -92,7 +92,7 @@ global $updatebanco;
             
             $updatebanco->ExeUpdate("ws_formas_pagamento",$payLoad, "WHERE user_id = :userid AND id_f_pagamento = :idfp", "userid={$userlogin['user_id']}&idfp={$payLoad['id_f_pagamento']}");
             if ($updatebanco->getResult()){                                            
-                $res['msg'] =  "Forma de pagamento atualizada!";
+                $res['msg'] =  "Atualizado com sucesso!";
                 
            
                      
@@ -138,7 +138,7 @@ function cadastrarFormasPagamento($payLoad){
             unset($payLoad['action']);
         
             if (in_array('', $payLoad) || in_array('null', $payLoad)){
-            $res['msg']  = "Por favor preencha o campo forma de pagamento!";
+                $res['msg']  = "Preencha todos os campos necessários!";
          
             $res['success'] = false;
             $res['error'] = true;
@@ -160,7 +160,7 @@ function cadastrarFormasPagamento($payLoad){
                 $payLoad['f_pagamento']= strtoupper($payLoad['f_pagamento']);
                 $addbanco->ExeCreate("ws_formas_pagamento", $payLoad);
                 if ($addbanco->getResult()){                                            
-                    $res['msg'] =  "Forma de pagamento cadastrada com sucesso!";  
+                    $res['msg'] =  "Registrado com sucesso!";  
                     
                       
                     $res['success'] = true;

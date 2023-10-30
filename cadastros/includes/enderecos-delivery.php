@@ -88,7 +88,7 @@ $updatebanco = new Update();
  <div class="flex flex-col">
  <label class="col-sm-1 ">UF:</label>       
    <div class="col-sm-12">
-     <select required class="form-control" name="uf" id="estados2">     
+     <select class="form-control" name="uf" id="estados2">     
      </select>
    </div>
 </div>
@@ -96,7 +96,7 @@ $updatebanco = new Update();
  <div class="form-group"> 
    <label class="col-sm-1">Cidade:</label>       
    <div class="col-sm-12">
-     <select required class="form-control" name="cidade" id="cidades2">    
+     <select class="form-control" name="cidade" id="cidades2">    
      </select>
    </div>
  </div>
@@ -104,7 +104,7 @@ $updatebanco = new Update();
   <label class="col-sm-1">Bairro:</label>
   <div class="col-sm-12">
     
-    <input type="text" name="bairro" class="form-control" placeholder="Nome do bairro...">
+    <input type="text" name="bairro" class="form-control" placeholder="Selecione um bairro">
   
 </div>
 </div>
@@ -113,13 +113,15 @@ $updatebanco = new Update();
   <label class="col-sm-2">Valor da Taxa:</label>
   <div class="col-sm-10">
    <div class="input-group">    
-    <input type="text" name="taxa" maxlength="6"  data-mask="#.##0,00"   step="1"  data-mask-reverse="true" class="form-control" placeholder="0,00">
+    <input type="text" name="taxa" maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" data-mask="#.##0,00"   data-mask-reverse="true" class="form-control" placeholder="0,00">
   </div>
 </div>
 </div>
-<input type="hidden" name="cadastrataxa" value="true"">
+<input type="hidden" name="action" value="tc">
 <button style="background-color: #00BB07;"class="btn_1 btn-success"  name="sendAddBairro" value="Salvar" type="submit">Cadastrar Endereço</button>
 <!-- <input type="submit" name="sendAddBairro" value="Cadastrar Endereço" class="btn btn-success" /> -->
+
+</form>
 <br/>
 <br/>
 
@@ -137,7 +139,8 @@ $updatebanco = new Update();
 <div class="col-md-4"> 
  <label class="col-sm-1 ">UF:</label>       
    <div class="col-sm-12">
-     <select  data-url="<?=$site?>"  class="form-control"   id="estados_busca">     
+     <select  data-url="<?=$site?>"  class="form-control"   id="estados_busca"> 
+     
      </select>
    </div>
 </div>
@@ -145,7 +148,8 @@ $updatebanco = new Update();
 <div class="col-md-4">
    <label class="col-sm-1">Cidade:</label>       
    <div class="col-sm-12">
-     <select class="form-control" id="cidades_busca">    
+     <select class="form-control" id="cidades_busca">   
+     
      </select>
    </div>
   </div>
@@ -189,7 +193,7 @@ $updatebanco = new Update();
 
 
 
-</form>
+
 <br />
  
 </div>

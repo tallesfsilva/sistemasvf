@@ -73,7 +73,7 @@ export const cad =  {
                     
                    
                 }else if(!j.success & j.error){
-                    noti.show(j.error,j.msg);
+                    noti.init(j.error,j.msg);
                      
                     cad.table_cat.ajax.reload();
                 }

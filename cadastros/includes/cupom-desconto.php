@@ -126,7 +126,7 @@ $updatebanco = new Update();
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputPassword1">Desconto %</label>
-                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text" class="form-control descontoporcentagem" value="1" maxlength="2"  step="1" pattern="[0-9]{2}" name="porcentagem" min="1" max="99" />
+                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text" class="form-control descontoporcentagem" value="1" maxlength="2"  step="1" name="porcentagem" min="1" max="99" />
                   <small class="form-text text-muted">Porcentagem de desconto.</small>
                 </div>
               </div>
@@ -136,7 +136,7 @@ $updatebanco = new Update();
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Data de Validade</label>
-                  <input required type="text" class="form-control" name='data_validade' id="datepicker" data-mask="00/00/0000" placeholder="00/00/0000" />
+                  <input type="text" class="form-control" name='data_validade' id="datepicker" data-mask="00/00/0000" placeholder="00/00/0000" />
                   <small id="emailHelp" class="form-text text-muted">Data de expiração do cupom</small>
                 </div>
               </div>

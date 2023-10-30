@@ -1,6 +1,6 @@
 
 'use-strict' 
-
+import{ noti } from '../notification.js'
  
 export const entrega =  {
 
@@ -26,7 +26,7 @@ export const entrega =  {
             "infoEmpty": "Nenhum registro disponível"
         }, 
         "ajax" : {
-            url : '../cadastros/controllers/taxa_entrega/carrega_taxa_entrega.php'
+            url : '../cadastros/controllers/taxa_entrega.php?action=tl'
         },
        
         "order": [],
@@ -68,38 +68,31 @@ export const entrega =  {
             let valorTaxa = $(e.currentTarget).val();
             let url = $(e.currentTarget).data('url');    
           
-            let updateTaxa = true;
+        
            
        
         $.ajax({
-            url: url + '/controllers/taxa_entrega/update_taxa_entrega.php',
+            url: url + '/controllers/taxa_entrega.php?action=tu',
             method: "post",
-            data: {id: idTaxa, taxa:valorTaxa, updatetaxa: updateTaxa},
+            data: {id: idTaxa, taxa:valorTaxa},
         
             success: function(data){ 
                 let j = JSON.parse(data);
-                $('#msg1').html("");
-                $('#msg1').show();   
-                if(j.success && !j.error){   
-                
-                    $('#msg1').html(j.msg);
-                               
-                    setTimeout(function(){                   
-               
-                        $('#msg1').fadeOut();
-                    },3000)
-                    entrega.table_taxa.ajax.reload();
+                if(j.success && !j.error){    
+                    noti.init(j.error, j.msg);         
+                    
+                  
+                    entrega.table_taxa.ajax.reload();        
+                    
                    
                 }else if(!j.success & j.error){
-                    $('#msg1').html(j.msg);  
-                    setTimeout(function(){
-                        
-                       
-                        $('#msg1').fadeOut();
-                    },3000)
-                         f_pagamento.table_formas.ajax.reload();
-               
-                } 
+                    noti.init(j.error,j.msg);
+                     
+                    entrega.table_taxa.ajax.reload();        
+                }
+                    
+                     
+        
                   
               }
             });
@@ -119,33 +112,29 @@ export const entrega =  {
             let url = $(this).data('url');
            
             
-        
-        
+          
             $.ajax({
-                url: url + '/controllers/taxa_entrega/cadastra_taxa_entrega.php',
+                url: url + '/controllers/taxa_entrega.php?action=tc',
                 method: "post",
                 data: $('#cadTaxaEntrega').serialize(),
 
                 success: function(data){ 
                     let j = JSON.parse(data);
-                    $('#msg').html("");
-                    $('#msg').show();
-                    if(j.success && !j.error){
-                        $('#msg').html(j.msg);  
-                        setTimeout(function(){                
-                          
-                            $('#msg').fadeOut();
-                        },3000)
-                        $('#cadTaxaEntrega')[0].reset();
-                        entrega.table_taxa.ajax.reload();         
+         
+                    
+                if(j.success && !j.error){    
+                    noti.init(j.error, j.msg)            
+                    
+                    $('#cadTaxaEntrega')[0].reset();
+                    entrega.table_taxa.ajax.reload();        
+                    
+                   
+                }else if(!j.success & j.error){
+                    noti.init(j.error,j.msg);
                      
-                    }else{
-                        $('#msg').html(j.msg);  
-                        setTimeout(function(){                        
-                         
-                            $('#msg').fadeOut();
-                        },3000)
-                    }                      
+                    entrega.table_taxa.ajax.reload();        
+                }
+                    
                      
                 }
                 }); 
@@ -177,29 +166,22 @@ export const entrega =  {
                         text: 'SIM',
                         callback: function(){
                             $.ajax({
-                                url: url + '/controllers/taxa_entrega/deleta_taxa_entrega.php',
+                                url: url + '/controllers/taxa_entrega.php?action=te',
                               method: 'post',
                               data: {'id' : idTaxa,},
                               success: function(data){
                                 let j = JSON.parse(data);
-                                $('#msg1').html("");
-                                $('#msg1').show();
-                                if(j.success && !j.error){  
-                                    $('#msg1').html(j.msg);                            
-                                    setTimeout(function(){
-                        
+                                if(j.success && !j.error){    
+                                    noti.init(j.error, j.msg)            
+                                    
+                                   
+                                    entrega.table_taxa.ajax.reload();        
+                                    
+                                   
+                                }else if(!j.success & j.error){
+                                    noti.init(j.error,j.msg);
                                      
-                                        $('#msg1').fadeOut();
-                                    },3000)                  
-                                    entrega.table_taxa.ajax.reload();                            
-                                 
-                                }else{
-                                    $('#msg1').html(j.msg);  
-                                    setTimeout(function(){
-                        
-                                      
-                                        $('#msg1').fadeOut();
-                                    },3000)
+                                    entrega.table_taxa.ajax.reload();        
                                 }
                                
                               }
@@ -241,13 +223,14 @@ export const entrega =  {
                 $("#estados_busca option:selected").each(function () {
                     str += $(this).text();
                 });
-    
+                options_cidades += '<option value=>Selecione uma cidade</option>';
                 $.each(data, function (key, val) {
-                    if(val.sigla == str) {							
+                    if(val.sigla == str) {
+                        options_cidades = "";							
                         $.each(val.cidades, function (key_city, val_city) {
                             options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
                         });							
-                    }
+                    } 
                 });
     
                 $("#cidades_busca").html(options_cidades);

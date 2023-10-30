@@ -421,7 +421,9 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
      $payLoad['dia_semana'] = (!empty($payLoad['dia_semana']) ? $payLoad['dia_semana']  : "null");
      
      
-     
+    
+    
+
      
      if(empty($payLoad['nome_item']) || empty($payLoad['preco_item'])){
          $res['msg'] = "<div class=\"alert alert-info alert-dismissable\">                
@@ -430,8 +432,16 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
                  $res['success'] = false;
                  $res['error'] = true;
          echo json_encode($res);
-    
-                     
+     }else{
+         $lerbanco->ExeRead('ws_itens', "WHERE nome_item = :novoProd", "novoProd={$payLoad['nome_item']}");
+         if($lerbanco->getResult()){
+          $res['msg'] = "<div class=\"alert alert-info alert-dismissable\">                
+                  Já existe um produto com esse nome!
+                    </div>";
+                    $res['success'] = false;
+                    $res['error'] = true;
+                 echo json_encode($res);
+                        
             
      }else{
         
@@ -564,7 +574,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
     }
     }
  }
- 
+}
  };//FINAL DO PRIMEIRO IF / ELSE
  
  

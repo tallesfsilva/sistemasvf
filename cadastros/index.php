@@ -169,46 +169,6 @@ if(empty($_SESSION['userlogin'])){
 			<script src="<?= $site; ?>js/howler.js"></script>
 
  
-			<script type="text/javascript">	
-
-$(document).ready(function () {
-
-	$.getJSON('<?=$site;?>estados_cidades.json', function (data) {
-
-		var items = [];
-		var options = '<option value="<?=(!empty($end_uf_empresa) ? $end_uf_empresa : "");?>"><?=(!empty($end_uf_empresa) ? $end_uf_empresa : "Escolha um estado");?></option>';	
-
-		$.each(data, function (key, val) {
-			options += '<option value="' + val.sigla + '">' + val.sigla + '</option>';
-		});					
-		$("#estados").html(options);				
-
-		$("#estados").change(function () {				
-
-			var options_cidades = '<option value="<?=(!empty($cidade_empresa) ? $cidade_empresa : "");?>"><?=(!empty($cidade_empresa) ? $cidade_empresa : "Escolha uma Cidade");?></option>';
-			var str = "";					
-
-			$("#estados option:selected").each(function () {
-				str += $(this).text();
-			});
-
-			$.each(data, function (key, val) {
-				if(val.sigla == str) {							
-					$.each(val.cidades, function (key_city, val_city) {
-						options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
-					});							
-				}
-			});
-
-			$("#cidades").html(options_cidades);
-
-		}).change();		
-
-	});
-
-});
-
-</script>
 
 <script type="text/javascript">	
 
@@ -232,9 +192,10 @@ $(document).ready(function () {
 			$("#estados2 option:selected").each(function () {
 				str += $(this).text();
 			});
-
+			var options_cidades = '<option value="">Selecione uma cidade</option>';	
 			$.each(data, function (key, val) {
-				if(val.sigla == str) {							
+				if(val.sigla == str) {	
+					options_cidades = "";									
 					$.each(val.cidades, function (key_city, val_city) {
 						options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
 					});							
@@ -652,7 +613,7 @@ $(document).ready(function () {
 <script src="<?= $site; ?>assets/validate.js"></script>
 <script src="<?= $site; ?>js/jquery.mask.js"></script>
 <!-- <script src="<?= $site; ?>js/index-btn-file.js"></script> -->
-<!-- <script src="<?= $site; ?>js/funcoesjs.js"></script> -->
+<script src="<?= $site; ?>js/funcoesjs.js"></script>
 <script src="<?= $site; ?>js/custom-file-input.js"></script>
 <script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
 <!-- <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->

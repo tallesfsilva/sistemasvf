@@ -232,7 +232,7 @@ export const cupom =  {
                                 let j = JSON.parse(data);
                                 if(j.success && !j.error){
                                     noti.init(j.error, j.msg);
-                                    $('#cadCupom')[0].reset();
+                                  
                                     cupom.table_cupom.ajax.reload();
                                     $('.excluircupom').prop('disabled', false);
                                 }else if(!j.success & j.error){

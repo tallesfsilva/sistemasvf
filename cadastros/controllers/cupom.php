@@ -20,7 +20,7 @@ function deletaCupom($payLoad){
          
          
         if(!empty($payLoad['idcupom']) && (int)$payLoad['idcupom']){
-          $deletbanco->ExeDelete("cupom_desconto", "WHERE user_id = :userid AND id_cupom = :idcupom", "userid={$userlogin['user_id']}&idcupom={payLoad['idcupom']}");
+          $deletbanco->ExeDelete("cupom_desconto", "WHERE user_id = :userid AND id_cupom = :idcupom", "userid={$userlogin['user_id']}&idcupom={$payLoad['idcupom']}");
             if($deletbanco->getResult()){
               $res['msg'] =  "Excluído com sucesso!";  
               $res['success'] = true;
@@ -71,7 +71,7 @@ function mostraCupom($payLoad){
                     $res['error'] = true;
             echo json_encode($res);
             }else{
-                $res['msg'] =  "Cupom foi atualizado e aparecerá no site!";     
+                $res['msg'] =  "Status do cupom atualizado com sucesso!";    
                 $res['success'] = true;
                 $res['error'] = false;
                 echo json_encode($res);
@@ -90,7 +90,7 @@ function mostraCupom($payLoad){
                     $res['success'] = false;
                     $res['error'] = true;
             }else{
-                $res['msg'] =  "Cupom foi atualizado e aparecerá no site!";          
+                $res['msg'] =  "Status do cupom atualizado com sucesso!";    
                 $res['success'] = true;
                 $res['error'] = false;
                 echo json_encode($res);
@@ -112,7 +112,7 @@ function mostraCupom($payLoad){
                     $res['success'] = false;
                     $res['error'] = true;
                 }else{
-                    $res['msg'] =  "Cupom foi atualizado e aparecerá no site!";          
+                    $res['msg'] =  "Status do cupom atualizado com sucesso!";              
                         $res['success'] = true;
                         $res['error'] = false;
                         echo json_encode($res);
@@ -197,7 +197,7 @@ function updateCupom($payLoad){
                     echo json_encode($res);
         
             } elseif(!isDateExpired($payLoad ['data_validade'], 1)){
-                    $res['msg']  = "A data informada já expirou!";
+                    $res['msg']  = "A data informada está expirada!";          
                     $res['success'] = false;
                     $res['error'] = true;
                     echo json_encode($res);
@@ -294,7 +294,7 @@ function cadastrarCupom($payLoad){
             echo json_encode($res);
         
             } elseif(!isDateExpired($payLoad['data_validade'], 1)){
-            $res['msg']  = "A data informada é inválida!";
+            $res['msg']  = "A data informada está expirada!";
           
             $res['success'] = false;
             $res['error'] = true;
