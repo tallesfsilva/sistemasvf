@@ -116,7 +116,7 @@ $updatebanco = new Update();
   <div class="col-md-12">
     <div class="widget">
       <div class="indent_title_in">
-      <div id="msg"></div>
+  
       <h3>Listagem de Produtos:</h3>
     <p>
       <span>Para buscar mais produtos, utilize os filtros abaixo:</span><br />

@@ -160,7 +160,7 @@ export const cad =  {
     
                   success: function(data){ 
                     let j = JSON.parse(data)
-                    if(j.success){
+                    if(j.success && !j.error){
                         noti.init(j.error, j.msg)
                         tipo.loadTable();
                         ad.loadTable();    
@@ -195,7 +195,7 @@ export const cad =  {
     loadCategorias : () => {
 
           $.ajax({
-            url: 'controllers/carrega_categorias_inputs.php',
+            url: 'controllers/categorias.php?action=cli',
             method: "get",            
     
             success: function(data){ 

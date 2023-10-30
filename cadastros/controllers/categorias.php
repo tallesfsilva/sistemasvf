@@ -5,6 +5,54 @@ session_start();
 require('../../_app/Config.inc.php');  
  
 
+
+function carregaCategoriaInputs(){
+
+   
+  try{
+  
+    $site = HOME;
+    global $lerbanco;
+
+    $userlogin = $_SESSION['userlogin'];
+   
+    $res = new stdClass();
+   
+    $res->data = array();
+   
+   
+   
+    
+    
+    
+    $lerbanco->FullRead("select id, nome_cat from ws_cat WHERE user_id = {$userlogin['user_id']}");
+    if($lerbanco->getResult()){    
+          
+      foreach($lerbanco->getResult() as $tt){
+        extract($tt);
+          array_push($res->data, $tt);       
+       }
+        
+       echo json_encode($res);
+    }else{  
+      $res->data = array();
+      echo json_encode($res);
+    }
+  
+  
+   
+  
+  }catch (PDOException $e) {
+    echo "Ocorreu um erro em sua solicitação. Por favor tentar novamente " . $e->getMessage();
+  }
+   
+                      
+ 
+    
+
+
+}
+
 function cadastraCategoria($payLoad){
     
  
@@ -305,6 +353,15 @@ if(!empty($categoriaObj['action']) && (string)$categoriaObj['action'] && $catego
 
     cadastraCategoria($categoriaObj);
 }
+
+
+ //Carrega Categoria Inputs - GET
+  //body - action = cli 
+  if(!empty($action) && (string)$action && $action=='cli'){
+
+    carregaCategoriaInputs($categoriaObj);
+}
+
 
 
 

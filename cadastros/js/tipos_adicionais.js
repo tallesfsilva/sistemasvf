@@ -1,6 +1,9 @@
 'use-strict'
 
 import{ ad } from './adicionais.js'
+
+import{ noti } from './notification.js'
+
 export const tipo = {
  
 
@@ -24,7 +27,7 @@ export const tipo = {
            "infoEmpty": "Nenhum registro disponível"
        }, 
        "ajax" : {
-             url : '../cadastros/controllers/carrega_tipos_adicionais.php'
+             url : '../cadastros/controllers/tipos_adicionais.php?action=tal'
          },
             columns: [{data:'nome_cat'}, 
                     {data: 'tipo_adicional'},
@@ -52,7 +55,7 @@ export const tipo = {
             let nomeAdicional =  $("input[name='nome_adicional']" ).filter('.'+'atualiza_tipo'+'[data-idtipo="'+idTipo+'"]').val();
             let idCategoria =  $("select[name='id_cat']" ).filter('.'+'atualiza_tipo'+'[data-idtipo="'+idTipo+'"]').val();
             let qtd =  $("input[name='quantidade']" ).filter('.'+'atualiza_tipo'+'[data-idtipo="'+idTipo+'"]').val();
-            let updateAdicional =  true;
+         
            
 
     
@@ -60,22 +63,24 @@ export const tipo = {
        
         
         $.ajax({
-            url: url + '/controllers/update_tipo_adicional.php',
+            url: url + '/controllers/tipos_adicionais.php?action=tau',
             method: "post",
-            data: {flagName: flag, id_tipo: idTipo, nome_adicional: nomeAdicional,  updatetipoadicional: updateAdicional, id_cat:idCategoria, quantidade:qtd,},
+            data: {flagName: flag, id_tipo: idTipo, nome_adicional: nomeAdicional, id_cat:idCategoria, quantidade:qtd,},
         
             success: function(data){ 
                 let j = JSON.parse(data);
         
-                if(j.success && !j.error){                 
+                if(j.success && !j.error){    
+                    noti.init(j.error, j.msg)                        
                     ad.loadTiposAdicionaisBusca();  
                     ad.loadTiposAdicionais();                           
                     ad.loadTable();  
                     tipo.table_tipos.ajax.reload();
                    
                 }else if(!j.success & j.error){
+                    noti.init(j.error, j.msg)            
                     tipo.table_tipos.ajax.reload();
-                    $('#msg-tip').html(j.msg);   
+                       
                 } 
             }
             });
@@ -92,29 +97,30 @@ export const tipo = {
                 
                 let nomeAdicional =  $("input[name='nome_adicional']",this).val();
                 let idCategoria =  $("select[name='id_cat']",this).val();
-                let cadAdicional =  true;
+               
                 let qtd = $("input[name='quantidade']",this).val()
             
                 $.ajax({
-                    url: url + '/controllers/cadastra_tipo_adicional.php',
+                    url: url + '/controllers/tipos_adicionais.php?action=tac',
                     method: "post",
-                    data: {nome_adicional: nomeAdicional,  cadastratipoadicional: cadAdicional, id_cat:idCategoria, quantidade:qtd,},
+                    data: {nome_adicional: nomeAdicional, id_cat:idCategoria, quantidade:qtd,},
 
                     success: function(data){ 
                         let j = JSON.parse(data);
 
-                        if(j.success){
-                            $('#msg-tip').html(j.msg);
-                            $('#cadTipoAdicional')[0].reset();
+                        if(j.success && !j.error){
+                            noti.init(j.error, j.msg);
+                            $('#cadTipoAdicional')[0].reset();            
                             ad.loadTiposAdicionaisBusca();  
                             ad.loadTiposAdicionais();                           
                             ad.loadTable();
                             tipo.table_tipos.ajax.reload();
-                        }else{
-                            $('#msg-tip').html(j.msg);
+                         } else if(!j.success && j.error){
+                            noti.init(j.error,j.msg);
+                     
                         }                      
-                         
                     }
+                  
                     }); 
             })
      
@@ -143,17 +149,21 @@ export const tipo = {
                   text: 'SIM',
                   callback: function(){
                     $.ajax({
-                      url: url+'/controllers/deleta_tipo_adicional.php',
+                      url: url+'/controllers/tipos_adicionais.php?action=tae',
                       method: 'post',
                       data: {'id_tipo' : idtipo},
                       success: function(data){ 
                         let j = JSON.parse(data)
-                        if(j.success){
+                        if(j.success && !j.error){
+                            noti.init(j.error, j.msg)           
                             ad.loadTiposAdicionaisBusca();  
                             ad.loadTiposAdicionais();                           
                             ad.loadTable();
                             tipo.table_tipos.ajax.reload();
-                        }                   
+                        }  else if(!j.success && j.error){
+                            noti.init(j.error, j.msg)    ;
+                            tipo.table_tipos.ajax.reload();   
+                        }                 
         
                       }
                   });

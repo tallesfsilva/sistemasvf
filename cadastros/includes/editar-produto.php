@@ -164,7 +164,7 @@ background: #FFC00082 !important;
     // require('includes/configItens.php');
     ?>
 
-    <div id="msg"></div>
+    
     <form data-url="<?=$site?>cadastros" id="updateProduto" enctype="multipart/form-data">
       <div class="wrapper_indent">
        
@@ -336,20 +336,21 @@ background: #FFC00082 !important;
                     <select id="categoria_produto" data-url="<?=$site?>cadastros/"data-idprod="<?=$id?>" class="form-control" name="id_cat">
                             <?php
                             
-                            $categoriaProd = $lerbanco->getResult()[0];
+                            $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid and id = :idcatpro", "userid={$userlogin['user_id']}&idcatpro={$id_cat}");
+                            $categoriaProd = $lerbanco->getResult()[0];                          
                             $variaveloption = "<option value=\"{$categoriaProd['id']}\">{$categoriaProd['nome_cat']}</option>";
-
+                          
                             $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid", "userid={$userlogin['user_id']}");
                             if (!$lerbanco->getResult()):
                             echo "<option value=\"\">Adicione uma categoria</option>";
                             else:
                             $lerbanco->ExeRead('ws_cat', "WHERE user_id = :userid AND id != :idcatt", "userid={$userlogin['user_id']}&idcatt={$categoriaProd['id']}");
-                            
+                            echo $variaveloption;
                             foreach ($lerbanco->getResult() as $cat):
                                 extract($cat);
                                 echo "<option value=\"{$id}\">{$nome_cat}</option>";
                             endforeach;
-                            echo $variaveloption;
+                           
                             endif;
                              ?>
                          </select>
@@ -428,6 +429,7 @@ background: #FFC00082 !important;
 </section><!-- End section 2 -->
 </div><!-- End wrapper_indent -->
 <script type="module" src="<?= $site;?>cadastros/js/produtos/main.js"></script>
+<!-- <script src="<?= $site;?>cadastros/js/produtos/editar.js"></script> -->
 <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>
  
 

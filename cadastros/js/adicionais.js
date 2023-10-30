@@ -1,5 +1,6 @@
 
 'use-strict' 
+import{ noti } from './notification.js'
 
  
 export const ad =  {
@@ -24,7 +25,7 @@ export const ad =  {
             "infoEmpty": "Nenhum registro disponível"
         }, 
         "ajax" : {
-            url : '../cadastros/controllers/carrega_adicional.php'
+            url : '../cadastros/controllers/adicionais.php?action=al'
         },
         "order": [],
         columns: [
@@ -61,23 +62,23 @@ export const ad =  {
             let descAdicional =  $("input[name='desc_adicional']" ).filter('.'+'atualiza_adicional'+'[data-idadd="'+idAdicional+'"]').val();
             let idCategoria =  $("select[name='id_cat']" ).filter('.'+'categoria_grid'+'[data-idadd="'+idAdicional+'"]').val();
             let valorAdicional =  $("input[name='valor_adicional']" ).filter('.'+'atualiza_adicional'+'[data-idadd="'+idAdicional+'"]').val();
-            let updateAdicional =  true;
+        
            
        
         $.ajax({
-            url: url + '/controllers/update_adicional.php',
+            url: url + '/controllers/adicionais.php?action=au',
             method: "post",
-            data: {flagName:flag, id_adicionais: idAdicional, id_tipo_adicional: idTipoAdicional, nome_adicional: nomeAdicional,  updateadicional: updateAdicional, desc_adicional: descAdicional, id_cat:idCategoria, valor_adicional:valorAdicional,},
+            data: {flagName:flag, id_adicionais: idAdicional, id_tipo_adicional: idTipoAdicional, nome_adicional: nomeAdicional, desc_adicional: descAdicional, id_cat:idCategoria, valor_adicional:valorAdicional,},
         
             success: function(data){ 
                 let j = JSON.parse(data);
         
                 if(j.success && !j.error){                 
-                        
+                    noti.init(j.error, j.msg)
                     ad.table_ad.ajax.reload();
                    
                 }else if(!j.success & j.error){
-                         $('#msg-add').html(j.msg);  
+                    noti.init(j.error, j.msg)  
                          ad.table_ad.ajax.reload();
                
                 } 
@@ -104,27 +105,27 @@ export const ad =  {
             let nomeAdicional =  $("input[name='nome_adicional']",this).val();
             let idCategoria =  $("select[name='categoria-adicional']",this).val();
             let idTipoAdicional =  $("select[name='tipo-adicionais']",this).val();
-            let cadAdicional =  true;
+          
             
             let valorAdicional = $("input[name='valor_adicional']",this).val()
             let descAdicional = $("textarea[name='desc_adicional']",this).val()
         
         
             $.ajax({
-                url: url + '/controllers/cadastra_adicional.php',
+                url: url + '/controllers/adicionais.php?action=ac',
                 method: "post",
-                data: {nome_adicional: nomeAdicional,  desc_adicional:descAdicional, valor_adicional:valorAdicional, id_tipo_adicional :idTipoAdicional, cadastraadicional: cadAdicional, id_cat:idCategoria},
+                data: {nome_adicional: nomeAdicional,  desc_adicional:descAdicional, valor_adicional:valorAdicional, id_tipo_adicional :idTipoAdicional,id_cat:idCategoria},
 
                 success: function(data){ 
                     let j = JSON.parse(data);
 
-                    if(j.success){
-                        $('#msg-add').html(j.msg);
+                    if(j.success && !j.error){
+                        noti.init(j.error, j.msg)
                         $('#cadAdicionais')[0].reset();
                       
                         ad.table_ad.ajax.reload();
-                    }else{
-                        $('#msg-add').html(j.msg);
+                    }else if(!j.success & j.error){
+                        noti.init(j.error, j.msg)
                     }                      
                      
                 }
@@ -158,19 +159,19 @@ export const ad =  {
               text: 'SIM',
               callback: function(){
                 $.ajax({
-                  url: url+'/controllers/deleta_adicional.php',
+                  url: url+'/controllers/adicionais.php?action=ae',
                   method: 'post',
                   data: {'id_adicional' : idAdicional},
     
     
                   success: function(data){ 
                     let j = JSON.parse(data)
-                    if(j.success){
-                     
+                    if(j.success && !j.error){
+                        noti.init(j.error, j.msg)
                        ad.table_ad.ajax.reload();
+                    }  else if(!j.success & j.error){
+                        noti.init(j.error, j.msg)
                     }
-                
-    
                   }
               });
                 
@@ -217,8 +218,9 @@ export const ad =  {
           let idadd = $(this).data('idadd')
 
           $.ajax({
-            url: 'controllers/carrega_tipos_adicionais_inputs.php?idcat='+idcat,
-            method: "get",            
+            url: 'controllers/tipos_adicionais.php?action=tag',
+            method: "post",
+            data: {"idcat": idcat},            
     
             success: function(data){ 
                 let j = JSON.parse(data);           
@@ -254,8 +256,10 @@ export const ad =  {
             let idcat = $(this).val();
 
           $.ajax({
-            url: 'controllers/carrega_tipos_adicionais_inputs.php?idcat='+idcat,
-            method: "get",            
+            url: 'controllers/tipos_adicionais.php?action=tag',
+            method: "post",         
+            data: {"idcat": idcat},            
+       
     
             success: function(data){ 
                 let j = JSON.parse(data);           
@@ -287,8 +291,9 @@ export const ad =  {
             let idcat = $(this).val();
               
             $.ajax({
-              url: 'controllers/carrega_tipos_adicionais_inputs.php?idcat='+idcat,
-              method: "get",            
+              url: 'controllers/tipos_adicionais.php?action=tag',
+            method: "post",         
+            data: {"idcat": idcat},                       
                 
     
             success: function(data){ 

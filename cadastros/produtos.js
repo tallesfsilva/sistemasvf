@@ -107,7 +107,6 @@ export const prod = {
 
            
     })
-    //Moved to editar.js
     $(document).ready(function(){
 
         let countCheckBox =  $(".dias_prod").length;
@@ -135,7 +134,7 @@ export const prod = {
 
            
     })
-    //Mover para arquivo específico da página - Moved
+    //Mover para arquivo específico da página
     $(document).ready(function(){
         
             let countCheckBox = $('input[name=tipo_adicional').length;
@@ -305,23 +304,30 @@ export const prod = {
                     callback: function(){           
                                           
                         $.ajax({
-                            url: url + '/controllers/produto.php?action=pd',
+                            url: url + '/controllers/produto.php',
                             method: "post",
-                            data: {'iditem' : ids, lote : true},
+                            data: {'iditem' : ids, "action" : "pd", lote : true},
           
                             success: function(data){ 
                                 let j = JSON.parse(data);
-                                
-   
+                                $('#msg').html("");
+                                $('#msg').show();
                                 if(j.success && !j.error){
-                                    noti.init(j.error, j.msg)      
+                                    $('#msg').html(j.msg);  
+                                    setTimeout(function(){              
+                                      
+                                        $('#msg').fadeOut();
+                                    },3000)
                                     $('#checkbox-all-search').prop('checked', false);;
                                     prod.table_prod.ajax.reload();         
                                  
                                 }else{
-                                    noti.init(j.error, j.msg)      
-                                }         
-                              
+                                    $('#msg').html(j.msg);  
+                                    setTimeout(function(){                        
+                                     
+                                        $('#msg').fadeOut();
+                                    },3000)
+                                }                               
                             }
                           });
                         
@@ -357,20 +363,29 @@ export const prod = {
             var idprod = $(e.currentTarget).data('idprod');
             let url = $(e.currentTarget).data('url');
             $.ajax({
-              url: url + '/controllers/produto.php?action=pd',
+              url: url + '/controllers/produto.php',
               method: "post",
-              data: {'iditem' : idprod, lote : false},
+              data: {'iditem' : idprod, "action" : "pd", lote : false},
 
               success: function(data){ 
                 let j = JSON.parse(data);
-                 
+                $('#msg').html("");
+                $('#msg').show();
                 if(j.success && !j.error){
-                    noti.init(j.error, j.msg)      
+                    $('#msg').html(j.msg);  
+                    setTimeout(function(){              
+                      
+                        $('#msg').fadeOut();
+                    },3000)
                  
                     prod.table_prod.ajax.reload();         
                  
                 }else{
-                    noti.init(j.error, j.msg)      
+                    $('#msg').html(j.msg);  
+                    setTimeout(function(){                        
+                     
+                        $('#msg').fadeOut();
+                    },3000)
                 }                      
                  
               }
@@ -417,7 +432,7 @@ export const prod = {
            
            let formData = new FormData();
            formData.append('img_item', imgItem);
-            
+           formData.append('action', 'pc');
            formData.append('disponivel', '1');
            formData.append('nome_item', nomeItem);
            formData.append('id_cat', idCat);
@@ -430,7 +445,7 @@ export const prod = {
           
         
             $.ajax({
-                url: url + '/controllers/produto.php?action=pc',
+                url: url + '/controllers/produto.php',
                 method: "post",   
                 processData: false,
                 contentType: false,       
@@ -438,19 +453,22 @@ export const prod = {
 
                 success: function(data){ 
                     let j = JSON.parse(data);
-                  
+                    $('#msg').html("");
+                    $('#msg').show();
                     if(j.success && !j.error){
-                        noti.init(j.error, j.msg)      
-                      
-                        setTimeout(function(){
-                            window.location.assign(url+'/view-item') ; 
-
-
-                        },2000)      
+                        $('#msg').html(j.msg);  
+                        setTimeout(function(){                
+                          
+                            $('#msg').fadeOut();
+                        },3000)
+                         window.location.assign(url+'/view-item') ;       
                      
                     }else{
-                        noti.init(j.error, j.msg)      
-                      
+                        $('#msg').html(j.msg);  
+                        setTimeout(function(){                        
+                         
+                            $('#msg').fadeOut();
+                        },3000)
                     }                      
                      
                 }
@@ -502,12 +520,12 @@ export const prod = {
            let descItem = $('textarea[name=descricao_item').val();
            let imgItem = $('#file-5')[0] ? $('#file-5')[0].files[0] : "";
            let removImg = $('#file-5').data('rmv');
-            
+            console.log(removImg);
            let formData = new FormData();
            formData.append('id', idProd);
            (imgItem!=undefined && imgItem != null) ? formData.append('img_item', imgItem) : "";
-           (removImg == true && removImg != undefined && (imgItem==undefined || imgItem == null)) ?  formData.append('img_item', "") : "";
-          
+           (removImg == true && removImg != undefined && imgItem==undefined && imgItem == null) ?  formData.append('img_item', "") : "";
+           formData.append('action', 'pu');
            //formData.append('disponivel', '1');
            formData.append('nome_item', nomeItem);
            formData.append('id_cat', idCat);
@@ -520,7 +538,7 @@ export const prod = {
           
         
             $.ajax({
-                url: url + '/controllers/produto.php?action=pu',
+                url: url + '/controllers/produto.php',
                 method: "post",   
                 processData: false,
                 contentType: false,       
@@ -528,18 +546,22 @@ export const prod = {
 
                 success: function(data){ 
                     let j = JSON.parse(data);
+                    $('#msg').html("");
+                    $('#msg').show();
                     if(j.success && !j.error){
-                        noti.init(j.error, j.msg)      
-                      
-                        setTimeout(function(){
-                            window.location.assign(url+'/view-item') ; 
-
-
-                        },2000)      
+                        $('#msg').html(j.msg);  
+                        setTimeout(function(){                
+                          
+                            $('#msg').fadeOut();
+                        },3000)
+                       window.location.assign(url+'/view-item') ;       
                      
                     }else{
-                        noti.init(j.error, j.msg)      
-                      
+                        $('#msg').html(j.msg);  
+                        setTimeout(function(){                        
+                         
+                            $('#msg').fadeOut();
+                        },3000)
                     }                      
                      
                 }
@@ -596,19 +618,18 @@ export const prod = {
             var idprod = $(e.currentTarget).data('idprod');
             let url = $(e.currentTarget).data('url');
             $.ajax({
-              url: url + '/controllers/produto.php?action=pcl',
+              url: url + '/controllers/produto.php',
               method: "post",
-              data: {'iditem' : idprod},
+              data: {'iditem' : idprod, "action" : "pcl"},
 
               success: function(data){ 
                 let j = JSON.parse(data);
-           
-                if(j.success && !j.error && j.id){   
-                    noti.init(j.error, j.msg)                     
-                    
-                    setTimeout(function(){
-                        
-                    window.location.assign(url+'/editar-produto&idprod='+j.id)},2000) ;                            
+                $('#msg').html("");
+                $('#msg').show();
+                if(j.success && !j.error && j.id){
+                   
+                    window.location.assign(url+'/editar-produto&idprod='+j.id) ; 
+                            
                  
                 }else if(!j.success && j.error){
                     noti.init(j.error, j.msg)           
@@ -647,17 +668,28 @@ export const prod = {
                   text: ' Deletar',
                   callback: function(){
                     $.ajax({
-                        url: url + '/controllers/produto.php?action=pe',
+                        url: url + '/controllers/produto.php',
                       method: 'post',
-                      data: {'iditem' : idprod},
+                      data: {'iditem' : idprod, action: "pe"},
                       success: function(data){
                         let j = JSON.parse(data);
-                          
+                        $('#msg').html("");
+                        $('#msg').show();
                         if(j.success && !j.error){
-                            noti.init(j.error, j.msg)                   
-                            prod.table_prod.ajax.reload();
+                            $('#msg').html(j.msg);  
+                            setTimeout(function(){                
+                              
+                                $('#msg').fadeOut();
+                            },3000)
+                          
+                            prod.table_prod.ajax.reload();         
+                         
                         }else{
-                            noti.init(j.error, j.msg)  
+                            $('#msg').html(j.msg);  
+                            setTimeout(function(){                        
+                             
+                                $('#msg').fadeOut();
+                            },3000)
                         }
                       }
                     });
@@ -695,19 +727,28 @@ export const prod = {
                   text: ' Deletar',
                   callback: function(){
                     $.ajax({
-                        url: url + '/controllers/produto.php?action=pe',
+                        url: url + '/controllers/produto.php',
                       method: 'post',
                       data: {'iditem' : idprod, action: "pe"},
                       success: function(data){
                         let j = JSON.parse(data);
-                        
+                        $('#msg').html("");
+                        $('#msg').show();
                         if(j.success && !j.error){
-                            noti.init(j.error, j.msg)                   
-                            setTimeout(function(){              
-                                window.location.assign(url+'/view-item') ; 
+                            $('#msg').html(j.msg);  
+                            setTimeout(function(){                
+                              
+                                $('#msg').fadeOut();
                             },3000)
+                            window.location.assign(url+'/view-item') ; 
+                            
+                         
                         }else{
-                            noti.init(j.error, j.msg)  
+                            $('#msg').html(j.msg);  
+                            setTimeout(function(){                        
+                             
+                                $('#msg').fadeOut();
+                            },3000)
                         }
                       }
                     });
@@ -749,26 +790,41 @@ export const prod = {
                             buttons: {
                             action: {
                                 text: ' Deletar',
-                                callback: function(){          
+                                callback: function(){           
                                                       
                                         
                                         $.ajax({
-                                        url: url + '/controllers/produto.php?action=pe',
+                                        url: url + '/controllers/produto.php',
                                         method: "post",
-                                        data: {'iditem' : ids, "lote" : true},
+                                        data: {'iditem' : ids, 'action' : "pe", "lote" : true},
                             
                                         success: function(data){ 
                                             let j = JSON.parse(data);
+                                            $('#msg').html("");
+                                            $('#msg').show();
+                                            if(j.success && !j.error){
+                                                $('#msg').html(j.msg);  
+                                                setTimeout(function(){                
+                                                  
+                                                    $('#msg').fadeOut();
+                                                },3000)
+                                              
+                                                prod.table_prod.ajax.reload();         
                                              
-                                                if(j.success && !j.error){
-                                                    noti.init(j.error, j.msg)                   
-                                                    prod.table_prod.ajax.reload();
-                                                }else{
-                                                    noti.init(j.error, j.msg)  
-                                                }       
-                                             }
-                                     });
-                                    }
+                                            }else{
+                                                $('#msg').html(j.msg);  
+                                                setTimeout(function(){                        
+                                                 
+                                                    $('#msg').fadeOut();
+                                                },3000)
+                                            }                 
+                                        }
+                                        });
+                                    
+                                    
+                                
+                    
+                                }
                             },
                             cancel: {
                                 text: ' Cancelar'
@@ -817,7 +873,7 @@ export const prod = {
                 $("#label-icon").hide();
                 
                 $('#container-img').removeClass('container-hover');
-                // $(this).val(null);
+                $(this).val(null);
            
             });
 
@@ -838,7 +894,7 @@ export const prod = {
                         $('#label-text').show();
                         $('#container-img').addClass('container-hover')
                         $("#file-5").attr('data-rmv', "true");
-                        $("#file-5").val(null);
+
                         e.stopPropagation();
 
                     })
@@ -868,9 +924,8 @@ export const prod = {
      
            
           $.ajax({
-            url: 'controllers/adicionais.php?action=ap',
-            method: "post",
-            data: {"idtipo" : idtipo},            
+            url: 'controllers/carrega_adicional_produto.php?idtipo='+idtipo,
+            method: "get",            
     
             success: function(data){ 
                 let j = JSON.parse(data);  
@@ -923,9 +978,8 @@ export const prod = {
             let idprod = $("#categoria_produto").data('idprod');
 
           $.ajax({
-            url: 'controllers/tipos_adicionais.php?action=tag',
-            method: "post",
-            data:{'idcat' : idcat, "idprod" : idprod} ,           
+            url: 'controllers/carrega_tipos_adicionais_inputs.php?idcat='+idcat+'&idprod='+idprod,
+            method: "get",            
     
             success: function(data){ 
                 let j = JSON.parse(data);  
@@ -968,9 +1022,8 @@ export const prod = {
                 let idprod = $("#categoria_produto").data('idprod');
     
               $.ajax({
-                url: 'controllers/tipos_adicionais.php?action=tag',
-                method: "post",
-                data:{'idcat' : idcat, "idprod" : idprod} ,            
+                url: 'controllers/carrega_tipos_adicionais_inputs.php?idcat='+idcat+'&idprod='+idprod,
+                method: "get",            
         
                 success: function(data){ 
                     let j = JSON.parse(data);  
@@ -1016,9 +1069,9 @@ export const prod = {
         }
 
           $.ajax({
-                url: url + '/controllers/produto.php?action=uad',
+                url: url + '/controllers/produto.php',
                 method: "post",
-                data: {"iditem": idprod,'idtipos' : idtipos},
+                data: {"iditem": idprod,'idtipos' : idtipos, 'action' : "uad"},
     
                 success: function(data){ 
                     let j = JSON.parse(data);

@@ -134,8 +134,7 @@ opacity:0.40 !important;
     <?php
     // require('includes/configItens.php');
     ?>
-
-    <div id="msg"></div>
+ 
     <form method="post" data-url="<?=$site?>cadastros" id="cadProduto" enctype="multipart/form-data">
       <div class="wrapper_indent">
        

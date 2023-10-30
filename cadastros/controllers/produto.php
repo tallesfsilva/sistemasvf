@@ -21,10 +21,10 @@ function atualizaDispProduto($payLoad){
     $userlogin = $_SESSION['userlogin'];
     $getId = $payLoad['iditem'];
   
-    $action = !empty($payLoad['lote']) ? $payLoad['action'] : false;
+    $lote = !empty($payLoad['lote']) ? $payLoad['lote'] : false;
    
  
-    if(is_array($getId) && count($getId)>1 && $action) {
+    if(is_array($getId) && count($getId)>1 && $lote) {
     
       foreach($getId as $item){
        
@@ -49,20 +49,13 @@ function atualizaDispProduto($payLoad){
         };
       }
       if($updatebanco->getResult()){
-        $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-        Disponiblidade dos produtos atualizada!.
-        </div>";
-    
+        $res['msg']=  "Atualizados com sucesso!";
     
         $res['success'] = true;
         $res['error'] = false;
         echo json_encode($res);
       }else{
-        $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-        Ocorreu um erro ao atualizar o produto!.
-        </div>";
+        $res['msg']=  "Ocorreu um erro ao atualizar os produtos!";
     
     
         $res['success'] = false;
@@ -72,7 +65,7 @@ function atualizaDispProduto($payLoad){
         
     
     
-    }else if (is_array($getId) && count($getId)==1 && $action){
+    }else if (is_array($getId) && count($getId)==1 && $lote){
       $idProduct = $getId[0];
       $lerbanco->ExeRead('ws_itens', "WHERE user_id = :userid AND id = :f", "userid={$userlogin['user_id']}&f={$idProduct}");
       if($lerbanco->getResult()){
@@ -91,20 +84,14 @@ function atualizaDispProduto($payLoad){
         
          $updatebanco->ExeUpdate("ws_itens", $novoStatus, "WHERE user_id = :userid AND id = :upp", "userid={$userlogin['user_id']}&upp={$idProduct}");
          if($updatebanco->getResult()){
-          $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-          Disponiblidade do produto atualizada!.
-          </div>";
+          $res['msg']=  "Atualizado com sucesso!";
       
       
           $res['success'] = true;
           $res['error'] = false;
           echo json_encode($res);
         }else{
-          $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-          Ocorreu um erro ao atualizar o produto!.
-          </div>";
+          $res['msg']=  "Ocorreu um erro ao atualizar o produto!";
       
       
           $res['success'] = false;
@@ -134,21 +121,14 @@ function atualizaDispProduto($payLoad){
           
            $updatebanco->ExeUpdate("ws_itens", $novoStatus, "WHERE user_id = :userid AND id = :upp", "userid={$userlogin['user_id']}&upp={$idProduct}");
            if($updatebanco->getResult()){
-            $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-            Disponiblidade do produto atualizada!.
-            </div>";
+            $res['msg']=  "Atualizado com sucesso!";
         
         
             $res['success'] = true;
             $res['error'] = false;
             echo json_encode($res);
           }else{
-            $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-           Ocorreu um erro ao atualizar o produto!.
-            </div>";
-        
+            $res['msg']=  "Ocorreu um erro ao atualizar o produto!";
         
             $res['success'] = false;
             $res['error'] = true;
@@ -184,8 +164,8 @@ function cadastraProduto($payLoad){
     $userlogin = $_SESSION['userlogin'];
  
     
-if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / ELSE
-    unset($payLoad['action']);
+if(!empty($payLoad)){ 
+  
     
     // INICIO DA VALIDAÇÃO DA IMAGEM ITEM:
     if (isset($_FILES['img_item']['tmp_name']) && $_FILES['img_item']['tmp_name'] != ""){
@@ -211,9 +191,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
     $lerbanco->ExeRead('ws_itens', "WHERE nome_item = :novoProd", "novoProd={$payLoad['nome_item']}");
     
     if($lerbanco->getResult()){
-      $res['msg'] = "<div class=\"alert alert-info alert-dismissable\">                
-              Já existe um produto com esse nome!
-                </div>";
+      $res['msg'] = "Já existe um produto com esse nome!";
                 $res['success'] = false;
                 $res['error'] = true;
              echo json_encode($res);
@@ -233,9 +211,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
     
     
     if(empty($payLoad['nome_item']) || empty($payLoad['preco_item'])){
-        $res['msg'] = "<div class=\"alert alert-info alert-dismissable\">                
-                Preencha os campos obrigatórios!
-                </div>";
+        $res['msg'] = "Preencha todos os campos obrigatórios!";
                 $res['success'] = false;
                 $res['error'] = true;
         echo json_encode($res);  
@@ -281,10 +257,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
                   
                     if ($addbanco->getResult()){
 
-                        $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-                
-                        Item Adicionado ao Menu.
-                        </div>";
+                        $res['msg']=  "Registrado com sucesso!";
                 
                 
                         $res['success'] = true;
@@ -292,10 +265,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
                         echo json_encode($res);
 
                 }else{
-                    $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
-                
-                        Ocorreu um erro ao criar os adicionais. Por favor tente novamente\"
-                        </div>";
+                    $res['msg']=  "Ocorreu um erro no processamento. Por favor tente novamente!";
                 
                 
                         $res['success'] = true;
@@ -304,11 +274,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
                 }
               
                 }else{
-                    $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
-                
-                    Ocorreu um erro ao criar os adicionais. Por favor tente novamente\"
-                    </div>";
-            
+                  $res['msg']=  "Ocorreu um erro no processamento dos adicionais. Por favor tente novamente!";
             
                     $res['success'] = true;
                     $res['error'] = false;
@@ -316,11 +282,10 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
                 }
               
     }else{
-        $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
+        $res['msg']=  " Ocorreu um erro ao inserir o produto no banco de dados. Tente novamente!";
         
-        Ocorreu um erro ao inserir o produto no banco de dados. Tente novamente!.
-        </div>";  
-        unset($_POST); 
+            
+        unset($payLoad); 
         $res['success'] = false;
         $res['error'] = true;
         echo json_encode($res);
@@ -331,26 +296,14 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
   }else{
               unset($payLoad['adicionais']);     
               $addbanco->ExeCreate("ws_itens", $payLoad);
-               
-
+             
               if ($addbanco->getResult()){
-
-                $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-
-                Item Adicionado ao Menu.
-                </div>";
-
-
-                $res['success'] = true;
-                $res['error'] = false;
-                echo json_encode($res);
+                    $res['msg']=  "Registrado com sucesso!";
+                    $res['success'] = true;
+                    $res['error'] = false;
+                    echo json_encode($res);
             }else{
-            
-                $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
-            
-                    Ocorreu um erro ao criar o produto. Por favor tente novamente\"
-                    </div>";
-            
+              $res['msg']=  " Ocorreu um erro ao inserir o produto no banco de dados. Tente novamente!";
             
                     $res['success'] = true;
                     $res['error'] = false;
@@ -369,7 +322,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
  }
 
 
- function updateProduto($payLoad){
+ function atualizaProduto($payLoad){
 
   try{
  
@@ -388,8 +341,8 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
  
   
      
- if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / ELSE
-     unset($payLoad['action']);
+ if(!empty($payLoad)){ //INICIO DO PRIMEIRO IF / ELSE
+    
      
      // INICIO DA VALIDAÇÃO DA IMAGEM ITEM:
      if (isset($_FILES['img_item']['tmp_name']) && $_FILES['img_item']['tmp_name'] != ""){
@@ -426,18 +379,14 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
 
      
      if(empty($payLoad['nome_item']) || empty($payLoad['preco_item'])){
-         $res['msg'] = "<div class=\"alert alert-info alert-dismissable\">                
-                 Preencha os campos obrigatórios!
-                 </div>";
+         $res['msg'] = "Preencha todos os campos obrigatórios!";
                  $res['success'] = false;
                  $res['error'] = true;
          echo json_encode($res);
      }else{
          $lerbanco->ExeRead('ws_itens', "WHERE nome_item = :novoProd", "novoProd={$payLoad['nome_item']}");
          if($lerbanco->getResult()){
-          $res['msg'] = "<div class=\"alert alert-info alert-dismissable\">                
-                  Já existe um produto com esse nome!
-                    </div>";
+          $res['msg'] = "Já existe um produto com esse nome!";
                     $res['success'] = false;
                     $res['error'] = true;
                  echo json_encode($res);
@@ -496,22 +445,14 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
                 
                   if ($addbanco->getResult()){
       
-                      $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-              
-                      Item atualizado com sucesso!.
-                      </div>";
-              
+                    $res['msg']=  "Atualizado com sucesso!";
               
                       $res['success'] = true;
                       $res['error'] = false;
                       echo json_encode($res);
                   
               }else{
-                  $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
-              
-                        Ocorreu um erro ao atualizar os adicionais. Por favor tente novamente\"
-                      </div>";
-              
+                $res['msg']=  "Ocorreu um erro ao atualizar os adicionais. Por favor tente novamente!";
               
                       $res['success'] = true;
                       $res['error'] = false;
@@ -519,11 +460,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
               }
         
          }else{
-             $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
-         
-             Ocorreu um erro ao atualizar os adicionais. Por favor tente novamente\"
-             </div>";
-     
+          $res['msg']=  "Ocorreu um erro ao atualizar os adicionais. Por favor tente novamente!";
      
              $res['success'] = true;
              $res['error'] = false;
@@ -531,10 +468,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
          }
      
      }else{
-         $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
-         
-         <b class=\"alert-link\">Ocorreu um erro ao atualizar o produto no banco de dados. Tente novamente!.
-         </div>";  
+        $res['msg']=  "Ocorreu um erro ao atualizar o produto. Por favor tente novamente!";
          unset($_POST); 
          $res['success'] = false;
          $res['error'] = true;
@@ -544,16 +478,25 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
           
      };
     }else{
-      $deletbanco->ExeDelete("ws_produto_adicionais", "where id_produto = :idprod and  user_id = :iduser", "idprod={$payLoad['id']}&iduser={$userlogin['user_id']}");
-      unset($payLoad['adicionais']);     
+   
+      unset($payLoad['adicionais']); 
+      $idProd = $addbanco->getResult();
+
+      $lerbanco->ExeRead('ws_produto_adicionais', "WHERE user_id = :userId and id_produto =:idprod", "userId={$userlogin['user_id']}&idprod={$payLoad['id']}");
+      
+      if($lerbanco->getResult()){
+
+        $deletbanco->ExeDelete("ws_adicionais_itens", "WHERE user_id = :userId and id_produto =:idprod", "userId={$userlogin['user_id']}&idprod={$payLoad['id']}");
+
+      }
+
+      
+      
       $updatebanco->ExeUpdate("ws_itens", $payLoad, "where id = :idprod and user_id = :iduser", "idprod={$payLoad['id']}&iduser={$userlogin['user_id']}");
     
      if ($updatebanco->getResult()){
 
-        $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-
-        Item Atualizado com sucesso!.
-        </div>";
+        $res['msg']=  "Atualizado com sucesso!";
 
 
         $res['success'] = true;
@@ -561,10 +504,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
         echo json_encode($res);
     }else{
     
-        $res['msg']=  "<div class=\"alert alert-danger alert-dismissable\">
-    
-            Ocorreu um erro ao atualizar o produto. Por favor tente novamente\"
-            </div>";
+        $res['msg']=  "Ocorreu um erro no processamento. Por favor tente novamente!";
     
     
             $res['success'] = true;
@@ -586,7 +526,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
 
 
 
- function carregaAdcionaisUser(){
+ function carregaAdcionaisUser($payLoad){
 
 
   try{
@@ -605,12 +545,12 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
    
     $res->data = array(); 
     $res->tipos = array();
-    $payload =  filter_input_array(INPUT_POST, FILTER_DEFAULT);
+   
   
  
-    if(!empty($payload['idtipos'] && (int)$payload['idtipos']) && !empty($payload['iditem'] && (int)$payload['iditem']) ){
+    if(!empty($payLoad['idtipos'] && (int)$payLoad['idtipos']) && !empty($payLoad['iditem'] && (int)$payLoad['iditem']) ){
     
-      foreach($payload['idtipos'] as $idtipo){
+      foreach($payLoad['idtipos'] as $idtipo){
 
         $lerbanco->FullRead("select ad.id_adicionais, ad.nome_adicional 'nome_adicional', ad.valor_adicional,ad.desc_adicional, tp.id_tipo, tp.nome_adicional 'nome_tipo_adicional'
         from ws_adicionais_itens ad join ws_tipo_adicional tp on ad.id_tipo_adicional = tp.id_tipo where ad.user_id = {$userlogin['user_id']} and ad.id_tipo_adicional = {$idtipo}");
@@ -622,7 +562,7 @@ if(!empty($payLoad['action']) && !empty($payLoad)){ //INICIO DO PRIMEIRO IF / EL
         
          foreach($lerbanco->getResult() as $tt){
           extract($tt);
-          $lerbanco->FullRead("select * from ws_produto_adicionais WHERE id_adicionais = :idadicional and user_id = :userId and id_produto = :idprod and id_tipo_adicional =:idtipo", "idadicional={$id_adicionais}&idprod={$payload['iditem']}&idtipo={$idtipo}&userId={$userlogin['user_id']}");
+          $lerbanco->FullRead("select * from ws_produto_adicionais WHERE id_adicionais = :idadicional and user_id = :userId and id_produto = :idprod and id_tipo_adicional =:idtipo", "idadicional={$id_adicionais}&idprod={$payLoad['iditem']}&idtipo={$idtipo}&userId={$userlogin['user_id']}");
           if($lerbanco->getResult()){
                 array_push($res->data, array('idtipo'=> $nomeTipoAdicional['id_tipo'], 'adicionais' => "<div class=\"m-3 icheck-material-green\"><input type=\"checkbox\" checked name=\"adicional_prod\" class=\"adicional\" data-idtipo=\"$id_tipo\" data-idad=\"{$id_adicionais}\" value=\"$id_adicionais\" id=ad_\"$id_adicionais\"><label for=ad_\"{$id_adicionais}\">{$nome_adicional} ({$valor_adicional})</label></div>"));
              }else{
@@ -750,7 +690,7 @@ function carregaProdutos(){
 }
  
   
-function deletaProduto($payload){
+function deletaProduto($payLoad){
 
   
 try{
@@ -784,10 +724,7 @@ try{
               $deletbanco->ExeDelete("ws_itens", "WHERE user_id = :userid AND id = :iditem", "userid={$idusuario}&iditem={$item}");
             
               if(!$deletbanco->getResult()){
-                    $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-              
-                    Ocorreu um erro ao excluir o produto. Tente novamente por favor. 
-                  </div>";
+                    $res['msg']=  "Ocorreu um erro ao excluir os produtos. Tente novamente!";
               
               
                   $res['success'] = false;
@@ -796,10 +733,7 @@ try{
                }
       
             }else{
-              $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-                Ocorreu um erro ao recuperar o produto do banco de dados. Tente novamente por favor. 
-               </div>";
+              $res['msg']=  " Ocorreu um erro ao recuperar os produtos do banco de dados. Tente novamente por favor.";
            
            
                $res['success'] = false;
@@ -809,10 +743,7 @@ try{
      
           }
 
-          $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-         Os produtos foram excluídos com sucesso!
-         </div>";
+          $res['msg']=  "Excluídos com sucesso!";
      
      
          $res['success'] = true;
@@ -835,23 +766,14 @@ try{
               $deletbanco->ExeDelete("ws_itens", "WHERE user_id = :userid AND id = :iditem", "userid={$idusuario}&iditem={$idProduct}");
               if($deletbanco->getResult()){
                  $deletbanco->ExeDelete("ws_relacao_tamanho", "WHERE 	id_user = :userid AND id_item = :iditem", "userid={$idusuario}&iditem={$idProduct}");
-              
-                 $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-                 O produto foi excluído com sucesso!
-                </div>";
-            
+                 $res['msg']=  "Excluído com sucesso!";
             
                 $res['success'] = true;
                 $res['error'] = false;
                 echo json_encode($res);
               }else{
                      
-                $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-                Ocorreu um erro ao excluir o produto. Tente novamente por favor. 
-               </div>";
-           
+               $res['msg']=  "Ocorreu um erro ao excluir o produto. Tente novamente!";
            
                $res['success'] = false;
                $res['error'] = true;
@@ -877,10 +799,8 @@ try{
               if($deletbanco->getResult()){
                  $deletbanco->ExeDelete("ws_relacao_tamanho", "WHERE 	id_user = :userid AND id_item = :iditem", "userid={$idusuario}&iditem={$idItem}");
               
-                 $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-                  O produto foi excluído com sucesso!
-                 </div>";
+                 $res['msg']=  "Excluído com sucesso!";
+            
              
              
                  $res['success'] = true;
@@ -888,11 +808,7 @@ try{
                  echo json_encode($res);
               }else{
                  
-                $res['msg']=  "<div class=\"alert alert-success alert-dismissable\">
-          
-                Ocorreu um erro ao excluir o produto. Tente novamente por favor. 
-               </div>";
-           
+                $res['msg']=  "Ocorreu um erro ao excluir o produto. Tente novamente!";
            
                $res['success'] = false;
                $res['error'] = true;
@@ -1060,20 +976,23 @@ function clonaProduto($playload){
  
 $action =  filter_input(INPUT_GET,'action', FILTER_DEFAULT);
 $produtoObj = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
-  //Cadastro Produto - POST
+ 
+ //Cadastro Produto - POST
   //body - action = pc 
-  if(!empty($produtoObj['action']) && (string)$produtoObj['action'] && $produtoObj['action']=='pu'){
-    updateProduto($produtoObj);
+  if(!empty($action) && (string)$action && $action=='pc' && !empty($produtoObj)){
+    cadastraProduto($produtoObj);
 
  } 
 
-  //Cadastro Produto - POST
-  //body - action = pc 
-  if(!empty($produtoObj['action']) && (string)$produtoObj['action'] && $produtoObj['action']=='pc'){
-      cadastraProduto($produtoObj);
 
-   } 
+  //Atualiza Produto - POST
+  //body - action = pu
+  if(!empty($action) && (string)$action && $action=='pu' && !empty($produtoObj) && !empty($produtoObj['id'])){
+    atualizaProduto($produtoObj);
+
+ } 
+
+ 
    //Carrega Tabela Produto - GET
   //body - action = pl
    if(!empty($action) && (string)$action && $action =='pl'){
@@ -1083,7 +1002,7 @@ $produtoObj = filter_input_array(INPUT_POST, FILTER_DEFAULT);
    } 
    //Atualiza Disponibilidade do Produto - POST
   //body - action = pd 
-   if(!empty($produtoObj['action']) && (string)$produtoObj['action'] && $produtoObj['action']=='pd' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem']){
+   if(!empty($action) && (string)$action && $action=='pd' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem']){
  
        atualizaDispProduto($produtoObj);
   }
@@ -1091,18 +1010,18 @@ $produtoObj = filter_input_array(INPUT_POST, FILTER_DEFAULT);
   //Exclui Produto - POST
   //body - action = pe
   // lote = true - vários produtos 
-  if(!empty($produtoObj['action']) && (string)$produtoObj['action'] && $produtoObj['action']=='pe' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem']){
+  if(!empty($action) && (string)$action && $action=='pe' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem']){
 
     deletaProduto($produtoObj);
 }
 
 
-if(!empty($produtoObj['action']) && (string)$produtoObj['action'] && $produtoObj['action']=='uad' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem'] && !empty($produtoObj['idtipos']) && (int)$produtoObj['idtipos']){
+if(!empty($action) && (string)$action && $action=='uad' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem'] && !empty($produtoObj['idtipos']) && (int)$produtoObj['idtipos']){
 
   carregaAdcionaisUser($produtoObj);
 }
 
-if(!empty($produtoObj['action']) && (string)$produtoObj['action'] && $produtoObj['action']=='pcl' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem']){
+if(!empty($action) && (string)$action && $action=='pcl' && !empty($produtoObj['iditem']) && (int)$produtoObj['iditem']){
 
   clonaProduto($produtoObj);
 }
