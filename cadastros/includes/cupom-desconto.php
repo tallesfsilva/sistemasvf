@@ -126,7 +126,7 @@ $updatebanco = new Update();
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputPassword1">Desconto %</label>
-                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text" class="form-control descontoporcentagem" value="1" maxlength="2"  step="1" name="porcentagem" min="1" max="99" />
+                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text" class="form-control descontoporcentagem"   placeholder="Digite a porcentagem de desconto." maxlength="2"  step="1" name="porcentagem" min="1" max="99" />
                   <small class="form-text text-muted">Porcentagem de desconto.</small>
                 </div>
               </div>
@@ -136,14 +136,14 @@ $updatebanco = new Update();
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Data de Validade</label>
-                  <input type="text" class="form-control" name='data_validade' id="datepicker" data-mask="00/00/0000" placeholder="00/00/0000" />
+                  <input readonly type="text" class="form-control" name='data_validade' id="datepicker" data-mask="00/00/0000" placeholder="00/00/0000" />
                   <small id="emailHelp" class="form-text text-muted">Data de expiração do cupom</small>
                 </div>
               </div>
               <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                   <label for="exampleInputPassword1">Quantidade</label>
-                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text" class="form-control numero" name="total_vezes" value="1" min="1" maxlength="3"      max="999" />
+                  <input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text" class="form-control numero" name="total_vezes"  placeholder="Digite a quantidade de cupom." min="1" maxlength="3"      max="999" />
                   <small class="form-text text-muted">Número de vezes que o cupom pode ser usado!</small>
                 </div>
               </div>
@@ -171,7 +171,7 @@ $updatebanco = new Update();
       <div class="row">  
         <div class="col-md-6">
           <label for="search_cupom">Buscar Cupom</label>						
-          <input type="text" id="search_cupom"  class="form-control" placeholder="Digite o nome do cupom">
+          <input oninput="this.value = this.value.replace(/[^a-z-A-Z-0-9]/g, '')"  type="text" id="search_cupom"  class="form-control" placeholder="Digite o nome do cupom">
           <br />
   </div>
   <div class="col-md-6">

@@ -113,7 +113,7 @@ $updatebanco = new Update();
   <label class="col-sm-2">Valor da Taxa:</label>
   <div class="col-sm-10">
    <div class="input-group">    
-    <input type="text" name="taxa" maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" data-mask="#.##0,00"   data-mask-reverse="true" class="form-control" placeholder="0,00">
+    <input type="text" name="taxa" maxlength="6"  max="999.99"  data-mask="#.##0,00"   data-mask-reverse="true" class="form-control" placeholder="0,00">
   </div>
 </div>
 </div>
@@ -132,7 +132,7 @@ $updatebanco = new Update();
 <div class="row">  
       <div class="col-md-4">
         <label for="search_taxa">Buscar Taxa de Entrega</label>						
-        <input type="text" id="search_taxa"  class="form-control" placeholder="Digite o nome de um bairro">
+        <input oninput="this.value = this.value.replace(/[^a-z-A-Z ]/g, '')"   type="text" id="search_taxa"  class="form-control" placeholder="Digite o nome de um bairro">
         <br />
         
       </div>
@@ -204,8 +204,7 @@ $updatebanco = new Update();
 		</div>
 				</div>
 		 
- 
-
+  
  
   <script type="module" src="<?= $site;?>cadastros/js/taxa_entrega/main.js"></script>
   <script src="<?= $site;?>cadastros/js/datatables.min.js"></script>

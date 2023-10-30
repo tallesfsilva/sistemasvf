@@ -44,6 +44,13 @@ export const entrega =  {
             { orderable: true, targets: 0 },           
         ],
 
+        fields: [{
+            label: "taxa_entrega:",
+            name: "taxa_de_entrega",
+            type : "mask",
+
+        }],
+
 
         "initComplete": function () {
             var api = this.api();
@@ -55,8 +62,15 @@ export const entrega =  {
     
     }), 
  
- 
+    formataTaxa : () =>{
+        
+            
+            $('.atualiza_taxa').mask('#.##0,00', {reverse: true})
 
+               
+    
+    },
+  
 
     update : () =>{   
                     
@@ -273,6 +287,7 @@ export const entrega =  {
         entrega.create();
         entrega.delete();
         entrega.update();
+        entrega.formataTaxa();
        
     },
     fn : () => {

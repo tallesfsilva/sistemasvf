@@ -157,7 +157,7 @@ endif;
       <div class="row">  
         <div class="col-md-12">
           <label for="search_cupom">Buscar Forma de Pagamento</label>						
-          <input type="text" id="search_forma"  class="form-control" placeholder="Digite o nome de uma forma de pagamento">
+          <input oninput="this.value = this.value.replace(/[^a-z-A-Z ]/g, '')"   type="text" id="search_forma"  class="form-control" placeholder="Digite o nome de uma forma de pagamento">
           <br />
   </div>
   
