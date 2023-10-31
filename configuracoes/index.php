@@ -99,19 +99,6 @@ if(empty($_SESSION['userlogin'])){
 		
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
-
-		
- 
-	
-		 
-
-		 
-
-
-
-		 
-
-
 		<!-- Radio and check inputs -->
 		<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
 		<link href="<?= $site; ?>css/skins/square/grey.css" rel="stylesheet">
@@ -139,9 +126,10 @@ if(empty($_SESSION['userlogin'])){
 		<link rel="stylesheet" href="<?= $site; ?>css/font-awesome.css">
 		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" />
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
-		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
+		 
 		<link href="<?=$site;?>css/style-configuracao.css" rel="stylesheet">
 
+		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
 
 		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> -->
 		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script> -->
@@ -160,7 +148,7 @@ if(empty($_SESSION['userlogin'])){
  
 			<script type="text/javascript">	
 
-$(document).ready(function () {
+			$(document).ready(function () {
 
 	$.getJSON('<?=$site;?>estados_cidades.json', function (data) {
 
@@ -198,136 +186,29 @@ $(document).ready(function () {
 });
 
 </script>
-
-<script type="text/javascript">	
-
-$(document).ready(function () {
-
-	$.getJSON('<?=$site;?>estados_cidades.json', function (data) {
-
-		var items = [];
-		var options = '<option value="">Selecione o Estado</option>';	
-
-		$.each(data, function (key, val) {
-			options += '<option value="' + val.sigla + '">' + val.sigla + '</option>';
-		});					
-		$("#estados2").html(options);				
-
-		$("#estados2").change(function () {				
-
-			var options_cidades = '';
-			var str = "";					
-
-			$("#estados2 option:selected").each(function () {
-				str += $(this).text();
-			});
-
-			$.each(data, function (key, val) {
-				if(val.sigla == str) {							
-					$.each(val.cidades, function (key_city, val_city) {
-						options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
-					});							
-				}
-			});
-
-			$("#cidades2").html(options_cidades);
-
-		}).change();		
-
-	});
-
-});
-
-</script>
-
-
-
-		 
-
-
-			<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@0.2.1/output/moretoggles.min.css"> -->
-
-			<!-- Select da pagina carrinho -->
-			<link href="<?=$site?>css/selectcarrinho/dist/css/select2.min.css" rel="stylesheet" />
-			<script src="<?=$site?>css/selectcarrinho/dist/js/select2.min.js"></script>
-			<!-- Select da pagina carrinho -->
-
-
+ 
 			<!-- Radio and check inputs -->
 			<link href="<?= $site; ?>css/radio-check.css" rel="stylesheet">
 			<link href="<?= $site; ?>css/modal.css" rel="stylesheet">
 			<script type="text/javascript" src="<?= $site; ?>js/modalhorarios.js"></script> 
 			<!-- https://www.cssscript.com/pure-css-checkbox-radio-button-replacement-bootstrap-icheck/ -->
-			<link href="<?= $site; ?>notificacao/light-theme.min.css" rel="stylesheet">
+			 
 			<link href="<?= $site; ?>css/chackbox/dist/css/checkboxes.css" rel="stylesheet">
  
-
-
-			<script type="text/javascript">
-			$(document).ready(function(){
-				$('.remove_item').click(function(){
-					$('.remove_item').prop('disabled', true);
-
-					var id_item = $(this).data('id_item');
-					var rash_item = $(this).data('item_hash');
-
-					$.ajax({
-						url: '<?= $site; ?>includes/processaremovercart.php',
-						method: 'post',
-						data: {'iditem':id_item,'itemrash':rash_item, 'getpegaloja' : '<?=$Url[0];?>'},
-
-						success: function(data){
-							$('.remove_item').prop('disabled', false);
-							$('#updatesidebar').html(data);
-						}
-					});
-				});
-			});
-		</script>
-
-		
-		<script src="<?= $site; ?>css/multiselect/dist/bundle.min.js"></script>
+ 
+	 
 
 
 			<style type="text/css">
-			@media (min-width: 768px) {
-				.omb_row-sm-offset-3 div:first-child[class*="col-"] {
-					margin-left: 25%;
-				}
-			}
+			 
 
-			.omb_login .omb_authTitle {
-				text-align: center;
-				line-height: 300%;
-			}
-
+		 
 			.gradient {
        				 background: linear-gradient(90deg, #7233A1 0%, #8c52ff 100%);
       		}
 
-			.omb_login .omb_socialButtons a {
-				color: white; // In yourUse @body-bg 
-				opacity:0.9;
-			}
-			.omb_login .omb_socialButtons a:hover {
-				color: white;
-				opacity:1;    	
-			}
-
-			.omb_login .omb_loginOr {
-				position: relative;
-				font-size: 1.5em;
-				color: #aaa;
-				margin-top: 1em;
-				margin-bottom: 1em;
-				padding-top: 0.5em;
-				padding-bottom: 0.5em;
-			}
-			.omb_login .omb_loginOr .omb_hrOr {
-				background-color: #cdcdcd;
-				height: 1px;
-				margin-top: 0px !important;
-				margin-bottom: 0px !important;
+			a {
+				outline: none !important;
 			}
 
 			li > a > img{
@@ -336,119 +217,7 @@ $(document).ready(function () {
 					width:24px;
 					height:24px;
 				}
-
-			.omb_login .omb_loginOr .omb_spanOr {
-				display: block;
-				position: absolute;
-				left: 50%;
-				top: -0.6em;
-				margin-left: -1.5em;
-				background-color: white;
-				width: 3em;
-				text-align: center;
-			}			
-
-			.omb_login .omb_loginForm .input-group.i {
-				width: 2em;
-			}
-			.omb_login .omb_loginForm  .help-block {
-				color: red;
-			}
-
-
-			@media (min-width: 768px) {
-				.omb_login .omb_forgotPwd {
-					text-align: right;
-					margin-top:10px;
-				}		
-			}
-		
-
-			#whatsapp{
-				position:fixed;
-				width:60px;
-				height:60px;
-				right:10px;
-				bottom:10px;
-				display:block;
-				z-index:1000000;
-			}
-			.cart-count{
-				display: inline-block;
-				position: absolute;
-				top: 0;
-				right: 0;
-				background: #ff2646;
-				color: #fff;
-				padding: 4px 10px;
-				border-radius: 100px;
-				font-size: 10px;
-				text-shadow: 0 1px 2px rgba(0,0,0,.1);
-				box-shadow: 0 2px 4px rgba(0,0,0,.1);
-				z-index: 10;
-				text-align: center;
-				opacity: 1;
-				transition: .33s cubic-bezier(0.34, 0.13, 0.34, 1.43);
-			}
-
-
-			/*--thank you pop starts here--*/
-			.thank-you-pop{
-				width:100%;
-				padding:20px;
-				text-align:center;
-			}
-			.thank-you-pop img{
-				width:76px;
-				height:auto;
-				margin:0 auto;
-				display:block;
-				margin-bottom:25px;
-			}
-
-			.thank-you-pop h1{
-				font-size: 42px;
-				margin-bottom: 25px;
-				color:#5C5C5C;
-			}
-			.thank-you-pop p{
-				font-size: 20px;
-				margin-bottom: 27px;
-				color:#5C5C5C;
-			}
-			.thank-you-pop h3.cupon-pop{
-				font-size: 25px;
-				margin-bottom: 40px;
-				color:#222;
-				display:inline-block;
-				text-align:center;
-				padding:10px 20px;
-				border:2px dashed #222;
-				clear:both;
-				font-weight:normal;
-			}
-			.thank-you-pop h3.cupon-pop span{
-				color:#03A9F4;
-			}
-			.thank-you-pop a{
-				display: inline-block;
-				margin: 0 auto;
-				padding: 9px 20px;
-				color: #fff;
-				text-transform: uppercase;
-				font-size: 14px;
-				background-color: #8BC34A;
-				border-radius: 17px;
-			}
-			.thank-you-pop a i{
-				margin-right:5px;
-				color:#fff;
-			}
-			#ignismyModal .modal-header{
-				border:0px;
-			}
-			/*--thank you pop ends here--*/
-
+ 
 
 
 			#img-head-loja{
@@ -459,67 +228,7 @@ $(document).ready(function () {
 				background-color:#000;
 			}
 		</style>
-
-		<style type="text/css">
-
-			.switch {
-				position: relative;
-				margin: 5px auto;
-				width: 95%;
-				height: 40px;
-				border: 3px solid #34AF23;
-				color: black;
-				font-size: 15px;
-				border-radius: 10px;
-			}
-
-			.quality {
-				position: relative;
-				display: inline-block;
-				width: 50%;
-				height: 100%;
-				line-height: 40px;
-			}
-			.quality:first-child label {
-				border-radius: 5px 0 0 5px;
-			}
-			.quality:last-child label {
-				border-radius: 0 5px 5px 0;
-			}
-			.quality label {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				cursor: pointer;
-				font-style: italic;
-				text-align: center;
-				transition: transform 0.4s, color 0.4s, background-color 0.4s;
-			},
-
-					
-    
-			.quality input[type="radio"] {
-				appearance: none;
-				width: 0;
-				height: 0;
-				opacity: 0;
-			}
-			.quality input[type="radio"]:focus {
-				outline: 0;
-				outline-offset: 0;
-			}
-			.quality input[type="radio"]:checked ~ label {
-				background-color: #34AF23;
-				color: #ffffff;
-			}
-			.quality input[type="radio"]:active ~ label {
-				transform: scale(1.05);
-			}
-
-		</style>
-
+ 
 
 
 		 
@@ -538,7 +247,6 @@ $(document).ready(function () {
 
 		 
 
-		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
  
  
 		 
@@ -571,7 +279,7 @@ $(document).ready(function () {
           
          <li style="border-color: #837979" class="w-full border-t">
 		 
-            <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex panel-title items-center p-2 rounded-lg text-white  group">
+            <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex mb-2 mt-2 panel-title items-center p-2 rounded-lg text-white  group">
 			<img src="<?=URL_IMAGE.'img/pedido_confi.png'?>"/>
                <span class="flex-1 ml-3  ">Pedido Fácil</span>
 		
@@ -579,14 +287,14 @@ $(document).ready(function () {
 		 
          </li>
          <li style="border-color: #837979" class="w-full  border-t">
-		 <a href="<?=$site.'configuracoes/'?>painel" target="_parent" class="flex panel-title items-center p-2 rounded-lg text-white  group">
+		 <a href="<?=$site.'configuracoes/'?>painel" target="_parent" class="flex mb-2 mt-2 panel-title items-center p-2 rounded-lg text-white  group">
 		 <img src="<?=URL_IMAGE.'img/financeiro_conf.png'?>"/>
                <span class="flex-1 ml-3 whitespace-nowrap">Financeiro</span>
              
             </a>
          </li>
 		 <li style="border-color: #837979" class="w-full   border-b border-t">
-		 <a href="<?=$site.'configuracoes/'?>login-senha"  class="flex panel-title items-center p-2 rounded-lg text-white  group">
+		 <a href="<?=$site.'configuracoes/'?>login-senha"  class="flex panel-title mb-2 mt-2 items-center p-2 rounded-lg text-white  group">
 		 <img src="<?=URL_IMAGE.'img/conta_confi.png'?>"/>
                <span class="flex-1 ml-3 whitespace-nowrap">Conta</span>
             </a>
@@ -638,15 +346,56 @@ $(document).ready(function () {
 		 
 
 
+				<script language="JavaScript">
  
-			<script src="<?= $site; ?>js/flowbite.min.js"></script>
+//  window.onload = function() {
+// 	 document.addEventListener("contextmenu", function(e){
+// 		 e.preventDefault();
+// 	 }, false);
+// 	 document.addEventListener("keydown", function(e) {
+// 		 //document.onkeydown = function(e) {
+// 		   // "I" key
+// 		   if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+// 			   disabledEvent(e);
+// 		   }
+// 		   // "J" key
+// 		   if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+// 			   disabledEvent(e);
+// 		   }
+// 		   // "S" key + macOS
+// 		   if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+// 			   disabledEvent(e);
+// 		   }
+// 		   // "U" key
+// 		   if (e.ctrlKey && e.keyCode == 85) {
+// 			   disabledEvent(e);
+// 		   }
+// 		   // "F12" key
+// 		   if (event.keyCode == 123) {
+// 			   disabledEvent(e);
+// 		   }
+// 	   }, false);
+// 	 function disabledEvent(e){
+// 		 if (e.stopPropagation){
+// 			 e.stopPropagation();
+// 		 } else if (window.event){
+// 			 window.event.cancelBubble = true;
+// 		 }
+// 		 e.preventDefault();
+// 		 return false;
+// 	 }
+//  }
+</script>
 
+ 
+<script src="<?= $site; ?>js/flowbite.min.js"></script>
 <script src="<?= $site; ?>js/common_scripts_min.js"></script>
 <script src="<?= $site; ?>js/functions.js"></script>
 <script src="<?= $site; ?>assets/validate.js"></script>
 <script src="<?= $site; ?>js/jquery.mask.js"></script>
 <script src="<?= $site; ?>js/index-btn-file.js"></script>
 <script src="<?= $site; ?>js/funcoesjs.js"></script>
+<script src="<?= $site; ?>configuracoes/js/main.js"></script>
 <script src="<?= $site; ?>js/custom-file-input.js"></script>
 <script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
  

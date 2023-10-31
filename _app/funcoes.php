@@ -74,17 +74,18 @@ function tratar_nome($nome){
 }
 
 function validateImage($image){
-
+ 
+ 
   $res = null;
   switch ($image['type']){
     case 'image/jpg':
     case 'image/jpeg':
     case 'image/pjpeg':
-        $res = imagecreatefromjpeg($image['tmp_name']);
+        $res = @imagecreatefromjpeg($image['tmp_name']);
         break;
     case 'image/png':
     case 'image/x-png':     
-      $res = imagecreatefrompng($image['tmp_name']);
+      $res = @imagecreatefrompng($image['tmp_name']);
         break;
     };
  

@@ -437,6 +437,10 @@ export const prod = {
                 data: formData,
 
                 success: function(data){ 
+
+                    if(data.includes('"success":false')){
+                        noti.init(true, "Formato de imagem incorreto. Por favor seleciona uma imagem válida.")      
+                    }else{
                     let j = JSON.parse(data);
                   
                     if(j.success && !j.error){
@@ -452,7 +456,7 @@ export const prod = {
                         noti.init(j.error, j.msg)      
                       
                     }                      
-                     
+                }
                 }
                 }); 
         })
@@ -526,21 +530,27 @@ export const prod = {
                 contentType: false,       
                 data: formData,
 
-                success: function(data){ 
-                    let j = JSON.parse(data);
-                    if(j.success && !j.error){
-                        noti.init(j.error, j.msg)      
-                      
-                        setTimeout(function(){
-                            window.location.assign(url+'/view-item') ; 
-
-
-                        },2000)      
-                     
+                success: function(data){                    
+                    if(data.includes('"success":false')){
+                        noti.init(true, "Formato de imagem incorreto. Por favor seleciona uma imagem válida.")      
                     }else{
-                        noti.init(j.error, j.msg)      
-                      
-                    }                      
+                        let j = JSON.parse(data);
+                        if(j.success && !j.error){
+                            noti.init(j.error, j.msg)      
+                        
+                            setTimeout(function(){
+                                window.location.assign(url+'/view-item') ; 
+
+
+                            },2000)      
+                        
+                        }else{
+                            noti.init(j.error, j.msg)      
+                        
+                        }   
+
+                    }
+                                       
                      
                 }
                 }); 
@@ -937,7 +947,8 @@ export const prod = {
           
             let idcat = $("#categoria_produto").val();
             let idprod = $("#categoria_produto").data('idprod');
-
+          
+        if((idcat && idprod) || idcat){
           $.ajax({
             url: 'controllers/tipos_adicionais.php?action=tag',
             method: "post",
@@ -971,7 +982,10 @@ export const prod = {
            
             });
 
-  
+        }else{
+            $("#title_tipo").hide();
+          
+        }
         });
 
         $(document).ready(function(){
@@ -1017,6 +1031,7 @@ export const prod = {
                 });
     
             }else{
+                $("#title_tipo").hide();
                 return;
             }
         })

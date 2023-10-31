@@ -334,11 +334,12 @@ background: #FFC00082 !important;
                 <div class="form-group">
                     <label><span style="color: red;"></span> Categoria</label>        
                     <select id="categoria_produto" data-url="<?=$site?>cadastros/"data-idprod="<?=$id?>" class="form-control" name="id_cat">
-                            <?php
-                            
+                    <option value="">Selecione uma categoria</option>
+                            <?php      
+                                      
                             $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid and id = :idcatpro", "userid={$userlogin['user_id']}&idcatpro={$id_cat}");
-                            $categoriaProd = $lerbanco->getResult()[0];                          
-                            $variaveloption = "<option value=\"{$categoriaProd['id']}\">{$categoriaProd['nome_cat']}</option>";
+                            $categoriaProd = $lerbanco->getResult() ? $lerbanco->getResult()[0] : "";                          
+                            $variaveloption =  !empty($categoriaProd) ? "<option value=\"{$categoriaProd['id']}\">{$categoriaProd['nome_cat']}</option>" : "";
                           
                             $lerbanco->ExeRead("ws_cat", "WHERE user_id = :userid", "userid={$userlogin['user_id']}");
                             if (!$lerbanco->getResult()):
@@ -346,15 +347,26 @@ background: #FFC00082 !important;
                             else:
                             $lerbanco->ExeRead('ws_cat', "WHERE user_id = :userid AND id != :idcatt", "userid={$userlogin['user_id']}&idcatt={$categoriaProd['id']}");
                             echo $variaveloption;
+                          
+                          
                             foreach ($lerbanco->getResult() as $cat):
                                 extract($cat);
                                 echo "<option value=\"{$id}\">{$nome_cat}</option>";
                             endforeach;
-                           
+                          
                             endif;
                              ?>
+                               
                          </select>
-                    
+                    <script>
+
+                            $(document).ready(function(){
+                              $('#categoria_produto').val(<?=$categoriaProd['id']?>)
+                              $('#categoria_produto').trigger('change');
+
+                            })
+
+                    </script>
                     
                  </div>
                  </div>

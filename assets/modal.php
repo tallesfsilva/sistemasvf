@@ -58,18 +58,7 @@ $site = HOME;
                    </div>
                  </div>
 
-                 <div class="col-md-4">
-                    <div class="form-group">
-                     <label for="estados">Segmento</label>
-                     <select name="segmento_empresa" class="form-control" >
-                      <option value="">Selecione um Segmento</option>
-                      <option value="1"><?=$texto['nomePlanoUm'];?></option>
-                      <option value="2"><?=$texto['nomePlanoDois'];?></option>
-                      <option value="3"><?=$texto['nomePlanoTres'];?></option>
-              </select>    
-                     </select>    
-                   </div>
-                 </div>
+                 
 
                  <div class="col-md-4">
                   <div class="form-group">

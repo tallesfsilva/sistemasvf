@@ -268,7 +268,7 @@ opacity:0.40 !important;
                 <div class="form-group">
                     <label><span style="color: red;"></span> Categoria</label>        
                     <select id="categoria_produto" class="list-categoria form-control" name="id_cat">
-                    
+                        <option value="">Selecione uma categoria</option>
                     </select>
                  </div>
                  </div>

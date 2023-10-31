@@ -121,7 +121,7 @@ try{
 			$cadatroUsuarioEmpresa['end_rua_n_empresa'] = $inputDadosCadastro['end_rua_n_empresa'];
 			$cadatroUsuarioEmpresa['email_empresa'] = $inputDadosCadastro['user_email'];
 			$cadatroUsuarioEmpresa['cep_empresa'] = $inputDadosCadastro['cep_empresa'];
-			$cadatroUsuarioEmpresa['segmento_empresa'] = $inputDadosCadastro['segmento_empresa'];
+		 
 			$cadatroUsuarioEmpresa['telefone_empresa'] = preg_replace("/[^0-9]/", "", $inputDadosCadastro['user_telefone']);
 			$cadatroUsuarioEmpresa['empresa_data_renovacao'] = date("Y-m-d", strtotime("+{$texto['DiasDeTeste']} days"));
 			$cadatroUsuarioEmpresa['img_logo'] = 'default/LOGOPADRAO.png';

@@ -209,6 +209,7 @@ function deletaCaregoria($payLoad){
     try{
         global $deletbanco;
         global $lerbanco;
+        global $updatebanco;
         $res['msg'] = "";
         $res['success'] = false;
       

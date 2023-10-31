@@ -84,7 +84,7 @@ if(empty($_SESSION['userlogin'])){
 		<!-- Favicons-->
 		<link rel="shortcut icon" href="../../Imagens/LOGO.ico" type="image/x-icon">
 		<!-- GOOGLE WEB FONT -->
-		<link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,300,300italic' rel='stylesheet' type='text/css'>
+		<link href="<?= $site; ?>css/fonts-google.css" rel="stylesheet" type="text/css">
 
 		<!-- BASE CSS -->
 		<link href="<?= $site; ?>css/base.css" rel="stylesheet">
@@ -92,38 +92,32 @@ if(empty($_SESSION['userlogin'])){
 		<link href="<?= $site; ?>css/reset.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/datepicker.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/style-bt-file.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/jquery.peekabar.min.css" rel="stylesheet">
-
+		 
  
 <!-- BASE CSS -->
 
 		
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
-		 
+		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
 
 		
-		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
+ 
 	
 		 
-<!-- 
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
+		 
 
 
 
-		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'> -->
-
+		 
 
 
 		<!-- Radio and check inputs -->
-		 
-		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/normalize.css" />
-			
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/component.css" />
+		<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
 		<link href="<?= $site; ?>css/skins/square/grey.css" rel="stylesheet">
 		
 		<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/flowbite.min.css" rel="stylesheet">
+
 		<?php
 		if(!empty($_SESSION['userlogin'])):
 			?>
@@ -133,42 +127,77 @@ if(empty($_SESSION['userlogin'])){
 			<link href="<?= $site; ?>css/dropzone.css" rel="stylesheet">
 
 
+			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/normalize.css" />
+			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/demo.css" />
+			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/component.css" />
 			<?php
 		else:
 		endif;
 		?>
 
 		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/frappuccino-modal.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+		<link rel="stylesheet" href="<?= $site; ?>css/font-awesome.css">
 		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" />
-	  
+		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
-		
 		<link href="<?=$site;?>css/style-configuracao.css" rel="stylesheet">
 
 
-		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script> -->
+		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> -->
+		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script> -->
 
 
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
 
 
-	
 
-		
 
 			<!--https://gao-sun.github.io/x0popup/-->
 			<link href="<?= $site; ?>css/x0popup-master/dist/x0popup.min.css" rel="stylesheet">
 			<script src="<?= $site; ?>css/x0popup-master/dist/x0popup.min.js"></script>
-
-			<script src="<?= $site; ?>js/jquery.gotop.js"></script>
-			
-
-			<!-- <script src="<?= $site; ?>js/player.js"></script> -->
-			<script src="<?= $site; ?>js/howler.js"></script>
-
  
+ 
+ 
+			<script type="text/javascript">	
+
+$(document).ready(function () {
+
+	$.getJSON('<?=$site;?>estados_cidades.json', function (data) {
+
+		var items = [];
+		var options = '<option value="<?=(!empty($end_uf_empresa) ? $end_uf_empresa : "");?>"><?=(!empty($end_uf_empresa) ? $end_uf_empresa : "Escolha um estado");?></option>';	
+
+		$.each(data, function (key, val) {
+			options += '<option value="' + val.sigla + '">' + val.sigla + '</option>';
+		});					
+		$("#estados").html(options);				
+
+		$("#estados").change(function () {				
+
+			var options_cidades = '<option value="<?=(!empty($cidade_empresa) ? $cidade_empresa : "");?>"><?=(!empty($cidade_empresa) ? $cidade_empresa : "Escolha uma Cidade");?></option>';
+			var str = "";					
+
+			$("#estados option:selected").each(function () {
+				str += $(this).text();
+			});
+
+			$.each(data, function (key, val) {
+				if(val.sigla == str) {							
+					$.each(val.cidades, function (key_city, val_city) {
+						options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+					});							
+				}
+			});
+
+			$("#cidades").html(options_cidades);
+
+		}).change();		
+
+	});
+
+});
+
+</script>
 
 <script type="text/javascript">	
 
@@ -192,10 +221,9 @@ $(document).ready(function () {
 			$("#estados2 option:selected").each(function () {
 				str += $(this).text();
 			});
-			var options_cidades = '<option value="">Selecione uma cidade</option>';	
+
 			$.each(data, function (key, val) {
-				if(val.sigla == str) {	
-					options_cidades = "";									
+				if(val.sigla == str) {							
 					$.each(val.cidades, function (key_city, val_city) {
 						options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
 					});							
@@ -228,12 +256,11 @@ $(document).ready(function () {
 			<!-- Radio and check inputs -->
 			<link href="<?= $site; ?>css/radio-check.css" rel="stylesheet">
 			<link href="<?= $site; ?>css/modal.css" rel="stylesheet">
-			<!-- <script type="text/javascript" src="<?= $site; ?>js/modalhorarios.js"></script>  -->
+			<script type="text/javascript" src="<?= $site; ?>js/modalhorarios.js"></script> 
 			<!-- https://www.cssscript.com/pure-css-checkbox-radio-button-replacement-bootstrap-icheck/ -->
 			<link href="<?= $site; ?>notificacao/light-theme.min.css" rel="stylesheet">
 			<link href="<?= $site; ?>css/chackbox/dist/css/checkboxes.css" rel="stylesheet">
-			<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
-			<script type="text/javascript" src="<?= $site; ?>notificacao/growl-notification.min.js"></script> 
+ 
 
 
 			<script type="text/javascript">
@@ -278,33 +305,148 @@ $(document).ready(function () {
        				 background: linear-gradient(90deg, #7233A1 0%, #8c52ff 100%);
       		}
 
-			 		 #btn-2:after,#btn-3:after,#btn-4:after,#btn-1:after {
-						font-family: "Glyphicons Halflings";
-						content: "\e080";
-					 
-						right: 0;
-						position: absolute;
-						margin-right:4px;
-						}
+			.omb_login .omb_socialButtons a {
+				color: white; // In yourUse @body-bg 
+				opacity:0.9;
+			}
+			.omb_login .omb_socialButtons a:hover {
+				color: white;
+				opacity:1;    	
+			}
 
-						/* Icon when the collapsible content is hidden */
-						#btn-2.collapsed:after,#btn-3.collapsed:after,#btn-4.collapsed:after,#btn-1.collapsed:after {
-					
-						content: "\e114";
-					}
+			.omb_login .omb_loginOr {
+				position: relative;
+				font-size: 1.5em;
+				color: #aaa;
+				margin-top: 1em;
+				margin-bottom: 1em;
+				padding-top: 0.5em;
+				padding-bottom: 0.5em;
+			}
+			.omb_login .omb_loginOr .omb_hrOr {
+				background-color: #cdcdcd;
+				height: 1px;
+				margin-top: 0px !important;
+				margin-bottom: 0px !important;
+			}
 
-				ul > li > a > span{
-					 left: 25px;
- 					 position: relative
-				}
-				li > div > button > img{
+			li > a > img{
 					position: relative;
 					left: 2px;
 					width:24px;
 					height:24px;
 				}
 
- 
+			.omb_login .omb_loginOr .omb_spanOr {
+				display: block;
+				position: absolute;
+				left: 50%;
+				top: -0.6em;
+				margin-left: -1.5em;
+				background-color: white;
+				width: 3em;
+				text-align: center;
+			}			
+
+			.omb_login .omb_loginForm .input-group.i {
+				width: 2em;
+			}
+			.omb_login .omb_loginForm  .help-block {
+				color: red;
+			}
+
+
+			@media (min-width: 768px) {
+				.omb_login .omb_forgotPwd {
+					text-align: right;
+					margin-top:10px;
+				}		
+			}
+		
+
+			#whatsapp{
+				position:fixed;
+				width:60px;
+				height:60px;
+				right:10px;
+				bottom:10px;
+				display:block;
+				z-index:1000000;
+			}
+			.cart-count{
+				display: inline-block;
+				position: absolute;
+				top: 0;
+				right: 0;
+				background: #ff2646;
+				color: #fff;
+				padding: 4px 10px;
+				border-radius: 100px;
+				font-size: 10px;
+				text-shadow: 0 1px 2px rgba(0,0,0,.1);
+				box-shadow: 0 2px 4px rgba(0,0,0,.1);
+				z-index: 10;
+				text-align: center;
+				opacity: 1;
+				transition: .33s cubic-bezier(0.34, 0.13, 0.34, 1.43);
+			}
+
+
+			/*--thank you pop starts here--*/
+			.thank-you-pop{
+				width:100%;
+				padding:20px;
+				text-align:center;
+			}
+			.thank-you-pop img{
+				width:76px;
+				height:auto;
+				margin:0 auto;
+				display:block;
+				margin-bottom:25px;
+			}
+
+			.thank-you-pop h1{
+				font-size: 42px;
+				margin-bottom: 25px;
+				color:#5C5C5C;
+			}
+			.thank-you-pop p{
+				font-size: 20px;
+				margin-bottom: 27px;
+				color:#5C5C5C;
+			}
+			.thank-you-pop h3.cupon-pop{
+				font-size: 25px;
+				margin-bottom: 40px;
+				color:#222;
+				display:inline-block;
+				text-align:center;
+				padding:10px 20px;
+				border:2px dashed #222;
+				clear:both;
+				font-weight:normal;
+			}
+			.thank-you-pop h3.cupon-pop span{
+				color:#03A9F4;
+			}
+			.thank-you-pop a{
+				display: inline-block;
+				margin: 0 auto;
+				padding: 9px 20px;
+				color: #fff;
+				text-transform: uppercase;
+				font-size: 14px;
+				background-color: #8BC34A;
+				border-radius: 17px;
+			}
+			.thank-you-pop a i{
+				margin-right:5px;
+				color:#fff;
+			}
+			#ignismyModal .modal-header{
+				border:0px;
+			}
 			/*--thank you pop ends here--*/
 
 
@@ -318,12 +460,69 @@ $(document).ready(function () {
 			}
 		</style>
 
+		<style type="text/css">
+
+			.switch {
+				position: relative;
+				margin: 5px auto;
+				width: 95%;
+				height: 40px;
+				border: 3px solid #34AF23;
+				color: black;
+				font-size: 15px;
+				border-radius: 10px;
+			}
+
+			.quality {
+				position: relative;
+				display: inline-block;
+				width: 50%;
+				height: 100%;
+				line-height: 40px;
+			}
+			.quality:first-child label {
+				border-radius: 5px 0 0 5px;
+			}
+			.quality:last-child label {
+				border-radius: 0 5px 5px 0;
+			}
+			.quality label {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				cursor: pointer;
+				font-style: italic;
+				text-align: center;
+				transition: transform 0.4s, color 0.4s, background-color 0.4s;
+			},
+
+					
+    
+			.quality input[type="radio"] {
+				appearance: none;
+				width: 0;
+				height: 0;
+				opacity: 0;
+			}
+			.quality input[type="radio"]:focus {
+				outline: 0;
+				outline-offset: 0;
+			}
+			.quality input[type="radio"]:checked ~ label {
+				background-color: #34AF23;
+				color: #ffffff;
+			}
+			.quality input[type="radio"]:active ~ label {
+				transform: scale(1.05);
+			}
+
+		</style>
+
+
+
 		 
-		 
-
-
-
-		
 
 
 
@@ -339,7 +538,7 @@ $(document).ready(function () {
 
 		 
 
-		 
+		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
  
  
 		 
@@ -355,198 +554,52 @@ $(document).ready(function () {
 		</button>
 		<div class="flex flex-col">
 			 	<div class="flex">
-					<aside style="width: 211.33px; background:#7233A1; box-shadow: 2px 2px 2px 2px gray;" id="default-sidebar" class="fixed top-0 left-0 z-40 w-90 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+					<aside style="background:#7233A1; box-shadow: 2px 2px 2px 2px gray;" id="default-sidebar" class="fixed top-0 left-0 z-40 w-90 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
 				 
 					<div style="margin-top:10px; background: #7233A1;box-shadow: 0px 1px 1px black" class="mx-auto flex-row justify-center flex lg:mx-0 text-white font-bold  py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
 					<div class="flex flex-row">			
 						 		
 								<div class="w-full self-center">
-									<span style="font-size:23px;">Cadastros</span>
+									<span style="font-size:23px;">Configurações</span>
 								</div>
 							</div>
-						</div>
+		</div>
  	
 			<div  style="background: #7233A1" class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
-				
+						
 			<ul id="side-bar-menu" class="space-y-2 font-medium text-white">
-						 <div id="accordion" aria-multiselectable="true" role="tablist">
-       				  <li style="border-color: #837979" class="w-full border-t">
-			
-					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
-						
-						<button id="btn-1" href="#collapse-1" data-toggle="collapse" aria-controls="collapse-1" aria-expanded="false" class="mt-2 mb-2 flex btn-menu panel-title expand collapsed items-center p-2 rounded-lg text-white  group">
-						<img src="<?=URL_IMAGE.'img/produto1.png'?>"/>
-						 
-				<span class="flex-1 ml-3  ">Produtos</span>
-		
-		</button>
-
-			<div id="collapse-1" data-parent="#accordion" class="collapse">
-						<div class="flex flex-col">
-							 
-									<ul style="background:#9C42DD" class="font-medium text-white">
           
-         					 
-
-							<li style="border-color: #837979" class="w-full border-t">
+         <li style="border-color: #837979" class="w-full border-t">
 		 
-		 <a href="<?=$site.'cadastros/'?>view-item" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-		 
- <span class="flex-1 ml-3  ">Meus Produtos</span>
-
-			 </a>
-	
- </li>
- 
- <li style="border-color: #837979;" class="w-full border-t">
-		 
-		 <a href="<?=$site.'cadastros/'?>categorias" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
-		 
- <span class="flex-1 ml-3  ">Cadastrar Categorias</span>
-
-			 </a>
-
- </li>
-		</ul>
-
-					 
-            
-				</div>
-					</div>
-		</div>
- 
-
-			
+            <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex panel-title items-center p-2 rounded-lg text-white  group">
+			<img src="<?=URL_IMAGE.'img/pedido_confi.png'?>"/>
+               <span class="flex-1 ml-3  ">Pedido Fácil</span>
+		
+            </a>
 		 
          </li>
-		 
-		 <li style="border-color: #837979" class="w-full border-t">
-				 
-					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
-						
-			<button id="btn-2"  href="#collapse-2"   data-toggle="collapse" aria-controls="collapse-2" aria-expanded="false" class="mt-2 mb-2 flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
-			<img src="<?=URL_IMAGE.'img/financeiro1.png'?>"/>
-               <span class="flex-1 ml-3  ">Financeiro</span>
-		
-		</button>
-
-			<div id="collapse-2" aria-expanded="false" data-parent="#accordion" class="collapse">
-						<div class="flex flex-col">
-							 
-									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
-          
-         						<li style="border-color: #837979" class="w-full border-t">
-		 
-           						 <a href="<?=$site.'cadastros/'?>cadastrar-formas-pagamento" target="_parent" class="mt-2 mb-2 flex items-center p-2 rounded-lg text-white  group">
-              						 
-							<span class="flex-1 ml-3  ">Formas de Pagamentos</span>
-		
-           							 </a>
-		 
-       					 </li>
-
-						 
-		</ul>
-
-					 
-            
-				</div>
-					</div>
-		</div>
-	 
-
-			
-		 
+         <li style="border-color: #837979" class="w-full  border-t">
+		 <a href="<?=$site.'configuracoes/'?>painel" target="_parent" class="flex panel-title items-center p-2 rounded-lg text-white  group">
+		 <img src="<?=URL_IMAGE.'img/financeiro_conf.png'?>"/>
+               <span class="flex-1 ml-3 whitespace-nowrap">Financeiro</span>
+             
+            </a>
          </li>
-	 
-		 <li style="border-color: #837979" class="w-full border-t">
-			 
-					<div style="background-color: #7233A1;color: #ffffff;" class="head-panel">
-						
-					<button id="btn-3"  href="#collapse-3" data-toggle="collapse" aria-controls="collapse-3" aria-expanded="false" class="mt-2 mb-2 flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
-					<img src="<?=URL_IMAGE.'img/delivery1.png'?>"/>
-               <span class="flex-1 ml-3  ">Delivery</span>
-		
-		</button>
-
-			<div id="collapse-3" class="collapse">
-						<div class="flex flex-col">
-							 
-									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
-          
-         						<li style="border-color: #837979" class="w-full border-t">
-		 
-           						 <a href="<?=$site.'cadastros/'?>enderecos-delivery" target="_parent" class="mt-2 mb-2 flex items-center p-2 rounded-lg text-white  group">
-              						 
-							<span class="flex-1 ml-3  ">Taxa de Entrega</span>
-		
-           							 </a>
-		 
-       					 </li>
-
-						 
-		</ul>
-
-					 
-            
-				</div>
-					</div>
-		</div>
-	
-
-			
-		 
-         </li>
-
-		 <li style="border-color: #837979" class="w-full border-t border-b">
-				 <div  class="head-panel">
-					<div style="background-color: #7233A1;color: #ffffff;" class="">
-						
-					<button id="btn-4"  href="#collapse-4"  id="btn_4" data-toggle="collapse" aria-controls="collapse-4" aria-expanded="false" class="mt-2 mb-2 flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
-					<img src="<?=URL_IMAGE.'img/promocao1.png'?>"/>
-              		 <span class="flex-1 ml-2  ">Promoções</span>
-		
-						</button>
- 
-
-			<div id="collapse-4"   class="collapse">
-						<div class="flex flex-col">
-							 
-									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
-          
-         						<li style="border-color: #837979" class="w-full border-t">
-		 
-           						 <a href="<?=$site.'cadastros/'?>cupom-desconto" target="_parent" class="mt-2 mb-2 flex items-center p-2 rounded-lg text-white  group">
-              					 
-							<span class="flex-1 ml-3  ">Cupons de Desconto</span>
-		
-           							 </a>
-		 
-       					 </li>
-
-						 
-		</ul>
-
-					 
-            
-				</div>
-					</div>
-		</div>
-		</div>
-
-			
-		 
+		 <li style="border-color: #837979" class="w-full   border-b border-t">
+		 <a href="<?=$site.'configuracoes/'?>login-senha"  class="flex panel-title items-center p-2 rounded-lg text-white  group">
+		 <img src="<?=URL_IMAGE.'img/conta_confi.png'?>"/>
+               <span class="flex-1 ml-3 whitespace-nowrap">Conta</span>
+            </a>
          </li>
          
-		</div>
          
       </ul>
-	  <ul  class="fixed w-1/2 md:w-full bottom-0 pt-4 mt-4 dark:border-gray-700">
+	  <ul  class="fixed w-full bottom-0 pt-4 mt-4 dark:border-gray-700">
         
        
-         <li class="md:w-full">
+         <li class="w-full">
 
-		 <a class="md:w-full" href="<?=$site;?>">
+		 <a class="w-full" href="<?=$site;?>">
 					<div style="background: #A70000; height:64px" id="voltar_button" class="items-center mx-auto cursor-pointer flex-row justify-center flex lg:mx-0 hover:underline w-full text-white font-bold  shadow-lg focus:outline-none focus:shadow-outline">
 								<div class="w-40">
 									<svg width="50" height="40" viewBox="0 0 37 39" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -565,9 +618,8 @@ $(document).ready(function () {
    </div>
    
 </aside>
-	 
-	
-</div>
+		</div>
+ 
 		<?php				
  
  if(file_exists('includes/'.$Url[0] . '.php')):
@@ -575,53 +627,32 @@ $(document).ready(function () {
   
  endif;
  ?>
- 
 				<div  id="img-container" class="container-main-page flex bg-white h-screen justify-center items-center p-4">
 				
 				
-						<div  class="flex h-full w-full items-center justify-center container-items" >
-					<img id="img_container" style="width: 400px;height: 300px;" src="../../Imagens/INICIO.png"/>	
+				<div  class="flex h-full w-full items-center justify-center container-items" >
+					<img style="width: 400px;height: 300px;" src="../../Imagens/INICIO.png"/>	
 
 						</div>
 				</div>
-				
-
-				<script>
-	$( function() {
-
-
-		
-		$( "#datepicker" ).datepicker();
-		
-		$('.btn-menu').on('click', function(e){
-			  
-  			 
-					jQuery('#accordion .collapse').collapse('hide');
- 
 		 
-	})
-	} );
-</script>
-
-
 
 
  
-<script src="<?= $site; ?>js/flowbite.min.js"></script>
-<script src="<?= $site; ?>js/bootstrap.js"></script>
-<!-- <script src="<?= $site; ?>js/functions.js"></script> -->
+			<script src="<?= $site; ?>js/flowbite.min.js"></script>
+
+<script src="<?= $site; ?>js/common_scripts_min.js"></script>
+<script src="<?= $site; ?>js/functions.js"></script>
 <script src="<?= $site; ?>assets/validate.js"></script>
 <script src="<?= $site; ?>js/jquery.mask.js"></script>
-<!-- <script src="<?= $site; ?>js/index-btn-file.js"></script> -->
+<script src="<?= $site; ?>js/index-btn-file.js"></script>
 <script src="<?= $site; ?>js/funcoesjs.js"></script>
+<script src="<?= $site; ?>configuracoes/js/main.js"></script>
 <script src="<?= $site; ?>js/custom-file-input.js"></script>
 <script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
-<!-- <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
-<script src="<?= $site; ?>js/parallax.js"></script>
-<script src="<?= $site; ?>js/parallax.min.js"></script>
-<script src="<?= $site; ?>js/printThis.js"></script>
-<script src="<?=$site;?>js/suportewats.js"></script>
-<script src="<?=$site;?>js/jquery.peekabar.min.js"></script>
+ 
+ 
+ 
 
 		</body> 
 </html>

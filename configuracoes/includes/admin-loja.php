@@ -433,7 +433,7 @@ $updatebanco = new Update();
 				$inputdadosempresa['telefone_empresa'] = preg_replace("/[^0-9]/", "", $inputdadosempresa['telefone_empresa']);
 				$inputdadosempresa['user_id'] = $userlogin['user_id'];	
 
-				$inputdadosempresa['config_delivery'] = Check::Valor($inputdadosempresa['config_delivery']);
+				//$inputdadosempresa['config_delivery'] = Check::Valor($inputdadosempresa['config_delivery']);
 
 				$inputdadosempresa['config_segunda'] = (!empty($inputdadosempresa['config_segunda']) && $inputdadosempresa['config_segunda'] == "true" ? $inputdadosempresa['config_segunda'] : "false");	
 
@@ -542,7 +542,14 @@ $updatebanco = new Update();
 			</div>
 			<div class="wrapper_indent">
 				<div class="row">
-					<div class="col-sm-6">
+
+				<div class="col-sm-2">
+						<div class="form-group">
+							<label required for="cep_empresa">CEP</label>
+							<input data-mask="00-000.000" type="text" id="cep_empresa" value="<?=(!empty($cep_empresa) ? $cep_empresa : '');?>" name="cep_empresa" class="form-control">
+						</div>
+					</div>
+					<div class="col-sm-4">
 						<div class="form-group">
 							<label for="estados">ESTADO:</label>
 							<select required class="form-control" name="end_uf_empresa" id="estados">
@@ -550,7 +557,7 @@ $updatebanco = new Update();
 							</select>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="form-group">
 							<label for="cidade_empresa">CIDADE:</label>
 							<select required class="form-control" name="cidade_empresa" id="cidades">
@@ -558,17 +565,13 @@ $updatebanco = new Update();
 							</select>
 						</div>
 					</div>
+					
 				</div>
 			 
 					
 		 
 				<div class="row">
-				<div class="col-sm-2">
-						<div class="form-group">
-							<label required for="end_rua_n_empresa">CEP</label>
-							<input type="text" id="end_rua_n_empresa" value="<?=(!empty($cep_empresa) ? $cep_empresa : '');?>" name="cep_empresa" class="form-control">
-						</div>
-					</div>
+				
 					<div class="col-sm-5">
 						<div class="form-group">
 							<label required for="end_rua_n_empresa">RUA / Nº:</label>
@@ -606,34 +609,29 @@ $updatebanco = new Update();
 				</div>
 
 				<p>
-					<span style="color: red;">O valor inserido em "Custo padrão de entrega", será universal se não for adicionando nenhum bairro com taxas diferentes.</span>
+					
 					
 				</p>
 			</div>
 
 			<div class="wrapper_indent">
-				<div class="row">
-					<div class="col-md-6 col-sm-6">
-						<div class="form-group">
-							<label for="config_delivery">Custo padrão de entrega:</label>
-							<input type="text" required maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" data-mask="#.##0,00" data-mask-reverse="true" class="form-control" id="config_delivery" name="config_delivery" value="<?=(!empty($config_delivery) ? Check::Real($config_delivery) : '0,00');?>" />
-						</div>
-					</div>
+				<div class="row">				 
 
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
-							<label for="minimo_delivery">Valor Mínimo do Delivery: <small style="color: red;">Opcional</small></label>
+							<label for="minimo_delivery">Valor Mínimo do Delivery:</label>
 							<input type="text" required maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" data-mask="#.##0,00" data-mask-reverse="true" class="form-control" id="minimo_delivery" name="minimo_delivery" value="<?=(!empty($minimo_delivery) ? Check::Real($minimo_delivery) : '0,00');?>" />
 						</div>
 					</div>
-				</div>	
-				<div class="row">
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<label>Mensagem sobre tempo de Delivery:</label>
 							<input type="text" required class="form-control" id="msg_tempo_delivery" name="msg_tempo_delivery" value="<?=(!empty($msg_tempo_delivery) ? $msg_tempo_delivery : "Entre 30 e 60 minutos.");?>" />
 						</div>
 					</div>
+				</div>	
+				<div class="row">
+					
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<label>Mensagem sobre retirar no local:</label>
@@ -987,7 +985,7 @@ $updatebanco = new Update();
 											?>
 
 											<a title="Deletar" href="<?=$site.$Url[0].'/admin-loja&dellDate='.$id.'#sendempresa';?>">
-												<button type="button" class="btn btn-danger">
+												<button style="background-color:#d9534f"type="button" class="btn btn-danger">
 													<strong><?=$data;?> = </strong> <span class="glyphicon glyphicon-trash"></span>
 												</button>
 											</a>
@@ -1264,226 +1262,13 @@ $updatebanco = new Update();
 </script>
 
 
-<?php
-if(!empty($_SESSION['userlogin'])):
-	?>
-	<!-- Specific scripts -->
-	<script src="<?= $site; ?>js/tabs.js"></script>
-
-	<script type="text/javascript">
-		$('#delete').on('show.bs.modal', function (event) {
-			  var button = $(event.relatedTarget) // Button that triggered the modal
-			  var recipient = button.data('whatever') // Extract info from data-* attributes
-			  var recipientnome = button.data('whatevernome') // Extract info from data-* attributes
-			  var recipientimg = button.data('whateverimg') // Extract info from data-* attributes
-			  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-			  var modal = $(this)
-			  modal.find('.modal-title').text(recipientnome)
-			  modal.find('#campo_id').val(recipient)
-			  modal.find('#campo_img').val(recipientimg)
-			})
-		</script>
-
-		<script>
-
-			$('#dinheiro').mask('#.##0,00', {reverse: true});
-			$('.telefone').mask('(00) 0 0000-0000');
-			$('.estado').mask('AA');
-			$('.cpf').mask('000-000.000-00');
-			$('.cnpj').mask('00.000.000/0000-00');
-			$('.rg').mask('00.000.000-0');
-			$('.cep').mask('00000-000');
-			$('.dataNascimento').mask('00/00/0000');
-			$('.placaCarro').mask('AAA-0000');
-			$('.horasMinutos').mask('00:00');
-			$('.cartaoCredito').mask('0000 0000 0000 0000');
-			$('.numero').mask('#########0');
-			$('.descontoporcentagem').mask('##0');
-
-
-
-		</script>
-		<?php
-	else:
-	endif;
-	?>
-
-
-	<script type="text/javascript">
-//plugin bootstrap minus and plus
-//http://jsfiddle.net/laelitenetwork/puJ6G/
-$('.btn-number').click(function(e){
-	e.preventDefault();
-
-	fieldName = $(this).attr('data-field');
-	type      = $(this).attr('data-type');
-	var input = $("input[name='"+fieldName+"']");
-	var currentVal = parseInt(input.val());
-	if (!isNaN(currentVal)) {
-		if(type == 'minus') {
-
-			if(currentVal > input.attr('min')) {
-				input.val(currentVal - 1).change();
-			} 
-			if(parseInt(input.val()) == input.attr('min')) {
-				$(this).attr('disabled', true);
-			}
-
-		} else if(type == 'plus') {
-
-			if(currentVal < input.attr('max')) {
-				input.val(currentVal + 1).change();
-			}
-			if(parseInt(input.val()) == input.attr('max')) {
-				$(this).attr('disabled', true);
-			}
-
-		}
-	} else {
-		input.val(0);
-	}
-});
-$('.input-number').focusin(function(){
-	$(this).data('oldValue', $(this).val());
-});
-$('.input-number').change(function() {
-
-	minValue =  parseInt($(this).attr('min'));
-	maxValue =  parseInt($(this).attr('max'));
-	valueCurrent = parseInt($(this).val());
-
-	name = $(this).attr('name');
-	if(valueCurrent >= minValue) {
-		$(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-	} else {
-		alert('Desculpe, o valor mínimo foi atingido');
-		$(this).val($(this).data('oldValue'));
-	}
-	if(valueCurrent <= maxValue) {
-		$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-	} else {
-		alert('Desculpe, o valor máximo foi atingido');
-		$(this).val($(this).data('oldValue'));
-	}
-
-
-});
-$(".input-number").keydown(function (e) {
-        // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-             // Allow: Ctrl+A
-             (e.keyCode == 65 && e.ctrlKey === true) || 
-             // Allow: home, end, left, right
-             (e.keyCode >= 35 && e.keyCode <= 39)) {
-                 // let it happen, don't do anything
-             return;
-         }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-        	e.preventDefault();
-        }
-    });
-
-
-
-
-
-
-	//if ($("#soma-delivery").prop("checked", true)){
-		
-	//}
-</script>
+ 
+ 
 <script>
 	$( function() {
 		$( "#datepicker" ).datepicker();
 	} );
 </script>
 
-
-
-<script language="JavaScript">
-	/*
-	window.onload = function() {
-		document.addEventListener("contextmenu", function(e){
-			e.preventDefault();
-		}, false);
-		document.addEventListener("keydown", function(e) {
-            //document.onkeydown = function(e) {
-              // "I" key
-              if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
-              	disabledEvent(e);
-              }
-              // "J" key
-              if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
-              	disabledEvent(e);
-              }
-              // "S" key + macOS
-              if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
-              	disabledEvent(e);
-              }
-              // "U" key
-              if (e.ctrlKey && e.keyCode == 85) {
-              	disabledEvent(e);
-              }
-              // "F12" key
-              if (event.keyCode == 123) {
-              	disabledEvent(e);
-              }
-          }, false);
-		function disabledEvent(e){
-			if (e.stopPropagation){
-				e.stopPropagation();
-			} else if (window.event){
-				window.event.cancelBubble = true;
-			}
-			e.preventDefault();
-			return false;
-		}
-	}; */
-</script>
-
-<script type="text/javascript">
-	const selected = document.querySelector(".selected");
-	const optionsContainer = document.querySelector(".options-container");
-	const searchBox = document.querySelector(".search-box input");
-
-	const optionsList = document.querySelectorAll(".option");
-
-	selected.addEventListener("click", () => {
-		optionsContainer.classList.toggle("active");
-
-		searchBox.value = "";
-		filterList("");
-
-		if (optionsContainer.classList.contains("active")) {
-			searchBox.focus();
-		}
-	});
-
-	optionsList.forEach(o => {
-		o.addEventListener("click", () => {
-			selected.innerHTML = o.querySelector("label").innerHTML;
-			optionsContainer.classList.remove("active");
-		});
-	});
-
-	searchBox.addEventListener("keyup", function(e) {
-		filterList(e.target.value);
-	});
-
-	const filterList = searchTerm => {
-		searchTerm = searchTerm.toLowerCase();
-		optionsList.forEach(option => {
-			let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
-			if (label.indexOf(searchTerm) != -1) {
-				option.style.display = "block";
-			} else {
-				option.style.display = "none";
-			}
-		});
-	};
-
-</script>
 
  

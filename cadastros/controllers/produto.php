@@ -342,17 +342,27 @@ if(!empty($payLoad)){
   
      
  if(!empty($payLoad)){ //INICIO DO PRIMEIRO IF / ELSE
-  $imageValidator = validateImage($_FILES['img_item']);
+ 
+   
      
      // INICIO DA VALIDAÇÃO DA IMAGEM ITEM:
-     if (isset($_FILES['img_item']['tmp_name']) &&  $imageValidator  && $_FILES['img_item']['tmp_name'] != ""){
+     if (isset($_FILES['img_item']['tmp_name']) && $_FILES['img_item']['tmp_name'] != ""){
     
      
+         $imageValidator = validateImage($_FILES['img_item']);
+          if(!$imageValidator){
 
-         $payLoad['img_item'] = $_FILES['img_item'];
-         $payLoad['img_item']['id_user'] = $userlogin['user_id'];
+            $res['msg']=  "Formato de imagem incorreto. Por favor selecione uma imagem válida!";
+                  
+            $res['success'] = false;
+            $res['error'] = true;
+            echo json_encode($res);
 
-    
+          }else {
+       
+         $payLoad['img_item'] = $imageValidator ? $_FILES['img_item'] : "";
+         $payLoad['img_item']['id_user'] =  $imageValidator ? $userlogin['user_id'] : "";     
+        }
 
     
      
@@ -364,9 +374,9 @@ if(!empty($payLoad)){
              $payLoad['img_item'] = $upload->getResult();
          }elseif(is_array($payLoad['img_item'])){
           $payLoad['img_item'] = 'null';
-     };                    
- };
-     
+      };                    
+     };
+    }
      // FINAL DA VALIDAÇÃO DA IMAGEM ITEM:
      
      
@@ -522,17 +532,7 @@ if(!empty($payLoad)){
  }
 }
 
- }else{
-
  
-  $res['msg']=  "Formato de imagem incorreto. Por favor selecione uma imagem válida!";
-          
-  $res['success'] = false;
-  $res['error'] = true;
-  echo json_encode($res);
-
-
-}
  
  };//FINAL DO PRIMEIRO IF / ELSE
  

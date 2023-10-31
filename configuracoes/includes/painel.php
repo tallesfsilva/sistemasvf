@@ -77,8 +77,7 @@
 					</label>
 					<input type="text" name="access_token_mp" value="<?=(!empty($getEmpresa[0]['access_token_mp']) ? $getEmpresa[0]['access_token_mp'] : "")?>" id="access_token_mp" class="form-control" placeholder="">
 					</div>
-					<br />
-					<br />
+					 
 					<button style="background-color: #00BB07;"class="btn_1 btn-success" type="submit">Salvar Alterações</button>
 				</div>
 
