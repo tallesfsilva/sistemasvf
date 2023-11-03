@@ -390,7 +390,7 @@ $(document).ready(function () {
 
 							<li style="border-color: #837979" class="w-full border-t">
 		 
-		 <a href="<?=$site.'cadastros/'?>view-item" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
+		 <a href="<?=$site.'cadastros/'?>view-item" target="_parent" class="mt-2 mb-2 flex items-center p-2 rounded-lg text-white  group">
 		 
  <span class="flex-1 ml-3  ">Meus Produtos</span>
 
@@ -400,7 +400,7 @@ $(document).ready(function () {
  
  <li style="border-color: #837979;" class="w-full border-t">
 		 
-		 <a href="<?=$site.'cadastros/'?>categorias" target="_parent" class="flex items-center p-2 rounded-lg text-white  group">
+		 <a href="<?=$site.'cadastros/'?>categorias" target="_parent" class="mt-2 mb-2 flex items-center p-2 rounded-lg text-white  group">
 		 
  <span class="flex-1 ml-3  ">Cadastrar Categorias</span>
 

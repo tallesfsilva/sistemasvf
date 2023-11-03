@@ -75,6 +75,9 @@ class Login {
         if (!$this->Email || !$this->Senha || !Check::Email($this->Email)):
             $this->Error = ['Informe seu E-mail e senha para efetuar o login!', WS_INFOR];
             $this->Result = false;
+        elseif(!$this->getUserStatus()):
+            $this->Error = ['Seu usuário não tem acesso ao sistema. Por favor entre em contato com o administrador.', WS_ALERT];
+            $this->Result = false;
         elseif (!$this->getUser()):
             $this->Error = ['Email ou senha inválidos', WS_ALERT];
             $this->Result = false;
@@ -84,6 +87,20 @@ class Login {
         else:
             $this->Execute();
         endif;
+    }
+
+    private function getUserStatus(){
+
+        $read = new Read;
+        $read->ExeRead("ws_users", "WHERE user_email = :e AND user_status = 1", "e={$this->Email}");
+
+        if ($read->getResult()):
+            $this->Result = $read->getResult()[0];
+            return true;
+        else:
+            return false;
+        endif;
+
     }
 
     //Vetifica usuário e senha no banco de dados!

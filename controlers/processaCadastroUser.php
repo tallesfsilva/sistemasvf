@@ -100,7 +100,7 @@ try{
 			$cadatroUsuario['user_password'] = md5($inputDadosCadastro['user_password']);
 			$cadatroUsuario['user_plano'] = (int)$inputDadosCadastro['user_plano'];	 
 			$cadatroUsuario['user_level'] = 3;	 
-			$cadatroUsuario['user_status'] = "Teste";
+			$cadatroUsuario['user_status'] = 1;
 			$cadatroUsuario['user_cont'] = 1;
 			$cadatroUsuario['user_nome_plano'] = "Teste";
 			$cadatroUsuario['user_dias_plano'] = 7;
