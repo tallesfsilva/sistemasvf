@@ -4,6 +4,15 @@ require('../_app/Mobile_Detect.php');
 $detect = new Mobile_Detect;
 $site = HOME;
 
+
+$lerbanco->FullRead('select termo_cliente from configuracoes_site');
+$termo = "";
+if($lerbanco->getResult()){
+ 
+  $termo = $lerbanco->getResult()[0]['termo_cliente'];
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +29,7 @@ $site = HOME;
     <link rel="stylesheet" type="text/css"  href="<?=$site;?>css/style.css"/>
   
     <link rel="stylesheet" type="text/css"  href="<?=$site;?>css/bootstrap.css"/>
-     
+    <link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css"  href="<?=$site;?>css/tailwind.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
     <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
@@ -31,11 +40,105 @@ $site = HOME;
 
 .gradient {
     background: linear-gradient(90deg, #7233A1 0%, #8c52ff 100%);
-  };
+  }
+
+  .aceita_entrega{
+	border: none;
+   font-family: inherit;
+font-size: inherit;
+color: #fff;
+
+  background-color: rgb(30, 190, 165);
+
+padding: 10px 20px;
+outline: none;
+font-size: 12px;
+-webkit-transition: all 0.3s;
+-moz-transition: all 0.3s;
+transition: all 0.3s;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px; 
+font-weight: 600;
+display: inline-block;
+text-align: center;
+  }
+#termo_cliente{
+  background-color: #DBDBDB;
+  border-radius: 15px;
+  border-color:#DBDBDB;
+  padding:10px
+}
+.icheck-material-green > input:first-child:checked + label::before, .icheck-material-green > input:first-child:checked + input[type="hidden"] + label::before {
+	background-color: #FFC000 !important;
+	border-color: #FFC000 !important;
+	
+  }
+  .button-disabled{
+	color:rgba(23, 23, 23, 0.31) !important;
+
+}
+.button-disabled:hover{
+	background-color: rgba(209,213,219,var(--tw-bg-opacity)) !important;
+	cursor: not-allowed !important;
+	
+
+}
+
+
     </style>
   </head>
 <body>
-         <div class="relative w-full   max-h-full">
+
+<div style="display:none;" id="modal_contrato" class="flex flex-col bg-white relative w-full   max-h-full">
+
+<div style="background: #7233A1;margin-left:-10px" class="md:mx-auto flex-row justify-center flex lg:mx-0 text-white font-bold  py-4 px-10 shadow-lg focus:outline-none focus:shadow-outline">
+					<div class="flex flex-row">			
+						 		
+								<div id="termo"   class="w-full self-center">
+									<span style="font-size:23px;">Termo e Condições</span>
+								</div>
+							</div>
+                
+		                </div>
+                    </br>
+                        <div style="width: 95%;margin: 0 auto;">
+<div class="m-5 flex flex-col">
+   
+  
+
+                  <div class="flex">
+
+                    <div class="flex flex-row w-full">
+
+                    <div id="termo_cliente" class="content"><?php echo (string)$termo ?></div>
+                    </div>
+
+                    </div>
+ 
+                    <div class="m-3 icheck-material-green">
+						    <input type="checkbox"  id="check_contrato" />
+			             <label for="check_contrato">Eu declaro que li e concordo com o termos de uso.</label>
+			            </div>
+<div style="margin:10px;" class="flex justify-end flex-row">	
+		
+					<div class="mr-5 flex">	
+					 <button id="btn-reject" style="background-color: #A70000;width: 114px;"class="aceita_entrega"  type="button" class="close" data-dismiss="modal">Rejeitar</button>
+			</div>	
+      <div class="flex">	
+					<button id="btn-cad" disabled style="background-color: #00BB07;width: 114px;"class="aceita_entrega button-disabled" >Avançar</button>						
+					</div>	 
+			</div>	
+ 
+</div>
+</div>
+
+</div>
+          
+
+ 
+         <div id="modal_cad" class="relative w-full   max-h-full">
+
                   
         <div class="p-6">      
             <h3 id="msg_recover_1" class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"></h3>
@@ -194,6 +297,9 @@ $site = HOME;
           </div>
         </div>
       </div>
+
+
+      
       
         <script src="<?=$site;?>/js/jquery-2.2.4.min.js"></script>
         <script src="<?=$site;?>/js/flowbite.min.js"></script>

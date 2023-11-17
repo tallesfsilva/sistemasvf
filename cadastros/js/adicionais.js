@@ -63,7 +63,7 @@ export const ad =  {
             let idCategoria =  $("select[name='id_cat']" ).filter('.'+'categoria_grid'+'[data-idadd="'+idAdicional+'"]').val();
             let valorAdicional =  $("input[name='valor_adicional']" ).filter('.'+'atualiza_adicional'+'[data-idadd="'+idAdicional+'"]').val();
         
-           
+         
        
         $.ajax({
             url: url + '/controllers/adicionais.php?action=au',
@@ -85,7 +85,7 @@ export const ad =  {
                   
               }
             });
-     
+            
           })
           
     
@@ -142,10 +142,10 @@ export const ad =  {
         
         let idAdicional = $(e.currentTarget).data('idad');
         let url = $(e.currentTarget).data('url');  
-          
+        if(!$('.growl-notification').is(":visible")){
         GrowlNotification.notify({
           title: 'Atenção!',
-          description: 'Tem certeza de que deseja deletar esse adicional? Isso irá excluir esse adicional do cadastro do produto.',
+          description: '<center>Tem certeza de que deseja deletar esse adicional? </br>Isso irá excluir esse adicional do cadastro do produto.</center>',
           type: 'error',
           image: {
             visible: true,
@@ -183,6 +183,9 @@ export const ad =  {
           },
           closeTimeout: 0
         });
+    }else{
+        return;
+    }
     });
     },
 
@@ -224,7 +227,7 @@ formataValorAdicional : () => {
             e.preventDefault();
           let idcat = $(this).val();
           let idadd = $(this).data('idadd')
-
+          noti.init(true, "Por favor selecione um tipo de adicional");
           $.ajax({
             url: 'controllers/tipos_adicionais.php?action=tag',
             method: "post",
@@ -262,12 +265,12 @@ formataValorAdicional : () => {
         $('#categoria_adicionais').change(function(e){
 
             let idcat = $(this).val();
-
+            if(idcat != 'undefined' && idcat != '' ){
           $.ajax({
             url: 'controllers/tipos_adicionais.php?action=tag',
             method: "post",         
             data: {"idcat": idcat},            
-       
+            
     
             success: function(data){ 
                 let j = JSON.parse(data);           
@@ -289,7 +292,10 @@ formataValorAdicional : () => {
             }
              
             });
-
+        }else{
+            $(".list-tipo-adcionais").empty();                    
+            $(".list-tipo-adcionais").append("<option value=>Selecione um Tipo de Adicional</option>")
+        }
         });
     },
 

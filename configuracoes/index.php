@@ -70,7 +70,7 @@ if(empty($_SESSION['userlogin'])){
 		<meta name="robots" content="index, fallow" />
 		<link rel="canonical" href="<?=$site.$Url[0];?>">
 		<meta name="author" content="Alex Silva">
-		<meta name="og:title" content="<?=(!empty($nome_empresa) ? 'Pedido Fácil | '.$nome_empresa : 'Nome_do_seu_negócio');?>" />
+		<meta name="og:title" content="<?=(!empty($nome_empresa) ? 'Cardápio Fácil | '.$nome_empresa : 'Nome_do_seu_negócio');?>" />
 		<meta name="og:type" content="website">
 		<meta property="og:site_name" content="<?=$texto['nome_site_landing'];?>"/>
 		<meta property="og:url" content="<?$site.$nome_empresa_link?>"/>
@@ -84,67 +84,31 @@ if(empty($_SESSION['userlogin'])){
 		<!-- Favicons-->
 		<link rel="shortcut icon" href="../../Imagens/LOGO.ico" type="image/x-icon">
 		<!-- GOOGLE WEB FONT -->
-		<link href="<?= $site; ?>css/fonts-google.css" rel="stylesheet" type="text/css">
-
-		<!-- BASE CSS -->
-		<link href="<?= $site; ?>css/base.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/custom.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/reset.css" rel="stylesheet">
+ 	
+	
+		<link href="<?= $site; ?>css/base.css" rel="stylesheet">	 
 		<link href="<?= $site; ?>css/datepicker.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/style-bt-file.css" rel="stylesheet">
-		 
- 
-<!-- BASE CSS -->
+		<link href="<?= $site; ?>css/style-bt-file.css" rel="stylesheet">		 
 
-		
 		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
 		<!-- Radio and check inputs -->
 		<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
-		<link href="<?= $site; ?>css/skins/square/grey.css" rel="stylesheet">
-		
-		<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">
-
-		<?php
-		if(!empty($_SESSION['userlogin'])):
-			?>
-			<link href="<?= $site; ?>css/skins/square/green.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/admin.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/bootstrap3-wysihtml5.min.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/dropzone.css" rel="stylesheet">
-
-
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/normalize.css" />
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/demo.css" />
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/component.css" />
-			<?php
-		else:
-		endif;
-		?>
-
-		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/frappuccino-modal.css" />
-		<link rel="stylesheet" href="<?= $site; ?>css/font-awesome.css">
-		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" />
-		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
-		 
+ 		
+		<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">		 
+		<link rel="stylesheet" href="<?= $site; ?>css/font-awesome.css">	 
+		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">		 
 		<link href="<?=$site;?>css/style-configuracao.css" rel="stylesheet">
-
+		<link href="<?= $site; ?>css/jquery.peekabar.min.css" rel="stylesheet">
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
 
-		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> -->
-		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script> -->
-
-
+	 
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
 
 
 
 
-			<!--https://gao-sun.github.io/x0popup/-->
-			<link href="<?= $site; ?>css/x0popup-master/dist/x0popup.min.css" rel="stylesheet">
-			<script src="<?= $site; ?>css/x0popup-master/dist/x0popup.min.js"></script>
- 
- 
+	 
  
 			<script type="text/javascript">	
 
@@ -201,6 +165,20 @@ if(empty($_SESSION['userlogin'])){
 
 			<style type="text/css">
 			 
+			 #btn-2:after,#btn-3:after,#btn-4:after,#btn-1:after {
+						font-family: "Glyphicons Halflings";
+						content: "\e080";
+					 
+						right: 0;
+						position: absolute;
+						margin-right:4px;
+						}
+
+						/* Icon when the collapsible content is hidden */
+						#btn-2.collapsed:after,#btn-3.collapsed:after,#btn-4.collapsed:after,#btn-1.collapsed:after {
+					
+						content: "\e114";
+					}
 
 		 
 			.gradient {
@@ -210,7 +188,9 @@ if(empty($_SESSION['userlogin'])){
 			a {
 				outline: none !important;
 			}
-
+			.indent_title_in p{
+				color: #777;
+			}
 			li > a > img{
 					position: relative;
 					left: 2px;
@@ -235,21 +215,9 @@ if(empty($_SESSION['userlogin'])){
 
 
 
-		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
-
-
-
-		<!-- Radio and check inputs -->
-		<link href="<?= $site; ?>css/skins/square/grey.css" rel="stylesheet">
-			
-
-
-
-		 
-
  
- 
-		 
+
+	 
 	</head>
 
 	<body class="bg-white leading-normal tracking-normal text-white"> 
@@ -276,29 +244,90 @@ if(empty($_SESSION['userlogin'])){
 			<div  style="background: #7233A1" class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
 						
 			<ul id="side-bar-menu" class="space-y-2 font-medium text-white">
-          
-         <li style="border-color: #837979" class="w-full border-t">
-		 
-            <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="flex mb-2 mt-2 panel-title items-center p-2 rounded-lg text-white  group">
+			<div id="accordion" aria-multiselectable="true" role="tablist">
+			<li style="border-color: #837979" class="w-full border-t">
+
+			<button id="btn-1"  href="#collapse-1"   data-toggle="collapse" aria-controls="collapse-1" aria-expanded="false" class="mt-2 mb-2 flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
 			<img src="<?=URL_IMAGE.'img/pedido_confi.png'?>"/>
-               <span class="flex-1 ml-3  ">Pedido Fácil</span>
+               <span class="flex-1 ml-3  ">Cardápio Fácil</span>
 		
-            </a>
+				</button>
+
+			<div id="collapse-1" aria-expanded="false" data-parent="#accordion" class="collapse">
+						<div class="flex flex-col">
+							 
+									<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
+          
+         						<li style="border-color: #837979" class="w-full border-t">
 		 
-         </li>
-         <li style="border-color: #837979" class="w-full  border-t">
+           						 <a href="<?=$site.'configuracoes/'?>admin-loja" target="_parent" class="mt-2 mb-2 flex items-center p-2 rounded-lg text-white  group">
+              						 
+							<span style="text-align: center;" class="flex-1">Minhas Configurações</span>
+		
+           							 </a>
+		 
+       					 </li>
+
+						 
+		</ul>
+
+					 
+            
+				</div>
+					</div>
+	 
+
+		</li>
+		 
+         
+
+
+
+		<li  style="border-color: #837979" class="w-full  border-t border-b">
+
+<button id="btn-2"  href="#collapse-2"   data-toggle="collapse" aria-controls="collapse-2" aria-expanded="false" class="mt-2 mb-2 flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
+<img src="<?=URL_IMAGE.'img/conta_confi.png'?>"/>
+   <span class="flex-1 ml-3  ">Conta</span>
+
+	</button>
+
+<div id="collapse-2" aria-expanded="false" data-parent="#accordion" class="collapse">
+			<div class="flex flex-col">
+				 
+						<ul style="background:#9C42DD" class="space-y-2 font-medium text-white">
+
+					 <li style="border-color: #837979" class="w-full border-t">
+
+						<a  href="<?=$site.'configuracoes/'?>login-senha" target="_parent" class="mt-2 mb-2 flex items-center p-2 rounded-lg text-white  group">
+						   
+				<span style="position: relative;left: 35px;" class="flex-1  ">Meus Dados</span>
+
+							</a>
+
+				</li>
+
+			 
+</ul>
+
+		 
+
+	</div>
+		</div>
+
+
+</li>
+
+
+			
+        
+         <li hidden style="border-color: #837979" class="w-full  border-t">
 		 <a href="<?=$site.'configuracoes/'?>painel" target="_parent" class="flex mb-2 mt-2 panel-title items-center p-2 rounded-lg text-white  group">
 		 <img src="<?=URL_IMAGE.'img/financeiro_conf.png'?>"/>
                <span class="flex-1 ml-3 whitespace-nowrap">Financeiro</span>
              
             </a>
          </li>
-		 <li style="border-color: #837979" class="w-full   border-b border-t">
-		 <a href="<?=$site.'configuracoes/'?>login-senha"  class="flex panel-title mb-2 mt-2 items-center p-2 rounded-lg text-white  group">
-		 <img src="<?=URL_IMAGE.'img/conta_confi.png'?>"/>
-               <span class="flex-1 ml-3 whitespace-nowrap">Conta</span>
-            </a>
-         </li>
+		 
          
          
       </ul>
@@ -323,6 +352,7 @@ if(empty($_SESSION['userlogin'])){
             
          </li>
       </ul>
+		</div>
    </div>
    
 </aside>
@@ -388,16 +418,33 @@ if(empty($_SESSION['userlogin'])){
 </script>
 
  
+<script>
+	$( function() {
+
+
+		
+		$( "#datepicker" ).datepicker();
+		
+		$('.btn-menu').on('click', function(e){
+			  
+  			 
+					jQuery('#accordion .collapse').collapse('hide');
+ 
+		 
+	})
+	} );
+</script>
+
 <script src="<?= $site; ?>js/flowbite.min.js"></script>
-<script src="<?= $site; ?>js/common_scripts_min.js"></script>
-<script src="<?= $site; ?>js/functions.js"></script>
+<script src="<?= $site; ?>js/common_scripts_min.js"></script> 
 <script src="<?= $site; ?>assets/validate.js"></script>
 <script src="<?= $site; ?>js/jquery.mask.js"></script>
 <script src="<?= $site; ?>js/index-btn-file.js"></script>
 <script src="<?= $site; ?>js/funcoesjs.js"></script>
-<script src="<?= $site; ?>configuracoes/js/main.js"></script>
+<script type="module" src="<?= $site; ?>configuracoes/js/main.js"></script>
 <script src="<?= $site; ?>js/custom-file-input.js"></script>
 <script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
+<script src="<?=$site;?>js/jquery.peekabar.min.js"></script>
  
  
  

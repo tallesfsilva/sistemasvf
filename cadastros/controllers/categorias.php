@@ -292,9 +292,9 @@ try{
     
     foreach($lerbanco->getResult() as $tt){
       extract($tt);
-        array_push($res->data, array("nome_cat" => "<div id=\"msg_$id\"></div><td  id=\"nome_cat_$id\"><input type=\"text\" data-iduser=\"{$userlogin['user_id']}\" name=\"nome_cat\" data-url=\"{$site}cadastros\" data-idcat=\"{$id}\" value=\"{$nome_cat}\" class=\"atualiza_cat form-control\" placeholder=\"Nome da categoria...\">
+        array_push($res->data, array("nome_cat" => "<td  id=\"nome_cat_$id\"><input type=\"text\" data-iduser=\"{$userlogin['user_id']}\" name=\"nome_cat\" data-url=\"{$site}cadastros\" data-idcat=\"{$id}\" value=\"{$nome_cat}\" class=\"atualiza_cat form-control\" placeholder=\"Nome da categoria...\">
         <span hidden>{$nome_cat}</span></td>", 
-        "excluir" => "<td><button data-url=\"{$site}cadastros\" style=\"background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important\" type=\"button\" class=\"btn_1 btn-delete deletar_cat\" data-idcat=\"$id\"><span class=\"glyphicon glyphicon-trash\"></span></button>")) ;
+        "excluir" => "<td><button data-url=\"{$site}cadastros\" style=\"position:relative;left:75px;background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important\" type=\"button\" class=\"btn_1 btn-delete deletar_cat\" data-idcat=\"$id\"><span class=\"glyphicon glyphicon-trash\"></span></button>")) ;
  
      
    

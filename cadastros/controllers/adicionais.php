@@ -201,10 +201,11 @@ function atualizaAdicional($payLoad){
       $flagName = $payLoad['flagName']=='false' ? false : true;
        
      
-    
+      
       if(!empty($payLoad) && isset($payLoad['id_adicionais'])){
-        $lerbanco->ExeRead("ws_adicionais_itens", "WHERE user_id = :userid and nome_adicional = :nome and id_cat = :idcat", "idcat={$payLoad['id_cat']}&userid={$userlogin['user_id']}&nome={$payLoad['nome_adicional']}");
-              if ($lerbanco->getResult() && $flagName && !empty($flagName)){             
+        $lerbanco->ExeRead("ws_adicionais_itens", "WHERE user_id = :userid and nome_adicional = :nome and id_tipo_adicional = :id_tipo and id_cat = :idcat", "id_tipo={$payLoad['id_tipo_adicional']}&idcat={$payLoad['id_cat']}&userid={$userlogin['user_id']}&nome={$payLoad['nome_adicional']}");
+         
+        if ($lerbanco->getResult()){             
     
                 $res['msg'] =  "Já existe um adicional com este nome na categoria selecionada. Por favor selecione outro!";
                 $res['success'] = false;
@@ -231,7 +232,12 @@ function atualizaAdicional($payLoad){
                     $res['error'] = true;  
                    
                     echo json_encode($res);
-                
+              } else if(empty($payLoad['id_tipo_adicional'])){   
+                    $res['msg'] =  "Por favor selecione um tipo de adicional";
+                    $res['success'] = false;
+                    $res['error'] = true;  
+                    echo json_encode($res);
+               
             } else if($payLoad['valor_adicional']==""){   
                   
               $res['msg'] =  "Valor do Adicional é obrigatório!";
@@ -344,11 +350,11 @@ function cadastraAdicional($payLoad){
      
     
       if(!empty($payLoad)){
-              $lerbanco->ExeRead("ws_adicionais_itens", "WHERE user_id = :userid and nome_adicional = :nome and id_cat = :idcat", "idcat={$payLoad['id_cat']}&userid={$userlogin['user_id']}&nome={$payLoad['nome_adicional']}");
+              $lerbanco->ExeRead("ws_adicionais_itens", "WHERE user_id = :userid and nome_adicional = :nome and id_cat = :idcat  and id_tipo_adicional = :id_tipo", "id_tipo={$payLoad['id_tipo_adicional']}&idcat={$payLoad['id_cat']}&userid={$userlogin['user_id']}&nome={$payLoad['nome_adicional']}");
               if ($lerbanco->getResult()){
                  
     
-                $res['msg'] =  "Já existe um tipo de payLoad com este nome na categoria selecionada. Por favor selecione outro!";
+                $res['msg'] =  "Já existe um adicional com este nome na categoria selecionada. Por favor selecione outro!";
                 $res['success'] = false;
                 $res['error'] = true;  
                 echo json_encode($res);
@@ -364,6 +370,13 @@ function cadastraAdicional($payLoad){
                     $res['success'] = false;
                     $res['error'] = true;  
                     echo json_encode($res);
+                } else if(empty($payLoad['id_tipo_adicional'])){   
+                      $res['msg'] =  "Por favor selecione um tipo de adicional";
+                      $res['success'] = false;
+                      $res['error'] = true;  
+                      echo json_encode($res);
+                 
+                
                 
                 } else if(($payLoad['valor_adicional']=='')){   
                   $res['msg'] =  "Valor do adicional é obrigatório";

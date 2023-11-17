@@ -151,7 +151,36 @@ function updateCupom($payLoad){
                 
             $lerbanco->ExeRead('cupom_desconto', "WHERE user_id = :userid AND ativacao = :pativacao", "userid={$userlogin['user_id']}&pativacao={$payLoad['ativacao']}");
             
-            if ($lerbanco->getResult() && !empty($flagName) && $flagName  ){             
+
+            $payLoad['data_validade'] = explode("/", $payLoad['data_validade']);
+            $payLoad['data_validade'] = array_reverse($payLoad['data_validade']);
+            $payLoad['data_validade'] = implode("-",  $payLoad['data_validade']);
+        
+            if($payLoad['total_vezes'] == '0' || $payLoad['total_vezes'] == ''){
+                $res['msg']  = "Quantidade não pode ser 0!";
+                $res['success'] = false;
+                $res['error'] = true;
+                echo json_encode($res);
+            } elseif($payLoad['porcentagem'] == '0' || $payLoad['porcentagem'] == '' ){
+                $res['msg']  = "O desconto não pode ser 0!";
+                $res['success'] = false;
+                $res['error'] = true;
+                echo json_encode($res);
+            
+            } elseif( ($payLoad['ativacao'] == '' || $payLoad['ativacao'] == 'null') ||  ($payLoad['data_validade']=='' || $payLoad['data_validade'] == 'null')){
+            $res['msg']  = "Preencha todos os campos necessários!";
+            $res['success'] = false;
+            $res['error'] = true;
+            echo json_encode($res);
+        
+            } elseif(!isDateExpired($payLoad['data_validade'], 1)){
+                $res['msg']  = "A data informada está expirada!";
+              
+                $res['success'] = false;
+                $res['error'] = true;
+                echo json_encode($res);
+            
+            }elseif ($lerbanco->getResult() && !empty($flagName) && $flagName  ){             
         
                 $res['msg'] =  "Já existe um cupom com essa ativação! exclua e crie outra com novas propriedades.";
                 $res['success'] = false;
@@ -164,10 +193,7 @@ function updateCupom($payLoad){
                 unset($payLoad ['flagName']);
                 $payLoad  = array_map('strip_tags', $payLoad );
                 $payLoad  = array_map('trim', $payLoad ); 
-        
-                $payLoad ['data_validade'] = explode("/", $payLoad ['data_validade']);
-                $payLoad ['data_validade'] = array_reverse($payLoad ['data_validade']);
-                $payLoad ['data_validade'] = implode("-",  $payLoad ['data_validade']);
+         
         
         
             if($payLoad ['porcentagem'] == ''){
@@ -189,20 +215,9 @@ function updateCupom($payLoad){
                 $payLoad ['total_vezes'] = str_replace(',', '', $payLoad ['total_vezes']);
                 $payLoad ['total_vezes'] = (int) $payLoad ['total_vezes'];    
             };
+         
         
-            if (in_array('', $payLoad ) || in_array('null', $payLoad )){
-                    $res['msg']  = "Preencha todos os campos necessários!";
-                    $res['success'] = false;
-                    $res['error'] = true;
-                    echo json_encode($res);
         
-            } elseif(!isDateExpired($payLoad ['data_validade'], 1)){
-                    $res['msg']  = "A data informada está expirada!";          
-                    $res['success'] = false;
-                    $res['error'] = true;
-                    echo json_encode($res);
-        
-        }else{
             
              
              
@@ -227,11 +242,20 @@ function updateCupom($payLoad){
         
         }
             
-        };
+        }else{
+      
+                $res['msg'] =  "Ocorreu um erro no processamento";  
+                
+                $res['success'] = true;
+                $res['error'] = false;
+                echo json_encode($res);
+             
+     
+        }
         
         
         
-        };
+       
         
         }catch (PDOException $e) {
             echo "Ocorreu um erro em sua solicitação. Por favor tentar novamente " . $e->getMessage();
@@ -258,13 +282,39 @@ function cadastrarCupom($payLoad){
          
         if(!empty($payLoad['action'])){
             unset($payLoad['action']);
-        
-            $payLoad = array_map('strip_tags', $payLoad);
-            $payLoad = array_map('trim', $payLoad); 
-        
+
+
             $payLoad['data_validade'] = explode("/", $payLoad['data_validade']);
             $payLoad['data_validade'] = array_reverse($payLoad['data_validade']);
             $payLoad['data_validade'] = implode("-",  $payLoad['data_validade']);
+        
+            if($payLoad['total_vezes'] == '0' || $payLoad['total_vezes'] == ''){
+                $res['msg']  = "Quantidade não pode ser 0!";
+                $res['success'] = false;
+                $res['error'] = true;
+                echo json_encode($res);
+            } elseif($payLoad['porcentagem'] == '0' || $payLoad['porcentagem'] == '' ){
+                $res['msg']  = "O desconto não pode ser 0!";
+                $res['success'] = false;
+                $res['error'] = true;
+                echo json_encode($res);
+            
+            } elseif( ($payLoad['ativacao'] == '' || $payLoad['ativacao'] == 'null') ||  ($payLoad['data_validade']=='' || $payLoad['data_validade'] == 'null')){
+            $res['msg']  = "Preencha todos os campos necessários!";
+            $res['success'] = false;
+            $res['error'] = true;
+            echo json_encode($res);
+        
+            } elseif(!isDateExpired($payLoad['data_validade'], 1)){
+                $res['msg']  = "A data informada está expirada!";
+              
+                $res['success'] = false;
+                $res['error'] = true;
+                echo json_encode($res);
+            
+            }else{
+            $payLoad = array_map('strip_tags', $payLoad);
+            $payLoad = array_map('trim', $payLoad); 
         
         
             if($payLoad['porcentagem'] == ''){
@@ -281,26 +331,11 @@ function cadastrarCupom($payLoad){
         
             if($payLoad['total_vezes'] == ''){
                 (int) $payLoad['total_vezes'] = 1;            
-            }else{ 
+            } 
                 $payLoad['total_vezes'] = str_replace('.', '', $payLoad['total_vezes']);
                 $payLoad['total_vezes'] = str_replace(',', '', $payLoad['total_vezes']);
                 $payLoad['total_vezes'] = (int) $payLoad['total_vezes'];    
-            };
-        
-            if (in_array('', $payLoad) || in_array('null', $payLoad)){
-            $res['msg']  = "Preencha todos os campos necessários!";
-            $res['success'] = false;
-            $res['error'] = true;
-            echo json_encode($res);
-        
-            } elseif(!isDateExpired($payLoad['data_validade'], 1)){
-            $res['msg']  = "A data informada está expirada!";
-          
-            $res['success'] = false;
-            $res['error'] = true;
-            echo json_encode($res);
-        
-        }else{
+         
             
             $lerbanco->ExeRead('cupom_desconto', "WHERE user_id = :userid AND ativacao = :pativacao", "userid={$payLoad['user_id']}&pativacao={$payLoad['ativacao']}");
             if ($lerbanco->getResult()){
@@ -332,10 +367,10 @@ function cadastrarCupom($payLoad){
         
         
             
-        };
+ 
         
-        
-        
+  
+    }
         };
         
         }catch (PDOException $e) {

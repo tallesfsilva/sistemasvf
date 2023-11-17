@@ -288,6 +288,7 @@ export const prod = {
         let url = $(this).data('url');
  
         if(ids.length >0 ){
+            if(!$('.growl-notification').is(":visible")){
             GrowlNotification.notify({
                 title: 'Atenção!',
                 description: 'Confirma inativar os produtos selecionados?',
@@ -335,15 +336,12 @@ export const prod = {
                 }
                 },
                 closeTimeout: 0
-            });         
+            });    
+        }else{
+            return ;
+        }     
             }else{
-                $('#msg').html("<div class='alert alert-info alert-dismissable'>"+
-                "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>"+
-                "Por favor selecione pelo menos um produto!</div>") 
-                setTimeout(function(){                        
-                                     
-                    $('#msg').fadeOut();
-                },3000)               
+                 noti.init(true,"Por favor selecione pelo menos um produto")                
             }
 });
    
@@ -438,7 +436,7 @@ export const prod = {
 
                 success: function(data){ 
 
-                    if(data.includes('"success":false')){
+                    if(data.includes('"img":false')){
                         noti.init(true, "Formato de imagem incorreto. Por favor seleciona uma imagem válida.")      
                     }else{
                     let j = JSON.parse(data);
@@ -531,7 +529,7 @@ export const prod = {
                 data: formData,
 
                 success: function(data){                    
-                    if(data.includes('"success":false')){
+                    if(data.includes('"img":false')){
                         noti.init(true, "Formato de imagem incorreto. Por favor seleciona uma imagem válida.")      
                     }else{
                         let j = JSON.parse(data);
@@ -640,7 +638,7 @@ export const prod = {
 
             var idprod = $(e.currentTarget).data('idprod');
             let url = $(e.currentTarget).data('url');
-      
+            if(!$('.growl-notification').is(":visible")){
             GrowlNotification.notify({
               title: 'Atenção!',
               description: 'Tem certeza de que deseja deletar este item?',
@@ -680,7 +678,9 @@ export const prod = {
               },
               closeTimeout: 0
             });         
-      
+        }else{
+            return;
+        }
           });
 
 
@@ -688,7 +688,7 @@ export const prod = {
 
             var idprod = $(e.currentTarget).data('idprod');
             let url = $(e.currentTarget).data('url');
-      
+            if(!$('.growl-notification').is(":visible")){
             GrowlNotification.notify({
               title: 'Atenção!',
               description: 'Tem certeza de que deseja deletar este item?',
@@ -730,7 +730,9 @@ export const prod = {
               },
               closeTimeout: 0
             });         
-      
+        }else{
+            return;
+        }
           });
 
         $('#btn_excluir').click(function(){
@@ -745,6 +747,7 @@ export const prod = {
             let url = $(this).data('url');
          
             if(ids.length >0 ){
+                if(!$('.growl-notification').is(":visible")){
                         GrowlNotification.notify({
                             title: 'Atenção!',
                             description: 'Confirma a exclusão dos produtos?',
@@ -786,14 +789,12 @@ export const prod = {
                             },
                             closeTimeout: 0
                         });         
+                    }else{
+                        return;
+                    }
                         }else{
-                            $('#msg').html("<div class='alert alert-info alert-dismissable'>"+
-                            "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>"+
-                            "Por favor selecione pelo menos um produto!</div>") 
-                            setTimeout(function(){                        
-                                                 
-                                $('#msg').fadeOut();
-                            },3000)               
+                              
+                            noti.init(true,"Por favor selecione pelo menos um produto")                
                         }
             });
          

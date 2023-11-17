@@ -1,5 +1,6 @@
 {
     "require": {
-        "mercadopago/dx-php": "2.5.5"
+        "mercadopago/dx-php": "2.5.5",
+        "dompdf/dompdf": "^0.6.2"
     }
 }

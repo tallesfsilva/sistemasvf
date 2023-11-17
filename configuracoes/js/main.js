@@ -1,5 +1,8 @@
+import {config } from "./configuracao.js"
+
 $(document).ready(function(){
 
+  config.fn();
 
     $("#cep_empresa").on('blur', function(){
  

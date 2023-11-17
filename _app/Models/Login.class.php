@@ -76,7 +76,7 @@ class Login {
             $this->Error = ['Informe seu E-mail e senha para efetuar o login!', WS_INFOR];
             $this->Result = false;
         elseif(!$this->getUserStatus()):
-            $this->Error = ['Seu usuário não tem acesso ao sistema. Por favor entre em contato com o administrador.', WS_ALERT];
+            $this->Error = ['<center>Seu usuário não tem acesso ao sistema.</br> Por favor entre em contato com o administrador.</center>.', WS_ERROR];
             $this->Result = false;
         elseif (!$this->getUser()):
             $this->Error = ['Email ou senha inválidos', WS_ALERT];

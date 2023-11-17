@@ -20,16 +20,29 @@ $("#user_email").on('blur', function(){
     }
   }
 })
+
+
+$("#check_contrato").change(function(){
+
+  if($(this).is(':checked')){
+    $("#btn-cad").removeAttr('disabled');
+    $("#btn-cad").removeClass('button-disabled');
+
+  }else{
+    $("#btn-cad").attr('disabled', 'disabled')
+    $("#btn-cad").addClass('button-disabled');
+  }
  
 
 
-$("#cadastrarUser").click(function(){
-  //formCadastro
-  // $(this).html('<i class="icon-spin5 animate-spin"></i> AGUARDE...');
-  // $(this).prop('disabled', true);
+
+
+})
+
+$("#btn-cad").click(function(e){
 
   $.ajax({
-    url: '../controlers/processaCadastroUser.php',
+    url: '../controlers/processaCadastroUser.php?action=cad',
     method: 'post',
     data: $('#formCadastro').serialize(),
     success: function(data){
@@ -41,65 +54,145 @@ $("#cadastrarUser").click(function(){
         $('#cadastrarUser').html('Cadastrar Minha Loja');
         $('#cadastrarUser').prop('disabled', false);
       }else if(res.success){
-        x0p('Sucesso!', 
-            res.message, 
-            'ok', false);
-           $('#cadastrarUser').html('Cadastrar Minha Loja');
-           $('#cadastrarUser').prop('disabled', false);
-            setTimeout(function(){
-                window.parent.location.replace(res.url);
-            },2000)
-         
+        $('#cadastrarUser').html('Cadastrar Minha Loja');
+     $('#cadastrarUser').prop('disabled', false);
+     x0p('Sucesso!', 
+                 res.message, 
+                 'ok', false);
+                $('#cadastrarUser').html('Cadastrar Minha Loja');
+                $('#cadastrarUser').prop('disabled', false);
+                 setTimeout(function(){                 
+                     window.parent.location.replace(res.url);
+                 },5000);             
 
       }
-    //   }else if(data == "erro2"){
-    //     x0p('Opsss', 
-    //       'O E-mail informado e inválido!',
-    //       'error', false);
-    //     $('#cadastrarUser').html('Cadastrar Minha Loja');
-    //     $('#cadastrarUser').prop('disabled', false);
-    //   }else if(data == "erro3"){
-    //     x0p('Opsss', 
-    //       'A senha informada deve ter no mínimo 8 caracteres!',
-    //       'error', false);
-    //     $('#cadastrarUser').html('Cadastrar Minha Loja');
-    //     $('#cadastrarUser').prop('disabled', false);
-    //   }else if(data == "erro4"){
-    //     x0p('Opsss', 
-    //       'As senhas não coincidem!',
-    //       'error', false);
-    //     $('#cadastrarUser').html('Cadastrar Minha Loja');
-    //     $('#cadastrarUser').prop('disabled', false);
-    //   }else if(data == "erro5"){
-    //     x0p('Opsss', 
-    //       'Esse link não está disponível!',
-    //       'error', false);
-    //     $('#cadastrarUser').html('Cadastrar Minha Loja');
-    //     $('#cadastrarUser').prop('disabled', false);
-    //   }else if(data == "erro6"){
-    //     x0p('Opsss', 
-    //       'Já existe uma conta com esses dados!',
-    //       'error', false);
-    //     $('#cadastrarUser').html('Cadastrar Minha Loja');
-    //     $('#cadastrarUser').prop('disabled', false);
-    //   }else if(data == "erro0"){
-    //     x0p('Opsss', 
-    //       'OCORREU UM ERRO AO CADASTRAR!',
-    //       'error', false);
-    //     $('#cadastrarUser').html('Cadastrar Minha Loja');
-    //     $('#cadastrarUser').prop('disabled', false);
-    //   }else{
-    //    x0p('Sucesso!', 
-    //     'Agora você pode fazer login.', 
-    //     'ok', false);
-    //    $('#cadastrarUser').html('Cadastrar Minha Loja');
-    //    $('#cadastrarUser').prop('disabled', false);
-    //  }
-     
-   }
- });
+    }
+  })
 
-}); 
+
+
+
+
+
+
+})
+
+$("#btn-reject").click(function(){
+
+  parent.$('body').trigger('reject');
+
+
+
+})
+
+$('#cadastrarUser').click(function(){
+
+     
+  $("#check_contrato").prop('checked', false);
+  if(  !$("#btn-cad").is(":disabled")){
+    $("#btn-cad").attr('disabled', 'disabled')
+    $("#btn-cad").addClass('button-disabled');
+  } 
+
+   $.ajax({
+    url: '../controlers/processaCadastroUser.php?action=check',
+    method: 'post',
+    data: $('#formCadastro').serialize(),
+    success: function(data){
+      var res = JSON.parse(data);
+      if(!res.success && res.message){
+        x0p('Opsss', 
+          res.message,
+          'error', false);
+        $('#cadastrarUser').html('Cadastrar Minha Loja');
+        $('#cadastrarUser').prop('disabled', false);
+      }else if(res.success){
+       
+        $('#modal_cad').hide()
+        $('#modal_contrato').show();              
+      }
+    }
+    })
+ })
+ 
+
+// $("#cadastrarUser").click(function(){
+//   //formCadastro
+//   // $(this).html('<i class="icon-spin5 animate-spin"></i> AGUARDE...');
+//   // $(this).prop('disabled', true);
+
+//   $.ajax({
+//     url: '../controlers/processaCadastroUser.php',
+//     method: 'post',
+//     data: $('#formCadastro').serialize(),
+//     success: function(data){
+//       var res = JSON.parse(data);
+//       if(!res.success && res.message){
+//         x0p('Opsss', 
+//           res.message,
+//           'error', false);
+//         $('#cadastrarUser').html('Cadastrar Minha Loja');
+//         $('#cadastrarUser').prop('disabled', false);
+//       }else if(res.success){
+//         x0p('Sucesso!', 
+//             res.message, 
+//             'ok', false);
+//            $('#cadastrarUser').html('Cadastrar Minha Loja');
+//            $('#cadastrarUser').prop('disabled', false);
+//             setTimeout(function(){
+//                 window.parent.location.replace(res.url);
+//             },5000)
+         
+
+//       }
+//     //   }else if(data == "erro2"){
+//     //     x0p('Opsss', 
+//     //       'O E-mail informado e inválido!',
+//     //       'error', false);
+//     //     $('#cadastrarUser').html('Cadastrar Minha Loja');
+//     //     $('#cadastrarUser').prop('disabled', false);
+//     //   }else if(data == "erro3"){
+//     //     x0p('Opsss', 
+//     //       'A senha informada deve ter no mínimo 8 caracteres!',
+//     //       'error', false);
+//     //     $('#cadastrarUser').html('Cadastrar Minha Loja');
+//     //     $('#cadastrarUser').prop('disabled', false);
+//     //   }else if(data == "erro4"){
+//     //     x0p('Opsss', 
+//     //       'As senhas não coincidem!',
+//     //       'error', false);
+//     //     $('#cadastrarUser').html('Cadastrar Minha Loja');
+//     //     $('#cadastrarUser').prop('disabled', false);
+//     //   }else if(data == "erro5"){
+//     //     x0p('Opsss', 
+//     //       'Esse link não está disponível!',
+//     //       'error', false);
+//     //     $('#cadastrarUser').html('Cadastrar Minha Loja');
+//     //     $('#cadastrarUser').prop('disabled', false);
+//     //   }else if(data == "erro6"){
+//     //     x0p('Opsss', 
+//     //       'Já existe uma conta com esses dados!',
+//     //       'error', false);
+//     //     $('#cadastrarUser').html('Cadastrar Minha Loja');
+//     //     $('#cadastrarUser').prop('disabled', false);
+//     //   }else if(data == "erro0"){
+//     //     x0p('Opsss', 
+//     //       'OCORREU UM ERRO AO CADASTRAR!',
+//     //       'error', false);
+//     //     $('#cadastrarUser').html('Cadastrar Minha Loja');
+//     //     $('#cadastrarUser').prop('disabled', false);
+//     //   }else{
+//     //    x0p('Sucesso!', 
+//     //     'Agora você pode fazer login.', 
+//     //     'ok', false);
+//     //    $('#cadastrarUser').html('Cadastrar Minha Loja');
+//     //    $('#cadastrarUser').prop('disabled', false);
+//     //  }
+     
+//    }
+//  });
+
+// }); 
 
 
 

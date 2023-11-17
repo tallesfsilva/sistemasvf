@@ -241,7 +241,7 @@ function carregaTableTiposAdicionais(){
              {$variaveloption}{$optionsCat}</select>
             <span hidden>{$pegacatitens[0]['id']}</span></td>", "tipo_adicional" => "<td><input type=\"text\" data-flag=\"true\" data-idtipo=\"$id_tipo\" data-url=\"{$site}cadastros\" value=\"$nome_adicional\"oninput=\"this.value = this.value.toUpperCase()\" name=\"nome_adicional\" class=\"atualiza_tipo form-control\" placeholder=\"Digite um nome para o tipo de adicional\"> <span hidden>{$nome_adicional}</span></td>",
             "quantidade" => "<td><input type=\"text\" data-idtipo=\"$id_tipo\" data-url=\"{$site}cadastros\" value=\"$quantidade\" oninput=\"this.value = this.value > parseInt('20') ? '' : this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');\"  step=\"1\" min=\"1\" max=\"20\" name=\"quantidade\" class=\"atualiza_tipo form-control\" placeholder=\"Digite uma quantidade do adicional obrigatória\"><span hidden>{$quantidade}</span></td>",
-            "excluir" => "<td><button data-url=\"{$site}cadastros\" style=\"background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important\" type=\"button\" class=\"btn_1 btn-delete deletar_tipo\" data-idtipo=\"$id_tipo\"><span class=\"glyphicon glyphicon-trash\"></span></button>")) ;
+            "excluir" => "<td><button data-url=\"{$site}cadastros\" style=\"position:relative;left:25px;background-color: #A70000;border-color: #A70000; margin: 3px;border-radius: 4px !important\" type=\"button\" class=\"btn_1 btn-delete deletar_tipo\" data-idtipo=\"$id_tipo\"><span class=\"glyphicon glyphicon-trash\"></span></button>")) ;
             $optionsCat = "";
         }
             
@@ -339,7 +339,7 @@ try{
           if ($lerbanco->getResult()){
              
 
-            $res['msg'] =  "Já existe um tipo de adicional com este nome na categoria selecionada. Por favor selecione outro!";
+            $res['msg'] =  "Tipo de adicional já registrado, por favor tente outro!";
             $res['success'] = false;
             $res['error'] = true;  
             echo json_encode($res);
@@ -379,7 +379,7 @@ try{
               $res['msg'] =  "Registrado com sucesso!";
               $res['success'] = true;  
               $res['error'] = false;  
-              echo json_encode($res);
+              echo json_encodfe($res);
           }else{
             $res['msg'] =  "Ocorreu um erro no processamento. Por favor tente novamente!";
             $res['success'] = false;

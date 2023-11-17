@@ -123,7 +123,7 @@ endif;
 		<meta name="robots" content="index, fallow" />
 		<link rel="canonical" href="<?=$site.$Url[0];?>">
 		<meta name="author" content="Alex Silva">
-		<meta name="og:title" content="<?=(!empty($nome_empresa) ? 'Pedido Fácil | '.$nome_empresa : 'Nome_do_seu_negócio');?>" />
+		<meta name="og:title" content="<?=(!empty($nome_empresa) ? 'Cardápio Fácil | '.$nome_empresa : 'Nome_do_seu_negócio');?>" />
 		<meta name="og:type" content="website">
 		<meta property="og:site_name" content="<?=$texto['nome_site_landing'];?>"/>
 		<meta property="og:url" content="<?$site.$nome_empresa_link?>"/>
@@ -142,12 +142,9 @@ endif;
 		<!-- BASE CSS -->
 		<link href="<?= $site; ?>css/base.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/custom.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/reset.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/datepicker.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/style-bt-file.css" rel="stylesheet">
-	 
-		
-		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
+       
+		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/normalize.css" />			
+		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/component.css" /> 	
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
 		<link href="<?= $site; ?>css/style.css" rel="stylesheet">	 
 		<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">
@@ -227,131 +224,32 @@ endif;
 
 
  
-
-
-		<!-- Radio and check inputs -->
-		<link href="<?= $site; ?>css/skins/square/grey.css" rel="stylesheet">
 		
 
 
 
-		<?php
-		if(!empty($_SESSION['userlogin'])):
-			?>
-			<link href="<?= $site; ?>css/skins/square/green.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/admin.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/bootstrap3-wysihtml5.min.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/dropzone.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">
+		 
 
-
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/normalize.css" />
-			 
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/component.css" />
-			<?php
-		else:
-		endif;
-		?>
-
-		<!-- <link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/frappuccino-modal.css" /> -->
+		 
 		<link rel="stylesheet" href="css/font-awesome.css">
-		<!-- <link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" /> -->
-
+		 
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
-
-		
-<!-- 
-		<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script> -->
-
+ 
 
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
 
 	 
  
-
-		<!--https://gao-sun.github.io/x0popup/-->
-		<link href="<?= $site; ?>css/x0popup-master/dist/x0popup.min.css" rel="stylesheet">
-		<script src="<?= $site; ?>css/x0popup-master/dist/x0popup.min.js"></script>
-
-		<script src="<?= $site; ?>js/jquery.gotop.js"></script>
-		
-		<script src="<?= $site; ?>js/player.js"></script>
-		<script src="<?= $site; ?>js/howler.js"></script>
-
-		<link href="<?= $site; ?>notificacao/light-theme.min.css" rel="stylesheet">
-
-		<script type="text/javascript" src="<?= $site; ?>notificacao/growl-notification.min.js"></script> 
-
-
-		<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@0.2.1/output/moretoggles.min.css"> -->
-
-		<!-- Select da pagina carrinho -->
-		<link href="<?=$site?>css/selectcarrinho/dist/css/select2.min.css" rel="stylesheet" />
-		<script src="<?=$site?>css/selectcarrinho/dist/js/select2.min.js"></script>
-		<!-- Select da pagina carrinho -->
-
-
-		<!-- Radio and check inputs -->
-		<link href="<?= $site; ?>css/radio-check.css" rel="stylesheet">
-		<!-- <link href="<?= $site; ?>css/modal.css" rel="stylesheet"> -->
-		<script type="text/javascript" src="<?= $site; ?>js/modalhorarios.js"></script> 
-		<!-- https://www.cssscript.com/pure-css-checkbox-radio-button-replacement-bootstrap-icheck/ -->
-		<!-- <script defer src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> -->
-		<link href="<?= $site; ?>css/chackbox/dist/css/checkboxes.css" rel="stylesheet">
-
-		<script type="text/javascript">
-			$(document).ready(function(){
-
-			 
-
-
-				$('.remove_item').click(function(){
-					$('.remove_item').prop('disabled', true);
-
-					var id_item = $(this).data('id_item');
-					var rash_item = $(this).data('item_hash');
-
-					$.ajax({
-						url: '<?= $site; ?>includes/processaremovercart.php',
-						method: 'post',
-						data: {'iditem':id_item,'itemrash':rash_item, 'getpegaloja' : '<?=$Url[0];?>'},
-
-						success: function(data){
-							$('.remove_item').prop('disabled', false);
-							$('#updatesidebar').html(data);
-						}
-					});
-				});
-			});
-		</script>
-
-		
-		<script src="<?= $site; ?>css/multiselect/dist/bundle.min.js"></script>
-
-
+  
+ 
+ 
 		<!-- MUDAR CORES DO TEMPLATE -->
 		<!--<link href="css/color_scheme.css" rel="stylesheet">-->
 	</head>
 
-	<body class="leading-normal tracking-normal  overflow-hidden text-white" style="background-image: url('<?=$site.'/img/bg_1.png'?>'); background-repeat:no-repeat;background-size: cover;">
+	<body class="leading-normal tracking-normal  overflow-auto text-white" style="background-image: url('<?=$site.'/img/bg_1.png'?>'); background-repeat:no-repeat;background-size: cover;">
 			
-	<!-- inicio do loader 
-		<div id="preloader">
-			<div class="sk-spinner sk-spinner-wave" id="status">
-				<div class="sk-rect1"></div>
-				<div class="sk-rect2"></div>
-				<div class="sk-rect3"></div>
-				<div class="sk-rect4"></div>
-				<div class="sk-rect5"></div>
-			</div>
-		</div> -->
-
-
-<!--[if lte IE 8]>
-    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>.</p>
-<![endif]-->
-
+ 
 
 
 <!-- Header ================================================== -->
@@ -374,7 +272,11 @@ endif;
 										<div class="row">
 											<div class="col-md-12">
 											<a  class="text-values">
-												<div class="object-fit img-container">													
+												<div class="object-fit img-container">	
+													<?php
+														$img_logo = empty($img_logo) ? 'default/LOGOPADRAO.png' : $img_logo;
+													?>
+												
 													<img style="margin:10px" src="<?=URL_IMAGE.$img_logo?>"  height="200" width="200" alt="" data-retina="true" class="img-fluid">	 
 												</div>
 											</div>
@@ -391,13 +293,9 @@ endif;
 												<div class="w-1/2 w-full flex flex-row content-center">	
 												
 														<div class="ellipse p-2"></div>						 
-														<div class="p-2"><span>Nome da Loja: <a href="<?= $linkLoja ?>" target="_blank" class="text-values"><span class="text-values"> <?= $nome_empresa ?></span><span></div>
-											</div>
-										<div hidden class="w-1/2 w-full flex flex-row content-center">	
-											
-										<div class="ellipse p-2"></div>		
-												<div class="p-2"><span>Link da Loja:  <a href="<?= $linkLoja ?>" class="text-values"><?= $linkLoja ?></a><span></div>
-										</div>
+														<div class="p-2"><span>Nome da Loja: <a href="<?= $linkLoja ?>" target="_blank" class="text-values"><span class="text-values"> <?= $nome_empresa ?></span></a></div>
+													</div>
+									 
 										<div class="w-1/2 w-full flex flex-row content-center">	
 											
 												<div class="ellipse p-2"></div>		
@@ -420,23 +318,24 @@ endif;
 								</div>
 								<div class="row">
 									<div class="col-md-12 pb-1 col-xs-12">
-										<div class="flex text-info-menu flex-col w-full content-center justify-start ">
+										<div class="flex text-info-menu flex-col w-full justify-start ">
 												
 										<div style="font-size:20px;font-weight: bolder;">
 													<span> ATENDIMENTO	</span>
 												</div>	
 										
-												<div hidden class="w-1/2 w-full flex flex-row justify-center">	
+												<div hidden class="w-full flex flex-row justify-center">	
 												
 														 					 
-														<div class="p-2 text-center"><span>Horário de atendimento: </div>
+														<div class="text-center"><span>Horário de atendimento: </div>
 											</div>
-												<div class="w-1/2 w-full flex flex-col content-center">											
+												<div class="w-full text-center flex flex-col">											
 									 
-												<div class="p-2"><span>Segunda à Segunda:  <span class="text-values"><?= $h_suporte?></span><span></div>
-							 
+												<div class=""><span>Segunda à Sexta:  <span class="text-values"><?= !empty(explode(",",$h_suporte)[0]) ? explode(",",$h_suporte)[0] : ""?></span><span></div>
+												<div class=""><span>Final de semana:  <span class="text-values"><?=  !empty(explode(",",$h_suporte)[1]) ? explode(",",$h_suporte)[1] : ""?></span><span></div>
+												<div class=""><span>E-Mail:  <span class="text-values"><?= $email_suporte?></span><span></div>
 													</div>
-													<div class="w-1/2 w-full flex flex-col content-center">											
+													<div class="w-full flex flex-col content-center">											
 													<?php 
 
 														$today = getdate();
@@ -459,33 +358,37 @@ endif;
 														
 														 
 														?>
-													<div><span id="tel_suporte" style="font-size:20px;font-weight: bolder;" class=""><?= $tel_adm?></div>
+													
 													<div><span style="font-size:25px;font-weight: bolder;" class="<?= $class ?>"><?= $status ?></div>
 													</div>
 										 
 											</div>
 										</div>
 								</div>
-								<div class="row">
-									<div class="col-md-12 col-xs-12">
-
-								<div hidden class="row">
-									<div class="col-md-12 col-xs-12">
-										<div style="margin-top:5px" id="social_footer">
-													<ul>
-													<li><a target="_blank" href="<?=(!empty($texto['link_do_face']) ? $texto['link_do_face'] : "");?>"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
-													<!--<li><a href="#0"><i class="icon-twitter"></i></a></li>-->
-													<!--<li><a href="#0"><i class="icon-google"></i></a></li>-->
-													<li><a target="_blank" href="<?=(!empty($texto['link_do_insta']) ? $texto['link_do_insta'] : "");?>"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-													<!--<li><a href="#0"><i class="icon-pinterest"></i></a></li>-->
-													<!--<li><a href="#0"><i class="icon-vimeo"></i></a></li>-->
-													<li><a target="_blank" href="<?=(!empty($texto['link_do_insta']) ? $texto['link_do_insta'] : "");?>"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-													</ul>    
-											</div>
-										</div>
-									</div>
-									</div>
-									</div>
+								<div style="position: relative;padding: 10px;" class="row">
+								  <div class="flex flex-row justify-center">
+									 
+									<div class="h-1/2" style="border-radius: 15px;padding: 5px;background:#7233A0">
+									<a href="https://<?= $link_do_face?>" target="_blank">			
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="20px" height="20px"><g fill="#fff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M15,3c-6.627,0 -12,5.373 -12,12c0,6.016 4.432,10.984 10.206,11.852v-8.672h-2.969v-3.154h2.969v-2.099c0,-3.475 1.693,-5 4.581,-5c1.383,0 2.115,0.103 2.461,0.149v2.753h-1.97c-1.226,0 -1.654,1.163 -1.654,2.473v1.724h3.593l-0.487,3.154h-3.106v8.697c5.857,-0.794 10.376,-5.802 10.376,-11.877c0,-6.627 -5.373,-12 -12,-12z"></path></g></g></svg>
+													</a>
+													</div>
+													<div class="ml-3 h-1/2" style="border-radius: 15px;padding: 5px;background:#7233A0">
+													<a href="https://<?= $link_do_insta?>" target="_blank">
+									
+													<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="20px" height="20px"><g fill="#fff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M16,3c-7.16752,0 -13,5.83248 -13,13v18c0,7.16752 5.83248,13 13,13h18c7.16752,0 13,-5.83248 13,-13v-18c0,-7.16752 -5.83248,-13 -13,-13zM16,5h18c6.08648,0 11,4.91352 11,11v18c0,6.08648 -4.91352,11 -11,11h-18c-6.08648,0 -11,-4.91352 -11,-11v-18c0,-6.08648 4.91352,-11 11,-11zM37,11c-1.10457,0 -2,0.89543 -2,2c0,1.10457 0.89543,2 2,2c1.10457,0 2,-0.89543 2,-2c0,-1.10457 -0.89543,-2 -2,-2zM25,14c-6.06329,0 -11,4.93671 -11,11c0,6.06329 4.93671,11 11,11c6.06329,0 11,-4.93671 11,-11c0,-6.06329 -4.93671,-11 -11,-11zM25,16c4.98241,0 9,4.01759 9,9c0,4.98241 -4.01759,9 -9,9c-4.98241,0 -9,-4.01759 -9,-9c0,-4.98241 4.01759,-9 9,-9z"></path></g></g></svg>
+													</a>
+													</div>
+													<div class="ml-3 h-1/2" style="border-radius: 15px;padding: 5px;background:#7233A0">
+													<a href="https://<?= $link_do_youtube?>" target="_blank">
+									
+													<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="20px" fill="#fff" height="20px"><path d="M 44.898438 14.5 C 44.5 12.300781 42.601563 10.699219 40.398438 10.199219 C 37.101563 9.5 31 9 24.398438 9 C 17.800781 9 11.601563 9.5 8.300781 10.199219 C 6.101563 10.699219 4.199219 12.199219 3.800781 14.5 C 3.398438 17 3 20.5 3 25 C 3 29.5 3.398438 33 3.898438 35.5 C 4.300781 37.699219 6.199219 39.300781 8.398438 39.800781 C 11.898438 40.5 17.898438 41 24.5 41 C 31.101563 41 37.101563 40.5 40.601563 39.800781 C 42.800781 39.300781 44.699219 37.800781 45.101563 35.5 C 45.5 33 46 29.398438 46.101563 25 C 45.898438 20.5 45.398438 17 44.898438 14.5 Z M 19 32 L 19 18 L 31.199219 25 Z"/></svg>
+									</a>
+									</div>						
+													</div>
+ 
+									 
+								</div>
 							</div>
 						</div>
 					</div>
@@ -527,7 +430,7 @@ endif;
 									</div>
 
 									<div class="p-4 text-menu font-medium leading-tight">
-										<span>Pedido Fácil</span>
+										<span>Cardápio Fácil</span>
 									</div>
 							</div>
 						</div>
@@ -631,7 +534,7 @@ if((($today['wday']>='1' && $today['wday']<='5')  && (strtotime($time) >= strtot
 }else{
 		$class = "button-disabled new-menu mt-5 p-5 bg-gray-300";	 	 
 	}  
-?>
+?><a target="_blank" href="https://api.whatsapp.com/send?1=pt_BR&phone=55<?=$tel_adm?>">
 							<div id="suporte_button" class="<?= $class ?>">				
 								<div class="flex w-full flex-row p-4 justify-center">
 									<div class="icon-new-menu">
@@ -644,6 +547,7 @@ if((($today['wday']>='1' && $today['wday']<='5')  && (strtotime($time) >= strtot
 							</div>		 
 						</div>
 					</div>
+</a>
 					<!-- Third Row -->
 		
 					<div class="col-md-12 col-xs-12">	
@@ -676,15 +580,6 @@ if((($today['wday']>='1' && $today['wday']<='5')  && (strtotime($time) >= strtot
 		<!-- End Fist Row -->
 				</div>
 		</div>
-	 
-
-
-	  
-
-
-			
-	
-				
 
 
 		</div>
@@ -699,36 +594,16 @@ if((($today['wday']>='1' && $today['wday']<='5')  && (strtotime($time) >= strtot
 
 <!-- SubHeader =============================================== -->
 
-
-<script>
-	//  $(document).ready(function(){
-	// 	var container_info_height = $('.container-items').innerHeight();
-	// 	$('.container-buttons').innerHeight(container_info_height);
-
-
-	//  })
-</script>
-<!-- COMMON SCRIPTS -->
-
-<script src="<?= $site; ?>js/common_scripts_min.js"></script>
-<script src="<?= $site; ?>js/functions.js"></script>
-<script src="<?= $site; ?>assets/validate.js"></script>
+ 
+ 
+ 
+ 
 <script src="<?= $site; ?>js/jquery.mask.js"></script>
-<script src="<?= $site; ?>js/index-btn-file.js"></script>
-<script src="<?= $site; ?>js/funcoesjs.js"></script>
-<script src="<?= $site; ?>js/custom-file-input.js"></script>
-<script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
-<!-- <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
- 
-<script src="<?= $site; ?>js/printThis.js"></script>
  
 
  
 <script>
-	// jQuery(document).ready(function($){
-	// 	$('a').not('[href*="'+document.domain+'"]').attr('target', '_blank');
-	// 	$('a').not('[href*="'+document.domain+'"]').attr('rel', 'external nofollow');
-	// });
+	 
 
 	$('#tel_suporte').mask('(00) 0 0000-0000');
 </script>
@@ -748,77 +623,6 @@ endif;
 
 
 
-
-
-<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js'></script> -->
-
-
-<!-- SPECIFIC SCRIPTS -->
- 
-
-
-
-
-	<!-- <script type="text/javascript">
-//plugin bootstrap minus and plus
-//http://jsfiddle.net/laelitenetwork/puJ6G/
-$('.btn-number').click(function(e){
-	e.preventDefault();
-
-	fieldName = $(this).attr('data-field');
-	type      = $(this).attr('data-type');
-	var input = $("input[name='"+fieldName+"']");
-	var currentVal = parseInt(input.val());
-	if (!isNaN(currentVal)) {
-		if(type == 'minus') {
-
-			if(currentVal > input.attr('min')) {
-				input.val(currentVal - 1).change();
-			} 
-			if(parseInt(input.val()) == input.attr('min')) {
-				$(this).attr('disabled', true);
-			}
-
-		} else if(type == 'plus') {
-
-			if(currentVal < input.attr('max')) {
-				input.val(currentVal + 1).change();
-			}
-			if(parseInt(input.val()) == input.attr('max')) {
-				$(this).attr('disabled', true);
-			}
-
-		}
-	} else {
-		input.val(0);
-	}
-});
-$('.input-number').focusin(function(){
-	$(this).data('oldValue', $(this).val());
-});
-$('.input-number').change(function() {
-
-	minValue =  parseInt($(this).attr('min'));
-	maxValue =  parseInt($(this).attr('max'));
-	valueCurrent = parseInt($(this).val());
-
-	name = $(this).attr('name');
-	if(valueCurrent >= minValue) {
-		$(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-	} else {
-		alert('Desculpe, o valor mínimo foi atingido');
-		$(this).val($(this).data('oldValue'));
-	}
-	if(valueCurrent <= maxValue) {
-		$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-	} else {
-		alert('Desculpe, o valor máximo foi atingido');
-		$(this).val($(this).data('oldValue'));
-	}
-
-
-}); -->
 
 
 
@@ -862,49 +666,7 @@ $('.input-number').change(function() {
 		}
 	}; */
 </script>
-
-// <!-- <script type="text/javascript">
-// 	const selected = document.querySelector(".selected");
-// 	const optionsContainer = document.querySelector(".options-container");
-// 	const searchBox = document.querySelector(".search-box input");
-
-// 	const optionsList = document.querySelectorAll(".option");
-
-// 	selected.addEventListener("click", () => {
-// 		optionsContainer.classList.toggle("active");
-
-// 		searchBox.value = "";
-// 		filterList("");
-
-// 		if (optionsContainer.classList.contains("active")) {
-// 			searchBox.focus();
-// 		}
-// 	});
-
-// 	optionsList.forEach(o => {
-// 		o.addEventListener("click", () => {
-// 			selected.innerHTML = o.querySelector("label").innerHTML;
-// 			optionsContainer.classList.remove("active");
-// 		});
-// 	});
-
-// 	searchBox.addEventListener("keyup", function(e) {
-// 		filterList(e.target.value);
-// 	});
-
-// 	const filterList = searchTerm => {
-// 		searchTerm = searchTerm.toLowerCase();
-// 		optionsList.forEach(option => {
-// 			let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
-// 			if (label.indexOf(searchTerm) != -1) {
-// 				option.style.display = "block";
-// 			} else {
-// 				option.style.display = "none";
-// 			}
-// 		});
-// 	};
-
-// </script>
+ 
 
 
 

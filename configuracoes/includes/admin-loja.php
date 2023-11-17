@@ -90,6 +90,50 @@ $updatebanco = new Update();
 		#img-container{
       display:none;
     }
+	 
+	#remove-img:hover, #remove-img-2:hover{
+
+opacity:0.40 !important;
+
+}
+
+.container-hover:hover{
+opacity:0.40 !important;
+}
+
+#file-5, #file-6{
+    width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1
+  }
+.remove-icon,.remove-icon-2{
+  position: absolute;
+  right: 10px;
+  margin: 10px;
+  font-size: 25px;
+ 
+  z-index: 1999;
+  color: white;
+  background: #00000024;
+  border-radius: 10px;
+  border: 2px solid;
+    border-top-color: currentcolor;
+    border-right-color: currentcolor;
+    border-bottom-color: currentcolor;
+    border-left-color: currentcolor;
+  border-color: transparent;
+  display: flex;
+  align-items: center;
+  width: 60px;
+  height: 50px;
+  justify-content: center;
+}
+  :focus-visible {
+  outline: none !important;
+}
 
 			.img_temp > img {
 				height: 240px !important;
@@ -97,6 +141,20 @@ $updatebanco = new Update();
 			}
 
 
+					#icon-set:after,#icon-set2:after {
+						font-family: "Glyphicons Halflings";
+						content: "\e080";
+					 
+						right: 0;
+						position: absolute;
+						margin-right:32px;
+						}
+
+						/* Icon when the collapsible content is hidden */
+						#icon-set.collapsed:after,#icon-set2.collapsed:after {
+					
+						content: "\e114";
+					}
 
 
 	</style>
@@ -242,7 +300,7 @@ $updatebanco = new Update();
 							<div style="background-color:#ffffff;color:black" class="container p-0 m-0">
 									
 							<div  class="config-header w-full text-bold text-center text-white">
-											<p>Configuração Pedido Fácil</p>
+											<p>Configuração Cardápio Fácil</p>
 									</div>	
 							<div id="sendempresa"></div>
 
@@ -254,276 +312,33 @@ $updatebanco = new Update();
 										<h3>Descrição geral do seu negócio</h3>
 										<p>Insira no formulario abaixo detalhes do seu negócio e informações de contato.</p>
 									</div>				
-
-					<form method="post" action="#sendempresa" enctype="multipart/form-data">
+									<br />
+					<form id="updatePedido" data-url="<?=$site?>configuracoes"method="post" action="#sendempresa" enctype="multipart/form-data">
 						<div class="wrapper_indent">
 							<?php
+ 
 
-							$getdelldate = filter_input(INPUT_GET, 'dellDate', FILTER_VALIDATE_INT);
-
-							if(!empty($getdelldate) && !isset($_POST['sendempresa'])):
-
-								$lerbanco->ExeRead('ws_datas_close', "WHERE user_id = :userid AND id = :v", "userid={$userlogin['user_id']}&v={$getdelldate}");
-							if ($lerbanco->getResult()):
-								$deletbanco->ExeDelete("ws_datas_close", "WHERE user_id = :userid AND id = :k", "userid={$userlogin['user_id']}&k={$getdelldate}");
-								if ($deletbanco->getResult()):
-									echo "<div class=\"alert alert-success alert-dismissable\">
-									<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-									<b class=\"alert-link\">SUCESSO!</b> A data de exceção foi deletada do sistema.
-									</div>";
-									header("Refresh: 5; url={$site}{$Url[0]}/admin-loja");
-								else:
-									echo "<div class=\"alert alert-danger alert-dismissable\">
-									<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-									<b class=\"alert-link\">OCORREU UM ERRO DE CONEXÃO!</b> Tente novamente.
-									</div>";
-									header("Refresh: 5; url={$site}{$Url[0]}/admin-loja");
-								endif;
-							endif;
-						endif;
-
-
-						if(isset($_POST['sendempresa']) && $_POST['sendempresa'] == true):
-							if(!empty($_POST['data_close'])):
-
-								$dataClose1 = strip_tags(trim($_POST['data_close']));
-
-								$data_c['data'] = $dataClose1;
-								$data_c['user_id'] = $userlogin['user_id'];
-
-								if(strlen($dataClose1) == 10):
-									$lerbanco->ExeRead("ws_datas_close", "WHERE user_id = :userid AND data = :dat", "userid={$userlogin['user_id']}&dat={$dataClose1}");
-									if($lerbanco->getResult()):
-										//NÃO FAZ NADA
-									else:
-										$addbanco->ExeCreate("ws_datas_close", $data_c);
-									endif;
-								endif;						
-							endif;
-						endif;
-
-
-						
-
-						$inputdadosempresa = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
-						if ($inputdadosempresa && !empty($inputdadosempresa['sendempresa'])):					
-
-							unset($inputdadosempresa['sendempresa']);
-							unset($inputdadosempresa['_wysihtml5_mode']);
-							unset($inputdadosempresa['data_close']);
-							$inputdadosempresa['end_bairro_empresa'] = tratar_nome($inputdadosempresa['end_bairro_empresa']);
-
-							if(!empty($inputdadosempresa['minimo_delivery'])):					
-								$inputdadosempresa['minimo_delivery'] = Check::Valor($inputdadosempresa['minimo_delivery']);
-							else:
-								$inputdadosempresa['minimo_delivery'] = '0.00';
-							endif;
-
-
-
-									// LIMPA OS CAMPOS RETIRANDO TAGS E ESPAÇOS DESNECESSÁRIOS
-							$inputdadosempresa = array_map('strip_tags', $inputdadosempresa);
-							$inputdadosempresa = array_map('trim', $inputdadosempresa);
-
-							if(!empty($inputdadosempresa['confirm_delivery'])):
-								$inputdadosempresa['confirm_delivery'] = "true";
-							else:
-								$inputdadosempresa['confirm_delivery'] = "false";
-							endif;
-							if(!empty($inputdadosempresa['confirm_balcao'])):
-								$inputdadosempresa['confirm_balcao'] = "true";
-							else:
-								$inputdadosempresa['confirm_balcao'] = "false";
-							endif;
-							if(!empty($inputdadosempresa['confirm_mesa'])):
-								$inputdadosempresa['confirm_mesa'] = "true";
-							else:
-								$inputdadosempresa['confirm_mesa'] = "false";
-							endif;	
-
-
-									// COMO NÃO EXISTE UM INPUT PARA IMAGEM TEMOS QUE FAZER VALIDAÇÃO VIA $_FILE MESMO
-							
-							
-						// INICIO DA VALIDAÇÃO DA IMAGEM DE FUNDO
-							if (isset($_FILES['img_header']['tmp_name']) && $_FILES['img_header']['tmp_name'] != ""):
-								$inputdadosempresa['img_header'] = $_FILES['img_header'];
-								$inputdadosempresa['img_header']['id_user'] = $user_id;
-							else:
-								unset($inputdadosempresa['img_header']);
-							endif;
-						 
-
-							if(!empty($inputdadosempresa['img_header'])):                        
-								$upload = new Upload("uploads/");
-								$upload->Image($inputdadosempresa['img_header']);
-
-								if(isset($upload) && $upload->getResult()):
-									$inputdadosempresa['img_header'] = $upload->getResult();
-								if(!empty($inputdadosempresa['img_header']) && !empty($img_logo) && file_exists("uploads/{$img_header}") && !is_dir("uploads/{$img_header}")):
-									unlink("uploads/{$img_header}");
-							endif;
-						elseif(is_array($inputdadosempresa['img_header'])):
-							unset($inputdadosempresa['img_header']);
-						endif;
-
-
-
-					endif;
-						// FIM DA VALIDAÇÃO DA IMAGEM DE FUNDO
-
-
-									// INICIO DA VALIDAÇÃO DA IMAGEM PERFIL
-					if (isset($_FILES['img_logo']['tmp_name']) && $_FILES['img_logo']['tmp_name'] != ""):
-						$inputdadosempresa['img_logo'] = $_FILES['img_logo'];
-						$inputdadosempresa['img_logo']['id_user'] = $user_id;
-					else:
-						unset($inputdadosempresa['img_logo']);
-					endif;
-
-
-					if(!empty($inputdadosempresa['img_logo'])):                        
-						$upload = new Upload("uploads/");
-						 
-						$upload->Image($inputdadosempresa['img_logo']);
-
-						if (isset($upload) && $upload->getResult()):	
-
-							$inputdadosempresa['img_logo'] = $upload->getResult();
-
-					elseif(is_array($inputdadosempresa['img_logo'])):
-						unset($inputdadosempresa['img_logo']);
-					endif;
-
-					if(!empty($inputdadosempresa['img_logo']) && !empty($img_logo) && file_exists("uploads/{$img_logo}") && !is_dir("uploads/{$img_logo}")):
-						unlink("uploads/{$img_logo}");
-				endif;						
-
-			endif;
-
-			if(empty($inputdadosempresa['facebook_empresa'])):
-				unset($inputdadosempresa['facebook_empresa']);
-			endif;
-
-			if(empty($inputdadosempresa['instagram_empresa'])):
-				unset($inputdadosempresa['instagram_empresa']);
-			endif;
-
-			if(empty($inputdadosempresa['twitter_empresa'])):
-				unset($inputdadosempresa['twitter_empresa']);
-			endif;
-
-									// FIM DA VALIDAÇÃO DA IMAGEM DE PERFIL 
-									//---------------------------				
-
-			if (in_array('', $inputdadosempresa) || in_array('null', $inputdadosempresa)):
-				echo "<div class=\"alert alert-info alert-dismissable\">
-			<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-			Preencha todos os campos!
-			</div>";
-			header("Refresh: 5; url={$site}{$Url[0]}/admin-loja");
-			elseif (!Check::Email($inputdadosempresa['email_empresa'])):
-				echo "<div class=\"alert alert-warning alert-dismissable\">
-				<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-				O EMAIL informado não e valido!
-				</div>";
-				header("Refresh: 5; url={$site}{$Url[0]}/admin-loja");
-			else:						
-				$inputdadosempresa['telefone_empresa'] = preg_replace("/[^0-9]/", "", $inputdadosempresa['telefone_empresa']);
-				$inputdadosempresa['user_id'] = $userlogin['user_id'];	
-
-				//$inputdadosempresa['config_delivery'] = Check::Valor($inputdadosempresa['config_delivery']);
-
-				$inputdadosempresa['config_segunda'] = (!empty($inputdadosempresa['config_segunda']) && $inputdadosempresa['config_segunda'] == "true" ? $inputdadosempresa['config_segunda'] : "false");	
-
-				$inputdadosempresa['config_terca'] = (!empty($inputdadosempresa['config_terca']) && $inputdadosempresa['config_terca'] == "true" ? $inputdadosempresa['config_terca'] : "false");		
-
-				$inputdadosempresa['config_quarta'] = (!empty($inputdadosempresa['config_quarta']) && $inputdadosempresa['config_quarta'] == "true" ? $inputdadosempresa['config_quarta'] : "false");
-
-				$inputdadosempresa['config_quinta'] = (!empty($inputdadosempresa['config_quinta']) && $inputdadosempresa['config_quinta'] == "true" ? $inputdadosempresa['config_quinta'] : "false");
-
-				$inputdadosempresa['config_sexta'] = (!empty($inputdadosempresa['config_sexta']) && $inputdadosempresa['config_sexta'] == "true" ? $inputdadosempresa['config_sexta'] : "false");
-
-				$inputdadosempresa['config_sabado'] = (!empty($inputdadosempresa['config_sabado']) && $inputdadosempresa['config_sabado'] == "true" ? $inputdadosempresa['config_sabado'] : "false");
-
-				$inputdadosempresa['config_domingo'] = (!empty($inputdadosempresa['config_domingo']) && $inputdadosempresa['config_domingo'] == "true" ? $inputdadosempresa['config_domingo'] : "false");
-
-
-				$inputdadosempresa['config_segundaa'] = (!empty($inputdadosempresa['config_segundaa']) && $inputdadosempresa['config_segundaa'] == "true" ? $inputdadosempresa['config_segundaa'] : "false");	
-
-				$inputdadosempresa['config_tercaa'] = (!empty($inputdadosempresa['config_tercaa']) && $inputdadosempresa['config_tercaa'] == "true" ? $inputdadosempresa['config_tercaa'] : "false");		
-
-				$inputdadosempresa['config_quartaa'] = (!empty($inputdadosempresa['config_quartaa']) && $inputdadosempresa['config_quartaa'] == "true" ? $inputdadosempresa['config_quartaa'] : "false");
-
-				$inputdadosempresa['config_quintaa'] = (!empty($inputdadosempresa['config_quintaa']) && $inputdadosempresa['config_quintaa'] == "true" ? $inputdadosempresa['config_quintaa'] : "false");
-
-				$inputdadosempresa['config_sextaa'] = (!empty($inputdadosempresa['config_sextaa']) && $inputdadosempresa['config_sextaa'] == "true" ? $inputdadosempresa['config_sextaa'] : "false");
-
-				$inputdadosempresa['config_sabadoo'] = (!empty($inputdadosempresa['config_sabadoo']) && $inputdadosempresa['config_sabadoo'] == "true" ? $inputdadosempresa['config_sabadoo'] : "false");
-
-				$inputdadosempresa['config_domingoo'] = (!empty($inputdadosempresa['config_domingoo']) && $inputdadosempresa['config_domingoo'] == "true" ? $inputdadosempresa['config_domingoo'] : "false");
-
-
-										//COMEÇO A FAZER A GRAVAÇÃO DOS DADOS::::::::::::::::::::::::::::::::::::::::::::::::::
-				$lerbanco->ExeRead('ws_empresa', "WHERE user_id = :v", "v={$userlogin['user_id']}");
-				if (!$lerbanco->getResult()):		
-					$addbanco->ExeCreate("ws_empresa", $inputdadosempresa);
-					if ($addbanco->getResult()):												
-						echo "<div class=\"alert alert-success alert-dismissable\">
-						<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-						<b class=\"alert-link\">SUCESSO!</b> Seus dados foram Inseridos no sistema.
-						</div>";
-						// header("Refresh: 5; url={$site}{$Url[0]}/admin-loja");
-					else:
-						echo "<div class=\"alert alert-danger alert-dismissable\">
-						<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-						<b class=\"alert-link\">OCORREU UM ERRO!</b> Tente novamente.
-						</div>";
-						header("Refresh: 5; url={$site}{$Url[0]}/admin-loja");
-					endif;
-
-				else:
-					$updatebanco->ExeUpdate("ws_empresa", $inputdadosempresa, "WHERE user_id = :up", "up={$userlogin['user_id']}");
-					if ($updatebanco->getResult()):
-						
-						header("Refresh: 1; url={$site}configuracoes/{$Url[0]}");
-						echo "<div class=\"alert alert-success alert-dismissable\">
-						<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-						<b class=\"alert-link\">SUCESSO!</b> Seus dados foram Atualizados no sistema.
-						</div>";
-					 
-					else:
-						echo "<div class=\"alert alert-danger alert-dismissable\">
-						<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-						<b class=\"alert-link\">OCORREU UM ERRO!</b> Tente novamente.
-						</div>";
-						header("Refresh: 5; url={$site}{$Url[0]}/admin-loja");
-					endif;
-				endif;					
-
-			endif;
-			endif;
+ 
 			?>
 			<div class="form-group">
 				<label for="nome_empresa">Nome do seu negócio:</label>
-				<input class="form-control" required value="<?=(!empty($nome_empresa) ? $nome_empresa : '');?>" name="nome_empresa" id="nome_empresa" type="text">
+				<input class="form-control" value="<?=(!empty($nome_empresa) ? $nome_empresa : '');?>" name="nome_empresa" id="nome_empresa" type="text">
 			</div>
 			<div class="form-group">
 				<label for="descricao_empresa">Breve descrição do seu negócio:</label>
-				<input type="text" required maxlength="297" name="descricao_empresa" class="form-control" placeholder="Digite uma descrição..." value="<?=(!empty($descricao_empresa) ? $descricao_empresa : '');?>" />
+				<input type="text" maxlength="297" name="descricao_empresa" class="form-control" placeholder="Digite uma descrição..." value="<?=(!empty($descricao_empresa) ? $descricao_empresa : '');?>" />
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label for="telefone_empresa">Suporte WhatsApp:</label>
-						<input required type="tel" placeholder="(99) 99999-9999" data-mask="(00) 00000-0000" maxlength="15" id="telefone_empresa" name="telefone_empresa" value="<?=(!empty($telefone_empresa) ? $telefone_empresa : '');?>" class="form-control">
+						<input type="tel" placeholder="(99) 99999-9999" data-mask="(00) 00000-0000" maxlength="15" id="telefone_empresa" name="telefone_empresa" value="<?=(!empty($telefone_empresa) ? $telefone_empresa : '');?>" class="form-control">
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label for="email_empresa">E-mail:</label>
-						<input required type="email" id="email_empresa" value="<?=(!empty($email_empresa) ? $email_empresa : '');?>" name="email_empresa" class="form-control">
+						<input type="text" id="email_empresa" value="<?=(!empty($email_empresa) ? $email_empresa : '');?>" name="email_empresa" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -540,27 +355,28 @@ $updatebanco = new Update();
 					Defina o endereço do seu negócio!
 				</p>
 			</div>
+			<br />
 			<div class="wrapper_indent">
 				<div class="row">
 
 				<div class="col-sm-2">
 						<div class="form-group">
-							<label required for="cep_empresa">CEP</label>
+							<label for="cep_empresa">CEP</label>
 							<input data-mask="00-000.000" type="text" id="cep_empresa" value="<?=(!empty($cep_empresa) ? $cep_empresa : '');?>" name="cep_empresa" class="form-control">
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-5">
 						<div class="form-group">
 							<label for="estados">ESTADO:</label>
-							<select required class="form-control" name="end_uf_empresa" id="estados">
+							<select class="form-control" name="end_uf_empresa" id="estados">
 								
 							</select>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<div class="form-group">
 							<label for="cidade_empresa">CIDADE:</label>
-							<select required class="form-control" name="cidade_empresa" id="cidades">
+							<select class="form-control" name="cidade_empresa" id="cidades">
 
 							</select>
 						</div>
@@ -572,16 +388,16 @@ $updatebanco = new Update();
 		 
 				<div class="row">
 				
-					<div class="col-sm-5">
+					<div class="col-sm-6">
 						<div class="form-group">
-							<label required for="end_rua_n_empresa">RUA / Nº:</label>
+							<label for="end_rua_n_empresa">RUA / Nº:</label>
 							<input type="text" id="end_rua_n_empresa" value="<?=(!empty($end_rua_n_empresa) ? $end_rua_n_empresa : '');?>" name="end_rua_n_empresa" class="form-control">
 						</div>
 					</div>
-					<div class="col-sm-5">
+					<div class="col-sm-6">
 						<div class="form-group">
 							<label for="end_bairro_empresa">BAIRRO:</label>
-							<input required type="text" id="end_bairro_empresa" value="<?=(!empty($end_bairro_empresa) ? $end_bairro_empresa : '');?>" name="end_bairro_empresa" class="form-control">
+							<input  type="text" id="end_bairro_empresa" value="<?=(!empty($end_bairro_empresa) ? $end_bairro_empresa : '');?>" name="end_bairro_empresa" class="form-control">
 						</div>
 					</div>
 				</div>
@@ -592,6 +408,7 @@ $updatebanco = new Update();
 			<div class="indent_title_in">
 		 
 				<h3>Opções de entrega</h3>
+				<br />
 				<div class="form-group">	
 
 					<div class="icheck-material-green">
@@ -620,13 +437,13 @@ $updatebanco = new Update();
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<label for="minimo_delivery">Valor Mínimo do Delivery:</label>
-							<input type="text" required maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" data-mask="#.##0,00" data-mask-reverse="true" class="form-control" id="minimo_delivery" name="minimo_delivery" value="<?=(!empty($minimo_delivery) ? Check::Real($minimo_delivery) : '0,00');?>" />
+							<input type="text"  maxlength="11" onkeypress="return formatar_moeda(this, '.', ',', event);" data-mask="#.##0,00" data-mask-reverse="true" class="form-control" id="minimo_delivery" name="minimo_delivery" value="<?=(!empty($minimo_delivery) ? Check::Real($minimo_delivery) : '0,00');?>" />
 						</div>
 					</div>
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<label>Mensagem sobre tempo de Delivery:</label>
-							<input type="text" required class="form-control" id="msg_tempo_delivery" name="msg_tempo_delivery" value="<?=(!empty($msg_tempo_delivery) ? $msg_tempo_delivery : "Entre 30 e 60 minutos.");?>" />
+							<input type="text"  class="form-control" id="msg_tempo_delivery" name="msg_tempo_delivery" value="<?=(!empty($msg_tempo_delivery) ? $msg_tempo_delivery : "Entre 30 e 60 minutos.");?>" />
 						</div>
 					</div>
 				</div>	
@@ -635,7 +452,7 @@ $updatebanco = new Update();
 					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							<label>Mensagem sobre retirar no local:</label>
-							<input type="text" required class="form-control" id="msg_tempo_buscar" name="msg_tempo_buscar" value="<?=(!empty($msg_tempo_buscar) ? $msg_tempo_buscar : "Em 30 minutos.");?>" />
+							<input type="text"  class="form-control" id="msg_tempo_buscar" name="msg_tempo_buscar" value="<?=(!empty($msg_tempo_buscar) ? $msg_tempo_buscar : "Em 30 minutos.");?>" />
 						</div>
 					</div>
 				</div>
@@ -650,15 +467,15 @@ $updatebanco = new Update();
 					Defina o seu horário de atendimento para que seus clientes saibam quando seus serviços estiverem disponíveis.
 				</p>
 			</div>
-
+			<br />
 			<div class="panel panel-default">
 				<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
-					<h4 data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="panel-title expand">
-						<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
+					<h4 id="icon-set" class="collapsed" data-toggle="collapse"  aria-controls="collapse1" data-parent="#accordion" aria-expanded="false" href="#collapse1" class="panel-title expand">
+						<div class="right-arrow pull-right"></div>
 					<a style="color: #ffffff;" href="#">Cique aqui para Configurar Horários.</a>
 					</h4>
 				</div>
-				<div id="collapse1" style="visibility:unset" class="panel-collapse collapse">
+				<div id="collapse1"  class="panel-collapse collapse">
 					<div class="panel-body">
 						
 						<div class="wrapper_indent">
@@ -673,13 +490,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="segunda_manha_de">de:</label>									
-										<input required type="time" name="segunda_manha_de" id="segunda_manha_de" data-mask="00:00" value="<?=(!empty($segunda_manha_de) && $segunda_manha_de != "00:00" ? $segunda_manha_de : "00:00");?>" class="form-control"/>									
+										<input  type="time" name="segunda_manha_de" id="segunda_manha_de" data-mask="00:00" value="<?=(!empty($segunda_manha_de) && $segunda_manha_de != "00:00" ? $segunda_manha_de : "00:00");?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="segunda_manha_ate">até:</label>
-										<input required type="time" name="segunda_manha_ate" id="segunda_manha_ate" data-mask="00:00" value="<?=(!empty($segunda_manha_ate) && $segunda_manha_ate != "00:00" ? $segunda_manha_ate : "00:00");?>" class="form-control"/> 
+										<input  type="time" name="segunda_manha_ate" id="segunda_manha_ate" data-mask="00:00" value="<?=(!empty($segunda_manha_ate) && $segunda_manha_ate != "00:00" ? $segunda_manha_ate : "00:00");?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -690,13 +507,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="segunda_tarde_de">de:</label>									
-										<input required type="time" name="segunda_tarde_de" id="segunda_tarde_de" data-mask="00:00" value="<?=(!empty($segunda_tarde_de) && $segunda_tarde_de != "00:00" ? $segunda_tarde_de : '00:00');?>" class="form-control"/>									
+										<input  type="time" name="segunda_tarde_de" id="segunda_tarde_de" data-mask="00:00" value="<?=(!empty($segunda_tarde_de) && $segunda_tarde_de != "00:00" ? $segunda_tarde_de : '00:00');?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="segunda_tarde_ate">até:</label>
-										<input required type="time" name="segunda_tarde_ate" id="segunda_tarde_ate" data-mask="00:00" value="<?=(!empty($segunda_tarde_ate) && $segunda_tarde_ate != "00:00" ? $segunda_tarde_ate : '00:00');?>" class="form-control"/> 
+										<input  type="time" name="segunda_tarde_ate" id="segunda_tarde_ate" data-mask="00:00" value="<?=(!empty($segunda_tarde_ate) && $segunda_tarde_ate != "00:00" ? $segunda_tarde_ate : '00:00');?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -713,13 +530,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="terca_manha_de">de:</label>									
-										<input required type="time" name="terca_manha_de" id="segunda_manha_de" data-mask="00:00" value="<?=(!empty($terca_manha_de) && $terca_manha_de != "00:00" ? $terca_manha_de : "00:00");?>" class="form-control"/>									
+										<input  type="time" name="terca_manha_de" id="segunda_manha_de" data-mask="00:00" value="<?=(!empty($terca_manha_de) && $terca_manha_de != "00:00" ? $terca_manha_de : "00:00");?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="terca_manha_ate">até:</label>
-										<input required type="time" name="terca_manha_ate" id="terca_manha_ate" data-mask="00:00" value="<?=(!empty($terca_manha_ate) && $terca_manha_ate != "00:00" ? $terca_manha_ate : "00:00");?>" class="form-control"/> 
+										<input  type="time" name="terca_manha_ate" id="terca_manha_ate" data-mask="00:00" value="<?=(!empty($terca_manha_ate) && $terca_manha_ate != "00:00" ? $terca_manha_ate : "00:00");?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -730,13 +547,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="terca_tarde_de">de:</label>									
-										<input required type="time" name="terca_tarde_de" id="terca_tarde_de" data-mask="00:00" value="<?=(!empty($terca_tarde_de) && $terca_tarde_de != "00:00" ? $terca_tarde_de : '00:00');?>" class="form-control"/>									
+										<input  type="time" name="terca_tarde_de" id="terca_tarde_de" data-mask="00:00" value="<?=(!empty($terca_tarde_de) && $terca_tarde_de != "00:00" ? $terca_tarde_de : '00:00');?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="terca_tarde_ate">até:</label>
-										<input required type="time" name="terca_tarde_ate" id="terca_tarde_ate" data-mask="00:00" value="<?=(!empty($terca_tarde_ate) && $terca_tarde_ate != "00:00" ? $terca_tarde_ate : '00:00');?>" class="form-control"/> 
+										<input  type="time" name="terca_tarde_ate" id="terca_tarde_ate" data-mask="00:00" value="<?=(!empty($terca_tarde_ate) && $terca_tarde_ate != "00:00" ? $terca_tarde_ate : '00:00');?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -753,13 +570,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="quarta_manha_de">de:</label>									
-										<input required type="time" name="quarta_manha_de" id="quarta_manha_de" data-mask="00:00" value="<?=(!empty($quarta_manha_de) && $quarta_manha_de != "00:00" ? $quarta_manha_de : "00:00");?>" class="form-control"/>									
+										<input  type="time" name="quarta_manha_de" id="quarta_manha_de" data-mask="00:00" value="<?=(!empty($quarta_manha_de) && $quarta_manha_de != "00:00" ? $quarta_manha_de : "00:00");?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="quarta_manha_ate">até:</label>
-										<input required type="time" name="quarta_manha_ate" id="quarta_manha_ate" data-mask="00:00" value="<?=(!empty($quarta_manha_ate) && $quarta_manha_ate != "00:00" ? $quarta_manha_ate : "00:00");?>" class="form-control"/> 
+										<input  type="time" name="quarta_manha_ate" id="quarta_manha_ate" data-mask="00:00" value="<?=(!empty($quarta_manha_ate) && $quarta_manha_ate != "00:00" ? $quarta_manha_ate : "00:00");?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -770,13 +587,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="quarta_tarde_de">de:</label>									
-										<input required type="time" name="quarta_tarde_de" id="quarta_tarde_de" data-mask="00:00" value="<?=(!empty($quarta_tarde_de) && $quarta_tarde_de != "00:00" ? $quarta_tarde_de : '00:00');?>" class="form-control"/>									
+										<input  type="time" name="quarta_tarde_de" id="quarta_tarde_de" data-mask="00:00" value="<?=(!empty($quarta_tarde_de) && $quarta_tarde_de != "00:00" ? $quarta_tarde_de : '00:00');?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="quarta_tarde_ate">até:</label>
-										<input required type="time" name="quarta_tarde_ate" id="quarta_tarde_ate" data-mask="00:00" value="<?=(!empty($quarta_tarde_ate) && $quarta_tarde_ate != "00:00" ? $quarta_tarde_ate : '00:00');?>" class="form-control"/> 
+										<input  type="time" name="quarta_tarde_ate" id="quarta_tarde_ate" data-mask="00:00" value="<?=(!empty($quarta_tarde_ate) && $quarta_tarde_ate != "00:00" ? $quarta_tarde_ate : '00:00');?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -792,13 +609,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="quinta_manha_de">de:</label>									
-										<input required type="time" name="quinta_manha_de" id="quinta_manha_de" data-mask="00:00" value="<?=(!empty($quinta_manha_de) && $quinta_manha_de != "00:00" ? $quinta_manha_de : "00:00");?>" class="form-control"/>									
+										<input  type="time" name="quinta_manha_de" id="quinta_manha_de" data-mask="00:00" value="<?=(!empty($quinta_manha_de) && $quinta_manha_de != "00:00" ? $quinta_manha_de : "00:00");?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="quinta_manha_ate">até:</label>
-										<input required type="time" name="quinta_manha_ate" id="quinta_manha_ate" data-mask="00:00" value="<?=(!empty($quinta_manha_ate) && $quinta_manha_ate != "00:00" ? $quinta_manha_ate : "00:00");?>" class="form-control"/> 
+										<input  type="time" name="quinta_manha_ate" id="quinta_manha_ate" data-mask="00:00" value="<?=(!empty($quinta_manha_ate) && $quinta_manha_ate != "00:00" ? $quinta_manha_ate : "00:00");?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -809,13 +626,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="quinta_tarde_de">de:</label>									
-										<input required type="time" name="quinta_tarde_de" id="quinta_tarde_de" data-mask="00:00" value="<?=(!empty($quinta_tarde_de) && $quinta_tarde_de != "00:00" ? $quinta_tarde_de : '00:00');?>" class="form-control"/>									
+										<input  type="time" name="quinta_tarde_de" id="quinta_tarde_de" data-mask="00:00" value="<?=(!empty($quinta_tarde_de) && $quinta_tarde_de != "00:00" ? $quinta_tarde_de : '00:00');?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="quinta_tarde_ate">até:</label>
-										<input required type="time" name="quinta_tarde_ate" id="quinta_tarde_ate" data-mask="00:00" value="<?=(!empty($quinta_tarde_ate) && $quinta_tarde_ate != "00:00" ? $quinta_tarde_ate : '00:00');?>" class="form-control"/> 
+										<input  type="time" name="quinta_tarde_ate" id="quinta_tarde_ate" data-mask="00:00" value="<?=(!empty($quinta_tarde_ate) && $quinta_tarde_ate != "00:00" ? $quinta_tarde_ate : '00:00');?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -832,13 +649,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="sexta_manha_de">de:</label>									
-										<input required type="time" name="sexta_manha_de" id="sexta_manha_de" data-mask="00:00" value="<?=(!empty($sexta_manha_de) && $sexta_manha_de != "00:00" ? $sexta_manha_de : "00:00");?>" class="form-control"/>									
+										<input  type="time" name="sexta_manha_de" id="sexta_manha_de" data-mask="00:00" value="<?=(!empty($sexta_manha_de) && $sexta_manha_de != "00:00" ? $sexta_manha_de : "00:00");?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="sexta_manha_ate">até:</label>
-										<input required type="time" name="sexta_manha_ate" id="sexta_manha_ate" data-mask="00:00" value="<?=(!empty($sexta_manha_ate) && $sexta_manha_ate != "00:00" ? $sexta_manha_ate : "00:00");?>" class="form-control"/> 
+										<input  type="time" name="sexta_manha_ate" id="sexta_manha_ate" data-mask="00:00" value="<?=(!empty($sexta_manha_ate) && $sexta_manha_ate != "00:00" ? $sexta_manha_ate : "00:00");?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -849,13 +666,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="sexta_tarde_de">de:</label>									
-										<input required type="time" name="sexta_tarde_de" id="sexta_tarde_de" data-mask="00:00" value="<?=(!empty($sexta_tarde_de) && $sexta_tarde_de != "00:00" ? $sexta_tarde_de : '00:00');?>" class="form-control"/>									
+										<input  type="time" name="sexta_tarde_de" id="sexta_tarde_de" data-mask="00:00" value="<?=(!empty($sexta_tarde_de) && $sexta_tarde_de != "00:00" ? $sexta_tarde_de : '00:00');?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="sexta_tarde_ate">até:</label>
-										<input required type="time" name="sexta_tarde_ate" id="sexta_tarde_ate" data-mask="00:00" value="<?=(!empty($sexta_tarde_ate) && $sexta_tarde_ate != "00:00" ? $sexta_tarde_ate : '00:00');?>" class="form-control"/> 
+										<input  type="time" name="sexta_tarde_ate" id="sexta_tarde_ate" data-mask="00:00" value="<?=(!empty($sexta_tarde_ate) && $sexta_tarde_ate != "00:00" ? $sexta_tarde_ate : '00:00');?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -872,13 +689,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="sabado_manha_de">de:</label>									
-										<input required type="time" name="sabado_manha_de" id="sabado_manha_de" data-mask="00:00" value="<?=(!empty($sabado_manha_de) && $sabado_manha_de != "00:00" ? $sabado_manha_de : "00:00");?>" class="form-control"/>									
+										<input  type="time" name="sabado_manha_de" id="sabado_manha_de" data-mask="00:00" value="<?=(!empty($sabado_manha_de) && $sabado_manha_de != "00:00" ? $sabado_manha_de : "00:00");?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="sabado_manha_ate">até:</label>
-										<input required type="time" name="sabado_manha_ate" id="sabado_manha_ate" data-mask="00:00" value="<?=(!empty($sabado_manha_ate) && $sabado_manha_ate != "00:00" ? $sabado_manha_ate : "00:00");?>" class="form-control"/> 
+										<input  type="time" name="sabado_manha_ate" id="sabado_manha_ate" data-mask="00:00" value="<?=(!empty($sabado_manha_ate) && $sabado_manha_ate != "00:00" ? $sabado_manha_ate : "00:00");?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -889,13 +706,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="sabado_tarde_de">de:</label>									
-										<input required type="time" name="sabado_tarde_de" id="sabado_tarde_de" data-mask="00:00" value="<?=(!empty($sabado_tarde_de) && $sabado_tarde_de != "00:00" ? $sabado_tarde_de : '00:00');?>" class="form-control"/>									
+										<input  type="time" name="sabado_tarde_de" id="sabado_tarde_de" data-mask="00:00" value="<?=(!empty($sabado_tarde_de) && $sabado_tarde_de != "00:00" ? $sabado_tarde_de : '00:00');?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="sabado_tarde_ate">até:</label>
-										<input required type="time" name="sabado_tarde_ate" id="sabado_tarde_ate" data-mask="00:00" value="<?=(!empty($sabado_tarde_ate) && $sabado_tarde_ate != "00:00" ? $sabado_tarde_ate : '00:00');?>" class="form-control"/> 
+										<input  type="time" name="sabado_tarde_ate" id="sabado_tarde_ate" data-mask="00:00" value="<?=(!empty($sabado_tarde_ate) && $sabado_tarde_ate != "00:00" ? $sabado_tarde_ate : '00:00');?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -912,13 +729,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="domingo_manha_de">de:</label>									
-										<input required type="time" name="domingo_manha_de" id="domingo_manha_de" data-mask="00:00" value="<?=(!empty($domingo_manha_de) && $domingo_manha_de != "00:00" ? $domingo_manha_de : "00:00");?>" class="form-control"/>									
+										<input  type="time" name="domingo_manha_de" id="domingo_manha_de" data-mask="00:00" value="<?=(!empty($domingo_manha_de) && $domingo_manha_de != "00:00" ? $domingo_manha_de : "00:00");?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="domingo_manha_ate">até:</label>
-										<input required type="time" name="domingo_manha_ate" id="domingo_manha_ate" data-mask="00:00" value="<?=(!empty($domingo_manha_ate) && $domingo_manha_ate != "00:00" ? $domingo_manha_ate : "00:00");?>" class="form-control"/> 
+										<input  type="time" name="domingo_manha_ate" id="domingo_manha_ate" data-mask="00:00" value="<?=(!empty($domingo_manha_ate) && $domingo_manha_ate != "00:00" ? $domingo_manha_ate : "00:00");?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -929,13 +746,13 @@ $updatebanco = new Update();
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="domingo_tarde_de">de:</label>									
-										<input required type="time" name="domingo_tarde_de" id="domingo_tarde_de" data-mask="00:00" value="<?=(!empty($domingo_tarde_de) && $domingo_tarde_de != "00:00" ? $domingo_tarde_de : '00:00');?>" class="form-control"/>									
+										<input  type="time" name="domingo_tarde_de" id="domingo_tarde_de" data-mask="00:00" value="<?=(!empty($domingo_tarde_de) && $domingo_tarde_de != "00:00" ? $domingo_tarde_de : '00:00');?>" class="form-control"/>									
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="domingo_tarde_ate">até:</label>
-										<input required type="time" name="domingo_tarde_ate" id="domingo_tarde_ate" data-mask="00:00" value="<?=(!empty($domingo_tarde_ate) && $domingo_tarde_ate != "00:00" ? $domingo_tarde_ate : '00:00');?>" class="form-control"/> 
+										<input  type="time" name="domingo_tarde_ate" id="domingo_tarde_ate" data-mask="00:00" value="<?=(!empty($domingo_tarde_ate) && $domingo_tarde_ate != "00:00" ? $domingo_tarde_ate : '00:00');?>" class="form-control"/> 
 									</div>
 								</div>
 							</div>
@@ -946,63 +763,11 @@ $updatebanco = new Update();
 
 			  <hr class="line-hr"/>
 <br>
-			<div class="indent_title_in">
-				 
-				<h3>Fechado na Data</h3>
-				<p>
-					Adicione exceções (ótimo para feriados etc.)
-				</p>
-			</div>
+			 
 
 			<div class="mb-0 panel-group" id="accordion">
-				<div class="panel panel-default">
-					<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
-						<h4 data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="panel-title expand">
-							<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
-							<a style="color: #ffffff;" href="#">Clique aqui para adicionar uma data</a>
-						</h4>
-					</div>
-
-					<div id="collapse2" style="visibility:unset" class="panel-collapse collapse">
-						<div class="panel-body">
-							<div class="col-md-12 col-sm-12">
-								<div class="form-group">
-									<label for="datepicker">Inserir Data:</label>
-									<input type="text" class="form-control" name='data_close' id="datepicker" data-mask="00/00/0000" placeholder="00/00/0000" />
-								</div>					
-								<label for="datepicker">Fechado nas Datas:</label><br />
-								<?php
-								$lerbanco->ExeRead("ws_datas_close", "WHERE user_id = :userid ORDER BY id ASC", "userid={$userlogin['user_id']}");
-								if($lerbanco->getResult()):						
-									foreach ($lerbanco->getResult() as $dadosC):
-										extract($dadosC);		
-
-										$i = explode('/', $data);
-										$i = array_reverse($i);
-										$i = implode("-", $i);							
-
-										if(isDateExpired($i, 1)):
-											?>
-
-											<a title="Deletar" href="<?=$site.$Url[0].'/admin-loja&dellDate='.$id.'#sendempresa';?>">
-												<button style="background-color:#d9534f"type="button" class="btn btn-danger">
-													<strong><?=$data;?> = </strong> <span class="glyphicon glyphicon-trash"></span>
-												</button>
-											</a>
-											<?php
-										endif;
-									endforeach;
-								else:								
-								endif;
-								?>				
-							</div>
-						</div>
-
-
-					</div>
-				</div>
-				<br>
-				  <hr class="line-hr"/>
+				
+			 
 				
 
 
@@ -1015,13 +780,14 @@ $updatebanco = new Update();
 						Insira as urls de suas redes sociais!
 					</p>
 				</div>
+				<br />
 
 				<div class="wrapper_indent">
 					<div class="row">
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="facebook_status">Facebook Status:</label>
-								<select required class="form-control" name="facebook_status">
+								<select  class="form-control" name="facebook_status">
 									<?php 
 									if(!empty($facebook_status) && $facebook_status == 2):
 										echo "
@@ -1050,7 +816,7 @@ $updatebanco = new Update();
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="instagram_status">Instgram Status:</label>
-								<select required class="form-control" name="instagram_status">
+								<select  class="form-control" name="instagram_status">
 									<?php 
 									if(!empty($instagram_status) && $instagram_status == 2):
 										echo "
@@ -1079,7 +845,7 @@ $updatebanco = new Update();
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="twitter_status">Twitter Status:</label>
-								<select required class="form-control" name="twitter_status">
+								<select  class="form-control" name="twitter_status">
 									<?php 
 									if(!empty($twitter_status) && $twitter_status == 2):
 										echo "
@@ -1115,11 +881,13 @@ $updatebanco = new Update();
 						 Imagens que serão usadas na página inicial do site!
 					 </p>
 				 </div>
-<div class="mb-0 panel-group" id="accordion">
+				 <br />
+		<div class="mb-0 panel-group" id="accordion">
 				<div class="panel panel-default">
 					<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
-						<h4 data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="panel-title expand">
-							<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
+ 	
+					<h4 id="icon-set2" class="collapsed" data-toggle="collapse" aria-controls="collapse3" aria-expanded="false" data-parent="#accordion" href="#collapse3" class="panel-title expand">
+							<div class="right-arrow pull-right"></div>
 							<a style="color: #ffffff;" href="#">Clique aqui para personalizar sua loja</a>
 						</h4>
 					</div>
@@ -1129,55 +897,95 @@ $updatebanco = new Update();
 							<div class="col-md-12 col-sm-12">
 						
  
-				 <div class="flex flex-col md:flex-row  wrapper_indent add_bottom_45"> 
-					 <div style="margin-right: 50px;" class="m-5 md:w-auto w-full form-group">
-					 <label class="text-center">Fundo da Loja</label>
-						 
-						 <?php
-							if(!empty($img_header)):
-								$url = URL_IMAGE;					
-								echo "<div id=\"thumb\">".Check::Image("{$img_header}", "Logo", 240, 240)."</div>";
-							else:
-								echo "<div id=\"thumb\"><img class=\"lightbox\" src=\"{$site}img/thumb_restaurant.jpg\" alt=\"\"></div>";
-							endif;
-							?>
-						 
-						 
-						 <div class="mt-5 md:w-auto w-full  input-file-container">  
+				 
+				 <div class="row">	
+				 <div class="col-md-5">
+					
+            
+              <div class="text-center menu-item-pic">
+			   <div class="indent_title_in">
+			  <h3>Logo Empresa</h3>
+								</div>
+                <?php 
 
-						 
-							 <input data-url=<?= HOME ?> name="img_header" class="input-file" id="my-file" type="file" />
-							 <label style="background: #7232A0; border-radius: 3px;text-align: center;padding: 5px 5px;" tabindex="0" for="my-file" class="input-file-trigger">Enviar Imagem +</label>
-						 </div>
-						 <!-- <p class="file-return"></p> -->
-						 <br />
-						 
-					 </div>	
- 
-					 <div class="m-5 md:w-auto w-full form-group">
-						 <label class="text-center">LogoTipo</label>
-						 
-						 <?php
-							if(!empty($img_logo)):
-								$url = URL_IMAGE;					
-								echo "<div id=\"thumb\">".Check::Image("{$img_logo}", "Logo", 240, 240)."</div>";
-							else:
-								echo "<div id=\"thumb\"><img class=\"lightbox\" src=\"{$site}img/thumb_restaurant.jpg\" alt=\"\"></div>";
-							endif;							
-							?>
-						 					 
-						 <div class="mt-5  md:w-auto w-full input-file-container">  
-							 <input name="img_logo" class="input-file" id="my-file" type="file" />
-							 <label style="background: #7232A0; border-radius: 3px;text-align: center;padding: 5px 5px;" tabindex="0" for="my-file" class="input-file-trigger">Enviar Imagem +</label>
-						 </div>
-						 
-						 <br />
+             
+              if (!empty($img_logo) && $img_logo != "" && $img_logo != UPLOAD_PATH."/uploads"."/".'default/LOGOPADRAO.png' && file_exists(UPLOAD_PATH."/uploads"."/".$img_logo) && !is_dir(UPLOAD_PATH."/uploads"."/".$img_logo)){
+                $imgProd =  URL_IMAGE.$img_logo;
+                $flag = true;
+                $styleImg= "margin: 0 auto; align-items: center;display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;height: 340px;";
+              }else{
+                $styleImg= "";
+                $imgProd =  "";
+                $flag = false;
+              };   
+            ?>
+                <div id="container-img" style="margin-bottom: 5px;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="container-hover cursor-pointer w-full box">
+                 <div   style="display:<?= $flag == true ? "flex" : "none !important;" ?>"class="flex flex-row" id="show_img_prod">
+                        <div  class="w-full">                          
+                        <img style="<?= !empty($styleImg) ?$styleImg : ""  ?>" class="cursor-pointer" id="img_prod"  src="<?=!empty($imgProd) ? $imgProd : "" ?>"/>                       
+                        </div>
+                        <div id="remove-img"  class="remove-icon h-1/2">
+                        <span  class="glyphicon glyphicon-trash"></span>
+                  
+                        </div>   
+                </div>
+               
+                <input type="file" name="img_logo" id="file-5" class="" data-multiple-caption="{count} files selected" multiple />
+                  <label style="display: <?= $flag ? "none" : ""?>" class="cursor-pointer" id="label-file" for="file-5"><img src="<?=URL_IMAGE.'img/upload_product.png'?>"/></label>  
+                  <div id="label-icon" style="position:relative; top: -25px;color:white;font-size:24px;font-weight:unset" class="w-full" style="background:#7233A1; color:white;margin 0 auto;">
+                    <label id="label-text" style="display: <?= $flag ? "none" : ""?>" style="font-weight:unset"  for="file-5">Enviar imagem...</label>
+                </div>   
+                </div>
+                  </div>
+              
+     
+			</div>
+					  
+					 <div class="col-md-5">
 					 
+						
+							<div class="text-center menu-item-pic">
+							<div class="indent_title_in">	
+							<h3>Fundo Empresa</h3>
+			</div>
+								<?php 
+
+             
+              if (!empty($img_header) && $img_header != "" && $img_header != UPLOAD_PATH."/uploads"."/".'default/FUNDOLOJAPADRAO.png' && file_exists(UPLOAD_PATH."/uploads"."/".$img_header) && !is_dir(UPLOAD_PATH."/uploads"."/".$img_header)){
+                $imgProd =  URL_IMAGE.$img_header;
+                $flag = true;
+                $styleImg= "margin: 0 auto; align-items: center;display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;height: 340px;";
+              }else{
+                $styleImg= "";
+                $imgProd =  "";
+                $flag = false;
+              };   
+            ?>
+                <div id="container-img-2" style="margin-bottom: 5px;;align-items: center;display: flex;flex-direction: row;flex-wrap:wrap;justify-content:center;background-color:#ffffff;background: #7232A0; height:340px" class="container-hover cursor-pointer w-full box">
+                 <div   style="display:<?= $flag == true ? "flex" : "none !important;" ?>"class="flex flex-row" id="show_img_prod-2">
+                        <div class="w-full">                          
+                        <img style="<?= !empty($styleImg) ?$styleImg : ""  ?>" class="cursor-pointer" id="img_prod-2"  src="<?=!empty($imgProd) ? $imgProd : "" ?>"/>                       
+                        </div>
+                        <div id="remove-img-2"  class="remove-icon-2 h-1/2">
+                        <span  class="glyphicon glyphicon-trash"></span>
+                  
+                        </div>   
+                </div>
+               
+                <input type="file" name="img_header" id="file-6" class="" data-multiple-caption="{count} files selected" multiple />
+                  <label style="display: <?= $flag ? "none" : ""?>" class="cursor-pointer" id="label-file-2" for="file-6"><img src="<?=URL_IMAGE.'img/upload_product.png'?>"/></label>  
+                  <div id="label-icon-2" style="position:relative; top: -25px;color:white;font-size:24px;font-weight:unset" class="w-full" style="background:#7233A1; color:white;margin 0 auto;">
+                    <label id="label-text-2" style="display: <?= $flag ? "none" : ""?>" style="font-weight:unset"  for="file-6">Enviar imagem...</label>
+                </div>   
+                </div>
+                  </div>
+              
+     
+					  
 					 </div>
 				 </div><!-- End wrapper_indent -->
-				 <div class="wrapper_indent add_bottom_45">
-				 </div><!-- End wrapper_indent -->			
-							</div>
+ 			
+						 
 						</div>
 
 

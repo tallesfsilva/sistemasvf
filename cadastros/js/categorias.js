@@ -136,10 +136,10 @@ export const cad =  {
         
         let idcat = $(e.currentTarget).data('idcat');
         let url = $(e.currentTarget).data('url');  
-          
+        if(!$('.growl-notification').is(":visible")){
         GrowlNotification.notify({
           title: 'Atenção!',
-          description: 'Tem certeza de que deseja deletar essa categoria? Isso irá apagar todos os tipos de adicionais e adicionais vinculados a essa categoria.',
+          description: '<center>Tem certeza de que deseja deletar essa categoria?</br> Isso irá apagar todos os tipos de adicionais e adicionais vinculados a essa categoria.</center>',
           type: 'error',
           image: {
             visible: true,
@@ -147,6 +147,7 @@ export const cad =  {
           },
           position: 'top-center',
           showProgress: true,
+          closeWith : ['button'],
           showButtons: true,
           buttons: {
             action: {
@@ -180,6 +181,9 @@ export const cad =  {
           },
           closeTimeout: 0
         });
+    }else{
+        return;
+    }
     });
     },
 

@@ -133,9 +133,10 @@ export const tipo = {
 
             let idtipo = $(e.currentTarget).data('idtipo');
             let url = $(e.currentTarget).data('url');  
+            if(!$('.growl-notification').is(":visible")){
             GrowlNotification.notify({
               title: 'Atenção!',
-              description: 'Tem certeza de que deseja deletar esse tipo de adicional? Isso irá apagar todos os adicionais vinculados a este tipo de adicional.',
+              description: '<center>Tem certeza de que deseja deletar esse tipo de adicional?</br> Isso irá apagar todos os adicionais vinculados a este tipo de adicional.</center>',
               type: 'error',
               image: {
                 visible: true,
@@ -176,7 +177,9 @@ export const tipo = {
               },
               closeTimeout: 0
             });
-
+        }else{
+            return;
+        }
           });
       
     },

@@ -47,8 +47,4 @@ else:
 endif;
 ?>
  
-
-
-<?php
-require('configchart.php');
-?>
+ 

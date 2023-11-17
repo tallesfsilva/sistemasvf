@@ -40,7 +40,7 @@ function isDateExpired($dateStart, $days){
 
   $timestampNow     = strtotime('now');
   $timestampExpired = strtotime("+{$days} day", strtotime($dateStart));
-
+  
   return ($timestampExpired > $timestampNow ? true :  false);
 }
 

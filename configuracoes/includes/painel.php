@@ -28,43 +28,13 @@
 									</div>	
 				 
 
-				<?php
-				$formupdateempresa = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-				if(!empty($formupdateempresa)):
-
-					$formupdateempresa = array_map('strip_tags', $formupdateempresa);
-					$formupdateempresa = array_map('trim', $formupdateempresa);
-
-					if(in_array('', $formupdateempresa) || in_array('null', $formupdateempresa)):
-						echo "<br /><div class=\"alert alert-info alert-dismissable\">
-					<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-					Preencha todos os campos!
-					</div>";
-					else:				 
-
-						$updatebanco->ExeUpdate("ws_empresa", $formupdateempresa, "WHERE user_id = :user", "user={$user_id}");
-						if ($updatebanco->getResult()):
-							echo "<div class=\"alert alert-success alert-dismissable\">
-							<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>
-							<b class=\"alert-link\">SUCESSO!</b> Seus dados foram Inseridos no sistema.
-							</div>";
-							// header("Location: {$site}configuracoes/painel");
-						else:
-							echo "<br /><div class=\"alert alert-danger alert-dismissable\">
-							<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">x</button>
-							<b class=\"alert-link\">OCORREU UM ERRO!</b> Tente novamente.
-							</div>";
-						endif;
-
-				endif;
-			endif;
-			?>
+			 
 			<div style="height:400px" class="section-config">
 			<div class="row">
 		
 		<div class="col-md-12">
 			<div class="m-5">	
-				<form method="post" autocomplete="off">
+				<form  data-url="<?=$site?>configuracoes" id="updateFinanceiro" method="post" autocomplete="off">
  
 				
 					<div class="form-group">

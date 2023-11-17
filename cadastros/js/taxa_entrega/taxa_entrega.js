@@ -157,6 +157,7 @@ export const entrega =  {
     
                 var idTaxa = $(e.currentTarget).data('idtaxa');
                 let url = $(e.currentTarget).data('url');  
+                if(!$('.growl-notification').is(":visible")){
                 GrowlNotification.notify({
                     title: 'Atenção!',
                     description: 'Tem certeza de que deseja deletar essa forma de pagamento?',
@@ -202,6 +203,9 @@ export const entrega =  {
                     },
                     closeTimeout: 0
                   });
+                }else{
+                    return;
+                }
     });
               
  

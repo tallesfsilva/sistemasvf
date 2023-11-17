@@ -65,7 +65,7 @@ $updatebanco = new Update();
 							<div id="sendempresa"></div>
 
 
-								<section class="m-5 section-config" id="section-1">
+								<section class="section-config" id="section-1">
 									 
 
 <div id="adicionarbairro"></div>
@@ -81,7 +81,7 @@ $updatebanco = new Update();
    </p>
  </div>
  
-<div id="msg"></div>
+ 
 <form class="form-horizontal"  id="cadTaxaEntrega"  data-url="<?=$site.'cadastros'?>" role="form" method="post">
  <br />
  <div class="form-group"> 
@@ -113,7 +113,7 @@ $updatebanco = new Update();
   <label class="col-sm-2">Valor da Taxa:</label>
   <div class="col-sm-10">
    <div class="input-group">    
-    <input type="text" name="taxa" maxlength="6"  max="999.99"  data-mask="#.##0,00"   data-mask-reverse="true" class="form-control" placeholder="0,00">
+    <input type="text" name="taxa" maxlength="6"  max="999.99"  data-mask="#.##0,00"   data-mask-reverse="true" class="form-control" placeholder="(Digite 0 para taxa gratuita)">
   </div>
 </div>
 </div>

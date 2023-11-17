@@ -149,6 +149,7 @@ export const f_pagamento =  {
     
                 var idfp = $(e.currentTarget).data('idfp');
                 let url = $(e.currentTarget).data('url');  
+                if(!$('.growl-notification').is(":visible")){
                 GrowlNotification.notify({
                     title: 'Atenção!',
                     description: 'Tem certeza de que deseja deletar essa forma de pagamento?',
@@ -193,6 +194,9 @@ export const f_pagamento =  {
                     },
                     closeTimeout: 0
                   });
+                }else{
+                    return;
+                }
     });
               
  

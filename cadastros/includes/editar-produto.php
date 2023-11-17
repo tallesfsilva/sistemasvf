@@ -160,10 +160,7 @@ background: #FFC00082 !important;
       <h3>Editar produto:</h3>
       <p>Edite seus os produtos que serão exibidos em sua loja!</p>
     </div>
-    <?php
-    // require('includes/configItens.php');
-    ?>
-
+    
     
     <form data-url="<?=$site?>cadastros" id="updateProduto" enctype="multipart/form-data">
       <div class="wrapper_indent">

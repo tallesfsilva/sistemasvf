@@ -211,13 +211,15 @@ class Check {
 
         self::$Data = $ImageUrl;
         $upload_path = UPLOAD_PATH.'uploads/';
-     
+        
         if (file_exists( $upload_path.self::$Data) && !is_dir( $upload_path.self::$Data)):
             $patch = HOME;
             $url = URL_IMAGE;
             $imagem = self::$Data;
+          
             return "<img class=\"lightbox\" data-url=\"{$patch}\" src=\"{$patch}tim.php?src={$url}{$imagem}&w={$ImageW}&h={$ImageH}\" alt=\"{$ImageDesc}\" title=\"{$ImageDesc}\"/>";
         else:
+     
             return false;
         endif;
     }

@@ -70,7 +70,7 @@ if(empty($_SESSION['userlogin'])){
 		<meta name="robots" content="index, fallow" />
 		<link rel="canonical" href="<?=$site.$Url[0];?>">
 		<meta name="author" content="Alex Silva">
-		<meta name="og:title" content="<?=(!empty($nome_empresa) ? 'Pedido Fácil | '.$nome_empresa : 'Nome_do_seu_negócio');?>" />
+		<meta name="og:title" content="<?=(!empty($nome_empresa) ? 'Cardápio Fácil | '.$nome_empresa : 'Nome_do_seu_negócio');?>" />
 		<meta name="og:type" content="website">
 		<meta property="og:site_name" content="<?=$texto['nome_site_landing'];?>"/>
 		<meta property="og:url" content="<?$site.$nome_empresa_link?>"/>
@@ -235,31 +235,9 @@ $(document).ready(function () {
 			<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
 			<script type="text/javascript" src="<?= $site; ?>notificacao/growl-notification.min.js"></script> 
 
+ 
 
-			<script type="text/javascript">
-			$(document).ready(function(){
-				$('.remove_item').click(function(){
-					$('.remove_item').prop('disabled', true);
-
-					var id_item = $(this).data('id_item');
-					var rash_item = $(this).data('item_hash');
-
-					$.ajax({
-						url: '<?= $site; ?>includes/processaremovercart.php',
-						method: 'post',
-						data: {'iditem':id_item,'itemrash':rash_item, 'getpegaloja' : '<?=$Url[0];?>'},
-
-						success: function(data){
-							$('.remove_item').prop('disabled', false);
-							$('#updatesidebar').html(data);
-						}
-					});
-				});
-			});
-		</script>
-
-		
-		<script src="<?= $site; ?>css/multiselect/dist/bundle.min.js"></script>
+ 
 
 
 			<style type="text/css">
@@ -502,7 +480,7 @@ $(document).ready(function () {
 				 <div  class="head-panel">
 					<div style="background-color: #7233A1;color: #ffffff;" class="">
 						
-					<button id="btn-4"  href="#collapse-4"  id="btn_4" data-toggle="collapse" aria-controls="collapse-4" aria-expanded="false" class="mt-2 mb-2 flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
+					<button id="btn-4"  href="#collapse-4" data-toggle="collapse" aria-controls="collapse-4" aria-expanded="false" class="mt-2 mb-2 flex btn-menu panel-title collapsed expand items-center p-2 rounded-lg text-white  group">
 					<img src="<?=URL_IMAGE.'img/promocao1.png'?>"/>
               		 <span class="flex-1 ml-2  ">Promoções</span>
 		
@@ -617,10 +595,9 @@ $(document).ready(function () {
 <script src="<?= $site; ?>js/custom-file-input.js"></script>
 <script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
 <!-- <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
-<script src="<?= $site; ?>js/parallax.js"></script>
-<script src="<?= $site; ?>js/parallax.min.js"></script>
-<script src="<?= $site; ?>js/printThis.js"></script>
-<script src="<?=$site;?>js/suportewats.js"></script>
+ 
+ 
+ 
 <script src="<?=$site;?>js/jquery.peekabar.min.js"></script>
 
 		</body> 

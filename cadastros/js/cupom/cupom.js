@@ -206,7 +206,7 @@ export const cupom =  {
 
         $("#cupoms").on('click', '.excluircupom', function(e){     
         
-    
+                if(!$('.growl-notification').is(":visible")){
                 var idcupom = $(e.currentTarget).data('idcupom');
                 let url = $(e.currentTarget).data('url');  
                 GrowlNotification.notify({
@@ -252,6 +252,10 @@ export const cupom =  {
                     },
                     closeTimeout: 0
                   });
+
+                }else{
+                    return;
+                }
     });
               
  

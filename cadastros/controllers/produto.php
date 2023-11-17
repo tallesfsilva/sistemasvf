@@ -169,8 +169,24 @@ if(!empty($payLoad)){
     
     // INICIO DA VALIDAÇÃO DA IMAGEM ITEM:
     if (isset($_FILES['img_item']['tmp_name']) && $_FILES['img_item']['tmp_name'] != ""){
+      
+      
+      $imageValidator = validateImage($_FILES['img_item']);
+      if(!$imageValidator){
+
+        $res['msg']=  "Formato de imagem incorreto. Por favor selecione uma imagem válida!";
+              
+        $res['success'] = false;
+        $res['error'] = true;
+        $res['img'] = false;
+        echo json_encode($res);
+
+      }else {
+      
+      
         $payLoad['img_item'] = $_FILES['img_item'];
         $payLoad['img_item']['id_user'] = $userlogin['user_id'];
+      }
 }else{
         $payLoad['img_item'] = '';
     };
@@ -356,6 +372,7 @@ if(!empty($payLoad)){
                   
             $res['success'] = false;
             $res['error'] = true;
+            $res['img'] = false;
             echo json_encode($res);
 
           }else {

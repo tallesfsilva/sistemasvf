@@ -173,7 +173,7 @@ try{
 }
 
 
-function cadastraTaxaEntrada($payLoad){
+function cadastraTaxaEntrega($payLoad){
 
 
 
@@ -199,7 +199,7 @@ function cadastraTaxaEntrada($payLoad){
             $lerbanco->ExeRead('bairros_delivery', "WHERE user_id = :userid AND (uf = :u AND cidade = :c AND bairro = :v)", "userid={$userlogin['user_id']}&u={$payLoad['uf']}&c={$payLoad['cidade']}&v={$payLoad['bairro']}");
              
             if ($lerbanco->getResult()){
-                $res['msg'] = "Já existe um bairro cadastrado este nome!";
+                $res['msg'] = "Taxa de entrega já registrada. Tente outra!";
                 $res['success'] = false;
                 $res['error'] = true;
                 echo json_encode($res);
@@ -279,7 +279,7 @@ if(!empty($action) && (string)$action && $action=='tu' && (int)$taxaEntradaObj['
   //body - action = tc
   if(!empty($action) && (string)$action && $action=='tc' && !empty($taxaEntradaObj)){
 
-    cadastraTaxaEntrada($taxaEntradaObj);
+    cadastraTaxaEntrega($taxaEntradaObj);
 }
 
 

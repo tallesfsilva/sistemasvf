@@ -6,6 +6,8 @@ import {ad } from './adicionais.js'
 $(document).ready(function (){    
     cad.fn();
     tipo.fn();
-    ad.fn();    
+    ad.fn();  
+    
+    
  
 })

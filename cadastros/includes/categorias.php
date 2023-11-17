@@ -46,6 +46,20 @@ $updatebanco = new Update();
 
 
 
+    #btn1:after,#btn2:after,#btn3:after {
+						font-family: "Glyphicons Halflings";
+						content: "\e080";
+					 
+						right: 0;
+						position: absolute;
+						margin-right:32px;
+						}
+
+						/* Icon when the collapsible content is hidden */
+						#btn1.collapsed:after,#btn2.collapsed:after,#btn2.collapsed:after {
+					
+						content: "\e114";
+					}
     .btn-delete:hover{
       text-decoration-line: none !important;
   background: #d19898 !important
@@ -106,14 +120,16 @@ $updatebanco = new Update();
                         <br />
                   </div>
 
-    <div id="msg-1"></div>
+ 
     <div class="mb-0 panel-group" id="accordion-1">
 				<div class="panel panel-default">
 					<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
-						<h4 data-toggle="collapse" data-parent="#accordion-1" href="#collapse-cat" class="panel-title cat expand">
-							<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
-							<a style="color: #ffffff;" href="#">Clique aqui para cadastrar uma categoria</a>
+					<a style="color: #ffffff;" href="#">
+          <h4 aria-controls="collapse-cat" aria-expanded="false" id="btn2" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-cat" class="collapsed panel-title cat expand">
+            Clique aqui para cadastrar uma categoria
+						
 						</h4>
+            </a>
 					</div>
           <div id="collapse-cat"  style="visibility:unset" class="panel-collapse  collapse">
                 <form data-url="<?=$site.'cadastros'?>" id="cadCategoria" class="" id="formaddacate" method="post">
@@ -166,7 +182,7 @@ $updatebanco = new Update();
                     <th id="nome_cat" style="padding:25px;" scope="col" class="text-center cursor-pointer px-6 py-3">Categoria</th>
                        
                  
-                    <th  class="text-center px-6 py-3" scope="col">Excluir</th>              
+                    <th   class="text-center" scope="col"><span style="position:relative;left:75px">Excluir</span></th>              
                   </tr>
                 </thead>
                 
@@ -189,10 +205,12 @@ $updatebanco = new Update();
  <div class="mb-0 panel-group" id="accordion-1">
 				<div class="panel panel-default">
 					<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
-						<h4 data-toggle="collapse" data-parent="#accordion-1" href="#collapse-tad" class="panel-title cat expand">
-							<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
-							<a style="color: #ffffff;" href="#">Clique aqui para cadastrar um tipo de adicional</a>
+          <a style="color: #ffffff;" href="#">	
+          <h4 	aria-controls="collapse-tad" id="btn1" data-toggle="collapse" aria-expanded="false"  data-toggle="collapse" data-parent="#accordion-1" href="#collapse-tad" class="collapsed panel-title cat expand">
+							<div class="right-arrow pull-right"></i></div>
+						 Clique aqui para cadastrar um tipo de adicional
 						</h4>
+            </a>
 					</div>
           <div id="collapse-tad"  style="visibility:unset" class="panel-collapse collapse">
                 <form data-url="<?= $site.'cadastros'?>" class="" id="cadTipoAdicional" method="post">
@@ -280,9 +298,9 @@ $updatebanco = new Update();
                   <tr class="text-center">
                   <th  class="text-center cursor-pointer px-6 py-3" scope="col">Categoria</th>      
                     <th style="padding:25px;" scope="col" class="text-center cursor-pointer  px-6 py-3">Tipo Adicional</th>
-                    <th  class="text-center cursor-pointer  px-6 py-3" scope="col">Quantidade</th>               
+                    <th  class="text-center cursor-pointer  px-6 py-3" scope="col">Quantidade Máxima</th>               
               
-                    <th  class="text-center px-6 py-3" scope="col">Excluir</th>              
+                    <th  class="text-center px-6 py-3" scope="col"><span style="position:relative;left:25px" >Excluir<span></th>              
                   </tr>
                 </thead>          
                     
@@ -306,10 +324,12 @@ $updatebanco = new Update();
  <div class="mb-0 panel-group" id="accordion-1">
 				<div class="panel panel-default">
 					<div style="background-color: #7233A1;color: #ffffff;" class="panel-heading">
-						<h4 data-toggle="collapse" data-parent="#accordion-1" href="#collapse-cad" class="panel-title cat expand">
-							<div class="right-arrow pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
-							 <a style="color: #ffffff;" href="#">Clique aqui para cadastrar um adicional</a> 
+          <a style="color: #ffffff;" href="#">
+          <h4 aria-controls="collapse-cad" id="btn1" data-toggle="collapse" aria-expanded="false" data-parent="#accordion-1" href="#collapse-cad" class="collapsed panel-title cat expand">
+							<div class="right-arrow pull-right"></div>
+						Clique aqui para cadastrar um adicional
 						</h4>
+            </a> 
 					</div>
           <div id="collapse-cad"  style="visibility:unset" class="panel-collapse  collapse">
                 <form data-url="<?=$site?>cadastros" class="" id="cadAdicionais" method="post">

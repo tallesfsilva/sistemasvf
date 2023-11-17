@@ -145,7 +145,7 @@ endif;
 		<meta name="robots" content="index, fallow" />
 		<link rel="canonical" href="<?=$site.$Url[0];?>">
 		<meta name="author" content="Alex Silva">
-		<meta name="og:title" content="<?=(!empty($nome_empresa) ? 'Pedido Fácil | '.$nome_empresa : 'Nome_do_seu_negócio');?>" />
+		<meta name="og:title" content="<?=(!empty($nome_empresa) ? 'Cardápio Fácil | '.$nome_empresa : 'Nome_do_seu_negócio');?>" />
 		<meta name="og:type" content="website">
 		<meta property="og:site_name" content="<?=$texto['nome_site_landing'];?>"/>
 		<meta property="og:url" content="<?$site.$nome_empresa_link?>"/>
@@ -158,124 +158,25 @@ endif;
 		<link rel="shortcut icon" href="../../Imagens/LOGO.ico" type="image/x-icon">
 		<!-- Favicons-->
 		<link rel="shortcut icon" href="../../Imagens/LOGO.ico" type="image/x-icon">
-		<!-- GOOGLE WEB FONT -->
+ 
 		<link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,300,300italic' rel='stylesheet' type='text/css'>
 
-		<!-- BASE CSS -->
-		<link href="<?= $site; ?>css/base.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/custom.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/reset.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/datepicker.css" rel="stylesheet">
-		<link href="<?= $site; ?>css/style-bt-file.css" rel="stylesheet">
-		<link href="<?=$site;?>css/suportewats.css" rel="stylesheet">
-
- <!-- GOOGLE WEB FONT -->
- <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,300,300italic' rel='stylesheet' type='text/css'>
-
-<!-- BASE CSS -->
-
-		
-		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
-		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
-
-		
-		<link href="<?=$site;?>css/icheck/icheck-material.css" rel="stylesheet">
-	
-		 
-
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-
-
-
-		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
-
-
-
-		<!-- Radio and check inputs -->
-		<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
-		<link href="<?= $site; ?>css/skins/square/grey.css" rel="stylesheet">
-		
-		<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">
-
-		<?php
-		if(!empty($_SESSION['userlogin'])):
-			?>
-			<link href="<?= $site; ?>css/skins/square/green.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/admin.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/bootstrap3-wysihtml5.min.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/dropzone.css" rel="stylesheet">
-
-
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/normalize.css" />
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/demo.css" />
-			<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/uploads/component.css" />
-			<?php
-		else:
-		endif;
-		?>
-
-		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/frappuccino-modal.css" />
+ 
+		<link href="<?= $site; ?>css/base.css" rel="stylesheet"> 
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,300,300italic' rel='stylesheet' type='text/css'>
+ 		<link rel="stylesheet" type="text/css" href="<?= $site;?>css/bootstrap.min.css">
+ 		<link href="<?= $site; ?>css/tailwind.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-		<link rel="stylesheet" type="text/css" href="<?= $site; ?>css/modal/popupmodal.css" />
 		<link href="<?=$site;?>css/flowbite.min.css" rel="stylesheet">
 		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
 		 
 
-
-		<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-
+ 
 
 		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
 
 
 
-
-			<!--https://gao-sun.github.io/x0popup/-->
-			<link href="<?= $site; ?>css/x0popup-master/dist/x0popup.min.css" rel="stylesheet">
-			<script src="<?= $site; ?>css/x0popup-master/dist/x0popup.min.js"></script>
-
-			<script src="<?= $site; ?>js/jquery.gotop.js"></script>
-
-			<script src="<?= $site; ?>js/player.js"></script>
-			<script src="<?= $site; ?>js/howler.js"></script>
-
- 
- 
- 
-
-
-
-		 
-
-
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@0.2.1/output/moretoggles.min.css">
-
-			<!-- Select da pagina carrinho -->
-			<link href="<?=$site?>css/selectcarrinho/dist/css/select2.min.css" rel="stylesheet" />
-			<script src="<?=$site?>css/selectcarrinho/dist/js/select2.min.js"></script>
-			<!-- Select da pagina carrinho -->
-
-
-			<!-- Radio and check inputs -->
-			<link href="<?= $site; ?>css/radio-check.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/modal.css" rel="stylesheet">
-			<script type="text/javascript" src="<?= $site; ?>js/modalhorarios.js"></script> 
-			<!-- https://www.cssscript.com/pure-css-checkbox-radio-button-replacement-bootstrap-icheck/ -->
-			<link href="<?= $site; ?>notificacao/light-theme.min.css" rel="stylesheet">
-			<link href="<?= $site; ?>css/chackbox/dist/css/checkboxes.css" rel="stylesheet">
-
-			<script type="text/javascript" src="<?= $site; ?>notificacao/growl-notification.min.js"></script> 
-
-
-		 
-		
-		<script src="<?= $site; ?>css/multiselect/dist/bundle.min.js"></script>
-
-
-			<style type="text/css">
-			 
-		</style>
 
 		<style type="text/css">
 			.container-text{
@@ -366,23 +267,18 @@ endif;
 
 
 
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+		 
 
 
+		
 
-		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'>
-
-
-
-		<!-- Radio and check inputs -->
-		<link href="<?= $site; ?>css/skins/square/grey.css" rel="stylesheet">
+ 
 			
 
 
 
 		 
 
-		<script src="<?= $site; ?>js/jquery-2.2.4.min.js"></script>
  
  
 		 
@@ -495,10 +391,7 @@ endif;
 												?>
 
 												<script src=" https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js "></script>
-												 	<script>
-													 
-												 
-													</script>
+												  
 											 
 
 												<div style="font-size:18px;color:#72329F" class="flex" style="color:black">
@@ -871,21 +764,7 @@ $(document).ready(function () {
  
 			<script src="<?= $site; ?>js/flowbite.min.js"></script>
 
-<script src="<?= $site; ?>js/common_scripts_min.js"></script>
-<script src="<?= $site; ?>js/functions.js"></script>
-<script src="<?= $site; ?>assets/validate.js"></script>
-<script src="<?= $site; ?>js/jquery.mask.js"></script>
-<script src="<?= $site; ?>js/index-btn-file.js"></script>
-<script src="<?= $site; ?>js/funcoesjs.js"></script>
-<script src="<?= $site; ?>js/custom-file-input.js"></script>
-<script src="<?= $site; ?>js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-<script src="<?= $site; ?>js/parallax.js"></script>
-<script src="<?= $site; ?>js/parallax.min.js"></script>
-<script src="<?= $site; ?>js/printThis.js"></script>
-<script src="<?=$site;?>js/suportewats.js"></script>
  
-
 		</body> 
 </html>
 <?php
